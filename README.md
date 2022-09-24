@@ -1,2 +1,2 @@
 # UnityNPRRenderPipeline
-NPR rendering pipeline in Unity with integrated NPR rendering effects
+Build the NPR rendering pipeline for mobile from scratch, and I will integrate character rendering, scene rendering, etc.
