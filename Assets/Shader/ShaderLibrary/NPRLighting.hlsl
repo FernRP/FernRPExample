@@ -36,11 +36,13 @@ half LightingRadiance(half3 lightDir, half3 normal, half useHalfLambert)
  * \param shadowSmooth 
  * \param diffuse [Out]
  */
-inline void StylizedDiffuse(inout half radiance, half cellhreshold, half cellSmooth, half3 highColor, half3 darkColor, out half3 diffuse)
+inline half3 StylizedDiffuse(inout half radiance, half cellhreshold, half cellSmooth, half3 highColor, half3 darkColor)
 {
+    half3 diffuse = 0;
     cellSmooth *= 0.5;
     radiance = saturate(1 + (radiance - cellhreshold - cellSmooth) / max(cellSmooth, 1e-3));
     diffuse = lerp(darkColor.rgb, highColor.rgb, radiance);
+    return diffuse;
 }
 
 half3 VertexLighting(float3 positionWS, half3 normalWS)

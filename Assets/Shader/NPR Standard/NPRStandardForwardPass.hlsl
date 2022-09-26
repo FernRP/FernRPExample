@@ -124,6 +124,25 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+//                         Shading Function                                  //
+///////////////////////////////////////////////////////////////////////////////
+
+half3 LightingDiffuse(half radiance)
+{
+    half3 diffuse = 0;
+
+    #if _CELLSHADING
+        diffuse = StylizedDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
+    #elif _LAMBERTIAN
+        diffuse = lerp(_DarkColor, _HighColor, radiance);
+    #endif
+    
+    return diffuse;
+}
+
+
+
+///////////////////////////////////////////////////////////////////////////////
 //                  Vertex and Fragment functions                            //
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -220,8 +239,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
     half radiance = LightingRadiance(mainLight.direction, inputData.normalWS, _UseHalfLambert);
 
     half3 diffuse = 0;
-    
-    StylizedDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor, diffuse);
+    diffuse = LightingDiffuse(radiance);
     
     half4 color = 0;
     color.rgb = diffuse;

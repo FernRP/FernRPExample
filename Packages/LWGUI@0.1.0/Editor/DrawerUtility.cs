@@ -310,12 +310,21 @@ namespace LWGUI
 					// prefix = group name, suffix = keyWord
 					if (group.Contains(prefix))
 					{
+						// Determine if the current keyword has been used
 						string suffix = group.Substring(prefix.Length, group.Length - prefix.Length).ToUpperInvariant();
-						if (GUIData.keyWord.ContainsKey(suffix))
+						string[] suffixSplit = suffix.Split('.');
+						bool isKeywordActive = false;
+						foreach (var suf in suffixSplit)
 						{
-							// visible when keyword is activated and group is not folding 
-							return GUIData.keyWord[suffix] && !GUIData.group[prefix];
+							if (GUIData.keyWord.ContainsKey(suf))
+							{
+								isKeywordActive = GUIData.keyWord[suf];
+								if(isKeywordActive) break;
+								//return GUIData.keyWord[suf] && !GUIData.group[prefix];
+							}
 						}
+						// visible when keyword is activated and group is not folding
+						return isKeywordActive && !GUIData.group[prefix];
 					}
 				}
 				return false;
