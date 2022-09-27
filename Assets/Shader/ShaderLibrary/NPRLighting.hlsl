@@ -19,14 +19,57 @@
 #endif
 
 ///////////////////////////////////////////////////////////////////////////////
+//                         Utils Function                                    //
+///////////////////////////////////////////////////////////////////////////////
+
+half LinearStep(half minValue, half maxValue, half In)
+{
+    return saturate((In-minValue) / (maxValue - minValue));
+}
+
+///////////////////////////////////////////////////////////////////////////////
+//                          Lighting Data                                    //
+///////////////////////////////////////////////////////////////////////////////
+struct LightingData
+{
+    half3 HalfDir;
+    half NdotL;
+    half NdotLClamp;
+    half HalfLambert;
+    half NdotVClamp;
+    half NdotHClamp;
+    half LdotHClamp;
+    half VdotHClamp;
+    half ShadowAttenuation;
+};
+
+LightingData InitializeLightingData(Light mainLight, half3 normalWS, half3 viewDirectionWS)
+{
+    LightingData lightData;
+    lightData.NdotL = dot(normalWS, mainLight.direction.xyz);
+    lightData.NdotLClamp = saturate(lightData.NdotL);
+    lightData.HalfLambert = lightData.NdotL * 0.5 + 0.5;
+    half3 halfDir = SafeNormalize(mainLight.direction + viewDirectionWS);
+    lightData.LdotHClamp = saturate(dot(mainLight.direction.xyz, halfDir.xyz));
+    lightData.NdotHClamp = saturate(dot(normalWS.xyz, halfDir.xyz));
+    lightData.NdotVClamp = saturate(dot(normalWS.xyz, viewDirectionWS.xyz));
+    lightData.HalfDir = halfDir;
+    #if defined(_RECEIVE_SHADOWS_OFF)
+    inputDotData.ShadowAttenuation = 1;
+    #else
+    lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
+    #endif
+    return lightData;
+}
+
+///////////////////////////////////////////////////////////////////////////////
 //                      Lighting Functions                                   //
 ///////////////////////////////////////////////////////////////////////////////
 
-half LightingRadiance(half3 lightDir, half3 normal, half useHalfLambert)
+half LightingRadiance(LightingData lightingData, half useHalfLambert)
 {
-    half NdotL = saturate(dot(normal, lightDir));
-    NdotL = lerp(NdotL, NdotL * 0.5 + 0.5, useHalfLambert);
-    return NdotL;
+    half radiance = lerp(lightingData.NdotLClamp, lightingData.HalfLambert, useHalfLambert) * lightingData.ShadowAttenuation;
+    return radiance;
 }
 
 /**
@@ -36,11 +79,13 @@ half LightingRadiance(half3 lightDir, half3 normal, half useHalfLambert)
  * \param shadowSmooth 
  * \param diffuse [Out]
  */
-inline half3 StylizedDiffuse(inout half radiance, half cellhreshold, half cellSmooth, half3 highColor, half3 darkColor)
+inline half3 StylizedDiffuse(inout half radiance, half cellThreshold, half cellSmooth, half3 highColor, half3 darkColor)
 {
     half3 diffuse = 0;
-    cellSmooth *= 0.5;
-    radiance = saturate(1 + (radiance - cellhreshold - cellSmooth) / max(cellSmooth, 1e-3));
+    //cellSmooth *= 0.5;
+    //radiance = saturate(1 + (radiance - cellhreshold - cellSmooth) / max(cellSmooth, 1e-3));
+    // 0.5 cellThreshold 0.5 smooth = Lambert
+    //radiance = LinearStep(cellThreshold - cellSmooth, cellThreshold + cellSmooth, radiance);
     diffuse = lerp(darkColor.rgb, highColor.rgb, radiance);
     return diffuse;
 }

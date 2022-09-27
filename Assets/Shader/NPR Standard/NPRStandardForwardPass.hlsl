@@ -127,10 +127,9 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 //                         Shading Function                                  //
 ///////////////////////////////////////////////////////////////////////////////
 
-half3 LightingDiffuse(half radiance)
+half3 NPRDirectLighting(half radiance)
 {
     half3 diffuse = 0;
-
     #if _CELLSHADING
         diffuse = StylizedDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
     #elif _LAMBERTIAN
@@ -139,8 +138,6 @@ half3 LightingDiffuse(half radiance)
     
     return diffuse;
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 //                  Vertex and Fragment functions                            //
@@ -232,17 +229,16 @@ half4 LitPassFragment(Varyings input) : SV_Target
     AmbientOcclusionFactor aoFactor = CreateAmbientOcclusionFactor(inputData.normalizedScreenSpaceUV, surfaceData.occlusion);
     uint meshRenderingLayers = GetMeshRenderingLightLayer();
     Light mainLight = GetMainLight(inputData, shadowMask, aoFactor);
-
     // NOTE: We don't apply AO to the GI here because it's done in the lighting calculation below...
     MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI);
-    
-    half radiance = LightingRadiance(mainLight.direction, inputData.normalWS, _UseHalfLambert);
 
-    half3 diffuse = 0;
-    diffuse = LightingDiffuse(radiance);
+    LightingData lightingData = InitializeLightingData(mainLight, inputData.normalWS, inputData.viewDirectionWS);
     
-    half4 color = 0;
-    color.rgb = diffuse;
+    half radiance = LightingRadiance(lightingData, _UseHalfLambert);
+
+    half4 color = 1;
+    color.rgb = NPRDirectLighting(radiance);
+    return color;
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = OutputAlpha(color.a, _Surface);
 
