@@ -79,14 +79,23 @@ half LightingRadiance(LightingData lightingData, half useHalfLambert)
  * \param shadowSmooth 
  * \param diffuse [Out]
  */
-inline half3 StylizedDiffuse(inout half radiance, half cellThreshold, half cellSmooth, half3 highColor, half3 darkColor)
+inline half3 CellShadingDiffuse(inout half radiance, half cellThreshold, half cellSmooth, half3 highColor, half3 darkColor)
 {
     half3 diffuse = 0;
     //cellSmooth *= 0.5;
-    //radiance = saturate(1 + (radiance - cellhreshold - cellSmooth) / max(cellSmooth, 1e-3));
+    radiance = saturate(1 + (radiance - cellThreshold - cellSmooth) / max(cellSmooth, 1e-3));
     // 0.5 cellThreshold 0.5 smooth = Lambert
     //radiance = LinearStep(cellThreshold - cellSmooth, cellThreshold + cellSmooth, radiance);
     diffuse = lerp(darkColor.rgb, highColor.rgb, radiance);
+    return diffuse;
+}
+
+
+inline half3 RampShadingDiffuse(half radiance, half rampVOffset, TEXTURE2D_PARAM(rampMap, sampler_rampMap))
+{
+    half3 diffuse = 0;
+    float2 uv = float2(saturate(radiance + _RampMapUOffset), rampVOffset);
+    diffuse = SAMPLE_TEXTURE2D(rampMap, sampler_rampMap, uv);
     return diffuse;
 }
 

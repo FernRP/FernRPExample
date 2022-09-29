@@ -12,6 +12,8 @@
 #define _DETAIL
 #endif
 
+TEXTURE2D(_DiffuseRampMap);				SAMPLER(sampler_DiffuseRampMap);
+
 // NOTE: Do not ifdef the properties here as SRP batcher can not handle different layouts.
 CBUFFER_START(UnityPerMaterial)
 float4 _BaseMap_ST;
@@ -21,6 +23,8 @@ half4 _DarkColor;
 half _UseHalfLambert;
 half _CELLThreshold;
 half _CELLSmoothing;
+half _RampMapUOffset;
+half _RampMapVOffset;
 
 // Surface
 half _Cutoff;

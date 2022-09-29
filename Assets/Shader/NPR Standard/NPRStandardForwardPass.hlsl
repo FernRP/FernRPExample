@@ -131,11 +131,12 @@ half3 NPRDirectLighting(half radiance)
 {
     half3 diffuse = 0;
     #if _CELLSHADING
-        diffuse = StylizedDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
+        diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
     #elif _LAMBERTIAN
         diffuse = lerp(_DarkColor, _HighColor, radiance);
+    #elif _RAMPSHADING
+        diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
     #endif
-    
     return diffuse;
 }
 
