@@ -1,2 +1,2 @@
-# UnityNPRRenderPipeline
-Building the NPR rendering pipeline for mobile step by step, I will integrate character rendering, scene rendering, etc.
+# UnityNPRRenderLibrary
+Building the NPR rendering Library for mobile step by step, I will integrate character rendering, scene rendering, etc.
