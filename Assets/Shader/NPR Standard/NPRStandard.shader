@@ -7,6 +7,10 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Space()]
         [Tex(Surface, _BaseColor)] _BaseMap ("Base Map", 2D) = "white" { }
         [HideInInspector][HDR] _BaseColor ("Base Color", color) = (1, 1, 1, 1)
+        [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
+        [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
+        [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
+
         
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
@@ -62,29 +66,31 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
+            #pragma shader_feature_local _NORMALMAP
+            
 
             // -------------------------------------
             // Universal Pipeline keywords
-            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
+            //#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-            #pragma multi_compile_fragment _ _SHADOWS_SOFT
-            #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
-            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
-            #pragma multi_compile_fragment _ _LIGHT_LAYERS
-            #pragma multi_compile_fragment _ _LIGHT_COOKIES
-            #pragma multi_compile _ _CLUSTERED_RENDERING
+            //#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+            //#pragma multi_compile_fragment _ _SHADOWS_SOFT
+            //#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
+            //#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+            //#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
+            //#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
+            //#pragma multi_compile_fragment _ _LIGHT_LAYERS
+            //#pragma multi_compile_fragment _ _LIGHT_COOKIES
+            //#pragma multi_compile _ _CLUSTERED_RENDERING
 
             // -------------------------------------
             // Unity defined keywords
-            #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
-            #pragma multi_compile _ SHADOWS_SHADOWMASK
-            #pragma multi_compile _ DIRLIGHTMAP_COMBINED
-            #pragma multi_compile _ LIGHTMAP_ON
+            //#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
+            //#pragma multi_compile _ SHADOWS_SHADOWMASK
+            //#pragma multi_compile _ DIRLIGHTMAP_COMBINED
+            //#pragma multi_compile _ LIGHTMAP_ON
             #pragma multi_compile_fog
-            #pragma multi_compile_fragment _ DEBUG_DISPLAY
+            //#pragma multi_compile_fragment _ DEBUG_DISPLAY
 
             #pragma vertex LitPassVertex
             #pragma fragment LitPassFragment

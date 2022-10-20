@@ -27,6 +27,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _DiffuseRampMap:
         m_Texture: {fileID: 2800000, guid: 0c0e3d13586e2be4a9d63ee9dbbc2200, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -37,6 +41,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BumpMapKeyword: 0
+    - _BumpScale: 1
     - _CELLSmoothing: 0.001
     - _CELLThreshold: 0.01
     - _Cull: 2

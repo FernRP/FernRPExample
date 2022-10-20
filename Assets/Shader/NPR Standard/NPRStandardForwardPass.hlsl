@@ -239,7 +239,6 @@ half4 LitPassFragment(Varyings input) : SV_Target
 
     half4 color = 1;
     color.rgb = NPRDirectLighting(radiance);
-    return color;
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = OutputAlpha(color.a, _Surface);
 

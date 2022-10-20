@@ -20,6 +20,7 @@ float4 _BaseMap_ST;
 half4 _BaseColor;
 half4 _HighColor;
 half4 _DarkColor;
+half _BumpScale;
 half _UseHalfLambert;
 half _CELLThreshold;
 half _CELLSmoothing;
@@ -41,6 +42,7 @@ UNITY_DOTS_INSTANCING_START(MaterialPropertyMetadata)
     UNITY_DOTS_INSTANCED_PROP(float4, _SpecColor)
     UNITY_DOTS_INSTANCED_PROP(float4, _EmissionColor)
     UNITY_DOTS_INSTANCED_PROP(float , _Cutoff)
+    UNITY_DOTS_INSTANCED_PROP(float , _BumpScale)
     UNITY_DOTS_INSTANCED_PROP(float , _Smoothness)
     UNITY_DOTS_INSTANCED_PROP(float , _Metallic)
     UNITY_DOTS_INSTANCED_PROP(float , _BumpScale)
@@ -57,6 +59,7 @@ UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
 #define _SpecColor              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_SpecColor)
 #define _EmissionColor          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_EmissionColor)
 #define _Cutoff                 UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Cutoff)
+#define _BumpScale                 UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , _BumpScale)
 #define _Smoothness             UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Smoothness)
 #define _Metallic               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Metallic)
 #define _BumpScale              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_BumpScale)
@@ -90,6 +93,7 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, out NPRSurfaceData outSu
     half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
     outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
     outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
+    outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
 }
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED
