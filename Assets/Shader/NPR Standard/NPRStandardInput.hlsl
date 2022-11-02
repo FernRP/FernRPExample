@@ -20,7 +20,10 @@ float4 _BaseMap_ST;
 half4 _BaseColor;
 half4 _HighColor;
 half4 _DarkColor;
+half4 _SpecularColor;
 half _BumpScale;
+half _Smoothness;
+half _Metallic;
 half _UseHalfLambert;
 half _CELLThreshold;
 half _CELLSmoothing;
@@ -94,6 +97,8 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, out NPRSurfaceData outSu
     outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
     outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
     outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
+    outSurfaceData.smoothness = _Smoothness;
+    outSurfaceData.metallic = _Metallic;
 }
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED

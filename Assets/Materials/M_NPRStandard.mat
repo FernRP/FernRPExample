@@ -10,6 +10,7 @@ Material:
   m_Name: M_NPRStandard
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
+  - _GGX
   - _RAMPSHADING
   m_InvalidKeywords:
   - _KEY1
@@ -48,21 +49,29 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
+    - _Metallic: 0
+    - _MetallicScale: 1
     - _QueueOffset: 0
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0
     - _RampYOffset: 0.75
+    - _Smoothness: 0.5
+    - _SmoothnessScale: 1
     - _SrcBlend: 1
     - _Surface: 0
     - _UseHalfLambert: 0
     - _ZWrite: 1
     - _enum: 1
+    - _enum_diffuse: 0
+    - _enum_specular: 0
     - _group: 0
     - _group1: 1
+    - _groupSpecular: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.828, g: 0.4486104, b: 0.04305599, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8123892848369133960
 MonoBehaviour:

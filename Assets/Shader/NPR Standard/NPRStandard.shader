@@ -10,12 +10,14 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
+        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
+        [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
 
         
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
         [Space()]
-        [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, PBRShading, _LAMBERTIAN)] _enum ("Shading Mode", float) = 0
+        [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, PBRShading, _LAMBERTIAN)] _enum_diffuse ("Shading Mode", float) = 0
         [SubToggle(Diffuse)] _UseHalfLambert ("Use HalfLambert (More Flatter)", float) = 0
         [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] [HDR] _HighColor ("Hight Color", Color) = (1,1,1,1)
         [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] _DarkColor ("Dark Color", Color) = (0,0,0,1)
@@ -24,6 +26,12 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Sub(Diffuse_RAMPSHADING)] _DiffuseRampMap ("Ramp Map", 2D) = "white" {}
         [Sub(Diffuse_RAMPSHADING)] _RampMapUOffset ("Ramp Map U Offset", Range(-1,1)) = 0
         [Sub(Diffuse_RAMPSHADING)] _RampMapVOffset ("Ramp Map V Offset", Range(0,1)) = 0.5
+        
+        [Main(Specular, _, off, off)]
+        _groupSpecular ("SpecularSettings", float) = 1
+        [Space()]
+        [KWEnum(Specular, PBR_GGX, _GGX, Stylized, _STYLIZED, Blinn_Phong, _BLINNPHONG)] _enum_specular ("Shading Mode", float) = 0
+        [Sub(Specular)][HDR] _SpecularColor ("Specular Color", Color) = (1,1,1,1)
 
         
         // RenderSetting    
@@ -66,6 +74,7 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
+            #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG
             #pragma shader_feature_local _NORMALMAP
             
 

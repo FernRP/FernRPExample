@@ -127,17 +127,51 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 //                         Shading Function                                  //
 ///////////////////////////////////////////////////////////////////////////////
 
-half3 NPRDirectLighting(half radiance)
+half3 NPRDiffuseLighting(half radiance)
 {
     half3 diffuse = 0;
     #if _CELLSHADING
-        diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
+    diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
     #elif _LAMBERTIAN
-        diffuse = lerp(_DarkColor, _HighColor, radiance);
+    diffuse = lerp(_DarkColor, _HighColor, radiance);
     #elif _RAMPSHADING
-        diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
+    diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
     #endif
     return diffuse;
+}
+
+half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
+{
+    float d = NoH.x * NoH.x * brdfData.roughness2MinusOne + 1.00001f;
+    half LoH2 = LoH.x * LoH.x;
+    half specularTerm = brdfData.roughness2 / ((d * d) * max(0.1h, LoH2) * brdfData.normalizationTerm);
+
+    #if defined (SHADER_API_MOBILE) || defined (SHADER_API_SWITCH)
+        specularTerm = specularTerm - HALF_MIN;
+        specularTerm = clamp(specularTerm, 0.0, 100.0); // Prevent FP16 overflow on mobiles
+    #endif
+
+    return specularTerm;
+}
+
+half3 NPRSpecularLighting(BRDFData brdfData, half radiance, LightingData lightData)
+{
+    half3 specular = 0;
+    #if _GGX
+    specular = GGXDirectBRDFSpecular(brdfData, lightData.LdotHClamp, lightData.NdotHClamp);
+    #elif _STYLIZED
+    #elif _BLINNPHONG
+    #endif
+    specular *= _SpecularColor.rgb * radiance;
+    return specular;
+}
+
+half3 NPRDirectLighting(BRDFData brdfData, half radiance, LightingData lightData)
+{
+    half3 diffuse = NPRDiffuseLighting(radiance);
+    half3 specular = NPRSpecularLighting(brdfData, radiance, lightData);
+
+    return diffuse + specular;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -233,12 +267,15 @@ half4 LitPassFragment(Varyings input) : SV_Target
     // NOTE: We don't apply AO to the GI here because it's done in the lighting calculation below...
     MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI);
 
+    BRDFData brdfData;
+    InitializeBRDFData(surfaceData.albedo, surfaceData.metallic, surfaceData.specular, surfaceData.smoothness, surfaceData.alpha, brdfData);
+
     LightingData lightingData = InitializeLightingData(mainLight, inputData.normalWS, inputData.viewDirectionWS);
     
     half radiance = LightingRadiance(lightingData, _UseHalfLambert);
 
     half4 color = 1;
-    color.rgb = NPRDirectLighting(radiance);
+    color.rgb = NPRDirectLighting(brdfData, radiance, lightingData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = OutputAlpha(color.a, _Surface);
 
