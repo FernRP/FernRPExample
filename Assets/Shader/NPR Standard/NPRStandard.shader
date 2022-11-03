@@ -32,6 +32,9 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Space()]
         [KWEnum(Specular, PBR_GGX, _GGX, Stylized, _STYLIZED, Blinn_Phong, _BLINNPHONG)] _enum_specular ("Shading Mode", float) = 0
         [Sub(Specular)][HDR] _SpecularColor ("Specular Color", Color) = (1,1,1,1)
+        [Sub(Specular._STYLIZED)] _StylizedSpecularSize ("Stylized Specular Size", Range(0,1)) = 0.1
+        [Sub(Specular._STYLIZED)] _StylizedSpecularSoftness ("Stylized Specular Softness", Range(0.001,1)) = 0.05
+        [Sub(Specular._STYLIZED)] _StylizedSpecularAlbedoWeight ("Specular Color Albedo Weight", Range(0,1)) = 0
 
         
         // RenderSetting    

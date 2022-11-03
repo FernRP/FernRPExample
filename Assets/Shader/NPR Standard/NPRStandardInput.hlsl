@@ -29,6 +29,9 @@ half _CELLThreshold;
 half _CELLSmoothing;
 half _RampMapUOffset;
 half _RampMapVOffset;
+half _StylizedSpecularSize;
+half _StylizedSpecularSoftness;
+half _StylizedSpecularAlbedoWeight;
 
 // Surface
 half _Cutoff;
@@ -48,6 +51,14 @@ UNITY_DOTS_INSTANCING_START(MaterialPropertyMetadata)
     UNITY_DOTS_INSTANCED_PROP(float , _BumpScale)
     UNITY_DOTS_INSTANCED_PROP(float , _Smoothness)
     UNITY_DOTS_INSTANCED_PROP(float , _Metallic)
+    UNITY_DOTS_INSTANCED_PROP(float , _UseHalfLambert)
+    UNITY_DOTS_INSTANCED_PROP(float , _CELLThreshold)
+    UNITY_DOTS_INSTANCED_PROP(float , _CELLSmoothing)
+    UNITY_DOTS_INSTANCED_PROP(float , _RampMapUOffset)
+    UNITY_DOTS_INSTANCED_PROP(float , _RampMapVOffset)
+    UNITY_DOTS_INSTANCED_PROP(float , _StylizedSpecularSize)
+    UNITY_DOTS_INSTANCED_PROP(float , _StylizedSpecularSoftness)
+    UNITY_DOTS_INSTANCED_PROP(float , _StylizedSpecularAlbedoWeight)
     UNITY_DOTS_INSTANCED_PROP(float , _BumpScale)
     UNITY_DOTS_INSTANCED_PROP(float , _Parallax)
     UNITY_DOTS_INSTANCED_PROP(float , _OcclusionStrength)
@@ -62,9 +73,16 @@ UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
 #define _SpecColor              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_SpecColor)
 #define _EmissionColor          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float4 , Metadata_EmissionColor)
 #define _Cutoff                 UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Cutoff)
-#define _BumpScale                 UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , _BumpScale)
+#define _BumpScale              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , _BumpScale)
 #define _Smoothness             UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Smoothness)
 #define _Metallic               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Metallic)
+#define _UseHalfLambert         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_UseHalfLambert)
+#define _CELLThreshold          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_CELLThreshold)
+#define _RampMapUOffset         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RampMapUOffset)
+#define _RampMapVOffset         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RampMapVOffset)
+#define _StylizedSpecularSize       UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_UseHalfLambert)
+#define _StylizedSpecularSoftness   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_StylizedSpecularSoftness)
+#define _StylizedSpecularAlbedoWeight   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_StylizedSpecularAlbedoWeight)
 #define _BumpScale              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_BumpScale)
 #define _Parallax               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Parallax)
 #define _OcclusionStrength      UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_OcclusionStrength)

@@ -127,16 +127,17 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 //                         Shading Function                                  //
 ///////////////////////////////////////////////////////////////////////////////
 
-half3 NPRDiffuseLighting(half radiance)
+half3 NPRDiffuseLighting(BRDFData brdfData, half radiance)
 {
     half3 diffuse = 0;
     #if _CELLSHADING
-    diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
+        diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
     #elif _LAMBERTIAN
-    diffuse = lerp(_DarkColor, _HighColor, radiance);
+        diffuse = lerp(_DarkColor, _HighColor, radiance);
     #elif _RAMPSHADING
-    diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
+        diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
     #endif
+    diffuse *= brdfData.diffuse;
     return diffuse;
 }
 
@@ -154,22 +155,31 @@ half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
     return specularTerm;
 }
 
-half3 NPRSpecularLighting(BRDFData brdfData, half radiance, LightingData lightData)
+half3 NPRSpecularLighting(BRDFData brdfData, half3 albedo, half radiance, LightingData lightData)
 {
     half3 specular = 0;
+    
     #if _GGX
-    specular = GGXDirectBRDFSpecular(brdfData, lightData.LdotHClamp, lightData.NdotHClamp);
+        specular = GGXDirectBRDFSpecular(brdfData, lightData.LdotHClamp, lightData.NdotHClamp);
     #elif _STYLIZED
+        half specSize = 1 - (_StylizedSpecularSize * _StylizedSpecularSize);
+        half ndothStylized = (lightData.NdotHClamp - specSize * specSize) / (1 - specSize);
+        half specularSoftness = _StylizedSpecularSoftness;
+        specular = LinearStep(0, specularSoftness, ndothStylized);
+        specular = lerp(specular, albedo * specular, _StylizedSpecularAlbedoWeight);
     #elif _BLINNPHONG
+        
     #endif
+    
     specular *= _SpecularColor.rgb * radiance;
+    
     return specular;
 }
 
-half3 NPRDirectLighting(BRDFData brdfData, half radiance, LightingData lightData)
+half3 NPRDirectLighting(BRDFData brdfData, half3 albedo, half radiance, LightingData lightData)
 {
-    half3 diffuse = NPRDiffuseLighting(radiance);
-    half3 specular = NPRSpecularLighting(brdfData, radiance, lightData);
+    half3 diffuse = NPRDiffuseLighting(brdfData, radiance);
+    half3 specular = NPRSpecularLighting(brdfData, albedo, radiance, lightData);
 
     return diffuse + specular;
 }
@@ -275,7 +285,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
     half radiance = LightingRadiance(lightingData, _UseHalfLambert);
 
     half4 color = 1;
-    color.rgb = NPRDirectLighting(brdfData, radiance, lightingData);
+    color.rgb = NPRDirectLighting(brdfData, surfaceData.albedo, radiance, lightingData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = OutputAlpha(color.a, _Surface);
 
