@@ -32,6 +32,7 @@ half _RampMapVOffset;
 half _StylizedSpecularSize;
 half _StylizedSpecularSoftness;
 half _StylizedSpecularAlbedoWeight;
+half _Shininess;
 
 // Surface
 half _Cutoff;
@@ -59,6 +60,7 @@ UNITY_DOTS_INSTANCING_START(MaterialPropertyMetadata)
     UNITY_DOTS_INSTANCED_PROP(float , _StylizedSpecularSize)
     UNITY_DOTS_INSTANCED_PROP(float , _StylizedSpecularSoftness)
     UNITY_DOTS_INSTANCED_PROP(float , _StylizedSpecularAlbedoWeight)
+    UNITY_DOTS_INSTANCED_PROP(float , _Shininess)
     UNITY_DOTS_INSTANCED_PROP(float , _BumpScale)
     UNITY_DOTS_INSTANCED_PROP(float , _Parallax)
     UNITY_DOTS_INSTANCED_PROP(float , _OcclusionStrength)
@@ -83,6 +85,7 @@ UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
 #define _StylizedSpecularSize       UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_UseHalfLambert)
 #define _StylizedSpecularSoftness   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_StylizedSpecularSoftness)
 #define _StylizedSpecularAlbedoWeight   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_StylizedSpecularAlbedoWeight)
+#define _Shininess   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Shininess)
 #define _BumpScale              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_BumpScale)
 #define _Parallax               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Parallax)
 #define _OcclusionStrength      UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_OcclusionStrength)

@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
   - _CELLSHADING
-  - _STYLIZED
+  - _GGX
   m_InvalidKeywords:
   - _KEY1
   - _USEHALFLAMBERT_ON
@@ -55,6 +55,7 @@ Material:
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0
     - _RampYOffset: 0.75
+    - _Shininess: 1
     - _Smoothness: 0.5
     - _SmoothnessScale: 1
     - _SpecularAlbedoWeight: 0
@@ -69,7 +70,7 @@ Material:
     - _ZWrite: 1
     - _enum: 1
     - _enum_diffuse: 0
-    - _enum_specular: 1
+    - _enum_specular: 0
     - _group: 0
     - _group1: 1
     - _groupSpecular: 1

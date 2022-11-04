@@ -8,6 +8,9 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/AmbientOcclusion.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
 
+#define PI8 25.1327
+#define INV_PI8 0.039789
+
 #if defined(LIGHTMAP_ON)
     #define DECLARE_LIGHTMAP_OR_SH(lmName, shName, index) float2 lmName : TEXCOORD##index
     #define OUTPUT_LIGHTMAP_UV(lightmapUV, lightmapScaleOffset, OUT) OUT.xy = lightmapUV.xy * lightmapScaleOffset.xy + lightmapScaleOffset.zw;
@@ -95,8 +98,31 @@ inline half3 RampShadingDiffuse(half radiance, half rampVOffset, TEXTURE2D_PARAM
 {
     half3 diffuse = 0;
     float2 uv = float2(saturate(radiance + _RampMapUOffset), rampVOffset);
-    diffuse = SAMPLE_TEXTURE2D(rampMap, sampler_rampMap, uv);
+    diffuse = SAMPLE_TEXTURE2D(rampMap, sampler_rampMap, uv).rgb;
     return diffuse;
+}
+
+
+half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
+{
+    float d = NoH.x * NoH.x * brdfData.roughness2MinusOne + 1.00001f;
+    half LoH2 = LoH.x * LoH.x;
+    half specularTerm = brdfData.roughness2 / ((d * d) * max(0.1h, LoH2) * brdfData.normalizationTerm);
+
+    #if defined (SHADER_API_MOBILE) || defined (SHADER_API_SWITCH)
+    specularTerm = specularTerm - HALF_MIN;
+    specularTerm = clamp(specularTerm, 0.0, 100.0); // Prevent FP16 overflow on mobiles
+    #endif
+
+    return specularTerm;
+}
+
+half BlinnPhongSpecular(half shininess, half ndoth)
+{
+    half phongSmoothness = exp2(10 * shininess + 1);
+    half normalize = (phongSmoothness + 7) * INV_PI8; // bling-phong 能量守恒系数
+    half specular = max(pow(ndoth, phongSmoothness) * normalize, 0.001);
+    return specular;
 }
 
 half3 VertexLighting(float3 positionWS, half3 normalWS)

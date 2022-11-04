@@ -131,7 +131,7 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half radiance)
 {
     half3 diffuse = 0;
     #if _CELLSHADING
-        diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor, _DarkColor);
+        diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor.rgb, _DarkColor.rgb);
     #elif _LAMBERTIAN
         diffuse = lerp(_DarkColor, _HighColor, radiance);
     #elif _RAMPSHADING
@@ -141,23 +141,10 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half radiance)
     return diffuse;
 }
 
-half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
-{
-    float d = NoH.x * NoH.x * brdfData.roughness2MinusOne + 1.00001f;
-    half LoH2 = LoH.x * LoH.x;
-    half specularTerm = brdfData.roughness2 / ((d * d) * max(0.1h, LoH2) * brdfData.normalizationTerm);
-
-    #if defined (SHADER_API_MOBILE) || defined (SHADER_API_SWITCH)
-        specularTerm = specularTerm - HALF_MIN;
-        specularTerm = clamp(specularTerm, 0.0, 100.0); // Prevent FP16 overflow on mobiles
-    #endif
-
-    return specularTerm;
-}
-
 half3 NPRSpecularLighting(BRDFData brdfData, half3 albedo, half radiance, LightingData lightData)
 {
     half3 specular = 0;
+
     
     #if _GGX
         specular = GGXDirectBRDFSpecular(brdfData, lightData.LdotHClamp, lightData.NdotHClamp);
@@ -168,7 +155,7 @@ half3 NPRSpecularLighting(BRDFData brdfData, half3 albedo, half radiance, Lighti
         specular = LinearStep(0, specularSoftness, ndothStylized);
         specular = lerp(specular, albedo * specular, _StylizedSpecularAlbedoWeight);
     #elif _BLINNPHONG
-        
+        specular = BlinnPhongSpecular((1 - brdfData.perceptualRoughness) * _Shininess, lightData.NdotHClamp);
     #endif
     
     specular *= _SpecularColor.rgb * radiance;
