@@ -7,11 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_NPRStandard
+  m_Name: M_NPRStandard_Stylized
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
   - _CELLSHADING
-  - _GGX
+  - _STYLIZED
   m_InvalidKeywords:
   - _KEY1
   - _USEHALFLAMBERT_ON
@@ -44,8 +44,8 @@ Material:
     m_Floats:
     - _BumpMapKeyword: 0
     - _BumpScale: 1
-    - _CELLSmoothing: 1
-    - _CELLThreshold: 0.01
+    - _CELLSmoothing: 0.336
+    - _CELLThreshold: 0.366
     - _Cull: 2
     - _Cutoff: 0.5
     - _DstBlend: 0
@@ -56,29 +56,29 @@ Material:
     - _RampMapVOffset: 0
     - _RampYOffset: 0.75
     - _Shininess: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 1
     - _SmoothnessScale: 1
     - _SpecularAlbedoWeight: 0
     - _SpecularToonSize: 0.1
     - _SpecularToonSmoothness: 0.05
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
-    - _StylizedSpecularSize: 0.1
+    - _StylizedSpecularSize: 0.119
     - _StylizedSpecularSoftness: 0.001
     - _Surface: 0
-    - _UseHalfLambert: 0
+    - _UseHalfLambert: 1
     - _ZWrite: 1
     - _enum: 1
     - _enum_diffuse: 0
-    - _enum_specular: 0
+    - _enum_specular: 1
     - _group: 0
     - _group1: 1
     - _groupSpecular: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _DarkColor: {r: 0.27044016, g: 0.6172628, b: 1, a: 1}
+    - _DarkColor: {r: 1, g: 0.37, b: 0.37, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor: {r: 4, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8123892848369133960
 MonoBehaviour:
