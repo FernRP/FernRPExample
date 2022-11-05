@@ -36,8 +36,14 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Sub(Specular._STYLIZED)] _StylizedSpecularSoftness ("Stylized Specular Softness", Range(0.001,1)) = 0.05
         [Sub(Specular._STYLIZED)] _StylizedSpecularAlbedoWeight ("Specular Color Albedo Weight", Range(0,1)) = 0
         [Sub(Specular._BLINNPHONG)] _Shininess ("BlinnPhong Shininess", Range(0,1)) = 1
-
         
+        [Main(Outline, _, off, off)]
+        _groupOutline ("OutlineSettings", float) = 1
+        [Space()]
+        [SubToggle(Outline, _OUTLINE)] _Outline("Use Outline", Float) = 0.0
+        [Sub(Outline._OUTLINE)] _OutlineColor ("Outline Color", Color) = (0,0,0,0)
+        [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
+
         // RenderSetting    
         [Space()]
         [Space()]
@@ -209,6 +215,25 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
 
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
+            ENDHLSL
+        }
+        
+        // Normal Outline
+        Pass
+        {
+            Name "OutLine"
+            Tags { "LightMode" = "SRPDefaultUnlit" }
+            Cull Front
+            Blend[_SrcBlend][_DstBlend]
+            ZWrite[_ZWrite]
+
+            HLSLPROGRAM
+            #pragma multi_compile _ _OUTLINE
+            #pragma vertex NormalOutLineVertex
+            #pragma fragment NormalOutlineFragment
+
+            #include "NPRStandardInput.hlsl"
+            #include "../ShaderLibrary/NormalOutline.hlsl"
             ENDHLSL
         }
 
