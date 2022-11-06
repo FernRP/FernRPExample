@@ -10,8 +10,10 @@ Material:
   m_Name: M_NPRStandard_Phong
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
+  - _FRESNELRIM
   - _GGX
   - _LAMBERTIAN
+  - _OUTLINE
   m_InvalidKeywords:
   - _KEY1
   - _USEHALFLAMBERT_ON
@@ -51,10 +53,20 @@ Material:
     - _DstBlend: 0
     - _Metallic: 0
     - _MetallicScale: 1
+    - _Outline: 1
+    - _OutlineWidth: 1
     - _QueueOffset: 0
+    - _RIM_ON: 1
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0
     - _RampYOffset: 0.75
+    - _RimDirContribution: 0.5
+    - _RimDirectionLightContribution: 0.796
+    - _RimLightingSetting: 1
+    - _RimLights: 0
+    - _RimSmooth: 0.01
+    - _RimSoftness: 0.01
+    - _RimThreshold: 0.257
     - _Shininess: 1
     - _Smoothness: 1
     - _SmoothnessScale: 1
@@ -70,14 +82,19 @@ Material:
     - _ZWrite: 1
     - _enum: 1
     - _enum_diffuse: 2
+    - _enum_rim: 1
     - _enum_specular: 0
     - _group: 0
     - _group1: 1
+    - _groupOutline: 1
+    - _groupRim: 1
     - _groupSpecular: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.27044016, g: 0.6172628, b: 1, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _RimColor: {r: 1, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8123892848369133960

@@ -37,6 +37,15 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Sub(Specular._STYLIZED)] _StylizedSpecularAlbedoWeight ("Specular Color Albedo Weight", Range(0,1)) = 0
         [Sub(Specular._BLINNPHONG)] _Shininess ("BlinnPhong Shininess", Range(0,1)) = 1
         
+        [Main(Rim, _, off, off)]
+        _groupRim ("RimSettings", float) = 1
+        [Space()]
+        [KWEnum(Rim, None, _, FresnelRim, _FRESNELRIM, ScreenSpaceRim, _SCREENSPACERIM)] _enum_rim ("Rim Mode", float) = 0
+        [Sub(Rim._FRESNELRIM._SCREENSPACERIM)] _RimDirectionLightContribution("Directional Light Contribution", Range(0,1)) = 1.0
+        [Sub(Rim._FRESNELRIM._SCREENSPACERIM)][HDR] _RimColor("Rim Color",Color) = (1,1,1,1)
+        [Sub(Rim._FRESNELRIM)] _RimThreshold("Rim Threshold",Range(0,1)) = 0.2
+        [Sub(Rim._FRESNELRIM)] _RimSoftness("Rim Softness",Range(0.001,1)) = 0.01
+        
         [Main(Outline, _, off, off)]
         _groupOutline ("OutlineSettings", float) = 1
         [Space()]
@@ -85,6 +94,7 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
             // Material Keywords
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
             #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG
+            #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _NORMALMAP
             
 

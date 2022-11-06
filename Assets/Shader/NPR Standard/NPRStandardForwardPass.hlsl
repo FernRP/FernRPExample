@@ -144,16 +144,11 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half radiance)
 half3 NPRSpecularLighting(BRDFData brdfData, half3 albedo, half radiance, LightingData lightData)
 {
     half3 specular = 0;
-
     
     #if _GGX
         specular = GGXDirectBRDFSpecular(brdfData, lightData.LdotHClamp, lightData.NdotHClamp);
     #elif _STYLIZED
-        half specSize = 1 - (_StylizedSpecularSize * _StylizedSpecularSize);
-        half ndothStylized = (lightData.NdotHClamp - specSize * specSize) / (1 - specSize);
-        half specularSoftness = _StylizedSpecularSoftness;
-        specular = LinearStep(0, specularSoftness, ndothStylized);
-        specular = lerp(specular, albedo * specular, _StylizedSpecularAlbedoWeight);
+        specular = StylizedSpecular(albedo, lightData.NdotHClamp);
     #elif _BLINNPHONG
         specular = BlinnPhongSpecular((1 - brdfData.perceptualRoughness) * _Shininess, lightData.NdotHClamp);
     #endif
@@ -169,6 +164,18 @@ half3 NPRDirectLighting(BRDFData brdfData, half3 albedo, half radiance, Lighting
     half3 specular = NPRSpecularLighting(brdfData, albedo, radiance, lightData);
 
     return diffuse + specular;
+}
+
+half3 NPRRimLighting(LightingData lightingData)
+{
+    half3 rimColor = 0;
+    #if _FRESNELRIM
+        half ndv4 = Pow4(1 - lightingData.NdotVClamp);
+        rimColor = LinearStep(_RimThreshold, _RimThreshold + _RimSoftness, ndv4);
+        rimColor *= LerpWhiteTo(lightingData.NdotLClamp, _RimDirectionLightContribution);
+        rimColor *= _RimColor;
+    #endif
+    return rimColor;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -273,6 +280,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
 
     half4 color = 1;
     color.rgb = NPRDirectLighting(brdfData, surfaceData.albedo, radiance, lightingData);
+    color.rgb += NPRRimLighting(lightingData);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = OutputAlpha(color.a, _Surface);
 

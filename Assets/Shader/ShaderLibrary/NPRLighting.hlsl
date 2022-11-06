@@ -117,6 +117,16 @@ half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
     return specularTerm;
 }
 
+half3 StylizedSpecular(half3 albedo, half ndothClamp)
+{
+    half specSize = 1 - (_StylizedSpecularSize * _StylizedSpecularSize);
+    half ndothStylized = (ndothClamp - specSize * specSize) / (1 - specSize);
+    half specularSoftness = _StylizedSpecularSoftness;
+    half specular = LinearStep(0, specularSoftness, ndothStylized);
+    specular = lerp(specular, albedo * specular, _StylizedSpecularAlbedoWeight);
+    return specular;
+}
+
 half BlinnPhongSpecular(half shininess, half ndoth)
 {
     half phongSmoothness = exp2(10 * shininess + 1);
