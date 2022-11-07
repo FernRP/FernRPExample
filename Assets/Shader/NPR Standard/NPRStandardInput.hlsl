@@ -24,6 +24,7 @@ half4 _SpecularColor;
 half4 _RimColor;
 half _BumpScale;
 half _Smoothness;
+half _OcclusionStrength;
 half _Metallic;
 half _UseHalfLambert;
 half _CELLThreshold;
@@ -130,6 +131,7 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, out NPRSurfaceData outSu
     outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
     outSurfaceData.smoothness = _Smoothness;
     outSurfaceData.metallic = _Metallic;
+    outSurfaceData.occlusion = _OcclusionStrength;
 }
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED

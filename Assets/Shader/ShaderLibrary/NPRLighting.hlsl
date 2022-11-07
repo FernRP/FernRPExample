@@ -93,7 +93,6 @@ inline half3 CellShadingDiffuse(inout half radiance, half cellThreshold, half ce
     return diffuse;
 }
 
-
 inline half3 RampShadingDiffuse(half radiance, half rampVOffset, TEXTURE2D_PARAM(rampMap, sampler_rampMap))
 {
     half3 diffuse = 0;
@@ -101,7 +100,6 @@ inline half3 RampShadingDiffuse(half radiance, half rampVOffset, TEXTURE2D_PARAM
     diffuse = SAMPLE_TEXTURE2D(rampMap, sampler_rampMap, uv).rgb;
     return diffuse;
 }
-
 
 half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
 {
@@ -133,6 +131,24 @@ half BlinnPhongSpecular(half shininess, half ndoth)
     half normalize = (phongSmoothness + 7) * INV_PI8; // bling-phong 能量守恒系数
     half specular = max(pow(ndoth, phongSmoothness) * normalize, 0.001);
     return specular;
+}
+
+half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughness, half occlusion)
+{
+    #if !defined(_ENVIRONMENTREFLECTIONS_OFF)
+    half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
+    half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
+
+    #if defined(UNITY_USE_NATIVE_HDR)
+    half3 irradiance = encodedIrradiance.rgb;
+    #else
+    half3 irradiance = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
+    #endif
+
+    return irradiance * occlusion;
+    #endif // GLOSSY_REFLECTIONS
+
+    return _GlossyEnvironmentColor.rgb * occlusion;
 }
 
 half3 VertexLighting(float3 positionWS, half3 normalWS)

@@ -12,6 +12,7 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
         [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
+        [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 1.0
 
         
         [Main(Diffuse, _, off, off)]

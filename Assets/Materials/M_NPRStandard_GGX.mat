@@ -53,6 +53,7 @@ Material:
     - _DstBlend: 0
     - _Metallic: 0
     - _MetallicScale: 1
+    - _OcclusionStrength: 1
     - _Outline: 1
     - _OutlineWidth: 1
     - _QueueOffset: 0

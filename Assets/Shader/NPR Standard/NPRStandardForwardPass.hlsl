@@ -178,6 +178,17 @@ half3 NPRRimLighting(LightingData lightingData)
     return rimColor;
 }
 
+half3 NPRIndirectLighting(BRDFData brdfData, InputData inputData, half occlusion)
+{
+    half3 indirectDiffuse = inputData.bakedGI * occlusion;
+    half3 reflectVector = reflect(-inputData.viewDirectionWS, inputData.normalWS);
+    half NoV = saturate(dot(inputData.normalWS, inputData.viewDirectionWS));
+    half fresnelTerm = Pow4(1.0 - NoV);
+    half3 indirectSpecular = NPRGlossyEnvironmentReflection(reflectVector, brdfData.perceptualRoughness, occlusion);
+    half3 indirectColor = EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
+    return indirectColor;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //                  Vertex and Fragment functions                            //
 ///////////////////////////////////////////////////////////////////////////////
@@ -281,8 +292,12 @@ half4 LitPassFragment(Varyings input) : SV_Target
     half4 color = 1;
     color.rgb = NPRDirectLighting(brdfData, surfaceData.albedo, radiance, lightingData);
     color.rgb += NPRRimLighting(lightingData);
+    color.rgb += NPRIndirectLighting(brdfData, inputData, surfaceData.occlusion);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
     color.a = OutputAlpha(color.a, _Surface);
+
+    
+    
 
     return color;
 }
