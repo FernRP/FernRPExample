@@ -48,10 +48,11 @@ Varyings NormalOutLineVertex(Attributes input)
 
 half4 NormalOutlineFragment(Varyings input) : SV_Target
 {
+    
     #if defined(_OUTLINE)
         half4 outlineColor = 0;
         outlineColor.rgb = _OutlineColor.rgb;
-        outlineColor.a = 1;
+        outlineColor.a = _BaseColor.a;
         return outlineColor;
     #else
         return 0;

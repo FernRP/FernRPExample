@@ -15,14 +15,16 @@ Material:
   - _OUTLINE
   - _STYLIZED
   m_InvalidKeywords:
+  - _ALPHABLEND_ON
   - _FRENSELRIM
   - _KEY1
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 3000
+  stringTagMap:
+    RenderType: Transparent
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -51,9 +53,10 @@ Material:
     - _CELLThreshold: 0.366
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DstBlend: 0
+    - _DstBlend: 10
     - _Metallic: 0
     - _MetallicScale: 1
+    - _OcclusionStrength: 1
     - _Outline: 1
     - _OutlineWidth: 1
     - _QueueOffset: 0
@@ -74,11 +77,11 @@ Material:
     - _SpecularAlbedoWeight: 0
     - _SpecularToonSize: 0.1
     - _SpecularToonSmoothness: 0.05
-    - _SrcBlend: 1
+    - _SrcBlend: 5
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.119
     - _StylizedSpecularSoftness: 0.001
-    - _Surface: 0
+    - _Surface: 1
     - _UseHalfLambert: 1
     - _ZWrite: 1
     - _enum: 1
