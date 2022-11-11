@@ -14,7 +14,6 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 1.0
 
-        
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
         [Space()]
@@ -46,6 +45,9 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Sub(Rim._FRESNELRIM._SCREENSPACERIM)][HDR] _RimColor("Rim Color",Color) = (1,1,1,1)
         [Sub(Rim._FRESNELRIM)] _RimThreshold("Rim Threshold",Range(0,1)) = 0.2
         [Sub(Rim._FRESNELRIM)] _RimSoftness("Rim Softness",Range(0.001,1)) = 0.01
+        [Sub(Rim._SCREENSPACERIM)] _ScreenSpaceRimWidth("Screen Space Rim Width",Range(0.001,1)) = 0.01
+        [Sub(Rim._SCREENSPACERIM)] _ScreenSpaceRimThreshold("Screen Space Threshold",Range(0.001,1)) = 0.01
+        [Sub(Rim._SCREENSPACERIM)] _ScreenSpaceRimSoftness("Screen Space Softness",Range(0.01,1)) = 0.01
         
         [Main(Outline, _, off, off)]
         _groupOutline ("OutlineSettings", float) = 1

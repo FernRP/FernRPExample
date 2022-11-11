@@ -166,7 +166,7 @@ half3 NPRDirectLighting(BRDFData brdfData, half3 albedo, half radiance, Lighting
     return diffuse + specular;
 }
 
-half3 NPRRimLighting(LightingData lightingData)
+half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings input)
 {
     half3 rimColor = 0;
     #if _FRESNELRIM
@@ -174,6 +174,14 @@ half3 NPRRimLighting(LightingData lightingData)
         rimColor = LinearStep(_RimThreshold, _RimThreshold + _RimSoftness, ndv4);
         rimColor *= LerpWhiteTo(lightingData.NdotLClamp, _RimDirectionLightContribution);
         rimColor *= _RimColor;
+    #elif _SCREENSPACERIM
+        float3 normalVS = mul(UNITY_MATRIX_V, float4(inputData.normalWS, 0.0)).xyz;
+        half pixelCenter = LinearEyeDepth(SampleSceneDepth(inputData.normalizedScreenSpaceUV).r, _ZBufferParams);
+        half pixelLeft = LinearEyeDepth(SampleSceneDepth( inputData.normalizedScreenSpaceUV + normalVS.xy * _ScreenSpaceRimWidth * input.positionCS.z).r, _ZBufferParams);
+        half diff = saturate(pixelLeft - pixelCenter);
+        float rim = saturate(diff / max(0.001, _ScreenSpaceRimSoftness));
+        rim *= LerpWhiteTo(lightingData.NdotLClamp, _RimDirectionLightContribution);
+        rimColor = rim * _RimColor;
     #endif
     return rimColor;
 }
@@ -291,9 +299,10 @@ half4 LitPassFragment(Varyings input) : SV_Target
 
     half4 color = 1;
     color.rgb = NPRDirectLighting(brdfData, surfaceData.albedo, radiance, lightingData);
-    color.rgb += NPRRimLighting(lightingData);
+    color.rgb += NPRRimLighting(lightingData, inputData, input);
     color.rgb += NPRIndirectLighting(brdfData, inputData, surfaceData.occlusion);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
+
     color.a = surfaceData.alpha;
 
     return color;

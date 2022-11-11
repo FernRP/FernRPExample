@@ -11,20 +11,18 @@ Material:
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
   - _CELLSHADING
-  - _FRESNELRIM
-  - _OUTLINE
+  - _SCREENSPACERIM
   - _STYLIZED
   m_InvalidKeywords:
-  - _ALPHABLEND_ON
   - _FRENSELRIM
   - _KEY1
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2000
   stringTagMap:
-    RenderType: Transparent
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -53,11 +51,11 @@ Material:
     - _CELLThreshold: 0.366
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _Metallic: 0
     - _MetallicScale: 1
     - _OcclusionStrength: 1
-    - _Outline: 1
+    - _Outline: 0
     - _OutlineWidth: 1
     - _QueueOffset: 0
     - _RIM_ON: 1
@@ -65,28 +63,31 @@ Material:
     - _RampMapVOffset: 0
     - _RampYOffset: 0.75
     - _RimDirContribution: 0.5
-    - _RimDirectionLightContribution: 1
+    - _RimDirectionLightContribution: 0
     - _RimLightingSetting: 1
     - _RimLights: 0
     - _RimSmooth: 0.01
     - _RimSoftness: 1
     - _RimThreshold: 0.257
+    - _ScreenSpaceRimSoftness: 1
+    - _ScreenSpaceRimThreshold: 0.221
+    - _ScreenSpaceRimWidth: 0.027
     - _Shininess: 1
     - _Smoothness: 1
     - _SmoothnessScale: 1
     - _SpecularAlbedoWeight: 0
     - _SpecularToonSize: 0.1
     - _SpecularToonSmoothness: 0.05
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.119
     - _StylizedSpecularSoftness: 0.001
-    - _Surface: 1
+    - _Surface: 0
     - _UseHalfLambert: 1
     - _ZWrite: 1
     - _enum: 1
     - _enum_diffuse: 0
-    - _enum_rim: 1
+    - _enum_rim: 2
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
@@ -98,7 +99,7 @@ Material:
     - _DarkColor: {r: 1, g: 0.37, b: 0.37, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
-    - _RimColor: {r: 19.166754, g: 0.70987976, b: 33.89676, a: 1}
+    - _RimColor: {r: 1.6941177, g: 0.0627451, b: 2.9960785, a: 1}
     - _SpecularColor: {r: 4, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &8123892848369133960

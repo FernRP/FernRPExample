@@ -7,6 +7,7 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RealtimeLights.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/AmbientOcclusion.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
+#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 
 #define PI8 25.1327
 #define INV_PI8 0.039789
@@ -165,6 +166,50 @@ half3 VertexLighting(float3 positionWS, half3 normalWS)
 #endif
 
     return vertexLightColor;
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//                                深度边缘                                    //
+///////////////////////////////////////////////////////////////////////////////
+half DepthNormal(half depth)
+{
+    half near = _ProjectionParams.y;
+    half far = _ProjectionParams.z;
+	
+    #if UNITY_REVERSED_Z
+    depth = 1.0 - depth;
+    #endif
+	
+    half ortho = (far - near) * depth + near;
+    return lerp(depth, ortho, unity_OrthoParams.w);
+}
+
+static float2 SamplePoint[9] = 
+{
+    float2(-1,1), float2(0,1), float2(1,1),
+    float2(-1,0), float2(1,0), float2(-1,-1),
+    float2(0,-1), float2(1,-1), float2(0, 0)
+};
+
+half SobelDepth(half ldc, half ldl, half ldr, half ldu, half ldd)
+{
+    return ((ldl - ldc) +
+        (ldr - ldc) +
+        (ldu - ldc) +
+        (ldd - ldc)) * 0.25f;
+}
+
+half SobelSampleDepth(half2 uv, half2 offset)
+{
+    //half pixelCenter = thisDepthZ;
+    half pixelCenter = LinearEyeDepth(SampleSceneDepth(uv).r, _ZBufferParams);
+    half pixelLeft = LinearEyeDepth(SampleSceneDepth( uv + offset.xy * SamplePoint[1]).r, _ZBufferParams);
+    half pixelRight = LinearEyeDepth(SampleSceneDepth(uv + offset.xy * SamplePoint[3]).r, _ZBufferParams);
+    half pixelUp = LinearEyeDepth(SampleSceneDepth(uv + offset.xy * SamplePoint[4]).r, _ZBufferParams);
+    half pixelDown = LinearEyeDepth(SampleSceneDepth(uv + offset.xy * SamplePoint[6]).r, _ZBufferParams);
+
+    return SobelDepth(pixelCenter, pixelLeft, pixelRight, pixelUp, pixelDown);
 }
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED

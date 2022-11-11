@@ -38,6 +38,9 @@ half _Shininess;
 half _RimDirectionLightContribution;
 half _RimThreshold;
 half _RimSoftness;
+half _ScreenSpaceRimWidth;
+half _ScreenSpaceRimThreshold;
+half _ScreenSpaceRimSoftness;
 
 // Surface
 half _Cutoff;
@@ -70,6 +73,9 @@ UNITY_DOTS_INSTANCING_START(MaterialPropertyMetadata)
     UNITY_DOTS_INSTANCED_PROP(float , _RimDirectionLightContribution)
     UNITY_DOTS_INSTANCED_PROP(float , _RimThreshold)
     UNITY_DOTS_INSTANCED_PROP(float , _RimSoftness)
+    UNITY_DOTS_INSTANCED_PROP(float , _ScreenSpaceRimWidth)
+    UNITY_DOTS_INSTANCED_PROP(float , _ScreenSpaceRimThreshold)
+    UNITY_DOTS_INSTANCED_PROP(float , _ScreenSpaceRimSoftness)
     UNITY_DOTS_INSTANCED_PROP(float , _Parallax)
     UNITY_DOTS_INSTANCED_PROP(float , _OcclusionStrength)
     UNITY_DOTS_INSTANCED_PROP(float , _ClearCoatMask)
@@ -98,6 +104,9 @@ UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
 #define _RimDirectionLightContribution              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RimDirectionLightContribution)
 #define _RimThreshold              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RimThreshold)
 #define _RimSoftness              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RimSoftness)
+#define _ScreenSpaceRimWidth              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ScreenSpaceRimWidth)
+#define _ScreenSpaceRimThreshold              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ScreenSpaceRimThreshold)
+#define _ScreenSpaceRimSoftness              UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ScreenSpaceRimSoftness)
 #define _Parallax               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Parallax)
 #define _OcclusionStrength      UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_OcclusionStrength)
 #define _ClearCoatMask          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ClearCoatMask)
