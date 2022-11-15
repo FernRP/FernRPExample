@@ -4,8 +4,9 @@ NPR rendering Library for mobile, include character rendering, scene rendering, 
 Sorry I'm very busy and slow to update...
 
 #### 22-11-15
-![](D:\Project\MyGit\NPRRenderPipeline\DocAssets\11-15-1.png)
-![](D:\Project\MyGit\NPRRenderPipeline\DocAssets\11-15-2.png)
+![](DocAssets/11-15-1.png)
+![](DocAssets/11-15-2.png)
+
 
 #### Next
 
