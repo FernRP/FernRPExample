@@ -95,6 +95,7 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
 
             // -------------------------------------
             // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
             #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
@@ -237,8 +238,10 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
             Name "OutLine"
             Tags { "LightMode" = "SRPDefaultUnlit" }
             Cull Front
-            Blend[_SrcBlend][_DstBlend]
             ZWrite[_ZWrite]
+            BlendOp Add, Max
+            ZTest LEqual
+            Offset 1, 1
 
             HLSLPROGRAM
             #pragma multi_compile _ _OUTLINE
