@@ -7,18 +7,21 @@ Sorry I'm very busy and slow to update...
 ![](DocAssets/11-15-1.png)
 ![](DocAssets/11-15-2.png)
 
+#### Aniso Hair
+![](DocAssets/11-18-hair.png)
+
 
 #### Next
 
-1. Hair Shader
-2. Hair Shadow
-3. Face Shader
-4. Fabric Shader
-5. Socks Shader
-6. Skin Shader
-7. Comics Post Processing
-8. More Outline Effect
-9. More VFX Effect
-10. ...
+- Hair Shader
+- Hair Shadow
+- Face Shader
+- Fabric Shader
+- Socks Shader
+- Skin Shader
+- Comics Post Processing
+- More Outline Effect
+- More VFX Effect
+...
 
 If you are interested in this project, welcome to contact me, thanks!
