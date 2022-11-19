@@ -25,3 +25,8 @@ Sorry I'm very busy and slow to update...
 ...
 
 If you are interested in this project, welcome to contact me, thanks!
+
+## Related links
+
+[LWGUI](https://github.com/JasonMa0012/LWGUI)
+[VRoid Studio](https://vroid.com/en)
