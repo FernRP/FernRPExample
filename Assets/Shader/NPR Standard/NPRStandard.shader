@@ -30,12 +30,24 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
         [Main(Specular, _, off, off)]
         _groupSpecular ("SpecularSettings", float) = 1
         [Space()]
-        [KWEnum(Specular, PBR_GGX, _GGX, Stylized, _STYLIZED, Blinn_Phong, _BLINNPHONG)] _enum_specular ("Shading Mode", float) = 0
+        [KWEnum(Specular, PBR_GGX, _GGX, Stylized, _STYLIZED, Blinn_Phong, _BLINNPHONG, Anisotropy, _ANISOTROPY)] _enum_specular ("Shading Mode", float) = 0
         [Sub(Specular)][HDR] _SpecularColor ("Specular Color", Color) = (1,1,1,1)
         [Sub(Specular._STYLIZED)] _StylizedSpecularSize ("Stylized Specular Size", Range(0,1)) = 0.1
         [Sub(Specular._STYLIZED)] _StylizedSpecularSoftness ("Stylized Specular Softness", Range(0.001,1)) = 0.05
         [Sub(Specular._STYLIZED)] _StylizedSpecularAlbedoWeight ("Specular Color Albedo Weight", Range(0,1)) = 0
         [Sub(Specular._BLINNPHONG)] _Shininess ("BlinnPhong Shininess", Range(0,1)) = 1
+        [Tex(Specular._ANISOTROPY)] _AnisoShiftMap ("Aniso Shift Map", 2D) = "white" {}
+        [Sub(Specular._ANISOTROPY)] _AnisoShiftScale ("Aniso Shift Scale", Range(1, 50)) = 10
+        [Sub(Specular._ANISOTROPY)] _AnisoSpecularColor("Aniso Specular Color Layer1", Color) = (0,0,0,1)
+        [Sub(Specular._ANISOTROPY)] _AnisoSpread1("Aniso Specular Spread Layer1", Range(-1,1)) = 0.0
+        [Sub(Specular._ANISOTROPY)] _AnsioSpeularShift("Aniso Specular Shift Layer1", Range(-3,3)) = 1.0
+        [Sub(Specular._ANISOTROPY)] _AnsioSpeularStrength("Aniso Specular Strength Layer1", Range(0, 2)) = 1.0
+        [Sub(Specular._ANISOTROPY)] _AnsioSpeularExponent("Aniso Specular Exponent Layer1", Range(1,1024)) = 1.0
+        [Sub(Specular._ANISOTROPY)] _AnisoSecondarySpecularColor("Aniso Specular Color Layer2", Color) = (0,0,0,1)
+        [Sub(Specular._ANISOTROPY)] _AnisoSpread2("Aniso Specular Spread Layer2", Range(-1,1)) = 0.0
+        [Sub(Specular._ANISOTROPY)] _AnsioSecondarySpeularShift("Aniso Specular Shift Layer2", Range(-3,3)) = 1.0
+        [Sub(Specular._ANISOTROPY)] _AnsioSecondarySpeularStrength("Aniso Specular Strength Layer2", Range(0, 2)) = 1.0
+        [Sub(Specular._ANISOTROPY)] _AnsioSecondarySpeularExponent("Aniso Specular Exponent Layer2",Range(1,1024)) = 1.0
         
         [Main(Rim, _, off, off)]
         _groupRim ("RimSettings", float) = 1
@@ -97,7 +109,7 @@ Shader "NPRRenderPipeline/URP/NPRStandard"
             // Material Keywords
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
-            #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG
+            #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG _ANISOTROPY
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _NORMALMAP
             

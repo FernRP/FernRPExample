@@ -1,14 +1,13 @@
 #ifndef UNIVERSAL_FORWARD_NPRSTANDARD_PASS_INCLUDED
 #define UNIVERSAL_FORWARD_NPRSTANDARD_PASS_INCLUDED
 
-#include "../ShaderLibrary/NPRLighting.hlsl"
 
 // GLES2 has limited amount of interpolators
 #if defined(_PARALLAXMAP) && !defined(SHADER_API_GLES)
 #define REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR
 #endif
 
-#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL)
+#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL) || defined(_ANISOTROPY)
 #define REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR
 #endif
 
@@ -135,33 +134,36 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half radiance)
     #elif _LAMBERTIAN
         diffuse = lerp(_DarkColor, _HighColor, radiance);
     #elif _RAMPSHADING
-        diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
+        diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, _RampMapUOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
     #endif
     diffuse *= brdfData.diffuse;
     return diffuse;
 }
 
-half3 NPRSpecularLighting(BRDFData brdfData, half3 albedo, half radiance, LightingData lightData)
+half3 NPRSpecularLighting(BRDFData brdfData, Varyings input, InputData inputData, half3 albedo, half radiance, LightingData lightData)
 {
     half3 specular = 0;
-    
     #if _GGX
         specular = GGXDirectBRDFSpecular(brdfData, lightData.LdotHClamp, lightData.NdotHClamp);
     #elif _STYLIZED
-        specular = StylizedSpecular(albedo, lightData.NdotHClamp);
+        specular = StylizedSpecular(albedo, lightData.NdotHClamp, _StylizedSpecularSize, _StylizedSpecularSoftness, _StylizedSpecularAlbedoWeight);
     #elif _BLINNPHONG
         specular = BlinnPhongSpecular((1 - brdfData.perceptualRoughness) * _Shininess, lightData.NdotHClamp);
+    #elif _ANISOTROPY
+        half2 anisoUV = input.uv.xy * _AnisoShiftScale;
+        AnisoSpecularData anisoSpecularData;
+        InitAnisoSpecularData(anisoSpecularData);
+        specular = AnisotropyDoubleSpecular(brdfData, anisoUV, input.tangentWS, inputData, lightData, anisoSpecularData,
+            TEXTURE2D_ARGS(_AnisoShiftMap, sampler_AnisoShiftMap));
     #endif
-    
     specular *= _SpecularColor.rgb * radiance;
-    
     return specular;
 }
 
-half3 NPRDirectLighting(BRDFData brdfData, half3 albedo, half radiance, LightingData lightData)
+half3 NPRDirectLighting(BRDFData brdfData, Varyings input, InputData inputData, half3 albedo, half radiance, LightingData lightData)
 {
     half3 diffuse = NPRDiffuseLighting(brdfData, radiance);
-    half3 specular = NPRSpecularLighting(brdfData, albedo, radiance, lightData);
+    half3 specular = NPRSpecularLighting(brdfData, input, inputData, albedo, radiance, lightData);
 
     return diffuse + specular;
 }
@@ -298,7 +300,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
     half radiance = LightingRadiance(lightingData, _UseHalfLambert);
 
     half4 color = 1;
-    color.rgb = NPRDirectLighting(brdfData, surfaceData.albedo, radiance, lightingData);
+    color.rgb = NPRDirectLighting(brdfData, input, inputData, surfaceData.albedo, radiance, lightingData);
     color.rgb += NPRRimLighting(lightingData, inputData, input);
     color.rgb += NPRIndirectLighting(brdfData, inputData, surfaceData.occlusion);
     color.rgb = MixFog(color.rgb, inputData.fogCoord);

@@ -103,18 +103,18 @@ Material:
     - _OcclusionStrength: 1
     - _Outline: 1
     - _OutlineLightingMix: 0
-    - _OutlineWidth: 0.65
+    - _OutlineWidth: 0.3
     - _OutlineWidthMode: 1
     - _QueueOffset: 0
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0.5
     - _RenderQueueOffset: 0
-    - _RimDirectionLightContribution: 0
+    - _RimDirectionLightContribution: 0.36
     - _RimFresnelPower: 7.999984
     - _RimLift: 0.1
     - _RimLightingMix: 1
     - _RimSoftness: 0.001
-    - _RimThreshold: 0.249
+    - _RimThreshold: 0.562
     - _ScreenSpaceRimSoftness: 0.372
     - _ScreenSpaceRimThreshold: 0.147
     - _ScreenSpaceRimWidth: 0.089
@@ -151,7 +151,7 @@ Material:
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.27450976, g: 0.09019602, b: 0.12549013, a: 1}
-    - _RimColor: {r: 3.039173, g: 4.547667, b: 0, a: 1}
+    - _RimColor: {r: 0.5019608, g: 0.7490196, b: 0, a: 1}
     - _ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

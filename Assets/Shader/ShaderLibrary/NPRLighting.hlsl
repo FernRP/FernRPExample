@@ -94,10 +94,10 @@ inline half3 CellShadingDiffuse(inout half radiance, half cellThreshold, half ce
     return diffuse;
 }
 
-inline half3 RampShadingDiffuse(half radiance, half rampVOffset, TEXTURE2D_PARAM(rampMap, sampler_rampMap))
+inline half3 RampShadingDiffuse(half radiance, half rampVOffset, half uOffset, TEXTURE2D_PARAM(rampMap, sampler_rampMap))
 {
     half3 diffuse = 0;
-    float2 uv = float2(saturate(radiance + _RampMapUOffset), rampVOffset);
+    float2 uv = float2(saturate(radiance + uOffset), rampVOffset);
     diffuse = SAMPLE_TEXTURE2D(rampMap, sampler_rampMap, uv).rgb;
     return diffuse;
 }
@@ -116,13 +116,12 @@ half GGXDirectBRDFSpecular(BRDFData brdfData, half3 LoH, half3 NoH)
     return specularTerm;
 }
 
-half3 StylizedSpecular(half3 albedo, half ndothClamp)
+half3 StylizedSpecular(half3 albedo, half ndothClamp, half specularSize, half specularSoftness, half albedoWeight)
 {
-    half specSize = 1 - (_StylizedSpecularSize * _StylizedSpecularSize);
+    half specSize = 1 - (specularSize * specularSize);
     half ndothStylized = (ndothClamp - specSize * specSize) / (1 - specSize);
-    half specularSoftness = _StylizedSpecularSoftness;
     half specular = LinearStep(0, specularSoftness, ndothStylized);
-    specular = lerp(specular, albedo * specular, _StylizedSpecularAlbedoWeight);
+    specular = lerp(specular, albedo * specular, albedoWeight);
     return specular;
 }
 
@@ -132,6 +131,44 @@ half BlinnPhongSpecular(half shininess, half ndoth)
     half normalize = (phongSmoothness + 7) * INV_PI8; // bling-phong 能量守恒系数
     half specular = max(pow(ndoth, phongSmoothness) * normalize, 0.001);
     return specular;
+}
+
+struct AnisoSpecularData
+{
+    half3 specularColor;
+    half3 specularSecondaryColor;
+    half specularShift;
+    half specularSecondaryShift;
+    half specularStrength;
+    half specularSecondaryStrength;
+    half specularExponent;
+    half specularSecondaryExponent;
+    half spread1;
+    half spread2;
+};
+    
+inline half3 AnisotropyDoubleSpecular(BRDFData brdfData, half2 uv, half4 tangentWS, InputData inputData, LightingData lightingData,
+    AnisoSpecularData anisoSpecularData, TEXTURE2D_PARAM(anisoDetailMap, sampler_anisoDetailMap))
+{
+    half4 specMask = 1; // TODO ADD Mask
+    half4 detailNormal = SAMPLE_TEXTURE2D(anisoDetailMap,sampler_anisoDetailMap, uv);
+
+    float2 jitter =(detailNormal.y-0.5) * float2(anisoSpecularData.spread1,anisoSpecularData.spread2);
+
+    float sgn = tangentWS.w;
+    float3 T = normalize(sgn * cross(inputData.normalWS.xyz, tangentWS.xyz));
+
+    float3 t1 = ShiftTangent(T, inputData.normalWS.xyz, anisoSpecularData.specularShift + jitter.x);
+    float3 t2 = ShiftTangent(T, inputData.normalWS.xyz, anisoSpecularData.specularSecondaryShift + jitter.y);
+
+    float3 hairSpec1 = anisoSpecularData.specularColor * anisoSpecularData.specularStrength *
+        D_KajiyaKay(t1, lightingData.HalfDir, anisoSpecularData.specularExponent);
+    float3 hairSpec2 = anisoSpecularData.specularSecondaryColor * anisoSpecularData.specularSecondaryStrength *
+        D_KajiyaKay(t2, lightingData.HalfDir, anisoSpecularData.specularSecondaryExponent);
+
+    float3 F = F_Schlick(half3(0.2,0.2,0.2), lightingData.LdotHClamp);
+    half3 anisoSpecularColor = 0.25 * F * (hairSpec1 + hairSpec2) * lightingData.NdotLClamp * specMask * brdfData.specular;
+    return anisoSpecularColor;
 }
 
 half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughness, half occlusion)

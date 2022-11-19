@@ -100,8 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 1
   intensity:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 0.135
 --- !u!114 &7891130431332080543
 MonoBehaviour:
   m_ObjectHideFlags: 3

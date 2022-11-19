@@ -116,7 +116,7 @@ Material:
     - _ShadingShiftTexScale: 1
     - _ShadingToonyFactor: 1
     - _Shininess: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.124
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.1
@@ -147,5 +147,5 @@ Material:
     - _OutlineColor: {r: 0.27450976, g: 0.09019602, b: 0.12549013, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadeColor: {r: 1, g: 1, b: 1, a: 1}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
   m_BuildTextureStacks: []

@@ -100,7 +100,7 @@ Material:
     - _OcclusionStrength: 1
     - _Outline: 1
     - _OutlineLightingMix: 0
-    - _OutlineWidth: 0.5
+    - _OutlineWidth: 0.3
     - _OutlineWidthMode: 1
     - _QueueOffset: 0
     - _RampMapUOffset: 0

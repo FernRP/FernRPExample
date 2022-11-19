@@ -1,0 +1,212 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: High_polytail_Transparency2
+  m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  - _ANISOTROPY
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AnisoDetailMap:
+        m_Texture: {fileID: 2800000, guid: 8f822f0612aa061498a1a515620e3a54, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AnisoDetailScale:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AnisoShiftMap:
+        m_Texture: {fileID: 2800000, guid: 8f822f0612aa061498a1a515620e3a54, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _AnisoShiftScale:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: c1aee551fb0cd7a4592cca4555d1bec3, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DiffuseRampMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 0
+    - _AnisoSecondarySpecularColor: 0
+    - _AnisoShiftScale: 10
+    - _AnisoSpecularColor: 0
+    - _AnisoSpread1: -0.309
+    - _AnisoSpread2: -0.037
+    - _AnsioSecondarySpeularExponent: 887
+    - _AnsioSecondarySpeularShift: 0.06
+    - _AnsioSecondarySpeularStrength: 0.396
+    - _AnsioSpeularExponent: 1024
+    - _AnsioSpeularShift: 0.01
+    - _AnsioSpeularStrength: 1.5
+    - _Blend: 0
+    - _BumpMapKeyword: 0
+    - _BumpScale: 1
+    - _CELLSmoothing: 0.001
+    - _CELLThreshold: 0.5
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
+    - _Cutoff: 0.05
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.5
+    - _GlossyReflections: 1
+    - _HairSecondarySpecularExponent: 1
+    - _HairSecondarySpecularShift: 1
+    - _HairSecondarySpecularStrength: 1
+    - _HairSpecularExponent: 1
+    - _HairSpecularShift: 1
+    - _HairSpecularStrength: 1
+    - _HairSpread1: 0
+    - _HairSpread2: 0
+    - _Metallic: 0
+    - _Mode: 0
+    - _OcclusionStrength: 1
+    - _Outline: 0
+    - _OutlineWidth: 1
+    - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _RampMapUOffset: 0
+    - _RampMapVOffset: 0.5
+    - _ReceiveShadows: 1
+    - _RimDirectionLightContribution: 1
+    - _RimSoftness: 0.01
+    - _RimThreshold: 0.2
+    - _ScreenSpaceRimSoftness: 0.01
+    - _ScreenSpaceRimThreshold: 0.01
+    - _ScreenSpaceRimWidth: 0.01
+    - _Shininess: 1
+    - _Smoothness: 0
+    - _SmoothnessTextureChannel: 0
+    - _SpecularHighlights: 1
+    - _SrcBlend: 1
+    - _StylizedSpecularAlbedoWeight: 0
+    - _StylizedSpecularSize: 0.1
+    - _StylizedSpecularSoftness: 0.05
+    - _Surface: 2
+    - _UVSec: 0
+    - _UseHalfLambert: 0
+    - _WorkflowMode: 1
+    - _ZWrite: 1
+    - _anisoSpread1: 1
+    - _anisoSpread2: 1
+    - _ansioSecondarySpeularExponent: 1
+    - _ansioSecondarySpeularShift: 1
+    - _ansioSpeularExponent: 0
+    - _ansioSpeularShift: 1
+    - _ansioSpeularStrength: 1
+    - _enum_diffuse: 0
+    - _enum_rim: 0
+    - _enum_specular: 3
+    - _group: 0
+    - _group1: 1
+    - _groupOutline: 1
+    - _groupRim: 1
+    - _groupSpecular: 1
+    m_Colors:
+    - _AnisoSecondarySpecularColor: {r: 0.8962264, g: 0.7497512, b: 0.6059392, a: 1}
+    - _AnisoSpecularColor: {r: 0.4056604, g: 0.3484969, b: 0.24747834, a: 1}
+    - _BaseColor: {r: 0.35, g: 0.35, b: 0.35, a: 1}
+    - _Color: {r: 0.9063317, g: 0.9063317, b: 0.9063317, a: 1}
+    - _DarkColor: {r: 0, g: 0, b: 0, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HairSecondarySpecularCol: {r: 0, g: 0, b: 0, a: 1}
+    - _HairSpecularCol: {r: 0, g: 0, b: 0, a: 1}
+    - _HighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _RimColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
+    - _SpecularColor: {r: 0.7490196, g: 0.7490196, b: 0.7490196, a: 1}
+    - _ansioSecondarySpeularStrength: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
+--- !u!114 &769153162565788773
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 5
