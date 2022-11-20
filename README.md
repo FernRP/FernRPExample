@@ -13,12 +13,12 @@ There is some simple scene, I am now busy with the implementation of the functio
 ![](DocAssets/11-18-hair.png)
 
 #### simple material
-![](DocAssets/material scene.png)
+![](DocAssets/material-scene.png)
 
 
 ### Next
 
-- Hair 
+- Hair
 - Face
 - Fabric
 - Socks
