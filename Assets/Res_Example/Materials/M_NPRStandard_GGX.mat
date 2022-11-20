@@ -25,6 +25,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _AnisoShiftMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -43,6 +47,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AnisoShiftScale: 10
+    - _AnisoSpread1: 0
+    - _AnisoSpread2: 0
+    - _AnsioSecondarySpeularExponent: 1
+    - _AnsioSecondarySpeularShift: 1
+    - _AnsioSecondarySpeularStrength: 1
+    - _AnsioSpeularExponent: 1
+    - _AnsioSpeularShift: 1
+    - _AnsioSpeularStrength: 1
     - _BumpMapKeyword: 0
     - _BumpScale: 1
     - _CELLSmoothing: 1
@@ -71,7 +84,7 @@ Material:
     - _ScreenSpaceRimThreshold: 0.54
     - _ScreenSpaceRimWidth: 0.065
     - _Shininess: 1
-    - _Smoothness: 1
+    - _Smoothness: 0.7
     - _SmoothnessScale: 1
     - _SpecularAlbedoWeight: 0
     - _SpecularToonSize: 0.1
@@ -93,6 +106,8 @@ Material:
     - _groupRim: 1
     - _groupSpecular: 1
     m_Colors:
+    - _AnisoSecondarySpecularColor: {r: 0, g: 0, b: 0, a: 1}
+    - _AnisoSpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
