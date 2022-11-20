@@ -1,4 +1,4 @@
-Shader "NPRRenderPipeline/URP/NPRStandard"
+Shader "NPRRenderPipeline/URP/FERNNPRExample"
 {
     Properties
     {

@@ -6,3 +6,7 @@ Temp
 *.csproj
 *.sln
 UserSettings/Layouts
+Packages/FERNGUI@1.0.0
+ProjectSettings/ProjectVersion.txt
+UserSettings/Layouts
+UserSettings
