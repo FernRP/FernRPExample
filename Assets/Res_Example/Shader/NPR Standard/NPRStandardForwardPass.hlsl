@@ -165,7 +165,7 @@ half3 NPRDirectLighting(BRDFData brdfData, Varyings input, InputData inputData, 
     half3 diffuse = NPRDiffuseLighting(brdfData, radiance);
     half3 specular = NPRSpecularLighting(brdfData, input, inputData, albedo, radiance, lightData);
 
-    return diffuse + specular;
+    return (diffuse + specular) * lightData.lightColor;
 }
 
 half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings input)

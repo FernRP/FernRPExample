@@ -36,6 +36,7 @@ half LinearStep(half minValue, half maxValue, half In)
 ///////////////////////////////////////////////////////////////////////////////
 struct LightingData
 {
+    half3 lightColor;
     half3 HalfDir;
     half NdotL;
     half NdotLClamp;
@@ -50,6 +51,7 @@ struct LightingData
 LightingData InitializeLightingData(Light mainLight, half3 normalWS, half3 viewDirectionWS)
 {
     LightingData lightData;
+    lightData.lightColor = mainLight.color;
     lightData.NdotL = dot(normalWS, mainLight.direction.xyz);
     lightData.NdotLClamp = saturate(lightData.NdotL);
     lightData.HalfLambert = lightData.NdotL * 0.5 + 0.5;
