@@ -69,8 +69,6 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
 
         // RenderSetting    
-        [Space()]
-        [Space()]
         [Title(_, RenderSetting)]
         [Surface(_)] _Surface("Surface Type", Float) = 0.0
         [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull Mode", Float) = 2.0
