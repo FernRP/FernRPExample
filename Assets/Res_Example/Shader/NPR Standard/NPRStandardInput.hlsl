@@ -157,6 +157,7 @@ TEXTURE2D(_DetailNormalMap);    SAMPLER(sampler_DetailNormalMap);
 TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
 TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
 TEXTURE2D(_ClearCoatMap);       SAMPLER(sampler_ClearCoatMap);
+TEXTURE2D(_PBRLightMap);       SAMPLER(sampler_PBRLightMap);
 TEXTURE2D(_AnisoShiftMap);       SAMPLER(sampler_AnisoShiftMap);
 
 
@@ -166,16 +167,22 @@ TEXTURE2D(_AnisoShiftMap);       SAMPLER(sampler_AnisoShiftMap);
     #define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_MetallicGlossMap, sampler_MetallicGlossMap, uv)
 #endif
 
+half4 SamplePBRLightMap(float2 uv, TEXTURE2D_PARAM(pbrLightMap, samplerpbrLightMap))
+{
+    return half4(SAMPLE_TEXTURE2D(pbrLightMap, samplerpbrLightMap, uv));
+}
+
 inline void InitializeNPRStandardSurfaceData(float2 uv, out NPRSurfaceData outSurfaceData)
 {
     outSurfaceData = (NPRSurfaceData)0;
     half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
+    half4 pbrLightMap = SamplePBRLightMap(uv, TEXTURE2D_ARGS(_PBRLightMap, sampler_PBRLightMap));
     outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
     outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
     outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
-    outSurfaceData.smoothness = _Smoothness;
-    outSurfaceData.metallic = _Metallic;
-    outSurfaceData.occlusion = _OcclusionStrength;
+    outSurfaceData.smoothness = _Smoothness * pbrLightMap.a;
+    outSurfaceData.metallic = _Metallic * pbrLightMap.r;
+    outSurfaceData.occlusion = LerpWhiteTo(pbrLightMap.g, _OcclusionStrength);
 }
 
 inline void InitAnisoSpecularData(out AnisoSpecularData anisoSpecularData)
