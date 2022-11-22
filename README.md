@@ -4,7 +4,7 @@ NPR rendering Library for mobile, include character rendering, scene rendering, 
 Sorry I'm very busy and slow to update...
 
 ### Simple Example
-There is some simple scene, I am now busy with the implementation of the function, and have not yet started to do the artistic.
+There are some simple scenes, I am busy with the implementation of the function, and no time for art creation.
 
 ![](DocAssets/11-15-1.png)
 ![](DocAssets/11-15-2.png)
