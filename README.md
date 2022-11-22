@@ -3,11 +3,11 @@ NPR rendering Library for mobile, include character rendering, scene rendering, 
 
 Sorry I'm very busy and slow to update...
 
-### Simple Example
+### Render Example
 There is some simple scene, I am now busy with the implementation of the function, and have not yet started to do the artistic.
 
-![](DocAssets/11-15-1.png)
-![](DocAssets/11-15-2.png)
+![](DocAssets/11-22.png)
+Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
 #### Aniso Hair
 ![](DocAssets/11-18-hair.png)
