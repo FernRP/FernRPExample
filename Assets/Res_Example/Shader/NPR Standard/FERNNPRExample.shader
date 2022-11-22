@@ -10,6 +10,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
+        [Tex(Surface)] _PBRLightMap ("PBR Light Map", 2D) = "white" { }
         [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 1.0
@@ -69,8 +70,6 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
 
         // RenderSetting    
-        [Space()]
-        [Space()]
         [Title(_, RenderSetting)]
         [Surface(_)] _Surface("Surface Type", Float) = 0.0
         [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull Mode", Float) = 2.0

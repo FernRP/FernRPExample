@@ -12,6 +12,7 @@ Material:
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _ANISOTROPY
+  - _CELLSHADING
   m_InvalidKeywords:
   - _MTOON_EMISSIVEMAP
   - _MTOON_RIMMAP

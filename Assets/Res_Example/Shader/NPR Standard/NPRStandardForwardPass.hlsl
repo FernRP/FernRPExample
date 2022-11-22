@@ -156,7 +156,7 @@ half3 NPRSpecularLighting(BRDFData brdfData, Varyings input, InputData inputData
         specular = AnisotropyDoubleSpecular(brdfData, anisoUV, input.tangentWS, inputData, lightData, anisoSpecularData,
             TEXTURE2D_ARGS(_AnisoShiftMap, sampler_AnisoShiftMap));
     #endif
-    specular *= _SpecularColor.rgb * radiance;
+    specular *= _SpecularColor.rgb * radiance * brdfData.specular;
     return specular;
 }
 
@@ -165,7 +165,7 @@ half3 NPRDirectLighting(BRDFData brdfData, Varyings input, InputData inputData, 
     half3 diffuse = NPRDiffuseLighting(brdfData, radiance);
     half3 specular = NPRSpecularLighting(brdfData, input, inputData, albedo, radiance, lightData);
 
-    return diffuse + specular;
+    return (diffuse + specular) * lightData.lightColor;
 }
 
 half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings input)

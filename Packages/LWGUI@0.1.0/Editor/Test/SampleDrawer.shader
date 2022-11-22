@@ -9,12 +9,12 @@ Shader "Hidden"
         [Ramp]_Ramp ("Ramp", 2D) = "white" { }
         
         // use Title on LWGUI attribute
-        [Title(_, Title)]
+        [Title(Title)]
         [Tex(_, _mColor2)] _tex ("tex color", 2D) = "white" { }
         
-        [Title(_, Title on Group)]
+        [Title(Title on Group)]
         // Create a folding group with name "g1"
-        [Main(g1)] _group ("Group", float) = 1
+        [Main(g1)] _group ("Group", float) = 0
         [Sub(g1)]  _float ("float", float) = 2
         
         [KWEnum(g1, name1, key1, name2, key2, name3, key3)]
@@ -46,6 +46,9 @@ Shader "Hidden"
         [Main(g2, _KEYWORD, on, off)] _group2 ("group2 without toggle", float) = 1
         [Sub(g2)] _float2 ("float2", float) = 2
         [Ramp(g2)] _Ramp2 ("Ramp2", 2D) = "white" { }
+        [Tooltip(Test Tooltip)]
+        [Helpbox(Test Helpbox)]
+        [Sub(g2)] _float_tooltip_helpbox ("float tooltip helpbox", float) = 0
 
     }
     
