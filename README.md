@@ -2,7 +2,7 @@
 NPR rendering Library for mobile, include character, scene, etc.
 
 ## Render Example
-There are some simple scenes, I am busy with the implementation of the function, and no time for art creation.
+There are some simple scenes.
 
 #### NPR Character
 
