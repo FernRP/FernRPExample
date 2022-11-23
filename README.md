@@ -12,7 +12,7 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 #### Aniso Hair
 ![](DocAssets/11-18-hair.png)
 
-#### simple material
+#### Simple material
 ![](DocAssets/material-scene.png)
 
 ...
