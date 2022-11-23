@@ -112,13 +112,12 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _NORMALMAP
             
-
             // -------------------------------------
             // Universal Pipeline keywords
-            //#pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
+            #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             //#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
-            //#pragma multi_compile_fragment _ _SHADOWS_SOFT
+            #pragma multi_compile_fragment _ _SHADOWS_SOFT
             //#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
             //#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
             //#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
@@ -126,7 +125,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
             //#pragma multi_compile_fragment _ _LIGHT_LAYERS
             //#pragma multi_compile_fragment _ _LIGHT_COOKIES
             //#pragma multi_compile _ _CLUSTERED_RENDERING
-
+            
             // -------------------------------------
             // Unity defined keywords
             //#pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
