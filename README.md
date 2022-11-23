@@ -2,7 +2,7 @@
 NPR rendering Library for mobile, include character, scene, etc.
 
 ## Render Example
-There are some simple scenes, I am busy with the implementation of the function, and no time for art creation.
+There are some simple scenes.
 
 #### NPR Character
 
@@ -12,7 +12,7 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 #### Aniso Hair
 ![](DocAssets/11-18-hair.png)
 
-#### simple material
+#### Simple material
 ![](DocAssets/material-scene.png)
 
 ...
