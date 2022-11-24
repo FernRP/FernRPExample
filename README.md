@@ -11,13 +11,14 @@ There are some simple scenes.
 ![](DocAssets/11-22.jpg)
 Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
+#### Diffuse Occlusion
+![](DocAssets/Diffuse-Occlusion.png)
+
 #### Aniso Hair
 ![](DocAssets/11-18-hair.png)
 
-#### Simple material
-![](DocAssets/material-scene.png)
-
-...
+#### More
+Some features are not given source code for now, I will finish all features as soon as possible.
 
 If you are interested in this project, welcome to contact me, thanks!
 
