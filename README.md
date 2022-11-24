@@ -1,33 +1,27 @@
-# Unity NPR Render Library
-NPR rendering Library for mobile, include character rendering, scene rendering, etc.
+# FernNPR
+FernNPR is a NPR rendering library in Unity, not just cartoon rendering, It will include as many non-realistic rendering techniques as possible.
 
-Sorry I'm very busy and slow to update...
+It will be an easily scalable, multi-platform (PC/Mobile) rendering library.
 
-### Simple Example
-There is some simple scene, I am now busy with the implementation of the function, and have not yet started to do the artistic.
+## Render Example
+There are some simple scenes.
 
-![](DocAssets/11-15-1.png)
-![](DocAssets/11-15-2.png)
+#### NPR Character
+
+![](DocAssets/11-22.jpg)
+Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
 #### Aniso Hair
 ![](DocAssets/11-18-hair.png)
 
-#### simple material
+#### Simple material
 ![](DocAssets/material-scene.png)
-
-
-### Next
-
-- Hair
-- Face
-- Fabric
-- Socks
-- Skin
-- Post Processing
 
 ...
 
 If you are interested in this project, welcome to contact me, thanks!
+
+Sorry I'm very busy and slow to update...
 
 ## Related links
 
