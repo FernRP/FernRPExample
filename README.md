@@ -1,5 +1,5 @@
-# Unity Fern Toon Render
-NPR rendering Library for mobile, include character, scene, etc.
+# FernNPR
+FernNPR is NPR rendering library in Unity, not just cartoon rendering, It will include as many non-realistic rendering techniques as possible.
 
 ## Render Example
 There are some simple scenes.
