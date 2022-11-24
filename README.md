@@ -1,5 +1,6 @@
 # FernNPR
-FernNPR is NPR rendering library in Unity, not just cartoon rendering, It will include as many non-realistic rendering techniques as possible.
+FernNPR is a NPR rendering library in Unity, not just cartoon rendering, It will include as many non-realistic rendering techniques as possible.
+It will be an easily scalable, multi-platform (PC/Mobile) rendering library.
 
 ## Render Example
 There are some simple scenes.
