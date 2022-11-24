@@ -14,6 +14,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 1.0
+        [SubToggleOff(Surface, _RECEIVE_SHADOWS_OFF)] _RECEIVE_SHADOWS_OFF("RECEIVE_SHADOWS", Float) = 1
 
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
@@ -107,6 +108,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
             // -------------------------------------
             // Material Keywords
             #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _RECEIVE_SHADOWS_OFF
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
             #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG _ANISOTROPY
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM

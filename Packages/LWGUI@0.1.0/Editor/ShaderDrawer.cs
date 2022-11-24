@@ -313,6 +313,59 @@ namespace LWGUI
 				Helper.SetShaderKeyWord(prop.targets, Helper.GetKeyWord(_keyWord, prop.name), prop.floatValue > 0f);
 		}
 	}
+	
+	/// <summary>
+	/// Similar to builtin Toggle()
+	/// group：father group name, support suffix keyword for conditional display (Default: none)
+	/// keyword：keyword used for toggle, "_" = ignore, none or "__" = Property Name +  "_ON", always Upper (Default: none)
+	/// Target Property Type: FLoat
+	/// </summary>
+	internal class SubToggleOffDrawer : SubDrawer
+	{
+		private string _keyWord = String.Empty;
+		
+		public SubToggleOffDrawer() { }
+		public SubToggleOffDrawer(string group) : this(group, String.Empty) { }
+
+		public SubToggleOffDrawer(string group, string keyWord)
+		{
+			this.group = group;
+			this._keyWord = keyWord;
+		}
+		
+		protected override bool IsMatchPropType(MaterialProperty property) { return property.type == MaterialProperty.PropType.Float; }
+
+		public override void Init(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
+		{
+			base.Init(position, prop, label, editor);
+			MetaDataHelper.RegisterPropertyDefaultValueText(shader, prop, 
+				RevertableHelper.GetDefaultProperty(shader, prop).floatValue > 0 ? "On" : "Off");
+		}
+
+		public override void DrawProp(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
+		{
+			EditorGUI.showMixedValue = prop.hasMixedValue;
+			EditorGUI.BeginChangeCheck();
+			var rect = position;//EditorGUILayout.GetControlRect();
+			var value = EditorGUI.Toggle(rect, label, prop.floatValue > 0.0f);
+			string k = Helper.GetKeyWord(_keyWord, prop.name);
+			if (EditorGUI.EndChangeCheck())
+			{
+				prop.floatValue = value ? 1.0f : 0.0f;
+				Helper.SetShaderKeyWord(editor.targets, k, !value);
+			}
+
+			GroupStateHelper.SetKeywordConditionalDisplay(editor.target, k, !value);
+			EditorGUI.showMixedValue = false;
+		}
+
+		public override void Apply(MaterialProperty prop)
+		{
+			base.Apply(prop);
+			if (!prop.hasMixedValue && IsMatchPropType(prop))
+				Helper.SetShaderKeyWord(prop.targets, Helper.GetKeyWord(_keyWord, prop.name), !(prop.floatValue > 0f));
+		}
+	}
 
 	/// <summary>
 	/// Similar to builtin PowerSlider()

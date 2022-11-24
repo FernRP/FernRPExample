@@ -61,9 +61,9 @@ LightingData InitializeLightingData(Light mainLight, half3 normalWS, half3 viewD
     lightData.NdotVClamp = saturate(dot(normalWS.xyz, viewDirectionWS.xyz));
     lightData.HalfDir = halfDir;
     #if defined(_RECEIVE_SHADOWS_OFF)
-    inputDotData.ShadowAttenuation = 1;
+        lightData.ShadowAttenuation = 1;
     #else
-    lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
+        lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
     #endif
     return lightData;
 }

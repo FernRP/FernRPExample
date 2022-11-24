@@ -8,20 +8,20 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_Hair_00_HAIR_03 (Instance)
-  m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
-  m_ValidKeywords:
-  - _ALPHATEST_ON
+  m_Shader: {fileID: 4800000, guid: 8c17b56f4bf084c47872edcb95237e4a, type: 3}
+  m_ValidKeywords: []
+  m_InvalidKeywords:
   - _ANISOTROPY
   - _CELLSHADING
-  m_InvalidKeywords:
   - _MTOON_EMISSIVEMAP
   - _MTOON_RIMMAP
+  - _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
+  m_CustomRenderQueue: 2000
   stringTagMap:
-    RenderType: TransparentCutout
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -58,6 +58,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _PBRLightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _RimTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -86,7 +90,7 @@ Material:
     - _AnsioSpeularExponent: 629
     - _AnsioSpeularShift: -0.67
     - _AnsioSpeularStrength: 1.725
-    - _BlendMode: 1
+    - _BlendMode: 0
     - _BumpMapKeyword: 0
     - _BumpScale: 1
     - _CELLSmoothing: 0.001
@@ -111,6 +115,7 @@ Material:
     - _OutlineWidth: 0
     - _OutlineWidthMode: 0
     - _QueueOffset: 0
+    - _RECEIVE_SHADOWS_OFF: 0
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0.5
     - _RenderQueueOffset: 0

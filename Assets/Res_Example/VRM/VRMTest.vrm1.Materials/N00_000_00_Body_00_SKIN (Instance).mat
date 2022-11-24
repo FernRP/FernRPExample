@@ -11,9 +11,9 @@ Material:
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
   - _ALPHATEST_ON
+  - _CELLSHADING
   - _FRESNELRIM
   - _GGX
-  - _LAMBERTIAN
   - _NORMALMAP
   - _OUTLINE
   m_InvalidKeywords:
@@ -98,7 +98,7 @@ Material:
     - _BlendMode: 1
     - _BumpMapKeyword: 1
     - _BumpScale: 1
-    - _CELLSmoothing: 0.269
+    - _CELLSmoothing: 0.154
     - _CELLThreshold: 0.285
     - _Cull: 2
     - _CullMode: 2
@@ -120,6 +120,7 @@ Material:
     - _OutlineWidth: 0.3
     - _OutlineWidthMode: 1
     - _QueueOffset: 0
+    - _RECEIVE_SHADOWS_OFF: 1
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0.5
     - _RenderQueueOffset: 0
@@ -149,7 +150,7 @@ Material:
     - _UvAnimScrollYSpeed: 0
     - _VColBlendMode: 0
     - _ZWrite: 1
-    - _enum_diffuse: 2
+    - _enum_diffuse: 0
     - _enum_rim: 1
     - _enum_specular: 0
     - _group: 0
@@ -162,7 +163,7 @@ Material:
     - _AnisoSpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DarkColor: {r: 0.9528302, g: 0.8419663, b: 0.8419663, a: 1}
+    - _DarkColor: {r: 0.864, g: 0.552096, b: 0.552096, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 1}
