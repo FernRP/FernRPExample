@@ -17,6 +17,9 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 #### Aniso Hair
 ![](DocAssets/11-18-hair.png)
 
+#### Angle Ring Specular
+![](DocAssets/angleringspecular.gif)
+
 #### More
 Some features are not given source code for now, I will finish all features as soon as possible.
 

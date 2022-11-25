@@ -23,7 +23,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.unity.collab-proxy": {
-      "version": "1.17.1",
+      "version": "1.17.2",
       "depth": 0,
       "source": "registry",
       "dependencies": {
