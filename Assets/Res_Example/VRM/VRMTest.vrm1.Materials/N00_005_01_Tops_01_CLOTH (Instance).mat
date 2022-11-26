@@ -103,6 +103,8 @@ Material:
     - _BumpScale: 1
     - _CELLSmoothing: 0.081
     - _CELLThreshold: 0.5
+    - _CellBandSoftness: 0.001
+    - _CellBands: 1
     - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -148,6 +150,7 @@ Material:
     - _Surface: 0
     - _TransparentWithZWrite: 0
     - _UseHalfLambert: 1
+    - _UseRadianceOcclusion: 0
     - _UvAnimRotationSpeed: 0
     - _UvAnimScrollXSpeed: 0
     - _UvAnimScrollYSpeed: 0

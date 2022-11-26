@@ -96,6 +96,23 @@ inline half3 CellShadingDiffuse(inout half radiance, half cellThreshold, half ce
     return diffuse;
 }
 
+inline half3 CellBandsShadingDiffuse(inout half radiance, half cellThreshold, half cellBandSoftness, half cellBands, half3 highColor, half3 darkColor)
+{
+    half3 diffuse = 0;
+    //cellSmooth *= 0.5;
+    radiance = saturate(1 + (radiance - cellThreshold - cellBandSoftness) / max(cellBandSoftness, 1e-3));
+    // 0.5 cellThreshold 0.5 smooth = Lambert
+    //radiance = LinearStep(cellThreshold - cellSmooth, cellThreshold + cellSmooth, radiance);
+
+    #if _CELLBANDSHADING
+    half bandsSmooth = cellBandSoftness;
+    radiance = saturate((LinearStep(0.5 - bandsSmooth, 0.5 + bandsSmooth, frac(radiance * cellBands)) + floor(radiance * cellBands)) / cellBands);
+    #endif
+
+    diffuse = lerp(darkColor.rgb, highColor.rgb, radiance);
+    return diffuse;
+}
+
 inline half3 RampShadingDiffuse(half radiance, half rampVOffset, half uOffset, TEXTURE2D_PARAM(rampMap, sampler_rampMap))
 {
     half3 diffuse = 0;

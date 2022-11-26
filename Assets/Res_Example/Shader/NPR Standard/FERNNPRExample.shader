@@ -10,7 +10,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
-        [Tex(Surface)] _PBRLightMap ("PBR Light Map", 2D) = "white" { }
+        [Tex(Surface)] _PBRLightMap ("PBR Light Map(R:Metallic, G:AO, A:Smoothness)", 2D) = "white" { }
         [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
         [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 1.0
@@ -19,12 +19,15 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
         [Space()]
-        [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, PBRShading, _LAMBERTIAN)] _enum_diffuse ("Shading Mode", float) = 0
+        [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, CellBandsShading, _CELLBANDSHADING, PBRShading, _LAMBERTIAN)] _enum_diffuse ("Shading Mode", float) = 0
         [SubToggle(Diffuse)] _UseHalfLambert ("Use HalfLambert (More Flatter)", float) = 0
+        [SubToggle(Diffuse)] _UseRadianceOcclusion ("Radiance Occlusion", float) = 0
         [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] [HDR] _HighColor ("Hight Color", Color) = (1,1,1,1)
-        [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] _DarkColor ("Dark Color", Color) = (0,0,0,1)
-        [Sub(Diffuse_CELLSHADING)] _CELLThreshold ("Cell Threshold", Range(0.01,1)) = 0.5
+        [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] _DarkColor ("Dark Color", Color) = (0.5,0.5,0.5,1)
+        [Sub(Diffuse._CELLBANDSHADING)] _CellBands ("Cell Bands(Int)", Range(1, 10)) = 1
+        [Sub(Diffuse_CELLSHADING._CELLBANDSHADING)] _CELLThreshold ("Cell Threshold", Range(0.01,1)) = 0.5
         [Sub(Diffuse_CELLSHADING)] _CELLSmoothing ("Cell Smoothing", Range(0.001,1)) = 0.001
+        [Sub(Diffuse._CELLBANDSHADING)] _CellBandSoftness ("Cell Softness", Range(0.001, 1)) = 0.001
         [Sub(Diffuse_RAMPSHADING)] _DiffuseRampMap ("Ramp Map", 2D) = "white" {}
         [Sub(Diffuse_RAMPSHADING)] _RampMapUOffset ("Ramp Map U Offset", Range(-1,1)) = 0
         [Sub(Diffuse_RAMPSHADING)] _RampMapVOffset ("Ramp Map V Offset", Range(0,1)) = 0.5
@@ -109,7 +112,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
             // Material Keywords
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _RECEIVE_SHADOWS_OFF
-            #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING
+            #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING _CELLBANDSHADING
             #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG _ANISOTROPY
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _NORMALMAP

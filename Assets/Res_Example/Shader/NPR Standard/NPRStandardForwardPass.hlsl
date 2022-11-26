@@ -129,12 +129,15 @@ void InitializeInputData(Varyings input, half3 normalTS, out InputData inputData
 half3 NPRDiffuseLighting(BRDFData brdfData, half radiance)
 {
     half3 diffuse = 0;
+
     #if _CELLSHADING
-        diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor.rgb, _DarkColor.rgb);
+    diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor.rgb, _DarkColor.rgb);
     #elif _LAMBERTIAN
-        diffuse = lerp(_DarkColor, _HighColor, radiance);
+    diffuse = lerp(_DarkColor, _HighColor, radiance);
     #elif _RAMPSHADING
-        diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, _RampMapUOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
+    diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, _RampMapUOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
+    #elif _CELLBANDSHADING
+    diffuse = CellBandsShadingDiffuse(radiance, _CELLThreshold, _CellBandSoftness, _CellBands,  _HighColor.rgb, _DarkColor.rgb);
     #endif
     diffuse *= brdfData.diffuse;
     return diffuse;

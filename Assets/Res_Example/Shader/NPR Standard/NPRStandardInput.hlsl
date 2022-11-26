@@ -33,6 +33,8 @@ half _Metallic;
 half _UseHalfLambert;
 half _CELLThreshold;
 half _CELLSmoothing;
+half _CellBandSoftness;
+half _CellBands;
 half _RampMapUOffset;
 half _RampMapVOffset;
 half _StylizedSpecularSize;

@@ -10,7 +10,7 @@ Material:
   m_Name: N00_000_00_Face_00_SKIN (Instance)
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
-  - _CELLSHADING
+  - _CELLBANDSHADING
   - _GGX
   m_InvalidKeywords:
   - _MTOON_EMISSIVEMAP
@@ -96,6 +96,8 @@ Material:
     - _BumpScale: 1
     - _CELLSmoothing: 0.057
     - _CELLThreshold: 0.045
+    - _CellBandSoftness: 0.001
+    - _CellBands: 1
     - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -141,12 +143,13 @@ Material:
     - _Surface: 0
     - _TransparentWithZWrite: 0
     - _UseHalfLambert: 1
+    - _UseRadianceOcclusion: 0
     - _UvAnimRotationSpeed: 0
     - _UvAnimScrollXSpeed: 0
     - _UvAnimScrollYSpeed: 0
     - _VColBlendMode: 0
     - _ZWrite: 1
-    - _enum_diffuse: 0
+    - _enum_diffuse: 2
     - _enum_rim: 0
     - _enum_specular: 0
     - _group: 0
