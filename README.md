@@ -15,7 +15,7 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 ![](DocAssets/Diffuse-Occlusion.png)
 
 #### Aniso Hair
-![](DocAssets/11-18-hair.png)
+![](DocAssets/aniso-hair.gif)
 
 #### Angle Ring Specular
 ![](DocAssets/angleringspecular.gif)
