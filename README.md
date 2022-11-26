@@ -37,5 +37,3 @@ Sorry I'm very busy and slow to update...
 - [LWGUI](https://github.com/JasonMa0012/LWGUI)
 
 - [VRoid Studio](https://vroid.com/en)
-
-长城，后处理、反射、UI。。 45 -> 30
