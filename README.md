@@ -23,13 +23,16 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 ### Toon Eye Shader
 ![](DocAssets/eyeexample.gif)
 
-### Fix Face Lighting
-Easy way to fix Face lighting
+### Face Shading
+**Easy way to fix Face lighting**
 
 ![](DocAssets/facelightfix.gif)
 
+**SDF Face**
 
-#### More
+![](DocAssets/SDFFace.gif)
+
+### More
 Some features are not given source code for now, The full version is coming soon.
 
 If you are interested in this project, welcome to contact me, thanks!
