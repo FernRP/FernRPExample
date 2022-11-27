@@ -18,19 +18,19 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 ![](DocAssets/aniso-hair.gif)
 
 ### Angle Ring Specular
-![](DocAssets/angleringspecular.gif)
+![](DocAssets/compression/angleringspecular.gif)
 
 ### Toon Eye Shader
-![](DocAssets/eyeexample.gif)
+![](DocAssets/compression/eyeexample.gif)
 
 ### Face Shading
 **Easy way to fix Face lighting**
 
-![](DocAssets/facelightfix.gif)
+![](DocAssets/compression/facelightfix.gif)
 
 **SDF Face**
 
-![](DocAssets/SDFFace.gif)
+![](DocAssets/compression/SDFFace.gif)
 
 ### More
 Some features are not given source code for now, The full version is coming soon.
