@@ -38,7 +38,6 @@ Some features are not given source code for now, The full version is coming soon
 If you are interested in this project, welcome to contact me, thanks!
 
 #### Next
-- SDF Face
 - Skin
 - Fabric
 - Art Tool
