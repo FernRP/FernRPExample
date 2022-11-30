@@ -50,6 +50,14 @@ Material:
         m_Texture: {fileID: 2800000, guid: 5c781bc7dbba85e48ac2982a520e81d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 24ba027d01637a746a7fe4c89cf2f6be, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -72,6 +80,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ShadeTex:
         m_Texture: {fileID: 2800000, guid: 24ba027d01637a746a7fe4c89cf2f6be, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadingMap01:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingShiftTex:
@@ -149,6 +161,7 @@ Material:
     - _StylizedSpecularSoftness: 0.05
     - _Surface: 0
     - _TransparentWithZWrite: 0
+    - _UseEmissionTex: 0
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _UvAnimRotationSpeed: 0
@@ -161,8 +174,10 @@ Material:
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupEmission: 0
     - _groupOutline: 1
     - _groupRim: 1
+    - _groupShadingMask: 0
     - _groupSpecular: 1
     m_Colors:
     - _AnisoSecondarySpecularColor: {r: 0, g: 0, b: 0, a: 1}
@@ -170,10 +185,14 @@ Material:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.4811321, g: 0.36160555, b: 0.36160555, a: 1}
+    - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.27450976, g: 0.09019602, b: 0.12549013, a: 1}
+    - _PBRMetallicChannel: {r: 1, g: 0, b: 0, a: 0}
+    - _PBROcclusionChannel: {r: 0, g: 1, b: 0, a: 0}
+    - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0.5019608, g: 0.7490196, b: 0, a: 1}
     - _ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}

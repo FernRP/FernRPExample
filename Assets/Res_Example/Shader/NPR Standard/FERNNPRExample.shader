@@ -10,11 +10,19 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
-        [Tex(Surface)] _PBRLightMap ("PBR Light Map(R:Metallic, G:AO, A:Smoothness)", 2D) = "white" { }
+        [Tex(Surface)] _LightMap ("PBR Light Map", 2D) = "white" { }
+        [Channel(Surface)] _PBRMetallicChannel("Metallic Channel", Vector) = (1,0,0,0)
         [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
-        [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 1.0
-        [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 1.0
+        [Channel(Surface)] _PBRSmothnessChannel("Smoothness Channel", Vector) = (0,0,0,1)
+        [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 0.5 
+        [Channel(Surface)] _PBROcclusionChannel("Occlusion Channel", Vector) = (0,1,0,0)
+        [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 0.0
         [SubToggleOff(Surface, _RECEIVE_SHADOWS_OFF)] _RECEIVE_SHADOWS_OFF("RECEIVE_SHADOWS", Float) = 1
+        
+        [Main(ShadingMap, _, off, off)]
+        _groupShadingMask ("Shading Map", float) = 0
+        [Space()]
+        [Tex(ShadingMap)] _ShadingMap01 ("Shading Mask Map 1", 2D) = "white" { }
 
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
@@ -53,6 +61,15 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
         [Sub(Specular._ANISOTROPY)] _AnsioSecondarySpeularShift("Aniso Specular Shift Layer2", Range(-3,3)) = 1.0
         [Sub(Specular._ANISOTROPY)] _AnsioSecondarySpeularStrength("Aniso Specular Strength Layer2", Range(0, 2)) = 1.0
         [Sub(Specular._ANISOTROPY)] _AnsioSecondarySpeularExponent("Aniso Specular Exponent Layer2",Range(1,1024)) = 1.0
+        
+        [Main(EmssionSetting, _, off, off)]
+        _groupEmission ("Emission Setting", float) = 0
+        [Space()]
+        [SubToggle(EmssionSetting, _USEEMISSIONTEX)] _UseEmissionTex("Use Emission Tex", Float) = 0.0
+        [Tex(EmssionSetting._USEEMISSIONTEX)] _EmissionTex ("Shading Mask Map 1", 2D) = "white" { }
+        [Channel(EmssionSetting)] _EmissionChannel("Emission Channel", Vector) = (0,0,1,0)
+        [Sub(EmssionSetting)] [HDR]_EmissionColor("Emission Color", Color) = (0,0,0,0)
+        [Sub(EmssionSetting)] _EmissionColorAlbedoWeight("Emission Color Albedo Weight", Range(0, 1)) = 0
         
         [Main(Rim, _, off, off)]
         _groupRim ("RimSettings", float) = 1
@@ -116,12 +133,13 @@ Shader "NPRRenderPipeline/URP/FERNNPRExample"
             #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG _ANISOTROPY
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _NORMALMAP
+            #pragma shader_feature_local _USEEMISSIONTEX
             
             // -------------------------------------
             // Universal Pipeline keywords
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
-            //#pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
+            #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             //#pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
             //#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3

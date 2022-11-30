@@ -306,6 +306,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
     color.rgb = NPRDirectLighting(brdfData, input, inputData, surfaceData.albedo, radiance, lightingData);
     color.rgb += NPRRimLighting(lightingData, inputData, input);
     color.rgb += NPRIndirectLighting(brdfData, inputData, surfaceData.occlusion);
+    color.rgb += surfaceData.emission;
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
 
     color.a = surfaceData.alpha;

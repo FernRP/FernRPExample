@@ -339,7 +339,7 @@ namespace LWGUI
 		{
 			base.Init(position, prop, label, editor);
 			MetaDataHelper.RegisterPropertyDefaultValueText(shader, prop, 
-				RevertableHelper.GetDefaultProperty(shader, prop).floatValue > 0 ? "On" : "Off");
+				RevertableHelper.GetDefaultProperty(shader, prop).floatValue > 0 ? "Off" : "on");
 		}
 
 		public override void DrawProp(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
@@ -355,7 +355,7 @@ namespace LWGUI
 				Helper.SetShaderKeyWord(editor.targets, k, !value);
 			}
 
-			GroupStateHelper.SetKeywordConditionalDisplay(editor.target, k, !value);
+			GroupStateHelper.SetKeywordConditionalDisplay(editor.target, k, value);
 			EditorGUI.showMixedValue = false;
 		}
 
@@ -994,17 +994,19 @@ namespace LWGUI
 	/// </summary>
 	internal class ChannelDrawer : SubDrawer
 	{
-		private static GUIContent[] _names  = new[] { new GUIContent("R"), new GUIContent("G"), new GUIContent("B"), new GUIContent("A"),
-			new GUIContent("RGB Average"), new GUIContent("RGB Luminance") };
-		private static int[]     _intValues     = new int[] { 0, 1, 2, 3, 4, 5 };
+		private static GUIContent[] _names  = new[] { new GUIContent("PBR: R"), new GUIContent("PBR: G"), new GUIContent("PBR: B"), new GUIContent("PBR: A"),
+			new GUIContent("ShadingMap1: R"), new GUIContent("ShadingMap1: G"), new GUIContent("ShadingMap1: B"), new GUIContent("ShadingMap1: A") };
+		private static int[]     _intValues     = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
 		private static Vector4[] _vector4Values = new[]
 		{
 			new Vector4(1, 0, 0, 0),
 			new Vector4(0, 1, 0, 0),
 			new Vector4(0, 0, 1, 0),
 			new Vector4(0, 0, 0, 1),
-			new Vector4(1f / 3f, 1f / 3f, 1f / 3f, 0),
-			new Vector4(0.2126f, 0.7152f, 0.0722f, 0)
+			new Vector4(2, 0, 0, 0),
+			new Vector4(0, 2, 0, 0),
+			new Vector4(0, 0, 2, 0),
+			new Vector4(0, 0, 0, 2),
 		};
 
 		public ChannelDrawer() { }
@@ -1030,6 +1032,10 @@ namespace LWGUI
 				index = 4;
 			else if (prop.vectorValue == _vector4Values[5])
 				index = 5;
+			else if (prop.vectorValue == _vector4Values[6])
+				index = 6;
+			else if (prop.vectorValue == _vector4Values[7])
+				index = 7;
 			else
 			{
 				Debug.LogError($"Channel Property:{prop.name} invalid vector found, reset to A");
