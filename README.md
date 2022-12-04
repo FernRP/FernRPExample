@@ -32,6 +32,12 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
 ![](DocAssets/compression/SDFFace.gif)
 
+### Depth Shadow 
+
+Use tricks of depth to get sharp shadows
+
+![](DocAssets/DepthShadow.png)
+
 ### More
 Some features are not given source code for now, The full version is coming soon.
 
