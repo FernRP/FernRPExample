@@ -34,7 +34,7 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
 ### Depth Shadow 
 
-Use tricks of depth to get sharp shadows
+Use trick of depth to get sharp shadow
 
 ![](DocAssets/DepthShadow.png)
 
