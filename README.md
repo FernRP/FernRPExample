@@ -38,6 +38,9 @@ Use tricks of depth to get sharp shadows
 
 ![](DocAssets/DepthShadow.png)
 
+![](DocAssets/compression/DepthShadow-min.gif)
+
+
 ### More
 Some features are not given source code for now, The full version is coming soon.
 
