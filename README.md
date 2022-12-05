@@ -38,6 +38,8 @@ Use trick of depth to get sharp shadow
 
 ![](DocAssets/DepthShadow.png)
 
+Hair Shadow Example
+
 ![](DocAssets/compression/DepthShadow-min.gif)
 
 
