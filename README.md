@@ -34,7 +34,7 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
 ### Depth Shadow 
 
-Use trick of depth to get sharp shadow
+Use trick of depth to get Clear shadow
 
 ![](DocAssets/DepthShadow.png)
 
@@ -42,6 +42,11 @@ Hair Shadow Example
 
 ![](DocAssets/compression/DepthShadow-min.gif)
 
+### Depth Offset Rim
+
+Depth Offset allows Rim Light's width to remain consistent in screen space.
+
+![](DocAssets/DepthOffsetRim.png)
 
 ### More
 Some features are not given source code for now, The full version is coming soon.
