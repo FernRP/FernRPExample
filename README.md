@@ -49,7 +49,6 @@ Depth Offset allows Rim Light's width to remain consistent in screen space.
 ![](DocAssets/DepthOffsetRim.png)
 
 ### More
-Some features are not given source code for now, The full version is coming soon.
 
 If you are interested in this project, welcome to contact me, thanks!
 
