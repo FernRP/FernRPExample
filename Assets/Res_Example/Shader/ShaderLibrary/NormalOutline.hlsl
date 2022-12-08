@@ -10,7 +10,6 @@ struct Attributes
     float2 texcoord : TEXCOORD0;
     float3 normalOS : NORMAL;
     float4 tangentOS : TANGENT;
-    float4 color : COLOR;
 
     #if defined(UV2_AS_NORMALS)
         float4 uv2 : TEXCOORD1;
@@ -42,6 +41,7 @@ Varyings NormalOutLineVertex(Attributes input)
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_TRANSFER_INSTANCE_ID(input, output);
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+
     #if !_OUTLINE
         return output;
     #else
@@ -55,7 +55,7 @@ Varyings NormalOutLineVertex(Attributes input)
 
         half2 normalProjectedCS = normalize(normalCS.xy);
         float clipSpaceHeight = 0.02f;
-        normalProjectedCS *= clipSpaceHeight * _OutlineWidth * GetOutlineVertex_ScreenCoordinatesWidth(positionCS) * input.color.a;
+        normalProjectedCS *= clipSpaceHeight * _OutlineWidth * GetOutlineVertex_ScreenCoordinatesWidth(positionCS);
         normalProjectedCS.x *= aspect;
         normalProjectedCS.xy *= saturate(1 - normalVS.z * normalVS.z);
         output.positionCS = float4(positionCS.xy + normalProjectedCS.xy, positionCS.zw);
@@ -65,7 +65,6 @@ Varyings NormalOutLineVertex(Attributes input)
 
 half4 NormalOutlineFragment(Varyings input) : SV_Target
 {
-    
     #if defined(_OUTLINE)
         half4 outlineColor = 0;
         outlineColor.rgb = _OutlineColor.rgb;

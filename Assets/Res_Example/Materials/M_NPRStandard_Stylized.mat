@@ -11,8 +11,8 @@ Material:
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
   - _CELLSHADING
+  - _GGX
   - _SCREENSPACERIM
-  - _STYLIZED
   m_InvalidKeywords:
   - _FRENSELRIM
   - _KEY1
@@ -43,7 +43,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: 0c0e3d13586e2be4a9d63ee9dbbc2200, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _RampMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadingMap01:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -62,15 +74,30 @@ Material:
     - _BumpScale: 1
     - _CELLSmoothing: 0.336
     - _CELLThreshold: 0.366
+    - _CellBandSoftness: 0.001
+    - _CellBands: 1
+    - _ClearCoat: 0
+    - _ClearCoatMask: 1
+    - _ClearCoatSmoothness: 1
+    - _ClearCoatTexSource: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DepthRimLightCameraDistanceFadeoutEnd: 80
+    - _DepthRimLightCameraDistanceStart: 20
+    - _DepthRimOffset: 0.01
+    - _DepthRimThresoldOffset: 0.01
+    - _DepthShadowOffset: 0.15
+    - _DepthShadowSoftness: 0
+    - _DepthShadowThresoldOffset: 0
     - _DstBlend: 0
+    - _EmissionColorAlbedoWeight: 0
     - _Metallic: 0
     - _MetallicScale: 1
     - _OcclusionStrength: 1
     - _Outline: 0
     - _OutlineWidth: 1
     - _QueueOffset: 0
+    - _RECEIVE_SHADOWS_OFF: 1
     - _RIM_ON: 1
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0
@@ -89,6 +116,7 @@ Material:
     - _Smoothness: 0.7
     - _SmoothnessScale: 1
     - _SpecularAlbedoWeight: 0
+    - _SpecularMask: 0
     - _SpecularToonSize: 0.1
     - _SpecularToonSmoothness: 0.05
     - _SrcBlend: 1
@@ -96,7 +124,10 @@ Material:
     - _StylizedSpecularSize: 0.119
     - _StylizedSpecularSoftness: 0.001
     - _Surface: 0
+    - _UseDepthShadow: 0
+    - _UseEmissionTex: 0
     - _UseHalfLambert: 1
+    - _UseRadianceOcclusion: 0
     - _ZWrite: 1
     - _enum: 1
     - _enum_diffuse: 0
@@ -104,18 +135,28 @@ Material:
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupClearCoat: 1
+    - _groupEmission: 0
     - _groupOutline: 1
     - _groupRim: 1
+    - _groupShadingMask: 0
+    - _groupShadowSetting: 1
     - _groupSpecular: 1
     m_Colors:
     - _AnisoSecondarySpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _AnisoSpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 1, g: 0.37, b: 0.37, a: 1}
+    - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 0}
+    - _PBRMetallicChannel: {r: 1, g: 0, b: 0, a: 0}
+    - _PBROcclusionChannel: {r: 0, g: 1, b: 0, a: 0}
+    - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1.6941177, g: 0.0627451, b: 2.9960785, a: 1}
     - _SpecularColor: {r: 4, g: 0, b: 0, a: 1}
+    - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &8123892848369133960
 MonoBehaviour:

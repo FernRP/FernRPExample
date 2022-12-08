@@ -7,6 +7,8 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/SurfaceInput.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/ParallaxMapping.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
+#include "../ShaderLibrary/NPRInput.hlsl"
+#include "../ShaderLibrary/NPRUtils.hlsl"
 #include "../ShaderLibrary/NPRLighting.hlsl"
 
 #if defined(_DETAIL_MULX2) || defined(_DETAIL_SCALED)
@@ -19,6 +21,7 @@ TEXTURE2D(_DiffuseRampMap);				SAMPLER(sampler_DiffuseRampMap);
 CBUFFER_START(UnityPerMaterial)
 half4 _BaseMap_ST;
 half4 _AnisoDetailMap_ST;
+half4 _MatCapTex_ST;
 half4 _BaseColor;
 half4 _HighColor;
 half4 _DarkColor;
@@ -26,6 +29,9 @@ half4 _SpecularColor;
 half4 _RimColor;
 half4 _AnisoSpecularColor;
 half4 _AnisoSecondarySpecularColor;
+half4 _AngleRingBrightColor;
+half4 _AngleRingShadowColor;
+half4 _MatCapColor;
 half4 _EmissionColor;
 
 // Channel
@@ -35,11 +41,19 @@ half4 _PBROcclusionChannel;
 half4 _SpecularIntensityChannel;
 half4 _EmissionChannel;
 
+#if EYE
+    half4 _EyeParallaxChannel;
+#endif
+
+half _LightDirectionObliqueWeight;
 half _BumpScale;
+half _Metallic;
 half _Smoothness;
 half _OcclusionStrength;
-half _Metallic;
+half _ClearCoatMask;
+half _ClearCoatSmoothness;
 half _UseHalfLambert;
+half _UseRadianceOcclusion;
 half _CELLThreshold;
 half _CELLSmoothing;
 half _CellBandSoftness;
@@ -50,12 +64,7 @@ half _StylizedSpecularSize;
 half _StylizedSpecularSoftness;
 half _StylizedSpecularAlbedoWeight;
 half _Shininess;
-half _RimDirectionLightContribution;
-half _RimThreshold;
-half _RimSoftness;
-half _ScreenSpaceRimWidth;
-half _ScreenSpaceRimThreshold;
-half _ScreenSpaceRimSoftness;
+
 half _AnisoShiftScale;
 half _AnsioSpeularShift;
 half _AnsioSecondarySpeularShift;
@@ -65,14 +74,44 @@ half _AnsioSpeularExponent;
 half _AnsioSecondarySpeularExponent;
 half _AnisoSpread1;
 half _AnisoSpread2;
+half _AngleRingWidth;
+half _AngleRingSoftness;
+half _AngleRingThreshold;
+half _AngleRingIntensity;
 half _EmissionColorAlbedoWeight;
-;
+
+// depth shadow
+half _DepthShadowOffset;
+half _DepthShadowThresoldOffset;
+half _DepthShadowSoftness;
+
+// rim
+half _RimDirectionLightContribution;
+half _RimThreshold;
+half _RimSoftness;
+half _DepthRimOffset;
+half _DepthRimThresoldOffset;
+half _DepthRimLightCameraDistanceStart;
+half _DepthRimLightCameraDistanceFadeoutEnd;
+
+#if EYE
+    half _Parallax;
+    half _BumpIrisInvert;
+#endif
+
+#if FACE
+half _SDFFaceArea;
+half _SDFDirectionReversal;
+half _SDFShadingSoftness;
+#endif
 
 // Surface
 half _Cutoff;
 half _Surface;
 half _ClipThresold;
 CBUFFER_END
+
+
 
 // NOTE: Do not ifdef the properties for dots instancing, but ifdef the actual usage.
 // Otherwise you might break CPU-side as property constant-buffer offsets change per variant.
@@ -90,6 +129,7 @@ CBUFFER_END
 //     UNITY_DOTS_INSTANCED_PROP(float , _Smoothness)
 //     UNITY_DOTS_INSTANCED_PROP(float , _Metallic)
 //     UNITY_DOTS_INSTANCED_PROP(float , _UseHalfLambert)
+//     UNITY_DOTS_INSTANCED_PROP(float , _UseRadianceOcclusion)
 //     UNITY_DOTS_INSTANCED_PROP(float , _CELLThreshold)
 //     UNITY_DOTS_INSTANCED_PROP(float , _CELLSmoothing)
 //     UNITY_DOTS_INSTANCED_PROP(float , _RampMapUOffset)
@@ -119,6 +159,9 @@ CBUFFER_END
 //     UNITY_DOTS_INSTANCED_PROP(float , _ClearCoatSmoothness)
 //     UNITY_DOTS_INSTANCED_PROP(float , _DetailAlbedoMapScale)
 //     UNITY_DOTS_INSTANCED_PROP(float , _DetailNormalMapScale)
+//     UNITY_DOTS_INSTANCED_PROP(float , _PBRMetallicChannel)
+//     UNITY_DOTS_INSTANCED_PROP(float , _PBRSmothnessChannel)
+//     UNITY_DOTS_INSTANCED_PROP(float , _PBROcclusionChannel)
 //     UNITY_DOTS_INSTANCED_PROP(float , _Surface)
 // UNITY_DOTS_INSTANCING_END(MaterialPropertyMetadata)
 //
@@ -131,6 +174,7 @@ CBUFFER_END
 // #define _Smoothness             UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Smoothness)
 // #define _Metallic               UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Metallic)
 // #define _UseHalfLambert         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_UseHalfLambert)
+// #define _UseRadianceOcclusion         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_UseRadianceOcclusion
 // #define _CELLThreshold          UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_CELLThreshold)
 // #define _RampMapUOffset         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RampMapUOffset)
 // #define _RampMapVOffset         UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_RampMapVOffset)
@@ -159,21 +203,26 @@ CBUFFER_END
 // #define _ClearCoatSmoothness    UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_ClearCoatSmoothness)
 // #define _DetailAlbedoMapScale   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_DetailAlbedoMapScale)
 // #define _DetailNormalMapScale   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_DetailNormalMapScale)
+// #define _PBRSmothnessChannel   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_PBRSmothnessChannel)
+// #define _OcclusionStrength   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_OcclusionStrength)
+// #define _PBROcclusionChannel   UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_PBROcclusionChannel)
 // #define _Surface                UNITY_ACCESS_DOTS_INSTANCED_PROP_FROM_MACRO(float  , Metadata_Surface)
 // #endif
 
 TEXTURE2D(_ParallaxMap);        SAMPLER(sampler_ParallaxMap);
-TEXTURE2D(_OcclusionMap);       SAMPLER(sampler_OcclusionMap);
 TEXTURE2D(_DetailMask);         SAMPLER(sampler_DetailMask);
 TEXTURE2D(_DetailAlbedoMap);    SAMPLER(sampler_DetailAlbedoMap);
 TEXTURE2D(_DetailNormalMap);    SAMPLER(sampler_DetailNormalMap);
-TEXTURE2D(_MetallicGlossMap);   SAMPLER(sampler_MetallicGlossMap);
-TEXTURE2D(_SpecGlossMap);       SAMPLER(sampler_SpecGlossMap);
+TEXTURE2D(_MatCapTex);       SAMPLER(sampler_MatCapTex);
 TEXTURE2D(_ClearCoatMap);       SAMPLER(sampler_ClearCoatMap);
 TEXTURE2D(_LightMap);           SAMPLER(sampler_LightMap);
 TEXTURE2D(_AnisoShiftMap);       SAMPLER(sampler_AnisoShiftMap);
 TEXTURE2D(_ShadingMap01);       SAMPLER(sampler_ShadingMap01);
 TEXTURE2D(_EmissionTex);       SAMPLER(sampler_EmissionTex);
+
+#if FACE
+    TEXTURE2D(_SDFFaceTex);      SAMPLER(sampler_SDFFaceTex);
+#endif
 
 
 #ifdef _SPECULAR_SETUP
@@ -219,31 +268,48 @@ half3 EmissionColor(half4 pbrLightMap, half4 shadingMap01, half3 albedo, half2 u
 {
     half3 emissionColor = 0;
     #if _USEEMISSIONTEX
-    emissionColor = SAMPLE_TEXTURE2D(_EmissionTex, sampler_EmissionTex, uv).rgb;
+        emissionColor = SAMPLE_TEXTURE2D(_EmissionTex, sampler_EmissionTex, uv).rgb;
     #else
-    half emissionChannel = GetVauleFromChannel(pbrLightMap, shadingMap01, _EmissionChannel);
-    emissionColor = emissionChannel;
+        half emissionChannel = GetVauleFromChannel(pbrLightMap, shadingMap01, _EmissionChannel);
+        emissionColor = emissionChannel;
     #endif
     emissionColor *= lerp(_EmissionColor, _EmissionColor * albedo, _EmissionColorAlbedoWeight);
     return emissionColor;
 }
 
-inline void InitializeNPRStandardSurfaceData(float2 uv, out NPRSurfaceData outSurfaceData)
+#if EYE
+    half2 EasyParallaxOffset(half parallax, half3x3 TBN, half3 viewDirWS)
+    {
+        half3 tangentViewDir = normalize(mul(TBN, viewDirWS));
+        half paraMask = parallax * 0.15f;
+        half2 parallxOffset = clamp(tangentViewDir.xy / (tangentViewDir.z + 0.42f) * _Parallax * paraMask, -paraMask, paraMask);
+        return parallxOffset;
+    }
+#endif
+
+inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out NPRSurfaceData outSurfaceData)
 {
     outSurfaceData = (NPRSurfaceData)0;
     half4 shadingMap01 = SAMPLE_TEXTURE2D(_ShadingMap01, sampler_ShadingMap01, uv);
     half2 uvOffset = 0;
-    half4 albedoAlpha = SampleAlbedoAlpha(uv + uvOffset, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
-    half4 pbrLightMap = SAMPLE_TEXTURE2D(_LightMap, sampler_LightMap, uv + uvOffset);
+    #if EYE
+        outSurfaceData.parallax = dot(shadingMap01, _EyeParallaxChannel);
+        uvOffset = EasyParallaxOffset( outSurfaceData.parallax, inputData.tangentToWorld, inputData.viewDirectionWS);
+    #endif
+    uv += uvOffset;
+    half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
+    half4 pbrLightMap = SAMPLE_TEXTURE2D(_LightMap, sampler_LightMap, uv);
     half4 pbrChannel = SamplePBRChannel(pbrLightMap, shadingMap01);
     outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
     outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
-    outSurfaceData.normalTS = SampleNormal(uv + uvOffset, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
+    outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
     outSurfaceData.smoothness = _Smoothness * pbrChannel.a;
     outSurfaceData.metallic = _Metallic * pbrChannel.r;
     outSurfaceData.occlusion = LerpWhiteTo(pbrChannel.g, _OcclusionStrength);
+    outSurfaceData.clearCoatMask = _ClearCoatMask;
+    outSurfaceData.clearCoatSmoothness = _ClearCoatSmoothness;
+    outSurfaceData.specularIntensity = GetVauleFromChannel(pbrLightMap, shadingMap01, _SpecularIntensityChannel);
     outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
-
 }
 
 inline void InitAnisoSpecularData(out AnisoSpecularData anisoSpecularData)
@@ -258,6 +324,17 @@ inline void InitAnisoSpecularData(out AnisoSpecularData anisoSpecularData)
     anisoSpecularData.specularSecondaryExponent = _AnsioSecondarySpeularExponent;
     anisoSpecularData.spread1 = _AnisoSpread1;
     anisoSpecularData.spread2 = _AnisoSpread2;
+}
+
+inline void InitAngleRingSpecularData(half mask, out AngleRingSpecularData angleRingSpecularData)
+{
+    angleRingSpecularData.shadowColor = _AngleRingShadowColor.rgb;
+    angleRingSpecularData.brightColor = _AngleRingBrightColor.rgb;
+    angleRingSpecularData.mask = mask;
+    angleRingSpecularData.width = _AngleRingWidth;
+    angleRingSpecularData.softness = _AngleRingSoftness;
+    angleRingSpecularData.threshold = _AngleRingThreshold;
+    angleRingSpecularData.intensity = _AngleRingIntensity;
 }
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED
