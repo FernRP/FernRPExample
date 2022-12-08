@@ -3,7 +3,7 @@
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/UnityInput.hlsl"
 
-float PositionCSZToLinearDepth(float positionCSZ)
+float DepthSamplerToLinearDepth(float positionCSZ)
 {
     if(unity_OrthoParams.w)
     {

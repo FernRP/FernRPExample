@@ -11,6 +11,8 @@ There are some simple scenes.
 ![](DocAssets/11-22.jpg)
 Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
+Background From: [GameVision Studios](https://gamevision.artstation.com/projects/ZGZxYG)
+
 ### Diffuse Occlusion
 ![](DocAssets/Diffuse-Occlusion.png)
 
