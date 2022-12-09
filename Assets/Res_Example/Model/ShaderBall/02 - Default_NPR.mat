@@ -17,6 +17,7 @@ Material:
   - _RENDERENVSETTING
   - _STYLIZED
   m_InvalidKeywords:
+  - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
   - _USERADIANCEOCCLUSION_ON
   m_LightmapFlags: 4
@@ -102,6 +103,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - LightIntensityClamp: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpMapKeyword: 0
@@ -131,6 +133,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.140028
     - _GlossyReflections: 1
+    - _Is_Filter_LightColor: 1
+    - _LightIntensityClamp: 1
     - _Metallic: 0.112
     - _Mode: 3
     - _OcclusionStrength: 1
@@ -168,6 +172,7 @@ Material:
     - _enum_specular: 2
     - _group: 0
     - _group1: 1
+    - _groupAdditionLight: 1
     - _groupClearCoat: 1
     - _groupEmission: 0
     - _groupEnvironment: 1
@@ -177,7 +182,7 @@ Material:
     - _groupShadowSetting: 1
     - _groupSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 0.5294118, g: 0.3529412, b: 0.35840482, a: 0}
+    - _BaseColor: {r: 0.5, g: 0.5, b: 0.5, a: 0}
     - _Color: {r: 0.79073066, g: 0.79073066, b: 0.79073066, a: 0}
     - _DarkColor: {r: 0.07843137, g: 0.5415431, b: 0.7647059, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}

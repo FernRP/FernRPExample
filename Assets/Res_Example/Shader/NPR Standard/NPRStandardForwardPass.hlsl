@@ -137,6 +137,34 @@ void InitializeInputData(Varyings input, half3 normalTS, inout NPRAddInputData a
     #endif
 }
 
+LightingData InitializeLightingData(Light mainLight, Varyings input, half3 normalWS, half3 viewDirectionWS, NPRAddInputData addInputData)
+{
+    LightingData lightData;
+    lightData.lightColor = mainLight.color;
+    #if EYE
+    lightData.NdotL = dot(addInputData.irisNormalWS, mainLight.direction.xyz);
+    #else
+    lightData.NdotL = dot(normalWS, mainLight.direction.xyz);
+    #endif
+    lightData.NdotLClamp = saturate(lightData.NdotL);
+    lightData.HalfLambert = lightData.NdotL * 0.5 + 0.5;
+    half3 halfDir = SafeNormalize(mainLight.direction + viewDirectionWS);
+    lightData.LdotHClamp = saturate(dot(mainLight.direction.xyz, halfDir.xyz));
+    lightData.NdotHClamp = saturate(dot(normalWS.xyz, halfDir.xyz));
+    lightData.NdotVClamp = saturate(dot(normalWS.xyz, viewDirectionWS.xyz));
+    lightData.HalfDir = halfDir;
+    lightData.lightDir = mainLight.direction;
+    #if defined(_RECEIVE_SHADOWS_OFF)
+    lightData.ShadowAttenuation = 1;
+    #elif _DEPTHSHADOW
+    lightData.ShadowAttenuation = DepthShadow(_DepthShadowOffset, _DepthShadowThresoldOffset, _DepthShadowSoftness, input.positionCS.xy, mainLight.direction, addInputData);
+    #else
+    lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
+    #endif
+
+    return lightData;
+}
+
 ///////////////////////////////////////////////////////////////////////////////
 //                         Shading Function                                  //
 ///////////////////////////////////////////////////////////////////////////////
@@ -184,7 +212,18 @@ half3 NPRSpecularLighting(BRDFData brdfData, NPRSurfaceData surfData, Varyings i
     return specular;
 }
 
-half3 NPRDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData, NPRSurfaceData surfData, half radiance, LightingData lightData)
+/**
+ * \brief Main Lighting, consists of NPR and PBR Lighting Equation
+ * \param brdfData 
+ * \param brdfDataClearCoat 
+ * \param input 
+ * \param inputData 
+ * \param surfData 
+ * \param radiance 
+ * \param lightData 
+ * \return 
+ */
+half3 NPRMainLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData, NPRSurfaceData surfData, half radiance, LightingData lightData)
 {
     half3 diffuse = NPRDiffuseLighting(brdfData, input.uv, lightData, radiance);
     half3 specular = NPRSpecularLighting(brdfData, surfData, input, inputData, surfData.albedo, radiance, lightData);
@@ -206,6 +245,62 @@ half3 NPRDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings 
     #endif // _CLEARCOAT
 
     return brdf;
+}
+
+/**
+ * \brief AdditionLighting, Lighting Equation base on MainLight, TODO: if cell-shading should use other lighting equation
+ * \param brdfData 
+ * \param brdfDataClearCoat 
+ * \param input 
+ * \param inputData 
+ * \param surfData 
+ * \param addInputData 
+ * \param shadowMask 
+ * \param meshRenderingLayers 
+ * \param aoFactor 
+ * \return 
+ */
+half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData, NPRSurfaceData surfData,
+                                     NPRAddInputData addInputData, half4 shadowMask, half meshRenderingLayers, AmbientOcclusionFactor aoFactor)
+{
+    uint pixelLightCount = GetAdditionalLightsCount();
+
+    half3 additionLightColor = 0;
+
+    #if USE_CLUSTERED_LIGHTING
+    for (uint lightIndex = 0; lightIndex < min(_AdditionalLightsDirectionalCount, MAX_VISIBLE_LIGHTS); lightIndex++)
+    {
+        Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
+
+        if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
+        {
+            LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+            half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
+            // Additional Light Filter Referenced from https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
+            float pureIntencity = max(0.001,(0.299 * lightingData.lightColor.r + 0.587 * lightingData.lightColor.g + 0.114 * lightingData.lightColor.b));
+            lightingData.lightColor = max(0, lerp(lightingData.lightColor, lerp(0, min(lightingData.lightColor, lightingData.lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
+            half3 addLightColor = NPRMainLightDirectLighting(brdfData, brdfDataClearCoat, input, inputData, surfData, radiance, lightingData);
+            additionLightColor += addLightColor;
+        }
+    }
+    #endif
+
+    LIGHT_LOOP_BEGIN(pixelLightCount)
+        Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
+
+    if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
+    {
+        LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+        half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
+        // Additional Light Filter Referenced from https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
+        float pureIntencity = max(0.001,(0.299 * lightingData.lightColor.r + 0.587 * lightingData.lightColor.g + 0.114 * lightingData.lightColor.b));
+        lightingData.lightColor = max(0, lerp(lightingData.lightColor, lerp(0, min(lightingData.lightColor, lightingData.lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
+        half3 addLightColor = NPRMainLightDirectLighting(brdfData, brdfDataClearCoat, input, inputData, surfData, radiance, lightingData);
+        additionLightColor += addLightColor;
+    }
+    LIGHT_LOOP_END
+
+    return additionLightColor;
 }
 
 half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings input, NPRAddInputData addInputData)
@@ -246,33 +341,7 @@ half3 NPRIndirectLighting(BRDFData brdfData, InputData inputData, Varyings input
     return indirectColor;
 }
 
-LightingData InitializeLightingData(Light mainLight, Varyings input, half3 normalWS, half3 viewDirectionWS, NPRAddInputData addInputData)
-{
-    LightingData lightData;
-    lightData.lightColor = mainLight.color;
-    #if EYE
-        lightData.NdotL = dot(addInputData.irisNormalWS, mainLight.direction.xyz);
-    #else
-        lightData.NdotL = dot(normalWS, mainLight.direction.xyz);
-    #endif
-    lightData.NdotLClamp = saturate(lightData.NdotL);
-    lightData.HalfLambert = lightData.NdotL * 0.5 + 0.5;
-    half3 halfDir = SafeNormalize(mainLight.direction + viewDirectionWS);
-    lightData.LdotHClamp = saturate(dot(mainLight.direction.xyz, halfDir.xyz));
-    lightData.NdotHClamp = saturate(dot(normalWS.xyz, halfDir.xyz));
-    lightData.NdotVClamp = saturate(dot(normalWS.xyz, viewDirectionWS.xyz));
-    lightData.HalfDir = halfDir;
-    lightData.lightDir = mainLight.direction;
-    #if defined(_RECEIVE_SHADOWS_OFF)
-        lightData.ShadowAttenuation = 1;
-    #elif _DEPTHSHADOW
-        lightData.ShadowAttenuation = DepthShadow(_DepthShadowOffset, _DepthShadowThresoldOffset, _DepthShadowSoftness, input.positionCS.xy, mainLight.direction, addInputData);
-    #else
-        lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
-    #endif
 
-    return lightData;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 //                  Vertex and Fragment functions                            //
@@ -390,7 +459,8 @@ half4 LitPassFragment(Varyings input) : SV_Target
 
     half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfaceData.occlusion, _UseRadianceOcclusion);
     half4 color = 1;
-    color.rgb = NPRDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, radiance, lightingData);
+    color.rgb = NPRMainLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, radiance, lightingData);
+    color.rgb += NPRAdditionLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, addInputData, shadowMask, meshRenderingLayers, aoFactor);
     color.rgb += NPRIndirectLighting(brdfData, inputData, input, surfaceData.occlusion);
     color.rgb += NPRRimLighting(lightingData, inputData, input, addInputData);
     color.rgb += surfaceData.emission;

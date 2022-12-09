@@ -95,6 +95,12 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Sub(ShadowSetting._DEPTHSHADOW)] _DepthShadowThresoldOffset("Depth Shadow Thresold Offset", Range(-1,1)) = 0.0
         [Sub(ShadowSetting._DEPTHSHADOW)] _DepthShadowSoftness("Depth Shadow Softness", Range(0,1)) = 0.0
         
+        [Main(AdditionalLightSetting, _, off, off)]
+        _groupAdditionLight ("AdditionalLightSetting", float) = 1
+        [Space()]
+        [SubToggle(AdditionalLightSetting)] _Is_Filter_LightColor("Is Filter LightColor", Float) = 1
+        [Sub(AdditionalLightSetting)] _LightIntensityClamp("Additional Light Intensity Clamp", Range(0, 8)) = 1
+        
         [Main(Outline, _, off, off)]
         _groupOutline ("OutlineSettings", float) = 1
         [Space()]

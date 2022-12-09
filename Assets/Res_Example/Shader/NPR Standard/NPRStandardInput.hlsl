@@ -105,6 +105,9 @@ half _SDFDirectionReversal;
 half _SDFShadingSoftness;
 #endif
 
+half _LightIntensityClamp;
+half _Is_Filter_LightColor;
+
 // Surface
 half _Cutoff;
 half _Surface;

@@ -19,6 +19,8 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 
 ![](DocAssets/MaterialBall.png)
 
+![](DocAssets/MaterialBall_AdditonalLight.png)
+
 ### Aniso Hair
 ![](DocAssets/aniso-hair.gif)
 
@@ -29,9 +31,6 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 ![](DocAssets/compression/eyeexample.gif)
 
 ### Face Shading
-**Easy way to fix Face lighting**
-
-![](DocAssets/compression/facelightfix.gif)
 
 **SDF Face**
 

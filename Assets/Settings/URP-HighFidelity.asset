@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 5fa0b138f0904f541a00ec5a353574e1, type: 2}
   m_DefaultRendererIndex: 0
   m_RequireDepthTexture: 1
-  m_RequireOpaqueTexture: 1
+  m_RequireOpaqueTexture: 0
   m_OpaqueDownsampling: 1
   m_SupportsTerrainHoles: 1
   m_StoreActionsOptimization: 0
@@ -58,7 +58,7 @@ MonoBehaviour:
   m_UseSRPBatcher: 1
   m_SupportsDynamicBatching: 0
   m_MixedLightingSupported: 1
-  m_SupportsLightLayers: 0
+  m_SupportsLightLayers: 1
   m_DebugLevel: 0
   m_UseAdaptivePerformance: 1
   m_ColorGradingMode: 0

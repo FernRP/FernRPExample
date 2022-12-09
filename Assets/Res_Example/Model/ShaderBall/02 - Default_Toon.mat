@@ -16,6 +16,7 @@ Material:
   - _SCREENSPACERIM
   - _STYLIZED
   m_InvalidKeywords:
+  - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
   - _USERADIANCEOCCLUSION_ON
   m_LightmapFlags: 4
@@ -101,12 +102,13 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - LightIntensityClamp: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpMapKeyword: 0
     - _BumpScale: 1
     - _CELLSmoothing: 0.001
-    - _CELLThreshold: 0.5
+    - _CELLThreshold: 0.343
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 1
@@ -130,6 +132,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.140028
     - _GlossyReflections: 1
+    - _Is_Filter_LightColor: 1
+    - _LightIntensityClamp: 1
     - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
@@ -150,14 +154,14 @@ Material:
     - _SpecularHighlights: 1
     - _SpecularMask: 0
     - _SrcBlend: 1
-    - _StylizedSpecularAlbedoWeight: 0.689
+    - _StylizedSpecularAlbedoWeight: 0.393
     - _StylizedSpecularSize: 0.166
     - _StylizedSpecularSoftness: 0.001
     - _Surface: 0
     - _UVSec: 0
     - _UseDepthShadow: 0
     - _UseEmissionTex: 0
-    - _UseHalfLambert: 0
+    - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
@@ -167,6 +171,7 @@ Material:
     - _enum_specular: 2
     - _group: 0
     - _group1: 1
+    - _groupAdditionLight: 1
     - _groupClearCoat: 1
     - _groupEmission: 0
     - _groupEnvironment: 1
@@ -188,7 +193,7 @@ Material:
     - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0.58232325, g: 0.66551226, b: 1.3199327, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
-    - _SpecularColor: {r: 7.253216, g: 10.03291, b: 5.5528054, a: 1}
+    - _SpecularColor: {r: 11.984314, g: 11.984314, b: 11.984314, a: 1}
     - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3258632909438338971
