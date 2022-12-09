@@ -14,7 +14,9 @@ Shader "FernRender/URP/FERNNPREye"
         [Channel(Surface)] _PBRMetallicChannel("Metallic Channel", Vector) = (1,0,0,0)
         [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
         [Channel(Surface)] _PBRSmothnessChannel("Smoothness Channel", Vector) = (0,0,0,1)
-        [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 0.5 
+        [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 0.5
+        [Channel(Surface)] _PBROcclusionChannel("Occlusion Channel", Vector) = (0,1,0,0)
+        [Sub(Surface)] _OcclusionStrength("Occlusion Strength", Range(0, 1.0)) = 0.0
         
         [Main(ShadingMap, _, off, off)]
         _groupShadingMask ("Shading Map", float) = 0
@@ -61,6 +63,15 @@ Shader "FernRender/URP/FERNNPREye"
         [SubToggle(MatCap, _MATCAP)] _UseMatCap("Use MapCap", Float) = 0.0
         [Tex(MatCap._MATCAP, _MatCapColor)] _MatCapTex("MatCap Tex", 2D) = "black" {}
         [HideInInspector][HDR]_MatCapColor ("Matcap Color", color) = (1,1,1,1)
+        
+        [Main(EmssionSetting, _, off, off)]
+        _groupEmission ("Emission Setting", float) = 0
+        [Space()]
+        [SubToggle(EmssionSetting, _USEEMISSIONTEX)] _UseEmissionTex("Use Emission Tex", Float) = 0.0
+        [Tex(EmssionSetting._USEEMISSIONTEX)] _EmissionTex ("Shading Mask Map 1", 2D) = "white" { }
+        [Channel(EmssionSetting)] _EmissionChannel("Emission Channel", Vector) = (0,0,1,0)
+        [Sub(EmssionSetting)] [HDR]_EmissionColor("Emission Color", Color) = (0,0,0,0)
+        [Sub(EmssionSetting)] _EmissionColorAlbedoWeight("Emission Color Albedo Weight", Range(0, 1)) = 0
         
         [Main(ShadowSetting, _, off, off)]
         _groupShadowSetting ("Shadow Setting", float) = 1
@@ -168,6 +179,10 @@ Shader "FernRender/URP/FERNNPREye"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
+            // -------------------------------------
+            // Shader Type
+            #define EYE 1
+
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
@@ -185,7 +200,7 @@ Shader "FernRender/URP/FERNNPREye"
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "NPRStandardInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
@@ -203,6 +218,10 @@ Shader "FernRender/URP/FERNNPREye"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
+            // -------------------------------------
+            // Shader Type
+            #define EYE 1
+
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
@@ -215,7 +234,7 @@ Shader "FernRender/URP/FERNNPREye"
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "NPRStandardInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
@@ -233,6 +252,10 @@ Shader "FernRender/URP/FERNNPREye"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
+            // -------------------------------------
+            // Shader Type
+            #define EYE 1
+
             #pragma vertex DepthNormalsVertex
             #pragma fragment DepthNormalsFragment
 
@@ -248,60 +271,8 @@ Shader "FernRender/URP/FERNNPREye"
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
-            ENDHLSL
-        }
-        
-        // Normal Outline
-        Pass
-        {
-            Name "OutLine"
-            Tags { "LightMode" = "SRPDefaultUnlit" }
-            Cull Front
-            ZWrite[_ZWrite]
-            BlendOp Add, Max
-            ZTest LEqual
-            Offset 1, 1
-
-            HLSLPROGRAM
-            #pragma multi_compile _ _OUTLINE
-            #pragma vertex NormalOutLineVertex
-            #pragma fragment NormalOutlineFragment
-
             #include "NPRStandardInput.hlsl"
-            #include "../ShaderLibrary/NormalOutline.hlsl"
-            ENDHLSL
-        }
-
-        // This pass it not used during regular rendering, only for lightmap baking.
-        Pass
-        {
-            Name "Meta"
-            Tags{"LightMode" = "Meta"}
-
-            Cull Off
-
-            HLSLPROGRAM
-            #pragma only_renderers gles gles3 glcore d3d11
-            #pragma target 3.0
-
-            #pragma vertex UniversalVertexMeta
-            #pragma fragment UniversalFragmentMetaLit
-
-            #pragma shader_feature EDITOR_VISUALIZATION
-            #pragma shader_feature_local_fragment _SPECULAR_SETUP
-            #pragma shader_feature_local_fragment _EMISSION
-            #pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
-            #pragma shader_feature_local_fragment _ALPHATEST_ON
-            #pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-
-            #pragma shader_feature_local_fragment _SPECGLOSSMAP
-
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitMetaPass.hlsl"
-
+            #include "NPRDepthNormalsPass.hlsl"
             ENDHLSL
         }
     }

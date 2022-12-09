@@ -79,6 +79,7 @@ Shader "FernRender/URP/FERNNPRHair"
         [Tex(EmssionSetting._USEEMISSIONTEX)] _EmissionTex ("Shading Mask Map 1", 2D) = "white" { }
         [Channel(EmssionSetting)] _EmissionChannel("Emission Channel", Vector) = (0,0,1,0)
         [Sub(EmssionSetting)] [HDR]_EmissionColor("Emission Color", Color) = (0,0,0,0)
+        [Sub(EmssionSetting)] _EmissionColorAlbedoWeight("Emission Color Albedo Weight", Range(0, 1)) = 0
         
         [Main(Rim, _, off, off)]
         _groupRim ("RimSettings", float) = 1
@@ -208,7 +209,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma vertex ShadowPassVertex
             #pragma fragment ShadowPassFragment
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "NPRStandardInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
             ENDHLSL
         }
@@ -238,7 +239,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "NPRStandardInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
@@ -271,8 +272,8 @@ Shader "FernRender/URP/FERNNPRHair"
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitDepthNormalsPass.hlsl"
+            #include "NPRStandardInput.hlsl"
+            #include "NPRDepthNormalsPass.hlsl"
             ENDHLSL
         }
         
@@ -294,37 +295,6 @@ Shader "FernRender/URP/FERNNPRHair"
 
             #include "NPRStandardInput.hlsl"
             #include "../ShaderLibrary/NormalOutline.hlsl"
-            ENDHLSL
-        }
-
-        // This pass it not used during regular rendering, only for lightmap baking.
-        Pass
-        {
-            Name "Meta"
-            Tags{"LightMode" = "Meta"}
-
-            Cull Off
-
-            HLSLPROGRAM
-            #pragma only_renderers gles gles3 glcore d3d11
-            #pragma target 3.0
-
-            #pragma vertex UniversalVertexMeta
-            #pragma fragment UniversalFragmentMetaLit
-
-            #pragma shader_feature EDITOR_VISUALIZATION
-            #pragma shader_feature_local_fragment _SPECULAR_SETUP
-            #pragma shader_feature_local_fragment _EMISSION
-            #pragma shader_feature_local_fragment _METALLICSPECGLOSSMAP
-            #pragma shader_feature_local_fragment _ALPHATEST_ON
-            #pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
-            #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
-
-            #pragma shader_feature_local_fragment _SPECGLOSSMAP
-
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitMetaPass.hlsl"
-
             ENDHLSL
         }
     }

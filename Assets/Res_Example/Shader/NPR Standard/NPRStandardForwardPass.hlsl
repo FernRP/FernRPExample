@@ -1,6 +1,7 @@
 #ifndef UNIVERSAL_FORWARD_NPRSTANDARD_PASS_INCLUDED
 #define UNIVERSAL_FORWARD_NPRSTANDARD_PASS_INCLUDED
 
+#include "../ShaderLibrary/NPRLighting.hlsl"
 
 // GLES2 has limited amount of interpolators
 #if defined(_PARALLAXMAP) && !defined(SHADER_API_GLES)
@@ -147,7 +148,7 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half4 uv, LightingData lightingData,
    #if _CELLSHADING
         diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor.rgb, _DarkColor.rgb);
     #elif _LAMBERTIAN
-        diffuse = lerp(_DarkColor, _HighColor, radiance);
+        diffuse = lerp(_DarkColor.rgb, _HighColor.rgb, radiance);
     #elif _RAMPSHADING
         diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, _RampMapUOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
     #elif _CELLBANDSHADING
@@ -192,7 +193,7 @@ half3 NPRDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings 
    #if defined(_CLEARCOAT)
         // Clear coat evaluates the specular a second timw and has some common terms with the base specular.
         // We rely on the compiler to merge these and compute them only once.
-        half brdfCoat = kDielectricSpec.r * NPRSpecularLighting(brdfDataClearCoat, surfData, input, inputData, surfData.albedo, radiance, lightData);
+        half3 brdfCoat = kDielectricSpec.r * NPRSpecularLighting(brdfDataClearCoat, surfData, input, inputData, surfData.albedo, radiance, lightData);
         // Mix clear coat and base layer using khronos glTF recommended formula
         // https://github.com/KhronosGroup/glTF/blob/master/extensions/2.0/Khronos/KHR_materials_clearcoat/README.md
         // Use NoV for direct too instead of LoH as an optimization (NoV is light invariant).
@@ -215,12 +216,12 @@ half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings in
         half ndv4 = Pow4(1 - lightingData.NdotVClamp);
         rimColor = LinearStep(_RimThreshold, _RimThreshold + _RimSoftness, ndv4);
         rimColor *= LerpWhiteTo(lightingData.NdotLClamp, _RimDirectionLightContribution);
-        rimColor *= _RimColor;
     #elif _SCREENSPACERIM
         half depthRim = DepthRim(_DepthRimOffset, _DepthRimThresoldOffset, _DepthRimLightCameraDistanceStart,
             _DepthRimLightCameraDistanceFadeoutEnd, input.positionCS.xy, lightingData.lightDir, addInputData);
-        rimColor = depthRim * _RimColor;
+        rimColor = depthRim;
     #endif
+    rimColor *=  _RimColor.rgb;
     return rimColor;
 }
 
@@ -365,7 +366,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
     PreInitializeInputData(input, inputData, addInputData);
 
     NPRSurfaceData surfaceData;
-    InitializeNPRStandardSurfaceData(input.uv, inputData, surfaceData);
+    InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
    
     InitializeInputData(input, surfaceData.normalTS, addInputData, inputData);
 

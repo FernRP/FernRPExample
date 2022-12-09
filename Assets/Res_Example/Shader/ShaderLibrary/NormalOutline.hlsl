@@ -1,9 +1,6 @@
 #ifndef UNIVERSAL_NORMALOUTLINE_INCLUDED
 #define UNIVERSAL_NORMALOUTLINE_INCLUDED
 
-half3 _OutlineColor;
-half _OutlineWidth;
-
 struct Attributes
 {
     float4 positionOS : POSITION;

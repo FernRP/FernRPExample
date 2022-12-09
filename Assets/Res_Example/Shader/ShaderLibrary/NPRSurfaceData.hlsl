@@ -26,4 +26,29 @@ struct NPRSurfaceData
     #endif
 };
 
+struct AnisoSpecularData
+{
+    half3 specularColor;
+    half3 specularSecondaryColor;
+    half specularShift;
+    half specularSecondaryShift;
+    half specularStrength;
+    half specularSecondaryStrength;
+    half specularExponent;
+    half specularSecondaryExponent;
+    half spread1;
+    half spread2;
+};
+
+struct AngleRingSpecularData
+{
+    half3 shadowColor;
+    half3 brightColor;
+    half mask;
+    half width;
+    half softness;
+    half threshold;
+    half intensity;
+};
+
 #endif

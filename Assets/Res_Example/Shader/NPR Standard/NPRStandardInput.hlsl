@@ -8,8 +8,6 @@
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/ParallaxMapping.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
 #include "../ShaderLibrary/NPRInput.hlsl"
-#include "../ShaderLibrary/NPRUtils.hlsl"
-#include "../ShaderLibrary/NPRLighting.hlsl"
 
 #if defined(_DETAIL_MULX2) || defined(_DETAIL_SCALED)
 #define _DETAIL
@@ -44,6 +42,8 @@ half4 _EmissionChannel;
 #if EYE
     half4 _EyeParallaxChannel;
 #endif
+
+half4 _OutlineColor;
 
 half _LightDirectionObliqueWeight;
 half _BumpScale;
@@ -109,6 +109,8 @@ half _SDFShadingSoftness;
 half _Cutoff;
 half _Surface;
 half _ClipThresold;
+
+half _OutlineWidth;
 CBUFFER_END
 
 
@@ -236,7 +238,7 @@ TEXTURE2D(_EmissionTex);       SAMPLER(sampler_EmissionTex);
  * \param channel 
  * \return 
  */
-half4 GetVauleFromChannel(half4 pbrLightMap, half4 shadingMap01, half4 channel)
+half GetVauleFromChannel(half4 pbrLightMap, half4 shadingMap01, half4 channel)
 {
     int index = length(channel);
     half4 channelMap = pbrLightMap;
@@ -273,14 +275,14 @@ half3 EmissionColor(half4 pbrLightMap, half4 shadingMap01, half3 albedo, half2 u
         half emissionChannel = GetVauleFromChannel(pbrLightMap, shadingMap01, _EmissionChannel);
         emissionColor = emissionChannel;
     #endif
-    emissionColor *= lerp(_EmissionColor, _EmissionColor * albedo, _EmissionColorAlbedoWeight);
+    emissionColor *= lerp(_EmissionColor.rgb, _EmissionColor.rgb * albedo, _EmissionColorAlbedoWeight);
     return emissionColor;
 }
 
 #if EYE
     half2 EasyParallaxOffset(half parallax, half3x3 TBN, half3 viewDirWS)
     {
-        half3 tangentViewDir = normalize(mul(TBN, viewDirWS));
+        half3 tangentViewDir = SafeNormalize(mul(TBN, viewDirWS));
         half paraMask = parallax * 0.15f;
         half2 parallxOffset = clamp(tangentViewDir.xy / (tangentViewDir.z + 0.42f) * _Parallax * paraMask, -paraMask, paraMask);
         return parallxOffset;
@@ -296,6 +298,28 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
         outSurfaceData.parallax = dot(shadingMap01, _EyeParallaxChannel);
         uvOffset = EasyParallaxOffset( outSurfaceData.parallax, inputData.tangentToWorld, inputData.viewDirectionWS);
     #endif
+    uv += uvOffset;
+    half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
+    half4 pbrLightMap = SAMPLE_TEXTURE2D(_LightMap, sampler_LightMap, uv);
+    half4 pbrChannel = SamplePBRChannel(pbrLightMap, shadingMap01);
+    outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
+    outSurfaceData.albedo = albedoAlpha.rgb * _BaseColor.rgb;
+    outSurfaceData.normalTS = SampleNormal(uv, TEXTURE2D_ARGS(_BumpMap, sampler_BumpMap), _BumpScale);
+    outSurfaceData.smoothness = _Smoothness * pbrChannel.a;
+    outSurfaceData.metallic = _Metallic * pbrChannel.r;
+    outSurfaceData.occlusion = LerpWhiteTo(pbrChannel.g, _OcclusionStrength);
+    outSurfaceData.clearCoatMask = _ClearCoatMask;
+    outSurfaceData.clearCoatSmoothness = _ClearCoatSmoothness;
+    outSurfaceData.specularIntensity = GetVauleFromChannel(pbrLightMap, shadingMap01, _SpecularIntensityChannel);
+    outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
+}
+
+
+inline void InitializeNPRStandardSurfaceData(float2 uv, out NPRSurfaceData outSurfaceData)
+{
+    outSurfaceData = (NPRSurfaceData)0;
+    half4 shadingMap01 = SAMPLE_TEXTURE2D(_ShadingMap01, sampler_ShadingMap01, uv);
+    half2 uvOffset = 0;
     uv += uvOffset;
     half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
     half4 pbrLightMap = SAMPLE_TEXTURE2D(_LightMap, sampler_LightMap, uv);

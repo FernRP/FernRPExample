@@ -10,6 +10,8 @@
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
 #include "../ShaderLibrary/DeclareDepthShadowTexture.hlsl"
+#include "../ShaderLibrary/NPRSurfaceData.hlsl"
+#include "../ShaderLibrary/NPRUtils.hlsl"
 
 #define PI8 25.1327
 #define INV_PI8 0.039789
@@ -51,7 +53,7 @@ inline int2 GetDepthUVOffset(half offset, half2 positionCSXY, half3 mainLightDir
     half _CameraFOVorOrthoSize = 0.333f; // 1f / (camera.orthographic ? camera.orthographicSize * 100f : camera.fieldOfView), hard code for now
     
     float2 UvOffset = _CameraAspect * (offset * _CameraFOVorOrthoSize * rcp(1 + addInputData.linearEyeDepth));
-    half2 mainLightDirVS = TransformWorldToView(mainLightDir);
+    half2 mainLightDirVS = TransformWorldToView(mainLightDir).xy;
     half2 depthUVOffset = mainLightDirVS * UvOffset;
     half2 downSampleFix = _CameraDepthTexture_TexelSize.zw / depthTexWH.xy;
     int2 loadTexPos = positionCSXY / downSampleFix + depthUVOffset * depthTexWH.xy;
@@ -205,7 +207,7 @@ half3 StylizedSpecular(half3 albedo, half ndothClamp, half specularSize, half sp
 {
     half specSize = 1 - (specularSize * specularSize);
     half ndothStylized = (ndothClamp - specSize * specSize) / (1 - specSize);
-    half specular = LinearStep(0, specularSoftness, ndothStylized);
+    half3 specular = LinearStep(0, specularSoftness, ndothStylized);
     specular = lerp(specular, albedo * specular, albedoWeight);
     return specular;
 }
@@ -218,24 +220,10 @@ half BlinnPhongSpecular(half shininess, half ndoth)
     return specular;
 }
 
-struct AnisoSpecularData
-{
-    half3 specularColor;
-    half3 specularSecondaryColor;
-    half specularShift;
-    half specularSecondaryShift;
-    half specularStrength;
-    half specularSecondaryStrength;
-    half specularExponent;
-    half specularSecondaryExponent;
-    half spread1;
-    half spread2;
-};
-    
 inline half3 AnisotropyDoubleSpecular(BRDFData brdfData, half2 uv, half4 tangentWS, InputData inputData, LightingData lightingData,
     AnisoSpecularData anisoSpecularData, TEXTURE2D_PARAM(anisoDetailMap, sampler_anisoDetailMap))
 {
-    half4 specMask = 1; // TODO ADD Mask
+    half specMask = 1; // TODO ADD Mask
     half4 detailNormal = SAMPLE_TEXTURE2D(anisoDetailMap,sampler_anisoDetailMap, uv);
 
     float2 jitter =(detailNormal.y-0.5) * float2(anisoSpecularData.spread1,anisoSpecularData.spread2);
@@ -257,22 +245,12 @@ inline half3 AnisotropyDoubleSpecular(BRDFData brdfData, half2 uv, half4 tangent
     return anisoSpecularColor;
 }
 
-struct AngleRingSpecularData
-{
-    half3 shadowColor;
-    half3 brightColor;
-    half mask;
-    half width;
-    half softness;
-    half threshold;
-    half intensity;
-};
 inline half3 AngleRingSpecular(AngleRingSpecularData specularData, InputData inputData, half radiance, LightingData lightingData)
 {
     half3 specularColor = 0;
     half mask = specularData.mask;
-    float3 normalV = mul(UNITY_MATRIX_V, inputData.normalWS);
-    float3 halfV = mul(UNITY_MATRIX_V, lightingData.HalfDir);
+    float3 normalV = mul(UNITY_MATRIX_V, half4(inputData.normalWS, 0)).xyz;
+    float3 halfV = mul(UNITY_MATRIX_V, half4(lightingData.HalfDir, 0)).xyz;
     half ndh = dot(normalize(normalV.xz), normalize(halfV.xz));
 
     ndh = pow(ndh, 6) * specularData.width * radiance;
