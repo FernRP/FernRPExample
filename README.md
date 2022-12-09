@@ -13,6 +13,12 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
 Background From: [GameVision Studios](https://gamevision.artstation.com/projects/ZGZxYG)
 
+### Material Example
+
+FernNPR makes it easy to get various styles of materials, including NPR and PBR.
+
+![](DocAssets/MaterialBall.png)
+
 ### Aniso Hair
 ![](DocAssets/aniso-hair.gif)
 
