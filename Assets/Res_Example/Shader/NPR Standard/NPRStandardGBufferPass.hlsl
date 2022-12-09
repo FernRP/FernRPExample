@@ -110,7 +110,7 @@ void PreInitializeInputData(Varyings input, out InputData inputData, out NPRAddI
     #endif
     #endif
 
-    addInputData.linearEyeDepth = PositionCSZToLinearDepth(input.positionCS.z);
+    addInputData.linearEyeDepth = DepthSamplerToLinearDepth(input.positionCS.z);
 }
 
 void InitializeInputData(Varyings input, half3 normalTS, inout NPRAddInputData addInputData, inout InputData inputData)

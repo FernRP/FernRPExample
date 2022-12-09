@@ -386,6 +386,7 @@ half4 LitPassFragment(Varyings input) : SV_Target
     InitializeNPRBRDFData(surfaceData, brdfData, clearCoatbrdfData);
 
     LightingData lightingData = InitializeLightingData(mainLight, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+
     half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfaceData.occlusion, _UseRadianceOcclusion);
     half4 color = 1;
     color.rgb = NPRDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, radiance, lightingData);

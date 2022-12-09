@@ -51,6 +51,11 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Sub(Specular._STYLIZED)] _StylizedSpecularAlbedoWeight ("Specular Color Albedo Weight", Range(0,1)) = 0
         [Sub(Specular._BLINNPHONG)] _Shininess ("BlinnPhong Shininess", Range(0,1)) = 1
         
+        [Main(Environment, _, off, off)]
+        _groupEnvironment ("EnvironmentSettings", float) = 1
+        [Space()]
+        [KWEnum(Environment, None, _, RenderSetting, _RENDERENVSETTING, CustomCube, _CUSTOMENVCUBE)] _enum_env ("Environment Source", float) = 0
+        
         [Main(EmssionSetting, _, off, off)]
         _groupEmission ("Emission Setting", float) = 0
         [Space()]
@@ -141,6 +146,7 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _CLEARCOAT
             #pragma shader_feature_local _CUSTOMCLEARCOATTEX
+            #pragma shader_feature_local _ _RENDERENVSETTING _CUSTOMENVCUBE
             #pragma shader_feature_local _MATCAP
             #pragma shader_feature_local _USEEMISSIONTEX
             

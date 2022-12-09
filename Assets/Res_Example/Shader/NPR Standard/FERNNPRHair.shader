@@ -1,4 +1,4 @@
-Shader "NPRRenderPipeline/URP/FERNNPRHair"
+Shader "FernRender/URP/FERNNPRHair"
 {
     Properties
     {
@@ -66,6 +66,11 @@ Shader "NPRRenderPipeline/URP/FERNNPRHair"
         [Sub(Specular._ANGLERING)] _AngleRingIntensity ("Angle Ring Intensity", Range(0,1)) = 0
         [Sub(Specular._ANGLERING)] _AngleRingThreshold ("Shadow Threshold", Range(0,1)) = 0
         [Sub(Specular._ANGLERING)] _AngleRingSoftness ("Shadow Softness", Range(0,1)) = 0
+        
+        [Main(Environment, _, off, off)]
+        _groupEnvironment ("EnvironmentSettings", float) = 1
+        [Space()]
+        [KWEnum(Environment, None, _, RenderSetting, _RENDERENVSETTING, CustomCube, _CUSTOMENVCUBE)] _enum_env ("Environment Source", float) = 0
         
         [Main(EmssionSetting, _, off, off)]
         _groupEmission ("Emission Setting", float) = 0
@@ -138,7 +143,7 @@ Shader "NPRRenderPipeline/URP/FERNNPRHair"
             #pragma shader_feature_local _ _KAJIYAHAIR _ANGLERING _GGX _STYLIZED 
             #pragma shader_feature_local _SPECULARMASK
             #pragma shader_feature_local _ _FRESNELRIM
-            
+            #pragma shader_feature_local _ _RENDERENVSETTING _CUSTOMENVCUBE
 
             // -------------------------------------
             // Universal Pipeline keywords

@@ -1,4 +1,4 @@
-Shader "NPRRenderPipeline/URP/FERNNPRFace"
+Shader "FernRender/URP/FERNNPRFace"
 {
     Properties
     {
