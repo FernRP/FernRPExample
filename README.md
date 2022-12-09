@@ -15,7 +15,7 @@ Background From: [GameVision Studios](https://gamevision.artstation.com/projects
 
 ### Material Example
 
-FernNPR can easy to get various styles of materials, including NPR and PBR.
+FernNPR can easy get various styles of materials, including NPR and PBR.
 
 ![](DocAssets/MaterialBall.png)
 
