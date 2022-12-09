@@ -137,17 +137,14 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
-            //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
-            #pragma instancing_options renderinglayer
-
             // -------------------------------------
             // Material Keywords
+            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
+            #pragma shader_feature_local _DEPTHSHADOW
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local _NORMALMAP
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING _CELLBANDSHADING
-            #pragma shader_feature_local _GGX _STYLIZED _BLINNPHONG
+            #pragma shader_feature_local _ _GGX _STYLIZED _BLINNPHONG
             #pragma shader_feature_local _SPECULARMASK
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _CLEARCOAT
@@ -158,18 +155,16 @@ Shader "FernRender/URP/FERNNPRStandard"
             
             // -------------------------------------
             // Universal Pipeline keywords
-            #pragma shader_feature_local _RECEIVE_SHADOWS_OFF
-            #pragma shader_feature_local _DEPTHSHADOW
             #pragma multi_compile _ _MAIN_LIGHT_SHADOWS _MAIN_LIGHT_SHADOWS_CASCADE _MAIN_LIGHT_SHADOWS_SCREEN
             #pragma multi_compile _ _ADDITIONAL_LIGHTS_VERTEX _ADDITIONAL_LIGHTS
             #pragma multi_compile_fragment _ _ADDITIONAL_LIGHT_SHADOWS
             #pragma multi_compile_fragment _ _SHADOWS_SOFT
             #pragma multi_compile_fragment _ _SCREEN_SPACE_OCCLUSION
-            //#pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
-            //#pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
-            //#pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
-            //#pragma multi_compile_fragment _ _LIGHT_LAYERS
-            //#pragma multi_compile_fragment _ _LIGHT_COOKIES
+            #pragma multi_compile_fragment _ _DBUFFER_MRT1 _DBUFFER_MRT2 _DBUFFER_MRT3
+            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BLENDING
+            #pragma multi_compile_fragment _ _REFLECTION_PROBE_BOX_PROJECTION
+            #pragma multi_compile_fragment _ _LIGHT_LAYERS
+            #pragma multi_compile_fragment _ _LIGHT_COOKIES
             //#pragma multi_compile _ _CLUSTERED_RENDERING
 
             // -------------------------------------
@@ -178,8 +173,15 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma multi_compile _ SHADOWS_SHADOWMASK
             #pragma multi_compile _ DIRLIGHTMAP_COMBINED
             #pragma multi_compile _ LIGHTMAP_ON
+            #pragma multi_compile _ DYNAMICLIGHTMAP_ON
             #pragma multi_compile_fog
             #pragma multi_compile_fragment _ DEBUG_DISPLAY
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+            #pragma multi_compile _ DOTS_INSTANCING_ON
 
             #pragma vertex LitPassVertex
             #pragma fragment LitPassFragment

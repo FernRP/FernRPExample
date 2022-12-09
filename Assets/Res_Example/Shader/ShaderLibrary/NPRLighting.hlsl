@@ -139,6 +139,28 @@ inline void NPRMainLightCorrect(half lightDirectionObliqueWeight, inout Light ma
     #endif
 }
 
+half3 LightingLambert(half3 lightColor, half3 lightDir, half3 normal)
+{
+    half NdotL = saturate(dot(normal, lightDir));
+    return lightColor * NdotL;
+}
+
+half3 VertexLighting(float3 positionWS, half3 normalWS)
+{
+    half3 vertexLightColor = half3(0.0, 0.0, 0.0);
+
+#ifdef _ADDITIONAL_LIGHTS_VERTEX
+    uint lightsCount = GetAdditionalLightsCount();
+    LIGHT_LOOP_BEGIN(lightsCount)
+        Light light = GetAdditionalLight(lightIndex, positionWS);
+        half3 lightColor = light.color * light.distanceAttenuation;
+        vertexLightColor += LightingLambert(lightColor, light.direction, normalWS);
+    LIGHT_LOOP_END
+#endif
+
+    return vertexLightColor;
+}
+
 half LightingRadiance(LightingData lightingData, half useHalfLambert, half occlusion, half useRadianceOcclusion)
 {
     half radiance = lerp(lightingData.NdotLClamp, lightingData.HalfLambert, useHalfLambert);
@@ -283,22 +305,6 @@ half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughne
     #endif // GLOSSY_REFLECTIONS
 
     return _GlossyEnvironmentColor.rgb * occlusion;
-}
-
-half3 VertexLighting(float3 positionWS, half3 normalWS)
-{
-    half3 vertexLightColor = half3(0.0, 0.0, 0.0);
-
-    #ifdef _ADDITIONAL_LIGHTS_VERTEX
-    uint lightsCount = GetAdditionalLightsCount();
-    LIGHT_LOOP_BEGIN(lightsCount)
-        Light light = GetAdditionalLight(lightIndex, positionWS);
-    half3 lightColor = light.color * light.distanceAttenuation;
-    vertexLightColor += LightingLambert(lightColor, light.direction, normalWS);
-    LIGHT_LOOP_END
-#endif
-
-    return vertexLightColor;
 }
 
 

@@ -303,6 +303,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
         type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: d9775e670bd2b484bb498a495199fb2a, type: 2}
@@ -806,7 +811,7 @@ MonoBehaviour:
   m_Version: 1
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 3
+  m_LightLayerMask: 1
   m_CustomShadowLayers: 0
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
@@ -861,13 +866,13 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingLayerMask: 3
+  m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
   m_ColorTemperature: 7599
-  m_UseColorTemperature: 1
+  m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
@@ -1561,7 +1566,7 @@ PrefabInstance:
     - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
         type: 3}
       propertyPath: m_RenderingLayerMask
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
         type: 3}
@@ -2566,6 +2571,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 100000, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 100004, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
       propertyPath: m_Name
       value: SceneElements (1)
@@ -2573,6 +2594,22 @@ PrefabInstance:
     - target: {fileID: 100004, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125776, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125776, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 182018, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 182018, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 400004, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
       propertyPath: m_RootOrder
@@ -2618,6 +2655,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2300002, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
+      propertyPath: m_StitchLightmapSeams
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1319889460, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2644,6 +2685,11 @@ PrefabInstance:
     - target: {fileID: 919132147840584126, guid: 82af4827fee368e4c83d72a25f533a4e,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
@@ -3264,7 +3310,7 @@ PrefabInstance:
     - target: {fileID: 1711813854834567275, guid: 82af4827fee368e4c83d72a25f533a4e,
         type: 3}
       propertyPath: m_RenderingLayerMask
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82af4827fee368e4c83d72a25f533a4e, type: 3}

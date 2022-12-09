@@ -247,6 +247,24 @@ half3 NPRMainLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, 
     return brdf;
 }
 
+half3 NPRVertexLighting(float3 positionWS, half3 normalWS)
+{
+    half3 vertexLightColor = half3(0.0, 0.0, 0.0);
+
+    #ifdef _ADDITIONAL_LIGHTS_VERTEX
+    uint lightsCount = GetAdditionalLightsCount();
+    LIGHT_LOOP_BEGIN(lightsCount)
+        Light light = GetAdditionalLight(lightIndex, positionWS);
+        half3 lightColor = light.color * light.distanceAttenuation;
+        float pureIntencity = max(0.001,(0.299 * lightColor.r + 0.587 * lightColor.g + 0.114 * lightColor.b));
+        lightColor = max(0, lerp(lightColor, lerp(0, min(lightColor, lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
+        vertexLightColor += LightingLambert(lightColor, light.direction, normalWS);
+    LIGHT_LOOP_END
+#endif
+
+    return vertexLightColor;
+}
+
 /**
  * \brief AdditionLighting, Lighting Equation base on MainLight, TODO: if cell-shading should use other lighting equation
  * \param brdfData 
@@ -263,15 +281,15 @@ half3 NPRMainLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, 
 half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData, NPRSurfaceData surfData,
                                      NPRAddInputData addInputData, half4 shadowMask, half meshRenderingLayers, AmbientOcclusionFactor aoFactor)
 {
-    uint pixelLightCount = GetAdditionalLightsCount();
 
     half3 additionLightColor = 0;
+    #if defined(_ADDITIONAL_LIGHTS)
+    uint pixelLightCount = GetAdditionalLightsCount();
 
     #if USE_CLUSTERED_LIGHTING
     for (uint lightIndex = 0; lightIndex < min(_AdditionalLightsDirectionalCount, MAX_VISIBLE_LIGHTS); lightIndex++)
     {
         Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
-
         if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
         {
             LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
@@ -287,18 +305,23 @@ half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCo
 
     LIGHT_LOOP_BEGIN(pixelLightCount)
         Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
-
-    if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
-    {
-        LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
-        half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
-        // Additional Light Filter Referenced from https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
-        float pureIntencity = max(0.001,(0.299 * lightingData.lightColor.r + 0.587 * lightingData.lightColor.g + 0.114 * lightingData.lightColor.b));
-        lightingData.lightColor = max(0, lerp(lightingData.lightColor, lerp(0, min(lightingData.lightColor, lightingData.lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
-        half3 addLightColor = NPRMainLightDirectLighting(brdfData, brdfDataClearCoat, input, inputData, surfData, radiance, lightingData);
-        additionLightColor += addLightColor;
-    }
+        if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
+        {
+            LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+            half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
+            // Additional Light Filter Referenced from https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
+            float pureIntencity = max(0.001,(0.299 * lightingData.lightColor.r + 0.587 * lightingData.lightColor.g + 0.114 * lightingData.lightColor.b));
+            lightingData.lightColor = max(0, lerp(lightingData.lightColor, lerp(0, min(lightingData.lightColor, lightingData.lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
+            half3 addLightColor = NPRMainLightDirectLighting(brdfData, brdfDataClearCoat, input, inputData, surfData, radiance, lightingData);
+            additionLightColor += addLightColor;
+        }
     LIGHT_LOOP_END
+    #endif
+
+    // vertex lighting only lambert diffuse for now...
+    #if defined(_ADDITIONAL_LIGHTS_VERTEX)
+        additionLightColor += inputData.vertexLighting * brdfData.diffuse;
+    #endif
 
     return additionLightColor;
 }
@@ -363,7 +386,7 @@ Varyings LitPassVertex(Attributes input)
     // also required for per-vertex lighting and SH evaluation
     VertexNormalInputs normalInput = GetVertexNormalInputs(input.normalOS, input.tangentOS);
 
-    half3 vertexLight = VertexLighting(vertexInput.positionWS, normalInput.normalWS);
+    half3 vertexLight = NPRVertexLighting(vertexInput.positionWS, normalInput.normalWS);
 
     half fogFactor = 0;
     #if !defined(_FOG_FRAGMENT)
