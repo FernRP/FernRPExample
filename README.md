@@ -17,9 +17,9 @@ Background From: [GameVision Studios](https://gamevision.artstation.com/projects
 
 FernNPR can easy get various styles of materials, including NPR and PBR.
 
-![](DocAssets/MaterialBall.png)
+![](DocAssets/MaterialBall.jpg)
 
-![](DocAssets/MaterialBall_AdditonalLight.png)
+![](DocAssets/MaterialBall_AdditonalLight.jpg)
 
 ### Aniso Hair
 ![](DocAssets/aniso-hair.gif)
@@ -40,7 +40,7 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 
 Use trick of depth to get Clear shadow
 
-![](DocAssets/DepthShadow.png)
+![](DocAssets/DepthShadow.jpg)
 
 Hair Shadow Example
 
@@ -50,7 +50,7 @@ Hair Shadow Example
 
 Depth Offset allows Rim Light's width to remain consistent in screen space.
 
-![](DocAssets/DepthOffsetRim.png)
+![](DocAssets/DepthOffsetRim.jpg)
 
 ### More
 
