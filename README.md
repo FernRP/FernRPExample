@@ -1,4 +1,9 @@
 # FernNPR
+
+[中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
+
+[TOC]
+
 FernNPR is a NPR rendering library in Unity(UE in the future), not just cartoon rendering, It will include as many non-realistic rendering techniques as possible.
 
 It will be an easily scalable, multi-platform (PC/Mobile) rendering library.
@@ -61,7 +66,7 @@ If you are interested in this project, welcome to contact me, thanks!
 - Fabric
 - Art Tool
 - Post Processing
-- More PBR Shader
+- Deferred Shading
 
 ## Related links
 
