@@ -13,7 +13,6 @@ Material:
   - _ALPHATEST_ON
   - _CELLSHADING
   - _FRESNELRIM
-  - _GGX
   m_InvalidKeywords:
   - _MTOON_EMISSIVEMAP
   - _MTOON_OUTLINE_WORLD
@@ -28,10 +27,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _AnisoShiftMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: 087c7210c3a33b54c9a73f51861f5667, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -48,6 +43,10 @@ Material:
         m_Texture: {fileID: 2800000, guid: 5c781bc7dbba85e48ac2982a520e81d7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _LightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 087c7210c3a33b54c9a73f51861f5667, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -60,16 +59,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _PBRLightMap:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _RimTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadeTex:
         m_Texture: {fileID: 2800000, guid: 087c7210c3a33b54c9a73f51861f5667, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadingMap01:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ShadingShiftTex:
@@ -83,20 +82,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaMode: 1
-    - _AnisoShiftScale: 10
-    - _AnisoSpread1: 0
-    - _AnisoSpread2: 0
-    - _AnsioSecondarySpeularExponent: 1
-    - _AnsioSecondarySpeularShift: 1
-    - _AnsioSecondarySpeularStrength: 1
-    - _AnsioSpeularExponent: 1
-    - _AnsioSpeularShift: 1
-    - _AnsioSpeularStrength: 1
     - _BlendMode: 1
     - _BumpMapKeyword: 0
     - _BumpScale: 1
     - _CELLSmoothing: 0.398
     - _CELLThreshold: 0.568
+    - _ClearCoat: 0
+    - _ClearCoatMask: 1
+    - _ClearCoatSmoothness: 1
+    - _ClearCoatTexSource: 0
     - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -135,6 +129,7 @@ Material:
     - _ShadingToonyFactor: 1
     - _Shininess: 1
     - _Smoothness: 0.124
+    - _SpecularMask: 0
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.1
@@ -142,6 +137,7 @@ Material:
     - _Surface: 0
     - _TransparentWithZWrite: 0
     - _UseHalfLambert: 1
+    - _UseRadianceOcclusion: 0
     - _UvAnimRotationSpeed: 0
     - _UvAnimScrollXSpeed: 0
     - _UvAnimScrollYSpeed: 0
@@ -152,12 +148,12 @@ Material:
     - _enum_specular: 0
     - _group: 0
     - _group1: 1
+    - _groupClearCoat: 1
     - _groupOutline: 1
     - _groupRim: 1
+    - _groupShadingMask: 0
     - _groupSpecular: 1
     m_Colors:
-    - _AnisoSecondarySpecularColor: {r: 0, g: 0, b: 0, a: 1}
-    - _AnisoSpecularColor: {r: 0, g: 0, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
@@ -165,7 +161,11 @@ Material:
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
     - _MatcapColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0.27450976, g: 0.09019602, b: 0.12549013, a: 1}
+    - _PBRMetallicChannel: {r: 1, g: 0, b: 0, a: 0}
+    - _PBROcclusionChannel: {r: 0, g: 1, b: 0, a: 0}
+    - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 1, g: 1, b: 1, a: 1}
     - _ShadeColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 1}
+    - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -2,12 +2,16 @@
 #define UNIVERSAL_LIT_INPUT_INCLUDED
 
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/BRDF.hlsl"
+#include "../ShaderLibrary/NPRBSDF.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Debug/Debugging3D.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/GlobalIllumination.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/RealtimeLights.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/AmbientOcclusion.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DBuffer.hlsl"
 #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/DeclareDepthTexture.hlsl"
+#include "../ShaderLibrary/DeclareDepthShadowTexture.hlsl"
+#include "../ShaderLibrary/NPRSurfaceData.hlsl"
+#include "../ShaderLibrary/NPRUtils.hlsl"
 
 #define PI8 25.1327
 #define INV_PI8 0.039789
@@ -22,22 +26,61 @@
     #define OUTPUT_SH(normalWS, OUT) OUT.xyz = SampleSHVertex(normalWS)
 #endif
 
-///////////////////////////////////////////////////////////////////////////////
-//                         Utils Function                                    //
-///////////////////////////////////////////////////////////////////////////////
+#if FACE
+CBUFFER_START(SDFFaceObjectToWorld)
+    float4x4 _FaceObjectToWorld;
+CBUFFER_END
+#endif
 
-half LinearStep(half minValue, half maxValue, half In)
-{
-    return saturate((In-minValue) / (maxValue - minValue));
-}
+float4 _CameraDepthTexture_TexelSize;
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //                          Lighting Data                                    //
 ///////////////////////////////////////////////////////////////////////////////
+
+inline int2 GetDepthUVOffset(half offset, half2 positionCSXY, half3 mainLightDir, half2 depthTexWH, NPRAddInputData addInputData)
+{
+    // 1 / depth when depth < 1 is wrong, this is like point light attenuation
+    // 0.5625 is aspect, hard code for now
+    // 0.333 is fov, hard code for now
+    float2 UVOffset = 0.5625f * (offset * 0.333f / (1 + addInputData.linearEyeDepth)); 
+    half2 mainLightDirVS = TransformWorldToView(mainLightDir).xy;
+    UVOffset = mainLightDirVS * UVOffset;
+    half2 downSampleFix = _CameraDepthTexture_TexelSize.zw / depthTexWH.xy;
+    int2 loadTexPos = positionCSXY / downSampleFix + UVOffset * depthTexWH.xy;
+    loadTexPos = min(loadTexPos, depthTexWH.xy-1);
+    return loadTexPos;
+}
+
+inline half DepthShadow(half depthShadowOffset, half depthShadowThresoldOffset, half depthShadowSoftness, half2 positionCSXY, half3 mainLightDir, NPRAddInputData addInputData)
+{
+    int2 loadPos = GetDepthUVOffset(depthShadowOffset, positionCSXY, mainLightDir, _CameraDepthShadowTexture_TexelSize.zw, addInputData);
+    float depthShadowTextureValue = LoadSceneDepthShadow(loadPos);
+    float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthShadowTextureValue);
+    float depthTexShadowDepthDiffThreshold = 0.025f + depthShadowThresoldOffset;
+
+    half depthShadow = saturate((depthTextureLinearDepth - (addInputData.linearEyeDepth - depthTexShadowDepthDiffThreshold)) * 50 / depthShadowSoftness);
+    return depthShadow;
+}
+
+inline half DepthRim(half depthRimOffset, half rimDepthDiffThresholdOffset, half2 positionCSXY, half3 mainLightDir, NPRAddInputData addInputData)
+{
+    int2 loadPos = GetDepthUVOffset(depthRimOffset, positionCSXY, mainLightDir,  _CameraDepthTexture_TexelSize.zw, addInputData);
+    float depthTextureValue = LoadSceneDepth(loadPos);
+    float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthTextureValue);
+    
+    float threshold = saturate(0.1 + rimDepthDiffThresholdOffset);
+    half depthRim = saturate((depthTextureLinearDepth - (addInputData.linearEyeDepth + threshold)) * 5);
+    depthRim = lerp(0, depthRim, addInputData.linearEyeDepth);
+    return depthRim;
+}
+
 struct LightingData
 {
     half3 lightColor;
     half3 HalfDir;
+    half3 lightDir;
     half NdotL;
     half NdotLClamp;
     half HalfLambert;
@@ -48,33 +91,72 @@ struct LightingData
     half ShadowAttenuation;
 };
 
-LightingData InitializeLightingData(Light mainLight, half3 normalWS, half3 viewDirectionWS)
-{
-    LightingData lightData;
-    lightData.lightColor = mainLight.color;
-    lightData.NdotL = dot(normalWS, mainLight.direction.xyz);
-    lightData.NdotLClamp = saturate(lightData.NdotL);
-    lightData.HalfLambert = lightData.NdotL * 0.5 + 0.5;
-    half3 halfDir = SafeNormalize(mainLight.direction + viewDirectionWS);
-    lightData.LdotHClamp = saturate(dot(mainLight.direction.xyz, halfDir.xyz));
-    lightData.NdotHClamp = saturate(dot(normalWS.xyz, halfDir.xyz));
-    lightData.NdotVClamp = saturate(dot(normalWS.xyz, viewDirectionWS.xyz));
-    lightData.HalfDir = halfDir;
-    #if defined(_RECEIVE_SHADOWS_OFF)
-        lightData.ShadowAttenuation = 1;
-    #else
-        lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
-    #endif
-    return lightData;
-}
 
 ///////////////////////////////////////////////////////////////////////////////
 //                      Lighting Functions                                   //
 ///////////////////////////////////////////////////////////////////////////////
 
-half LightingRadiance(LightingData lightingData, half useHalfLambert)
+#if FACE
+inline void SDFFaceUV(half reversal, half faceArea, out half2 result)
+    {
+        Light mainLight = GetMainLight();
+        half2 lightDir = normalize(mainLight.direction.xz);
+
+        half2 Front = normalize(_FaceObjectToWorld._13_33);
+        half2 Right = normalize(_FaceObjectToWorld._11_31);
+
+        float FdotL = dot(Front, lightDir);
+        float RdotL = dot(Right, lightDir) * lerp(1, -1, reversal);
+        result.x = 1 - max(0,-(acos(FdotL) * INV_PI * 90.0 /(faceArea+90.0) -0.5) * 2);
+        result.y = 1 - 2 * step(RdotL, 0);
+    }
+
+    inline half3 SDFFaceDiffuse(half4 uv, LightingData lightData, half SDFShadingSoftness, half3 highColor, half3 darkColor, TEXTURE2D_X_PARAM(_SDFFaceTex, sampler_SDFFaceTex))
+    {
+        half FdotL = uv.z;
+        half sign = uv.w;
+        half SDFMap = SAMPLE_TEXTURE2D(_SDFFaceTex, sampler_SDFFaceTex, uv.xy * float2(-sign, 1)).r;
+        //half diffuseRadiance = saturate((abs(FdotL) - SDFMap) * SDFShadingSoftness * 500);
+        half diffuseRadiance = smoothstep(-SDFShadingSoftness * 0.1, SDFShadingSoftness * 0.1, (abs(FdotL) - SDFMap)) * lightData.ShadowAttenuation;
+        half3 diffuseColor = lerp(darkColor.rgb, highColor.rgb, diffuseRadiance);
+        return diffuseColor;
+    }
+    #endif
+
+inline void NPRMainLightCorrect(half lightDirectionObliqueWeight, inout Light mainLight)
 {
-    half radiance = lerp(lightingData.NdotLClamp, lightingData.HalfLambert, useHalfLambert) * lightingData.ShadowAttenuation;
+    #if FACE
+        mainLight.direction.y = lerp(mainLight.direction.y, 0, lightDirectionObliqueWeight);
+        mainLight.direction = normalize(mainLight.direction);
+    #endif
+}
+
+half3 LightingLambert(half3 lightColor, half3 lightDir, half3 normal)
+{
+    half NdotL = saturate(dot(normal, lightDir));
+    return lightColor * NdotL;
+}
+
+half3 VertexLighting(float3 positionWS, half3 normalWS)
+{
+    half3 vertexLightColor = half3(0.0, 0.0, 0.0);
+
+#ifdef _ADDITIONAL_LIGHTS_VERTEX
+    uint lightsCount = GetAdditionalLightsCount();
+    LIGHT_LOOP_BEGIN(lightsCount)
+        Light light = GetAdditionalLight(lightIndex, positionWS);
+        half3 lightColor = light.color * light.distanceAttenuation;
+        vertexLightColor += LightingLambert(lightColor, light.direction, normalWS);
+    LIGHT_LOOP_END
+#endif
+
+    return vertexLightColor;
+}
+
+half LightingRadiance(LightingData lightingData, half useHalfLambert, half occlusion, half useRadianceOcclusion)
+{
+    half radiance = lerp(lightingData.NdotLClamp, lightingData.HalfLambert, useHalfLambert);
+    radiance = saturate(lerp(radiance, (radiance + occlusion) * 0.5, useRadianceOcclusion)) * lightingData.ShadowAttenuation;
     return radiance;
 }
 
@@ -105,8 +187,8 @@ inline half3 CellBandsShadingDiffuse(inout half radiance, half cellThreshold, ha
     //radiance = LinearStep(cellThreshold - cellSmooth, cellThreshold + cellSmooth, radiance);
 
     #if _CELLBANDSHADING
-    half bandsSmooth = cellBandSoftness;
-    radiance = saturate((LinearStep(0.5 - bandsSmooth, 0.5 + bandsSmooth, frac(radiance * cellBands)) + floor(radiance * cellBands)) / cellBands);
+        half bandsSmooth = cellBandSoftness;
+        radiance = saturate((LinearStep(0.5 - bandsSmooth, 0.5 + bandsSmooth, frac(radiance * cellBands)) + floor(radiance * cellBands)) / cellBands);
     #endif
 
     diffuse = lerp(darkColor.rgb, highColor.rgb, radiance);
@@ -139,7 +221,7 @@ half3 StylizedSpecular(half3 albedo, half ndothClamp, half specularSize, half sp
 {
     half specSize = 1 - (specularSize * specularSize);
     half ndothStylized = (ndothClamp - specSize * specSize) / (1 - specSize);
-    half specular = LinearStep(0, specularSoftness, ndothStylized);
+    half3 specular = LinearStep(0, specularSoftness, ndothStylized);
     specular = lerp(specular, albedo * specular, albedoWeight);
     return specular;
 }
@@ -152,30 +234,17 @@ half BlinnPhongSpecular(half shininess, half ndoth)
     return specular;
 }
 
-struct AnisoSpecularData
-{
-    half3 specularColor;
-    half3 specularSecondaryColor;
-    half specularShift;
-    half specularSecondaryShift;
-    half specularStrength;
-    half specularSecondaryStrength;
-    half specularExponent;
-    half specularSecondaryExponent;
-    half spread1;
-    half spread2;
-};
-    
 inline half3 AnisotropyDoubleSpecular(BRDFData brdfData, half2 uv, half4 tangentWS, InputData inputData, LightingData lightingData,
     AnisoSpecularData anisoSpecularData, TEXTURE2D_PARAM(anisoDetailMap, sampler_anisoDetailMap))
 {
-    half4 specMask = 1; // TODO ADD Mask
+    half specMask = 1; // TODO ADD Mask
     half4 detailNormal = SAMPLE_TEXTURE2D(anisoDetailMap,sampler_anisoDetailMap, uv);
 
     float2 jitter =(detailNormal.y-0.5) * float2(anisoSpecularData.spread1,anisoSpecularData.spread2);
 
     float sgn = tangentWS.w;
     float3 T = normalize(sgn * cross(inputData.normalWS.xyz, tangentWS.xyz));
+    //float3 T = normalize(tangentWS.xyz);
 
     float3 t1 = ShiftTangent(T, inputData.normalWS.xyz, anisoSpecularData.specularShift + jitter.x);
     float3 t2 = ShiftTangent(T, inputData.normalWS.xyz, anisoSpecularData.specularSecondaryShift + jitter.y);
@@ -188,6 +257,28 @@ inline half3 AnisotropyDoubleSpecular(BRDFData brdfData, half2 uv, half4 tangent
     float3 F = F_Schlick(half3(0.2,0.2,0.2), lightingData.LdotHClamp);
     half3 anisoSpecularColor = 0.25 * F * (hairSpec1 + hairSpec2) * lightingData.NdotLClamp * specMask * brdfData.specular;
     return anisoSpecularColor;
+}
+
+inline half3 AngleRingSpecular(AngleRingSpecularData specularData, InputData inputData, half radiance, LightingData lightingData)
+{
+    half3 specularColor = 0;
+    half mask = specularData.mask;
+    float3 normalV = mul(UNITY_MATRIX_V, half4(inputData.normalWS, 0)).xyz;
+    float3 halfV = mul(UNITY_MATRIX_V, half4(lightingData.HalfDir, 0)).xyz;
+    half ndh = dot(normalize(normalV.xz), normalize(halfV.xz));
+
+    ndh = pow(ndh, 6) * specularData.width * radiance;
+
+    half lightFeather = specularData.softness * ndh;
+
+    half lightStepMax = saturate(1 - ndh + lightFeather);
+    half lightStepMin = saturate(1 - ndh - lightFeather);
+
+    half brightArea = LinearStep(lightStepMin, lightStepMax, min(mask, 0.99));
+    half3 lightColor_B = brightArea * specularData.brightColor;
+    half3 lightColor_S = LinearStep(specularData.threshold, 1, mask) * specularData.shadowColor;
+    specularColor = (lightColor_S + lightColor_B) * specularData.intensity;
+    return specularColor;
 }
 
 half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughness, half occlusion)
@@ -208,25 +299,9 @@ half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughne
     return _GlossyEnvironmentColor.rgb * occlusion;
 }
 
-half3 VertexLighting(float3 positionWS, half3 normalWS)
-{
-    half3 vertexLightColor = half3(0.0, 0.0, 0.0);
-
-    #ifdef _ADDITIONAL_LIGHTS_VERTEX
-    uint lightsCount = GetAdditionalLightsCount();
-    LIGHT_LOOP_BEGIN(lightsCount)
-        Light light = GetAdditionalLight(lightIndex, positionWS);
-    half3 lightColor = light.color * light.distanceAttenuation;
-    vertexLightColor += LightingLambert(lightColor, light.direction, normalWS);
-    LIGHT_LOOP_END
-#endif
-
-    return vertexLightColor;
-}
-
 
 ///////////////////////////////////////////////////////////////////////////////
-//                                深度边缘                                    //
+//                         Depth Screen Space                                //
 ///////////////////////////////////////////////////////////////////////////////
 half DepthNormal(half depth)
 {
@@ -241,31 +316,20 @@ half DepthNormal(half depth)
     return lerp(depth, ortho, unity_OrthoParams.w);
 }
 
-static float2 SamplePoint[9] = 
+inline half3 SamplerMatCap(half4 matCapColor, half2 uv, half3 normalWS, half2 screenUV, TEXTURE2D_PARAM(matCapTex, sampler_matCapTex))
 {
-    float2(-1,1), float2(0,1), float2(1,1),
-    float2(-1,0), float2(1,0), float2(-1,-1),
-    float2(0,-1), float2(1,-1), float2(0, 0)
-};
-
-half SobelDepth(half ldc, half ldl, half ldr, half ldu, half ldd)
-{
-    return ((ldl - ldc) +
-        (ldr - ldc) +
-        (ldu - ldc) +
-        (ldd - ldc)) * 0.25f;
-}
-
-half SobelSampleDepth(half2 uv, half2 offset)
-{
-    //half pixelCenter = thisDepthZ;
-    half pixelCenter = LinearEyeDepth(SampleSceneDepth(uv).r, _ZBufferParams);
-    half pixelLeft = LinearEyeDepth(SampleSceneDepth( uv + offset.xy * SamplePoint[1]).r, _ZBufferParams);
-    half pixelRight = LinearEyeDepth(SampleSceneDepth(uv + offset.xy * SamplePoint[3]).r, _ZBufferParams);
-    half pixelUp = LinearEyeDepth(SampleSceneDepth(uv + offset.xy * SamplePoint[4]).r, _ZBufferParams);
-    half pixelDown = LinearEyeDepth(SampleSceneDepth(uv + offset.xy * SamplePoint[6]).r, _ZBufferParams);
-
-    return SobelDepth(pixelCenter, pixelLeft, pixelRight, pixelUp, pixelDown);
+    half3 finalMatCapColor = 0;
+    #if _MATCAP
+        #if _NORMALMAP
+            half3 normalVS = mul((float3x3)UNITY_MATRIX_V, normalWS);
+            half2 matcapUV = normalVS.xy * 0.5 + 0.5;
+        #else
+            half2 matcapUV = uv;
+        #endif
+        half3 matCap = SAMPLE_TEXTURE2D(matCapTex, sampler_matCapTex, matcapUV).xyz;
+        finalMatCapColor = matCap.xyz * matCapColor.rgb;
+    #endif
+    return finalMatCapColor;
 }
 
 #endif // UNIVERSAL_INPUT_SURFACE_PBR_INCLUDED

@@ -1,4 +1,7 @@
 # FernNPR
+
+[中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
+
 FernNPR is a NPR rendering library in Unity(UE in the future), not just cartoon rendering, It will include as many non-realistic rendering techniques as possible.
 
 It will be an easily scalable, multi-platform (PC/Mobile) rendering library.
@@ -11,8 +14,15 @@ There are some simple scenes.
 ![](DocAssets/11-22.jpg)
 Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 
-### Diffuse Occlusion
-![](DocAssets/Diffuse-Occlusion.png)
+Background From: [GameVision Studios](https://gamevision.artstation.com/projects/ZGZxYG)
+
+### Material Example
+
+FernNPR can easy get various styles of materials, including NPR and PBR.
+
+![](DocAssets/MaterialBall.jpg)
+
+![](DocAssets/MaterialBall_AdditonalLight.jpg)
 
 ### Aniso Hair
 ![](DocAssets/aniso-hair.gif)
@@ -24,16 +34,28 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb)
 ![](DocAssets/compression/eyeexample.gif)
 
 ### Face Shading
-**Easy way to fix Face lighting**
-
-![](DocAssets/compression/facelightfix.gif)
 
 **SDF Face**
 
 ![](DocAssets/compression/SDFFace.gif)
 
+### Depth Shadow 
+
+Use trick of depth to get Clear shadow
+
+![](DocAssets/DepthShadow.jpg)
+
+Hair Shadow Example
+
+![](DocAssets/compression/DepthShadow-min.gif)
+
+### Depth Offset Rim
+
+Depth Offset allows Rim Light's width to remain consistent in screen space.
+
+![](DocAssets/DepthOffsetRim.jpg)
+
 ### More
-Some features are not given source code for now, The full version is coming soon.
 
 If you are interested in this project, welcome to contact me, thanks!
 
@@ -42,7 +64,7 @@ If you are interested in this project, welcome to contact me, thanks!
 - Fabric
 - Art Tool
 - Post Processing
-- More PBR Shader
+- Deferred Shading
 
 ## Related links
 
