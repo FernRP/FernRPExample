@@ -81,6 +81,8 @@ half _AngleRingIntensity;
 half _EmissionColorAlbedoWeight;
 
 // depth shadow
+half _DepthOffsetShadowReverseX;
+half _DepthOffsetRimReverseX;
 half _DepthShadowOffset;
 half _DepthShadowThresoldOffset;
 half _DepthShadowSoftness;

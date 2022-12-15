@@ -14,6 +14,9 @@ Material:
   - _OUTLINE
   - _SDFFACE
   m_InvalidKeywords:
+  - _DEPTHOFFSETREVERSEX_ON
+  - _DEPTHOFFSETSHADOWREVERSEX_ON
+  - _IS_FILTER_LIGHTCOLOR_ON
   - _SDFDIRECTIONREVERSAL_ON
   - _USEHALFLAMBERT_ON
   - _USERADIANCEOCCLUSION_ON
@@ -156,19 +159,24 @@ Material:
     - _ClearCoatTexSource: 0
     - _Cull: 2
     - _Cutoff: 0.5
-    - _DepthShadowOffset: -0.204
+    - _DepthOffsetReverseX: 1
+    - _DepthOffsetShadowReverseX: 1
+    - _DepthShadowOffset: -0.12
     - _DepthShadowSoftness: 0
-    - _DepthShadowThresoldOffset: -0.03
+    - _DepthShadowThresoldOffset: -0.02
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EmissionColorAlbedoWeight: 0
     - _EnvironmentReflections: 1
     - _FaceArea: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.44870877
     - _GlossyReflections: 1
+    - _Is_Filter_LightColor: 1
     - _LightDirectionObliqueWeight: 0
     - _LightDirectionYOffset: 1
+    - _LightIntensityClamp: 1
     - _LightMapSetting: 1
     - _Metallic: 0
     - _Mode: 0
@@ -217,6 +225,7 @@ Material:
     - _enum_specular: 0
     - _group: 0
     - _group1: 1
+    - _groupAdditionLight: 1
     - _groupClearCoat: 1
     - _groupEmission: 0
     - _groupLightDirectionOffset: 0

@@ -76,7 +76,7 @@ Shader "FernRender/URP/FERNNPRHair"
         _groupEmission ("Emission Setting", float) = 0
         [Space()]
         [SubToggle(EmssionSetting, _USEEMISSIONTEX)] _UseEmissionTex("Use Emission Tex", Float) = 0.0
-        [Tex(EmssionSetting._USEEMISSIONTEX)] _EmissionTex ("Shading Mask Map 1", 2D) = "white" { }
+        [Tex(EmssionSetting._USEEMISSIONTEX)] _EmissionTex ("Emission Tex", 2D) = "white" { }
         [Channel(EmssionSetting)] _EmissionChannel("Emission Channel", Vector) = (0,0,1,0)
         [Sub(EmssionSetting)] [HDR]_EmissionColor("Emission Color", Color) = (0,0,0,0)
         [Sub(EmssionSetting)] _EmissionColorAlbedoWeight("Emission Color Albedo Weight", Range(0, 1)) = 0

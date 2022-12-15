@@ -157,7 +157,7 @@ LightingData InitializeLightingData(Light mainLight, Varyings input, half3 norma
     #if defined(_RECEIVE_SHADOWS_OFF)
     lightData.ShadowAttenuation = 1;
     #elif _DEPTHSHADOW
-    lightData.ShadowAttenuation = DepthShadow(_DepthShadowOffset, _DepthShadowThresoldOffset, _DepthShadowSoftness, input.positionCS.xy, mainLight.direction, addInputData);
+    lightData.ShadowAttenuation = DepthShadow(_DepthShadowOffset, _DepthOffsetShadowReverseX, _DepthShadowThresoldOffset, _DepthShadowSoftness, input.positionCS.xy, mainLight.direction, addInputData);
     #else
     lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
     #endif
@@ -335,7 +335,7 @@ half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings in
         rimColor = LinearStep(_RimThreshold, _RimThreshold + _RimSoftness, ndv4);
         rimColor *= LerpWhiteTo(lightingData.NdotLClamp, _RimDirectionLightContribution);
     #elif _SCREENSPACERIM
-        half depthRim = DepthRim(_DepthRimOffset, _DepthRimThresoldOffset, input.positionCS.xy, lightingData.lightDir, addInputData);
+        half depthRim = DepthRim(_DepthRimOffset, _DepthOffsetRimReverseX, _DepthRimThresoldOffset, input.positionCS.xy, lightingData.lightDir, addInputData);
         rimColor = depthRim;
     #endif
     rimColor *=  _RimColor.rgb;

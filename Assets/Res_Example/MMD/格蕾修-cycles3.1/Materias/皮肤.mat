@@ -29,6 +29,10 @@ Material:
   - _OUTLINE
   - _SCREENSPACERIM
   m_InvalidKeywords:
+  - _DEPTHOFFSETREVERSEX_ON
+  - _DEPTHOFFSETRIMREVERSEX_ON
+  - _DEPTHOFFSETSHADOWREVERSEX_ON
+  - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
   - _USERADIANCEOCCLUSION_ON
   m_LightmapFlags: 4
@@ -154,6 +158,9 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DEPTHSHADOW: 0
+    - _DepthOffsetReverseX: 0
+    - _DepthOffsetRimReverseX: 0
+    - _DepthOffsetShadowReverseX: 0
     - _DepthRimLightCameraDistanceFadeoutEnd: 80
     - _DepthRimLightCameraDistanceStart: 20
     - _DepthRimOffset: -0.108
@@ -170,6 +177,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.44870877
     - _GlossyReflections: 1
+    - _Is_Filter_LightColor: 1
+    - _LightIntensityClamp: 1
     - _Metallic: 1
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -206,12 +215,15 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _enum_diffuse: 0
+    - _enum_env: 0
     - _enum_rim: 2
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupAdditionLight: 1
     - _groupClearCoat: 1
     - _groupEmission: 0
+    - _groupEnvironment: 1
     - _groupOutline: 1
     - _groupRim: 1
     - _groupShadingMask: 0
