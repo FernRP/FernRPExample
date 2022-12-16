@@ -150,7 +150,7 @@ Material:
     - _BumpMapKeyword: 0
     - _BumpScale: 1
     - _CELLSmoothing: 0.001
-    - _CELLThreshold: 0.71
+    - _CELLThreshold: 0.62
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 0
@@ -161,7 +161,7 @@ Material:
     - _Cutoff: 0.5
     - _DepthOffsetReverseX: 1
     - _DepthOffsetShadowReverseX: 1
-    - _DepthShadowOffset: -0.12
+    - _DepthShadowOffset: -0.17
     - _DepthShadowSoftness: 0
     - _DepthShadowThresoldOffset: -0.02
     - _DetailAlbedoMapScale: 1

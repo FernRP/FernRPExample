@@ -163,7 +163,7 @@ Material:
     - _DepthOffsetShadowReverseX: 0
     - _DepthRimLightCameraDistanceFadeoutEnd: 80
     - _DepthRimLightCameraDistanceStart: 20
-    - _DepthRimOffset: -0.108
+    - _DepthRimOffset: -0.06
     - _DepthRimThresoldOffset: 0.001
     - _DepthShadow: 0
     - _DepthShadowOffset: 0.2
@@ -192,8 +192,8 @@ Material:
     - _RampMapVOffset: 0.5
     - _ReceiveShadows: 1
     - _RimDirectionLightContribution: 1
-    - _RimSoftness: 0.01
-    - _RimThreshold: 0.096
+    - _RimSoftness: 0.001
+    - _RimThreshold: 0.29
     - _ScreenSpaceRimSoftness: 0.01
     - _ScreenSpaceRimThreshold: 0.01
     - _ScreenSpaceRimWidth: 0.01
@@ -246,7 +246,7 @@ Material:
     - _PBROcclusionMask: {r: 0, g: 1, b: 0, a: 0}
     - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
     - _PBRSmothnessMask: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 1.4980392, g: 0.32941177, b: 0, a: 1}
+    - _RimColor: {r: 0.7490196, g: 0.16470589, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularIntensityChannel: {r: 0, g: 1, b: 0, a: 0}

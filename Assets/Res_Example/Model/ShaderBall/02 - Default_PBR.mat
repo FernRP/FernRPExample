@@ -10,9 +10,9 @@ Material:
   m_Name: 02 - Default_PBR
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
+  - _CELLSHADING
   - _CLEARCOAT
   - _GGX
-  - _LAMBERTIAN
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
@@ -116,6 +116,8 @@ Material:
     - _ClearCoatTexSource: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DepthOffsetRimReverseX: 0
+    - _DepthOffsetShadowReverseX: 0
     - _DepthRimLightCameraDistanceFadeoutEnd: 80
     - _DepthRimLightCameraDistanceStart: 50
     - _DepthRimOffset: -0.072
@@ -133,7 +135,7 @@ Material:
     - _GlossyReflections: 1
     - _Is_Filter_LightColor: 0
     - _LightIntensityClamp: 1
-    - _Metallic: 0.2
+    - _Metallic: 0.8
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Outline: 0
@@ -148,7 +150,7 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
-    - _Smoothness: 0.8
+    - _Smoothness: 0.75
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMask: 0
@@ -164,7 +166,7 @@ Material:
     - _UseRadianceOcclusion: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _enum_diffuse: 3
+    - _enum_diffuse: 0
     - _enum_env: 1
     - _enum_rim: 0
     - _enum_specular: 1

@@ -1923,7 +1923,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6918436255416267518}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec7f881c0d17c6a409d6a484cdb73f10, type: 3}
   m_Name: 
@@ -2396,7 +2396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardEnum: 2
   rightEnum: 0
-  isDebug: 1
 --- !u!1 &9040661486732613742
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,9 +11,11 @@ Material:
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
   m_ValidKeywords:
   - _CELLSHADING
+  - _DEPTHSHADOW
+  - _FRESNELRIM
   - _OUTLINE
-  - _SCREENSPACERIM
   m_InvalidKeywords:
+  - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
   - _USERADIANCEOCCLUSION_ON
   m_LightmapFlags: 4
@@ -139,14 +141,16 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DEPTHSHADOW: 0
+    - _DepthOffsetRimReverseX: 0
+    - _DepthOffsetShadowReverseX: 0
     - _DepthRimLightCameraDistanceFadeoutEnd: 100
     - _DepthRimLightCameraDistanceStart: 50
     - _DepthRimOffset: -0.222
     - _DepthRimThresoldOffset: 0.01
     - _DepthShadow: 0
-    - _DepthShadowOffset: -2
+    - _DepthShadowOffset: 0.59
     - _DepthShadowSoftness: 0
-    - _DepthShadowThresoldOffset: -0.057
+    - _DepthShadowThresoldOffset: -0.11
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
@@ -155,6 +159,8 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.44870877
     - _GlossyReflections: 1
+    - _Is_Filter_LightColor: 1
+    - _LightIntensityClamp: 1
     - _Metallic: 1
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -183,19 +189,22 @@ Material:
     - _StylizedSpecularSoftness: 0.05
     - _Surface: 0
     - _UVSec: 0
-    - _UseDepthShadow: 0
+    - _UseDepthShadow: 1
     - _UseEmissionTex: 0
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 1
     - _WorkflowMode: 1
     - _ZWrite: 1
     - _enum_diffuse: 0
-    - _enum_rim: 2
+    - _enum_env: 0
+    - _enum_rim: 1
     - _enum_specular: 0
     - _group: 0
     - _group1: 1
+    - _groupAdditionLight: 1
     - _groupClearCoat: 1
     - _groupEmission: 0
+    - _groupEnvironment: 1
     - _groupOutline: 1
     - _groupRim: 1
     - _groupShadingMask: 0
