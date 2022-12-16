@@ -53,6 +53,10 @@ FernNPR 可以轻松的创建多种风格的材质，包括NPR和PBR。
 
 ![](DocAssets/DepthOffsetRim.jpg)
 
+### 边缘检测描边
+
+![](DocAssets/EdgeOutline.gif)
+
 ### 后续计划
 
 - 皮肤
