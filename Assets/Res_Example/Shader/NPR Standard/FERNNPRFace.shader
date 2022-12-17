@@ -300,15 +300,36 @@ Shader "FernRender/URP/FERNNPRFace"
             ENDHLSL
         }
         
+//        // Normal Outline
+//        Pass
+//        {
+//            Name "OutLine"
+//            Tags { "LightMode" = "Outline" }
+//            Cull Front
+//            ZWrite[_ZWrite]
+//            BlendOp Add, Max
+//            ZTest LEqual
+//            Offset 1, 1
+//
+//            HLSLPROGRAM
+//            #pragma multi_compile _ _OUTLINE
+//            #pragma vertex NormalOutLineVertex
+//            #pragma fragment NormalOutlineFragment 
+//
+//            #include "NPRStandardInput.hlsl"
+//            #include "../ShaderLibrary/NormalOutline.hlsl"
+//            ENDHLSL
+//        }
+        
         // Normal Outline
         Pass
         {
             Name "OutLine"
-            Tags { "LightMode" = "Outline" }
+            Tags {"LightMode" = "Outline" }
             Cull Front
-            ZWrite[_ZWrite]
-            BlendOp Add, Max
+            ZWrite [_ZWrite]
             ZTest LEqual
+            Blend [_SrcBlend] [_DstBlend]
             Offset 1, 1
 
             HLSLPROGRAM
