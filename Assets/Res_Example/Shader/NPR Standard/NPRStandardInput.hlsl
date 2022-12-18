@@ -97,6 +97,7 @@ half _DepthRimThresoldOffset;
 #if EYE
     half _Parallax;
     half _BumpIrisInvert;
+    half _MatCapAlbedoWeight;
 #endif
 
 #if FACE

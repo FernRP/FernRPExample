@@ -63,6 +63,7 @@ Shader "FernRender/URP/FERNNPREye"
         [SubToggle(MatCap, _MATCAP)] _UseMatCap("Use MapCap", Float) = 0.0
         [Tex(MatCap._MATCAP, _MatCapColor)] _MatCapTex("MatCap Tex", 2D) = "black" {}
         [HideInInspector][HDR]_MatCapColor ("Matcap Color", color) = (1,1,1,1)
+        [Sub(MatCap._MATCAP)] _MatCapAlbedoWeight ("MatCap Albedo Weight", Range(0, 1)) = 0
         
         [Main(EmssionSetting, _, off, off)]
         _groupEmission ("Emission Setting", float) = 0

@@ -357,7 +357,7 @@ half3 NPRIndirectLighting(BRDFData brdfData, InputData inputData, Varyings input
 
     #if _MATCAP
         half3 matCap = SamplerMatCap(_MatCapColor, input.uv.zw, inputData.normalWS, inputData.normalizedScreenSpaceUV, TEXTURE2D_ARGS(_MatCapTex, sampler_MatCapTex));
-        indirectColor += matCap;
+        indirectColor += lerp(matCap, matCap * brdfData.diffuse, _MatCapAlbedoWeight);
     #endif
     
     return indirectColor;

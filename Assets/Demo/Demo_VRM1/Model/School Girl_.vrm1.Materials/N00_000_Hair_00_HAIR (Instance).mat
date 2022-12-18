@@ -14,7 +14,6 @@ Material:
   - _ANGLERING
   - _LAMBERTIAN
   - _NORMALMAP
-  - _RENDERENVSETTING
   - _SPECULARMASK
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
@@ -112,7 +111,7 @@ Material:
     - _VColBlendMode: 0
     - _ZWrite: 1
     - _enum_diffuse: 2
-    - _enum_env: 1
+    - _enum_env: 0
     - _enum_rim: 0
     - _enum_specular: 2
     - _group: 0
@@ -132,7 +131,7 @@ Material:
     - _AnisoSpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DarkColor: {r: 0.425, g: 0.2876263, b: 0.22752526, a: 1}
+    - _DarkColor: {r: 0.63, g: 0.489762, b: 0.42966, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}
