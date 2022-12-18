@@ -12,7 +12,7 @@ Shader "FernRender/URP/FERNNPRFace"
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
         [Tex(Surface)] _LightMap ("PBR Light Map", 2D) = "white" { }
         [Channel(Surface)] _PBRMetallicChannel("Metallic Channel", Vector) = (1,0,0,0)
-        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
+        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 0.0
         [Channel(Surface)] _PBRSmothnessChannel("Smoothness Channel", Vector) = (0,0,0,1)
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 0.5 
         [Channel(Surface)] _PBROcclusionChannel("Occlusion Channel", Vector) = (0,1,0,0)

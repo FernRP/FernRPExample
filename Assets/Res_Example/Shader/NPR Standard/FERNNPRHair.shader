@@ -12,7 +12,7 @@ Shader "FernRender/URP/FERNNPRHair"
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
         [Tex(Surface)] _LightMap ("PBR Light Map", 2D) = "white" { }
         [Channel(Surface)] _PBRMetallicChannel("Metallic Channel", Vector) = (1,0,0,0)
-        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
+        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 0.0
         [Channel(Surface)] _PBRSmothnessChannel("Smoothness Channel", Vector) = (0,0,0,1)
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 0.5 
         [Channel(Surface)] _PBROcclusionChannel("Occlusion Channel", Vector) = (0,1,0,0)
@@ -50,12 +50,12 @@ Shader "FernRender/URP/FERNNPRHair"
         [Sub(Specular._BLINNPHONG)] _Shininess ("BlinnPhong Shininess", Range(0,1)) = 1
         [Tex(Specular._KAJIYAHAIR)] _AnisoShiftMap ("Aniso Shift Map", 2D) = "white" {}
         [Sub(Specular._KAJIYAHAIR)] _AnisoShiftScale ("Aniso Shift Scale", Range(1, 50)) = 10
-        [Sub(Specular._KAJIYAHAIR)] _AnisoSpecularColor("Aniso Specular Color Layer1", Color) = (0,0,0,1)
+        [Sub(Specular._KAJIYAHAIR)] _AnisoSpecularColor("Aniso Specular Color Layer1", Color) = (1,1,1,1)
         [Sub(Specular._KAJIYAHAIR)] _AnisoSpread1("Aniso Specular Spread Layer1", Range(-1,1)) = 0.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularShift("Aniso Specular Shift Layer1", Range(-3,3)) = 1.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularStrength("Aniso Specular Strength Layer1", Range(0, 2)) = 1.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularExponent("Aniso Specular Exponent Layer1", Range(1,1024)) = 1.0
-        [Sub(Specular._KAJIYAHAIR)] _AnisoSecondarySpecularColor("Aniso Specular Color Layer2", Color) = (0,0,0,1)
+        [Sub(Specular._KAJIYAHAIR)] _AnisoSecondarySpecularColor("Aniso Specular Color Layer2", Color) = (0.5,0.5,0.5,1)
         [Sub(Specular._KAJIYAHAIR)] _AnisoSpread2("Aniso Specular Spread Layer2", Range(-1,1)) = 0.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSecondarySpeularShift("Aniso Specular Shift Layer2", Range(-3,3)) = 1.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSecondarySpeularStrength("Aniso Specular Strength Layer2", Range(0, 2)) = 1.0
@@ -70,7 +70,7 @@ Shader "FernRender/URP/FERNNPRHair"
         [Main(Environment, _, off, off)]
         _groupEnvironment ("EnvironmentSettings", float) = 1
         [Space()]
-        [KWEnum(Environment, None, _, RenderSetting, _RENDERENVSETTING, CustomCube, _CUSTOMENVCUBE)] _enum_env ("Environment Source", float) = 0
+        [KWEnum(Environment, None, _, RenderSetting, _RENDERENVSETTING, CustomCube, _CUSTOMENVCUBE)] _enum_env ("Environment Source", float) = 1
         
         [Main(EmssionSetting, _, off, off)]
         _groupEmission ("Emission Setting", float) = 0

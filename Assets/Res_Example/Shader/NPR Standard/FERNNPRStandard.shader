@@ -12,7 +12,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
         [Tex(Surface)] _LightMap ("PBR Light Map", 2D) = "white" { }
         [Channel(Surface)] _PBRMetallicChannel("Metallic Channel", Vector) = (1,0,0,0)
-        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 1.0
+        [Sub(Surface)] _Metallic("Metallic", Range(0, 1.0)) = 0.0
         [Channel(Surface)] _PBRSmothnessChannel("Smoothness Channel", Vector) = (0,0,0,1)
         [Sub(Surface)] _Smoothness("Smoothness", Range(0, 1.0)) = 0.5 
         [Channel(Surface)] _PBROcclusionChannel("Occlusion Channel", Vector) = (0,1,0,0)
@@ -27,7 +27,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         _group1 ("DiffuseSettings", float) = 1
         [Space()]
         [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, CellBandsShading, _CELLBANDSHADING, PBRShading, _LAMBERTIAN)] _enum_diffuse ("Shading Mode", float) = 0
-        [SubToggle(Diffuse)] _UseHalfLambert ("Use HalfLambert (More Flatter)", float) = 0
+        [SubToggle(Diffuse)] _UseHalfLambert ("Use HalfLambert (More Flatter)", float) = 1
         [SubToggle(Diffuse)] _UseRadianceOcclusion ("Radiance Occlusion", float) = 0
         [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] [HDR] _HighColor ("Hight Color", Color) = (1,1,1,1)
         [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] _DarkColor ("Dark Color", Color) = (0.5,0.5,0.5,1)
@@ -42,7 +42,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Main(Specular, _, off, off)]
         _groupSpecular ("SpecularSettings", float) = 1
         [Space()]
-        [KWEnum(Specular, None, _, PBR_GGX, _GGX, Stylized, _STYLIZED, Blinn_Phong, _BLINNPHONG)] _enum_specular ("Shading Mode", float) = 0
+        [KWEnum(Specular, None, _, PBR_GGX, _GGX, Stylized, _STYLIZED, Blinn_Phong, _BLINNPHONG)] _enum_specular ("Shading Mode", float) = 1
         [SubToggle(Specular._GGX._STYLIZED._BLINNPHONG._KAJIYAHAIR, _SPECULARMASK)] _SpecularMask("Use Specular Mask", Float) = 0.0
         [Channel(Specular._SPECULARMASK)] _SpecularIntensityChannel("Specular Intensity Channel", Vector) = (1,0,0,0)
         [Sub(Specular._GGX._STYLIZED._BLINNPHONG._KAJIYAHAIR)][HDR] _SpecularColor ("Specular Color", Color) = (1,1,1,1)
@@ -54,7 +54,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Main(Environment, _, off, off)]
         _groupEnvironment ("EnvironmentSettings", float) = 1
         [Space()]
-        [KWEnum(Environment, None, _, RenderSetting, _RENDERENVSETTING, CustomCube, _CUSTOMENVCUBE)] _enum_env ("Environment Source", float) = 0
+        [KWEnum(Environment, None, _, RenderSetting, _RENDERENVSETTING, CustomCube, _CUSTOMENVCUBE)] _enum_env ("Environment Source", float) = 1
         
         [Main(EmssionSetting, _, off, off)]
         _groupEmission ("Emission Setting", float) = 0
