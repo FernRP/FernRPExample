@@ -13,6 +13,7 @@ Material:
   - _ALPHATEST_ON
   - _GGX
   - _LAMBERTIAN
+  - _RECEIVE_SHADOWS_OFF
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
@@ -86,7 +87,7 @@ Material:
     - _Outline: 0
     - _OutlineWidth: 1
     - _QueueOffset: 0
-    - _RECEIVE_SHADOWS_OFF: 1
+    - _RECEIVE_SHADOWS_OFF: 0
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0.5
     - _RimDirectionLightContribution: 1
@@ -102,7 +103,7 @@ Material:
     - _Surface: 0
     - _UseDepthShadow: 0
     - _UseEmissionTex: 0
-    - _UseHalfLambert: 1
+    - _UseHalfLambert: 0
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
     - _ZWrite: 1

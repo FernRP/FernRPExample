@@ -64,7 +64,7 @@ Material:
     - _BlendMode: 1
     - _BumpMapKeyword: 0
     - _BumpScale: 1
-    - _CELLSmoothing: 0.074
+    - _CELLSmoothing: 0.03
     - _CELLThreshold: 0.614
     - _CellBandSoftness: 0.001
     - _CellBands: 1
@@ -98,7 +98,7 @@ Material:
     - _ScreenSpaceRimThreshold: 0.01
     - _ScreenSpaceRimWidth: 0.01
     - _Shininess: 1
-    - _Smoothness: 0.5
+    - _Smoothness: 0.293
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
@@ -125,7 +125,7 @@ Material:
     - _groupShadowSetting: 1
     - _groupSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0.8742138, b: 0.8742138, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.736, g: 0.480608, b: 0.49441302, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
