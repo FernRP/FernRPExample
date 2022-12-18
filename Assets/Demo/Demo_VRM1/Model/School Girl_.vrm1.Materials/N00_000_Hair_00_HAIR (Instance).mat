@@ -13,6 +13,7 @@ Material:
   - _ALPHATEST_ON
   - _CELLSHADING
   - _GGX
+  - _NORMALMAP
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
@@ -35,7 +36,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 458c25d530a754a4c91fa6071b3eb2d8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseRampMap:
@@ -74,7 +75,7 @@ Material:
     - _AnsioSpeularShift: 1
     - _AnsioSpeularStrength: 1
     - _BlendMode: 1
-    - _BumpMapKeyword: 0
+    - _BumpMapKeyword: 1
     - _BumpScale: 1
     - _CELLSmoothing: 0.023
     - _CELLThreshold: 0.5
@@ -97,7 +98,7 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
-    - _Smoothness: 0.592
+    - _Smoothness: 0.437
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0

@@ -13,6 +13,7 @@ Material:
   - _ALPHATEST_ON
   - _CELLSHADING
   - _GGX
+  - _NORMALMAP
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
@@ -31,7 +32,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 75679c7a58bdf8b4c8343239d20c6230, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseRampMap:
@@ -57,7 +58,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BlendMode: 1
-    - _BumpMapKeyword: 0
+    - _BumpMapKeyword: 1
     - _BumpScale: 1
     - _CELLSmoothing: 0.103
     - _CELLThreshold: 0.5
