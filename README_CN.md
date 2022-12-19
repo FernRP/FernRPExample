@@ -24,9 +24,6 @@ FernNPR 可以轻松的创建多种风格的材质，包括NPR和PBR。
 
 ![](DocAssets/MaterialBall_AdditonalLight.jpg)
 
-### 各向异性头发
-![](DocAssets/aniso-hair.gif)
-
 ### 天使轮高光
 ![](DocAssets/compression/angleringspecular.gif)
 
