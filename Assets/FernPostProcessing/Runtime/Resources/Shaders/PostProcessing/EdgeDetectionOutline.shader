@@ -37,7 +37,7 @@
 
     // this method from https://github.com/yahiaetman/URPCustomPostProcessingStack"
     float4 SampleSceneDepthNormal(float2 uv){
-        float depth = SampleSceneDepth(uv, _CameraDepthTexture, sampler_linear_clamp);
+        float depth = SampleSceneDepth(uv, _CameraDepthTexture, sampler_linear_clamp); // TODO：loadSceneDepth
         float depthEye = LinearEyeDepth(depth, _ZBufferParams);
         float3 normal = SampleSceneNormals(uv, _CameraNormalsTexture, sampler_linear_clamp);
         return float4(normal, depthEye);

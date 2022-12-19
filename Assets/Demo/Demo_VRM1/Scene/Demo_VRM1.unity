@@ -704,6 +704,21 @@ PrefabInstance:
       propertyPath: m_AABB.m_Extent.z
       value: 0.18690476
       objectReference: {fileID: 0}
+    - target: {fileID: 4870552773557632513, guid: f699f5fa128d313478c2e2587b4d9b35,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 5e0bf9d86037985488d034c320d79340, type: 2}
+    - target: {fileID: 4870552773557632513, guid: f699f5fa128d313478c2e2587b4d9b35,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870552773557632513, guid: f699f5fa128d313478c2e2587b4d9b35,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5159078012444724336, guid: f699f5fa128d313478c2e2587b4d9b35,
         type: 3}
       propertyPath: m_RootOrder

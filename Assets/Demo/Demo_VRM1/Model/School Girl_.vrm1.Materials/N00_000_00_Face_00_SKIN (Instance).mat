@@ -73,7 +73,7 @@ Material:
     - _Cutoff: 0.5
     - _DepthOffsetShadowReverseX: 1
     - _DepthShadowOffset: -0.15
-    - _DepthShadowSoftness: 0
+    - _DepthShadowSoftness: 0.225
     - _DepthShadowThresoldOffset: -0.036
     - _DstBlend: 0
     - _EmissionColorAlbedoWeight: 0
