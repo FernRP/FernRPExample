@@ -73,7 +73,7 @@ Material:
     - _Cutoff: 0.5
     - _DepthOffsetRimReverseX: 0
     - _DepthOffsetShadowReverseX: 0
-    - _DepthRimOffset: -0.249
+    - _DepthRimOffset: -0.15
     - _DepthRimThresoldOffset: 0.01
     - _DepthShadowOffset: 0.15
     - _DepthShadowSoftness: 0
