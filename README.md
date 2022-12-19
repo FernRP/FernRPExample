@@ -24,9 +24,6 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 
 ![](DocAssets/MaterialBall_AdditonalLight.jpg)
 
-### Aniso Hair
-![](DocAssets/aniso-hair.gif)
-
 ### Angle Ring Specular
 ![](DocAssets/compression/angleringspecular.gif)
 
