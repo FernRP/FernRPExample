@@ -37,7 +37,7 @@ MonoBehaviour:
     m_Value: 1
   thickness:
     m_OverrideState: 1
-    m_Value: 1.3
+    m_Value: 0.5
   angleThreshold:
     m_OverrideState: 1
     m_Value: 130
