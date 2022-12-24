@@ -334,9 +334,7 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
     outSurfaceData.specularIntensity = GetVauleFromChannel(pbrLightMap, shadingMap01, _SpecularIntensityChannel);
     outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
 
-    #if _SPECULARAA
-        outSurfaceData.smoothness = SpecularAA(inputData.normalWS, outSurfaceData.smoothness);
-    #endif
+   
 }
 
 

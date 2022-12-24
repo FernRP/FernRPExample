@@ -31,7 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3ac5ce384e33744e961ec64da0b9794, type: 3}
   m_Name: EdgeDetectionOutlineEffect
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   intensity:
     m_OverrideState: 1
     m_Value: 1

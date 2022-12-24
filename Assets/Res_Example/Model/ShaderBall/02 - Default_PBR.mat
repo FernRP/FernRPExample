@@ -14,6 +14,7 @@ Material:
   - _GGX
   - _LAMBERTIAN
   - _RENDERENVSETTING
+  - _SPECULARAA
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
@@ -150,8 +151,11 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
-    - _Smoothness: 0.639
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
+    - _SpaceScreenVariant: 1
+    - _SpecularAA: 1
+    - _SpecularAAThreshold: 1
     - _SpecularHighlights: 1
     - _SpecularMask: 0
     - _SrcBlend: 1

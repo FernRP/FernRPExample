@@ -134,7 +134,7 @@ Material:
     - _PBRMetallicChannel: {r: 1, g: 0, b: 0, a: 0}
     - _PBROcclusionChannel: {r: 0, g: 1, b: 0, a: 0}
     - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
-    - _RimColor: {r: 0.05948571, g: 0.11897142, b: 0.347, a: 1}
+    - _RimColor: {r: 0.19111821, g: 0.38223642, b: 1.1212269, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
     - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

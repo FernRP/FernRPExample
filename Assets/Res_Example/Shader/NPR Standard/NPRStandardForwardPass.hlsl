@@ -458,6 +458,10 @@ half4 LitPassFragment(Varyings input) : SV_Target
     InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
    
     InitializeInputData(input, surfaceData.normalTS, addInputData, inputData);
+    
+    #if _SPECULARAA
+    surfaceData.smoothness = SpecularAA(inputData.normalWS, surfaceData.smoothness);
+    #endif
 
     SETUP_DEBUG_TEXTURE_DATA(inputData, input.uv, _BaseMap);
 
