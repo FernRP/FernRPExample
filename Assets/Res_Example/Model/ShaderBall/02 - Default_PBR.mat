@@ -150,7 +150,7 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
-    - _Smoothness: 0.754
+    - _Smoothness: 0.639
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularMask: 0

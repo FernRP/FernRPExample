@@ -50,6 +50,9 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Sub(Specular._STYLIZED)] _StylizedSpecularSoftness ("Stylized Specular Softness", Range(0.001,1)) = 0.05
         [Sub(Specular._STYLIZED)] _StylizedSpecularAlbedoWeight ("Specular Color Albedo Weight", Range(0,1)) = 0
         [Sub(Specular._BLINNPHONG)] _Shininess ("BlinnPhong Shininess", Range(0,1)) = 1
+        [SubToggle(Specular._GGX, _SPECULARAA)] _SpecularAA("Use Specular AA", Float) = 0.0
+        [Sub(Specular._SPECULARAA)] _SpaceScreenVariant ("SpecularAA Variant", Range(0,1)) = 0.5
+        [Sub(Specular._SPECULARAA)] _SpecularAAThreshold ("SpecularAA Threshold", Range(0,1)) = 1
         
         [Main(Environment, _, off, off)]
         _groupEnvironment ("EnvironmentSettings", float) = 1
@@ -145,6 +148,7 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local _NORMALMAP
             #pragma shader_feature_local _LAMBERTIAN _CELLSHADING _RAMPSHADING _CELLBANDSHADING
             #pragma shader_feature_local _ _GGX _STYLIZED _BLINNPHONG
+            #pragma shader_feature_local _SPECULARAA
             #pragma shader_feature_local _SPECULARMASK
             #pragma shader_feature_local _ _FRESNELRIM _SCREENSPACERIM
             #pragma shader_feature_local _CLEARCOAT

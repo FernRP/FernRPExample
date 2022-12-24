@@ -63,7 +63,11 @@ half _RampMapVOffset;
 half _StylizedSpecularSize;
 half _StylizedSpecularSoftness;
 half _StylizedSpecularAlbedoWeight;
+
+// specular
 half _Shininess;
+half _SpecularAAThreshold;
+half _SpaceScreenVariant;
 
 half _AnisoShiftScale;
 half _AnsioSpeularShift;
@@ -293,6 +297,19 @@ half3 EmissionColor(half4 pbrLightMap, half4 shadingMap01, half3 albedo, half2 u
     }
 #endif
 
+inline half SpecularAA(half3 normalWS, half smoothness)
+{
+    half dx = dot(ddx(normalWS),ddx(normalWS));
+    half dy = dot(ddy(normalWS),ddy(normalWS));
+    half roughness = 1 - smoothness;
+    half roughnessAA = roughness * roughness + min(_SpaceScreenVariant * (dx + dy) * 2, _SpecularAAThreshold * _SpecularAAThreshold);
+    roughnessAA = saturate(roughnessAA);
+    roughnessAA = sqrt(roughnessAA);
+    roughnessAA = sqrt(roughnessAA);
+    half smoothnessAA = 1 - roughnessAA;
+    return smoothnessAA;
+}
+
 inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out NPRSurfaceData outSurfaceData)
 {
     outSurfaceData = (NPRSurfaceData)0;
@@ -316,6 +333,10 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
     outSurfaceData.clearCoatSmoothness = _ClearCoatSmoothness;
     outSurfaceData.specularIntensity = GetVauleFromChannel(pbrLightMap, shadingMap01, _SpecularIntensityChannel);
     outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
+
+    #if _SPECULARAA
+        outSurfaceData.smoothness = SpecularAA(inputData.normalWS, outSurfaceData.smoothness);
+    #endif
 }
 
 
