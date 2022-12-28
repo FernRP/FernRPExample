@@ -94,6 +94,9 @@ Material:
     - _RimThreshold: 0.2
     - _Shininess: 1
     - _Smoothness: 0.5
+    - _SpaceScreenVariant: 0.5
+    - _SpecularAA: 0
+    - _SpecularAAThreshold: 1
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
