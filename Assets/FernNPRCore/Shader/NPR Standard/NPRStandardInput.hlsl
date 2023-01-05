@@ -331,7 +331,11 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
     outSurfaceData.occlusion = LerpWhiteTo(pbrChannel.g, _OcclusionStrength);
     outSurfaceData.clearCoatMask = _ClearCoatMask;
     outSurfaceData.clearCoatSmoothness = _ClearCoatSmoothness;
+    #if _SPECULARMASK
     outSurfaceData.specularIntensity = GetVauleFromChannel(pbrLightMap, shadingMap01, _SpecularIntensityChannel);
+    #else
+    outSurfaceData.specularIntensity = 1;
+    #endif
     outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
 
    
