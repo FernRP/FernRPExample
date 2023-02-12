@@ -25,24 +25,22 @@ FernNPR 可以轻松的创建多种风格的材质，包括NPR和PBR。
 ![](DocAssets/MaterialBall_AdditonalLight.jpg)
 
 ### 天使轮高光
-![](DocAssets/compression/angleringspecular.gif)
+
+https://user-images.githubusercontent.com/18584942/218261848-3d283271-2154-45cc-954f-cc34aa2f77a2.mp4
 
 ### 眼睛
-![](DocAssets/compression/eyeexample.gif)
+
+https://user-images.githubusercontent.com/18584942/218262052-18a94087-442c-4d1f-940f-ce32929d8876.mp4
 
 ### 脸
 
-![](DocAssets/compression/SDFFace.gif)
+https://user-images.githubusercontent.com/18584942/218262153-0784eda7-ebb2-4ae2-a367-227398a90b01.mp4
 
 ### Depth Shadow 
 
 使用深度偏移的技巧得到清晰的投影。
 
 ![](DocAssets/DepthShadow.jpg)
-
-刘海投影的例子。
-
-![](DocAssets/compression/DepthShadow-min.gif)
 
 ### Depth Offset Rim
 
@@ -52,15 +50,11 @@ FernNPR 可以轻松的创建多种风格的材质，包括NPR和PBR。
 
 ### 边缘检测描边
 
-![](DocAssets/EdgeOutline.gif)
+https://user-images.githubusercontent.com/18584942/218262271-ea9615c9-b935-4189-b568-68d89e763aa1.mp4
 
-### 后续计划
+### Roadmap
 
-- 皮肤
-- 布料
-- 工具
-- 后处理
-- 延迟管线
+Roadmap: https://rookiefern.notion.site/8bd6fd0ba54143c082f1f2cdebc36dd9?v=888f4efdebbe4254828f0a383eac401e
 
 ## Related links
 
