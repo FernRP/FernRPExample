@@ -32,7 +32,11 @@ CBUFFER_START(SDFFaceObjectToWorld)
 CBUFFER_END
 #endif
 
-float4 _CameraDepthTexture_TexelSize;
+// Global Property
+half4 _DepthTextureSourceSize;
+half _CameraAspect;
+half _CameraFOV;
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,11 +58,11 @@ inline int2 GetDepthUVOffset(half offset, half reverseX, half2 positionCSXY, hal
     // 1 / depth when depth < 1 is wrong, this is like point light attenuation
     // 0.5625 is aspect, hard code for now
     // 0.333 is fov, hard code for now
-    float2 UVOffset = 0.5625f * (offset * 0.333f / (1 + addInputData.linearEyeDepth)); 
+    float2 UVOffset = _CameraAspect * (offset * _CameraFOV / (1 + addInputData.linearEyeDepth)); 
     half2 mainLightDirVS = TransformWorldToView(mainLightDir).xy;
     mainLightDirVS.x *= lerp(1, -1, reverseX);
     UVOffset = mainLightDirVS * UVOffset;
-    half2 downSampleFix = _CameraDepthTexture_TexelSize.zw / depthTexWH.xy;
+    half2 downSampleFix = _DepthTextureSourceSize.zw / depthTexWH.xy;
     int2 loadTexPos = positionCSXY / downSampleFix + UVOffset * depthTexWH.xy;
     loadTexPos = min(loadTexPos, depthTexWH.xy-1);
     return loadTexPos;
@@ -77,7 +81,7 @@ inline half DepthShadow(half depthShadowOffset, half reverseX, half depthShadowT
 
 inline half DepthRim(half depthRimOffset, half reverseX, half rimDepthDiffThresholdOffset, half2 positionCSXY, half3 mainLightDir, NPRAddInputData addInputData)
 {
-    int2 loadPos = GetDepthUVOffset(depthRimOffset, reverseX, positionCSXY, mainLightDir,  _CameraDepthTexture_TexelSize.zw, addInputData);
+    int2 loadPos = GetDepthUVOffset(depthRimOffset, reverseX, positionCSXY, mainLightDir,  _DepthTextureSourceSize.zw, addInputData);
     float depthTextureValue = LoadSceneDepth(loadPos);
     float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthTextureValue);
     

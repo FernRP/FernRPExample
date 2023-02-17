@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: 02 - Default_Toon
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _CELLSHADING
   - _CLEARCOAT
@@ -16,6 +18,7 @@ Material:
   - _SCREENSPACERIM
   - _STYLIZED
   m_InvalidKeywords:
+  - _DEPTHOFFSETRIMREVERSEX_ON
   - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
   - _USERADIANCEOCCLUSION_ON
@@ -25,6 +28,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -117,9 +121,11 @@ Material:
     - _ClearCoatTexSource: 0
     - _Cull: 2
     - _Cutoff: 0.5
+    - _DepthOffsetRimReverseX: 1
+    - _DepthOffsetShadowReverseX: 0
     - _DepthRimLightCameraDistanceFadeoutEnd: 80
     - _DepthRimLightCameraDistanceStart: 50
-    - _DepthRimOffset: -0.02
+    - _DepthRimOffset: -1
     - _DepthRimThresoldOffset: 0.01
     - _DepthShadowOffset: 0.15
     - _DepthShadowSoftness: 0
@@ -151,6 +157,9 @@ Material:
     - _Shininess: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
+    - _SpaceScreenVariant: 0.5
+    - _SpecularAA: 0
+    - _SpecularAAThreshold: 1
     - _SpecularHighlights: 1
     - _SpecularMask: 0
     - _SrcBlend: 1
