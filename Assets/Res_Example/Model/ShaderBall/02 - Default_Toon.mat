@@ -112,7 +112,7 @@ Material:
     - _BumpMapKeyword: 0
     - _BumpScale: 1
     - _CELLSmoothing: 0.001
-    - _CELLThreshold: 0.343
+    - _CELLThreshold: 0.619
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 1

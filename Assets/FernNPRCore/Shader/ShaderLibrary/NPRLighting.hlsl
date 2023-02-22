@@ -296,22 +296,31 @@ inline half3 AngleRingSpecular(AngleRingSpecularData specularData, InputData inp
     return specularColor;
 }
 
-half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughness, half occlusion)
+half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half3 positionWS, half2 normalizedScreenSpaceUV, half perceptualRoughness, half occlusion)
 {
     #if !defined(_ENVIRONMENTREFLECTIONS_OFF)
-    half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
-    half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
+        half3 irradiance;
+    
+        #if defined(_REFLECTION_PROBE_BLENDING) || USE_FORWARD_PLUS
+            irradiance = CalculateIrradianceFromReflectionProbes(reflectVector, positionWS, perceptualRoughness, normalizedScreenSpaceUV);
+        #else
+            #ifdef _REFLECTION_PROBE_BOX_PROJECTION
+                reflectVector = BoxProjectedCubemapDirection(reflectVector, positionWS, unity_SpecCube0_ProbePosition, unity_SpecCube0_BoxMin, unity_SpecCube0_BoxMax);
+            #endif 
 
-    #if defined(UNITY_USE_NATIVE_HDR)
-    half3 irradiance = encodedIrradiance.rgb;
+            half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
+            half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
+
+            #if defined(UNITY_USE_NATIVE_HDR)
+                irradiance = encodedIrradiance.rgb;
+            #else
+                irradiance = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
+            #endif
+        #endif
+        return irradiance * occlusion;
     #else
-    half3 irradiance = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
-    #endif
-
-    return irradiance * occlusion;
+        return _GlossyEnvironmentColor.rgb * occlusion;
     #endif // GLOSSY_REFLECTIONS
-
-    return _GlossyEnvironmentColor.rgb * occlusion;
 }
 
 

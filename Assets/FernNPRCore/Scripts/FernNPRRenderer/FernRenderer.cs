@@ -7,10 +7,10 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
 
-namespace FernRender.Renderer
+namespace FernRender.Universal
 {
     [ExecuteAlways]
-    public class FernNPRRenderer : MonoBehaviour
+    public class FernRenderer : MonoBehaviour
     {
         public RenderPipelineAsset renderPipelineAsset;
         public Camera FernCamera;

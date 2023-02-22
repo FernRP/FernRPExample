@@ -5,7 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 
-namespace FernRender.Material
+namespace FernRender.MaterialTool
 {
     [ExecuteAlways]
     [ExecuteInEditMode]
