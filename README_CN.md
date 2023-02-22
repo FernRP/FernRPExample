@@ -22,7 +22,9 @@ FernNPR 可以轻松的创建多种风格的材质，包括NPR和PBR。
 
 ![](DocAssets/MaterialBall.jpg)
 
-![](DocAssets/MaterialBall_AdditonalLight.jpg)
+Forward+ 测试 (branches:2022.2_urp)
+
+https://user-images.githubusercontent.com/18584942/220602754-7757590b-0650-4740-b4e5-a2133d8eda02.mp4
 
 ### 天使轮高光
 
