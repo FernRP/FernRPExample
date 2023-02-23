@@ -1,10 +1,6 @@
-﻿using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.Rendering.Universal;
-using UnityEngine.Rendering.Universal.PostProcessing;
-using UnityEngine.Serialization;
+﻿using UnityEngine.Serialization;
 
-namespace Fern.PostProcess {
+namespace UnityEngine.Rendering.Universal.PostProcessing {
 
     [System.Serializable, VolumeComponentMenu("FernPostProcess/Edge Detection Outline")]
     public class EdgeDetectionOutlineEffect : VolumeComponent

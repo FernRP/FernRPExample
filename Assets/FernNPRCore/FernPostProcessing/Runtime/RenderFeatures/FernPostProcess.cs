@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Fern.PostProcess;
 
 namespace UnityEngine.Rendering.Universal.PostProcessing {
 
@@ -15,7 +14,7 @@ namespace UnityEngine.Rendering.Universal.PostProcessing {
         {
             if(renderingData.cameraData.postProcessEnabled) {
                 if(m_AfterOpaqueAndSkyPass.HasPostProcessRenderers && m_AfterOpaqueAndSkyPass.PrepareRenderers(ref renderingData)){
-                    m_AfterOpaqueAndSkyPass.Setup(renderer.cameraColorTarget, renderer.cameraColorTarget);
+                    m_AfterOpaqueAndSkyPass.Setup(renderer);
                     renderer.EnqueuePass(m_AfterOpaqueAndSkyPass);
                 }
                 // if(m_BeforePostProcessPass.HasPostProcessRenderers && m_BeforePostProcessPass.PrepareRenderers(ref renderingData)){
@@ -101,6 +100,8 @@ namespace UnityEngine.Rendering.Universal.PostProcessing {
         /// </summary>
         public bool HasPostProcessRenderers => m_PostProcessRenderers.Count != 0;
 
+        private ScriptableRenderer m_Render = null;
+
         /// <summary>
         /// Construct the render pass
         /// </summary>
@@ -157,13 +158,23 @@ namespace UnityEngine.Rendering.Universal.PostProcessing {
         }
 
         /// <summary>
-        /// Setup the source and destination render targets
+        /// Setup Data
         /// </summary>
-        /// <param name="source">Source render target</param>
-        /// <param name="destination">Destination render target</param>
-        public void Setup(RenderTargetIdentifier source, RenderTargetIdentifier destination){
-            this.m_Source = source;
-            this.m_Destination = destination;
+        public void Setup(ScriptableRenderer renderer)
+        {
+            m_Render = renderer;
+        }
+        
+        /// <summary>
+        /// cameraColorTargetHandle can only be obtained in SRP render
+        /// </summary>
+        /// <param name="cmd"></param>
+        /// <param name="renderingData"></param>
+        public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
+        {
+            base.OnCameraSetup(cmd, ref renderingData);
+            m_Source = m_Render.cameraColorTargetHandle;
+            m_Destination = m_Render.cameraColorTargetHandle;
         }
 
         /// <summary>
@@ -196,7 +207,7 @@ namespace UnityEngine.Rendering.Universal.PostProcessing {
 
             // return if no renderers are active
             return m_ActivePostProcessRenderers.Count != 0;
-        } 
+        }
 
         /// <summary>
         /// Execute the custom post processing renderers

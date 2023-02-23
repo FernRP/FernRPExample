@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: 02 - Default
   m_Shader: {fileID: 4800000, guid: 0bb4a4d350ca3de41aed86ede804a971, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _KAJIYAHAIR
   - _LAMBERTIAN
@@ -25,6 +27,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -152,7 +155,7 @@ Material:
     - _GlossyReflections: 1
     - _Is_Filter_LightColor: 1
     - _LightIntensityClamp: 1
-    - _Metallic: 0.671
+    - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Outline: 0

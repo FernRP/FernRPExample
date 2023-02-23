@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6841436103611662782}
-  - component: {fileID: 6841436103611662783}
+  - component: {fileID: 427067113}
   m_Layer: 0
   m_Name: RenderPipelineSetting
   m_TagString: Untagged
@@ -30,9 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6841436103611662783
+--- !u!114 &427067113
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 6841436103611662776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf580fc4893c08f4ca3622fb7582d844, type: 3}
+  m_Script: {fileID: 11500000, guid: def36fe55d1bade4ab6f78b9be761ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderPipelineAsset: {fileID: 11400000, guid: 7b7fd9122c28c4d15b667c7040e3b3fd,
+  renderPipelineAsset: {fileID: 11400000, guid: 5988b99ae4e197a409172c2a59bc624b,
     type: 2}
+  FernCamera: {fileID: 0}

@@ -22,7 +22,7 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 
 ![](DocAssets/MaterialBall.jpg)
 
-Forward+ 测试 (branches:2022.2_urp)
+Forward+ Test (branches:2022.2_urp)
 
 https://user-images.githubusercontent.com/18584942/220602754-7757590b-0650-4740-b4e5-a2133d8eda02.mp4
 

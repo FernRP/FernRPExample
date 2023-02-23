@@ -286,11 +286,35 @@ half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCo
     #if defined(_ADDITIONAL_LIGHTS)
     uint pixelLightCount = GetAdditionalLightsCount();
 
+    #if USE_FORWARD_PLUS
+    for (uint lightIndex = 0; lightIndex < min(URP_FP_DIRECTIONAL_LIGHTS_COUNT, MAX_VISIBLE_LIGHTS); lightIndex++)
+    {
+        FORWARD_PLUS_SUBTRACTIVE_LIGHT_CHECK
+
+        Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
+
+        #ifdef _LIGHT_LAYERS
+        if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
+        #endif
+        {
+            LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+            half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
+            // Additional Light Filter Referenced from https://github.com/unity3d-jp/UnityChanToonShaderVer2_Project
+            float pureIntencity = max(0.001,(0.299 * lightingData.lightColor.r + 0.587 * lightingData.lightColor.g + 0.114 * lightingData.lightColor.b));
+            lightingData.lightColor = max(0, lerp(lightingData.lightColor, lerp(0, min(lightingData.lightColor, lightingData.lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
+            half3 addLightColor = NPRMainLightDirectLighting(brdfData, brdfDataClearCoat, input, inputData, surfData, radiance, lightingData);
+            additionLightColor += addLightColor;
+        }
+    }
+    #endif
+
     #if USE_CLUSTERED_LIGHTING
     for (uint lightIndex = 0; lightIndex < min(_AdditionalLightsDirectionalCount, MAX_VISIBLE_LIGHTS); lightIndex++)
     {
         Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
+    #ifdef _LIGHT_LAYERS
         if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
+    #endif
         {
             LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
             half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
@@ -305,7 +329,9 @@ half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCo
 
     LIGHT_LOOP_BEGIN(pixelLightCount)
         Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
+    #ifdef _LIGHT_LAYERS
         if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
+    #endif
         {
             LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
             half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
@@ -349,7 +375,7 @@ half3 NPRIndirectLighting(BRDFData brdfData, InputData inputData, Varyings input
     half NoV = saturate(dot(inputData.normalWS, inputData.viewDirectionWS));
     half fresnelTerm = Pow4(1.0 - NoV);
     #if _RENDERENVSETTING || _CUSTOMENVCUBE
-        half3 indirectSpecular = NPRGlossyEnvironmentReflection(reflectVector, brdfData.perceptualRoughness, occlusion);
+        half3 indirectSpecular = NPRGlossyEnvironmentReflection(reflectVector, inputData.positionWS, inputData.normalizedScreenSpaceUV, brdfData.perceptualRoughness, occlusion);
     #else
         half3 indirectSpecular = 0;
     #endif
@@ -445,7 +471,13 @@ Varyings LitPassVertex(Attributes input)
     return output;
 }
 
-half4 LitPassFragment(Varyings input) : SV_Target
+void LitPassFragment(
+    Varyings input
+    , out half4 outColor : SV_Target0
+#ifdef _WRITE_RENDERING_LAYERS
+    , out float4 outRenderingLayers : SV_Target1
+#endif
+)
 {
     UNITY_SETUP_INSTANCE_ID(input);
     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
@@ -470,11 +502,20 @@ half4 LitPassFragment(Varyings input) : SV_Target
 #endif
 
     half4 shadowMask = CalculateShadowMask(inputData);
-    AmbientOcclusionFactor aoFactor = CreateAmbientOcclusionFactor(inputData.normalizedScreenSpaceUV, surfaceData.occlusion);
-    uint meshRenderingLayers = GetMeshRenderingLightLayer();
-    Light mainLight = GetMainLight(inputData, shadowMask, aoFactor);
+    
+    uint meshRenderingLayers = GetMeshRenderingLayer();
+    Light mainLight = GetMainLight(inputData.shadowCoord, inputData.positionWS, shadowMask);
     NPRMainLightCorrect(_LightDirectionObliqueWeight, mainLight);
     MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI);
+    #if defined(_SCREEN_SPACE_OCCLUSION)
+        AmbientOcclusionFactor aoFactor = GetScreenSpaceAmbientOcclusion(inputData.normalizedScreenSpaceUV);
+        mainLight.color *= aoFactor.directAmbientOcclusion;
+        surfaceData.occlusion = min(surfaceData.occlusion, aoFactor.indirectAmbientOcclusion);
+    #else
+        AmbientOcclusionFactor aoFactor;
+        aoFactor.indirectAmbientOcclusion = 1;
+        aoFactor.directAmbientOcclusion = 1;
+    #endif
 
     BRDFData brdfData, clearCoatbrdfData;
     InitializeNPRBRDFData(surfaceData, brdfData, clearCoatbrdfData);
@@ -487,12 +528,18 @@ half4 LitPassFragment(Varyings input) : SV_Target
     color.rgb += NPRAdditionLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, addInputData, shadowMask, meshRenderingLayers, aoFactor);
     color.rgb += NPRIndirectLighting(brdfData, inputData, input, surfaceData.occlusion);
     color.rgb += NPRRimLighting(lightingData, inputData, input, addInputData);
+
     color.rgb += surfaceData.emission;
     color.rgb = MixFog(color.rgb, inputData.fogCoord);
 
     color.a = surfaceData.alpha;
 
-    return color;
+    outColor = color;
+
+    #ifdef _WRITE_RENDERING_LAYERS
+    uint renderingLayers = GetMeshRenderingLayer();
+    outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+    #endif
 }
 
 #endif

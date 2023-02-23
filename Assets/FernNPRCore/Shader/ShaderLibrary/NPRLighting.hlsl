@@ -32,7 +32,11 @@ CBUFFER_START(SDFFaceObjectToWorld)
 CBUFFER_END
 #endif
 
-float4 _CameraDepthTexture_TexelSize;
+// Global Property
+half4 _DepthTextureSourceSize;
+half _CameraAspect;
+half _CameraFOV;
+
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -54,11 +58,11 @@ inline int2 GetDepthUVOffset(half offset, half reverseX, half2 positionCSXY, hal
     // 1 / depth when depth < 1 is wrong, this is like point light attenuation
     // 0.5625 is aspect, hard code for now
     // 0.333 is fov, hard code for now
-    float2 UVOffset = 0.5625f * (offset * 0.333f / (1 + addInputData.linearEyeDepth)); 
+    float2 UVOffset = _CameraAspect * (offset * _CameraFOV / (1 + addInputData.linearEyeDepth)); 
     half2 mainLightDirVS = TransformWorldToView(mainLightDir).xy;
     mainLightDirVS.x *= lerp(1, -1, reverseX);
     UVOffset = mainLightDirVS * UVOffset;
-    half2 downSampleFix = _CameraDepthTexture_TexelSize.zw / depthTexWH.xy;
+    half2 downSampleFix = _DepthTextureSourceSize.zw / depthTexWH.xy;
     int2 loadTexPos = positionCSXY / downSampleFix + UVOffset * depthTexWH.xy;
     loadTexPos = min(loadTexPos, depthTexWH.xy-1);
     return loadTexPos;
@@ -77,7 +81,7 @@ inline half DepthShadow(half depthShadowOffset, half reverseX, half depthShadowT
 
 inline half DepthRim(half depthRimOffset, half reverseX, half rimDepthDiffThresholdOffset, half2 positionCSXY, half3 mainLightDir, NPRAddInputData addInputData)
 {
-    int2 loadPos = GetDepthUVOffset(depthRimOffset, reverseX, positionCSXY, mainLightDir,  _CameraDepthTexture_TexelSize.zw, addInputData);
+    int2 loadPos = GetDepthUVOffset(depthRimOffset, reverseX, positionCSXY, mainLightDir,  _DepthTextureSourceSize.zw, addInputData);
     float depthTextureValue = LoadSceneDepth(loadPos);
     float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthTextureValue);
     
@@ -292,22 +296,31 @@ inline half3 AngleRingSpecular(AngleRingSpecularData specularData, InputData inp
     return specularColor;
 }
 
-half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half perceptualRoughness, half occlusion)
+half3 NPRGlossyEnvironmentReflection(half3 reflectVector, half3 positionWS, half2 normalizedScreenSpaceUV, half perceptualRoughness, half occlusion)
 {
     #if !defined(_ENVIRONMENTREFLECTIONS_OFF)
-    half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
-    half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
+        half3 irradiance;
+    
+        #if defined(_REFLECTION_PROBE_BLENDING) || USE_FORWARD_PLUS
+            irradiance = CalculateIrradianceFromReflectionProbes(reflectVector, positionWS, perceptualRoughness, normalizedScreenSpaceUV);
+        #else
+            #ifdef _REFLECTION_PROBE_BOX_PROJECTION
+                reflectVector = BoxProjectedCubemapDirection(reflectVector, positionWS, unity_SpecCube0_ProbePosition, unity_SpecCube0_BoxMin, unity_SpecCube0_BoxMax);
+            #endif 
 
-    #if defined(UNITY_USE_NATIVE_HDR)
-    half3 irradiance = encodedIrradiance.rgb;
+            half mip = PerceptualRoughnessToMipmapLevel(perceptualRoughness);
+            half4 encodedIrradiance = SAMPLE_TEXTURECUBE_LOD(unity_SpecCube0, samplerunity_SpecCube0, reflectVector, mip);
+
+            #if defined(UNITY_USE_NATIVE_HDR)
+                irradiance = encodedIrradiance.rgb;
+            #else
+                irradiance = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
+            #endif
+        #endif
+        return irradiance * occlusion;
     #else
-    half3 irradiance = DecodeHDREnvironment(encodedIrradiance, unity_SpecCube0_HDR);
-    #endif
-
-    return irradiance * occlusion;
+        return _GlossyEnvironmentColor.rgb * occlusion;
     #endif // GLOSSY_REFLECTIONS
-
-    return _GlossyEnvironmentColor.rgb * occlusion;
 }
 
 
