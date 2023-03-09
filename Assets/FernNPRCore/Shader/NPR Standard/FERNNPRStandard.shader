@@ -29,8 +29,8 @@ Shader "FernRender/URP/FERNNPRStandard"
         [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, CellBandsShading, _CELLBANDSHADING, PBRShading, _LAMBERTIAN)] _enum_diffuse ("Shading Mode", float) = 0
         [SubToggle(Diffuse)] _UseHalfLambert ("Use HalfLambert (More Flatter)", float) = 1
         [SubToggle(Diffuse)] _UseRadianceOcclusion ("Radiance Occlusion", float) = 0
-        [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] [HDR] _HighColor ("Hight Color", Color) = (1,1,1,1)
-        [Sub(Diffuse_LAMBERTIAN._CELLSHADING)] _DarkColor ("Dark Color", Color) = (0.5,0.5,0.5,1)
+        [Sub(Diffuse_LAMBERTIAN._CELLSHADING._CELLBANDSHADING)] [HDR] _HighColor ("Hight Color", Color) = (1,1,1,1)
+        [Sub(Diffuse_LAMBERTIAN._CELLSHADING._CELLBANDSHADING)] _DarkColor ("Dark Color", Color) = (0.5,0.5,0.5,1)
         [Sub(Diffuse._CELLBANDSHADING)] _CellBands ("Cell Bands(Int)", Range(1, 10)) = 1
         [Sub(Diffuse_CELLSHADING._CELLBANDSHADING)] _CELLThreshold ("Cell Threshold", Range(0.01,1)) = 0.5
         [Sub(Diffuse_CELLSHADING)] _CELLSmoothing ("Cell Smoothing", Range(0.001,1)) = 0.001
