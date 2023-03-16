@@ -1,19 +1,15 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-
-namespace FernRender.Universal
+namespace FernNPRCore.Scripts.FernNPRRenderer
 {
     [ExecuteAlways]
     public class FernRenderer : MonoBehaviour
     {
         public RenderPipelineAsset renderPipelineAsset;
-        public Camera FernCamera;
 
         private UniversalAdditionalCameraData FernCameraData;
         private Vector4 depthSourceSize = Vector4.one;
@@ -26,46 +22,37 @@ namespace FernRender.Universal
 
         private void OnEnable()
         {
-            if (FernCamera == null)
-            {
-                FernCamera = Camera.main;
-                FernCameraData = FernCamera.GetComponent<UniversalAdditionalCameraData>();
-            }
 
-            if (renderPipelineAsset == null)
-            {
-                if (FernCamera != null)
-                {
-                    renderPipelineAsset = GraphicsSettings.renderPipelineAsset;
-                }
-            }
-            else
-            {
-                GraphicsSettings.renderPipelineAsset = renderPipelineAsset;
-            }
+            GraphicsSettings.renderPipelineAsset = renderPipelineAsset;
+            RenderPipelineManager.beginCameraRendering += OnBeginCameraRender;
         }
 
-        // Update is called once per frame
-        void Update()
+
+        private void OnDisable()
         {
-            if (Math.Abs(cameraAspect - FernCamera.aspect) > 1e-5)
+            RenderPipelineManager.beginCameraRendering -= OnBeginCameraRender;
+        }
+
+        private void OnBeginCameraRender(ScriptableRenderContext context, Camera camera)
+        {
+            if (Math.Abs(cameraAspect - camera.aspect) > 1e-5)
             {
-                var aspect = FernCamera.aspect;
+                var aspect = camera.aspect;
                 cameraAspect = aspect;
                 Shader.SetGlobalFloat(ShaderID_CameraAspect, 1.0f / aspect);
             }
     
-            if (Math.Abs(cameraFov - FernCamera.fieldOfView) > 1e-5)
+            if (Math.Abs(cameraFov - camera.fieldOfView) > 1e-5)
             {
-                cameraFov = FernCamera.fieldOfView;
-                Shader.SetGlobalFloat(ShaderID_CameraFOV, 1.0f / (FernCamera.orthographic? FernCamera.orthographicSize * 100 : FernCamera.fieldOfView));
+                cameraFov = camera.fieldOfView;
+                Shader.SetGlobalFloat(ShaderID_CameraFOV, 1.0f / (camera.orthographic? camera.orthographicSize * 100 : camera.fieldOfView));
             }
 
             // TODO: should get all cameras and then set sourceSize individually before camera rendering
-            if (!depthSourceSize.z.Equals(FernCamera.pixelWidth) || !depthSourceSize.w.Equals(FernCamera.pixelHeight))
+            if (!depthSourceSize.z.Equals(camera.pixelWidth) || !depthSourceSize.w.Equals(camera.pixelHeight))
             {
-                depthSourceSize.x = 1.0f / FernCamera.pixelWidth;
-                depthSourceSize.y = 1.0f / FernCamera.pixelHeight;
+                depthSourceSize.x = 1.0f / camera.pixelWidth;
+                depthSourceSize.y = 1.0f / camera.pixelHeight;
                 depthSourceSize.z = Screen.width;
                 depthSourceSize.w = Screen.height;
                 Shader.SetGlobalVector(ShaderID_DepthTextureSourceSize, depthSourceSize);
