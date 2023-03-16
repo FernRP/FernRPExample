@@ -2,7 +2,7 @@
 
 [中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
 
-FernNPR 是一个Unity的NPR渲染库（未来会开发UE版本），它不仅仅是卡通渲染，而是包含尽可能多的NPR渲染技术，这也意味着会同时包含PBR的材质。
+FernNPR 是一个Unity的NPR渲染库，它不仅仅是卡通渲染，而是包含尽可能多的NPR渲染技术，这也意味着会同时包含PBR的材质。
 
 FernNPR 会尽量做好代码封装，保持扩展性 ，同时兼顾PC/Mobile的性能和效果。
 
