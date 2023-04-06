@@ -677,20 +677,22 @@ namespace LWGUI
 			foreach (Material m in materials)
 			{
 				if (surfaceType == 0) // Opaque
-                {
-                    m.renderQueue = (int) RenderQueue.Geometry;
-                    m.SetOverrideTag("RenderType", "Opaque");
-                    m.SetInt(PropertyInfo.SrcBlend, (int) UnityEngine.Rendering.BlendMode.One);
-                    m.SetInt(PropertyInfo.DstBlend, (int) UnityEngine.Rendering.BlendMode.Zero);
-                    m.DisableKeyword("_ALPHABLEND_ON");
-                    m.DisableKeyword("_ALPHATEST_ON");
-                }
-                else if(surfaceType == 1) // Transparent
+				{
+					m.renderQueue = (int) RenderQueue.Geometry;
+					m.SetOverrideTag("RenderType", "Opaque");
+					m.SetInt(PropertyInfo.SrcBlend, (int) UnityEngine.Rendering.BlendMode.One);
+					m.SetInt(PropertyInfo.DstBlend, (int) UnityEngine.Rendering.BlendMode.Zero);
+					m.SetFloat(PropertyInfo.ZWrite, 1);
+					m.DisableKeyword("_ALPHABLEND_ON");
+					m.DisableKeyword("_ALPHATEST_ON");
+				}
+				else if(surfaceType == 1) // Transparent
 				{
 					m.renderQueue = (int) RenderQueue.Transparent;
 					m.SetOverrideTag("RenderType", "Transparent");
 					m.SetInt(PropertyInfo.SrcBlend, (int) UnityEngine.Rendering.BlendMode.SrcAlpha);
 					m.SetInt(PropertyInfo.DstBlend, (int) UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+					m.SetFloat(PropertyInfo.ZWrite, 0);
 					m.EnableKeyword("_ALPHABLEND_ON");
 					m.DisableKeyword("_ALPHATEST_ON");
 				}
@@ -700,6 +702,7 @@ namespace LWGUI
 					m.SetOverrideTag("RenderType", "TransparentCutout");
 					m.SetInt(PropertyInfo.SrcBlend, (int)UnityEngine.Rendering.BlendMode.One);
 					m.SetInt(PropertyInfo.DstBlend, (int)UnityEngine.Rendering.BlendMode.Zero);
+					m.SetFloat(PropertyInfo.ZWrite, 1);
 					m.EnableKeyword("_ALPHATEST_ON");
 					m.DisableKeyword("_ALPHABLEND_ON");
 				}
