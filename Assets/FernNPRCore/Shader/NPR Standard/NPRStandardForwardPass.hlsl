@@ -467,6 +467,8 @@ Varyings LitPassVertex(Attributes input)
     #if _SDFFACE
         SDFFaceUV(_SDFDirectionReversal, _SDFFaceArea, output.uv.zw);
     #endif
+
+    output.positionCS = CalculateClipPosition(output.positionCS, _ZOffset);
     
     return output;
 }

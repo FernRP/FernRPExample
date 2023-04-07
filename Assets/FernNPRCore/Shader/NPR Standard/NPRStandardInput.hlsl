@@ -99,6 +99,8 @@ half _RimSoftness;
 half _DepthRimOffset;
 half _DepthRimThresoldOffset;
 
+half _ZOffset;
+
 #if EYE
     half _Parallax;
     half _BumpIrisInvert;

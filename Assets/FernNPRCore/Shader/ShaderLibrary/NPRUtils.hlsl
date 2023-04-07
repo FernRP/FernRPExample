@@ -7,6 +7,9 @@
 //                         Utils Function                                    //
 ///////////////////////////////////////////////////////////////////////////////
 
+#define EPSILON 5.960464478e-8
+
+
 half LinearStep(half minValue, half maxValue, half In)
 {
     return saturate((In-minValue) / (maxValue - minValue));
@@ -39,6 +42,36 @@ float DepthSamplerToLinearDepth(float positionCSZ)
     }else {
         return LinearEyeDepth(positionCSZ,_ZBufferParams);
     }
+}
+
+float4 CalculateClipPosition(float4 positionCS, float viewSpaceZOffsetAmount)
+{
+    // Create a copy of the original position
+    float4 adjustedPositionCS = positionCS;
+    // Calculate the offset in clip space
+    float zOffsetCS = viewSpaceZOffsetAmount / (_ProjectionParams.z - _ProjectionParams.y);
+
+    // If using an orthographic camera, adjust the z position accordingly
+    if (unity_OrthoParams.w)
+    {
+        // Determine whether to add or subtract the offset based on the value of UNITY_NEAR_CLIP_VALUE
+        zOffsetCS *= sign(UNITY_NEAR_CLIP_VALUE);
+        // Add the z offset to the adjusted position
+        adjustedPositionCS.z += zOffsetCS;
+    }
+    // If using a perspective camera, adjust the z position accordingly
+    else
+    {
+        // Calculate the modified position in view space
+        float modifiedPositionVS_Z = -max(_ProjectionParams.y + EPSILON, abs(positionCS.w) - viewSpaceZOffsetAmount);
+        // Convert the modified position to clip space
+        float modifiedPositionCS_Z = modifiedPositionVS_Z * UNITY_MATRIX_P[2].z + UNITY_MATRIX_P[2].w;
+        // Adjust the z position of the adjusted position
+        adjustedPositionCS.z = modifiedPositionCS_Z * positionCS.w / (-modifiedPositionVS_Z);
+    }
+
+    // Return the adjusted position
+    return adjustedPositionCS;
 }
 
 #endif

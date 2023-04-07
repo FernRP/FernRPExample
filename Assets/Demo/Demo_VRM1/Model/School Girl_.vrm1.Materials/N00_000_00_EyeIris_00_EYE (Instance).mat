@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_00_EyeIris_00_EYE (Instance)
   m_Shader: {fileID: 4800000, guid: 693893d803363444f877131cc810c00d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DEPTHSHADOW
   - _GGX
@@ -27,6 +29,7 @@ Material:
   stringTagMap:
     RenderType: Transparent
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -80,7 +83,7 @@ Material:
     - _EmissionColorAlbedoWeight: 0
     - _Is_Filter_LightColor: 1
     - _LightIntensityClamp: 1
-    - _MatCapAlbedoWeight: 0.88
+    - _MatCapAlbedoWeight: 1
     - _MatCapIntensity: 0
     - _Metallic: 0
     - _OcclusionStrength: 0

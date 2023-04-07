@@ -119,6 +119,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Alpha", Float) = 0.0
         [Enum(Off, 0, On, 1)] _ZWrite("Z Write", Float) = 1.0
         _Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
+        _ZOffset("Z Offset", Range(-10, 10)) = 0
         [Queue(_)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
     }
 
