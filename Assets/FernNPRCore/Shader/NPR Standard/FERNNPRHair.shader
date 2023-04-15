@@ -246,6 +246,35 @@ Shader "FernRender/URP/FERNNPRHair"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
+         Pass
+        {
+            Name "DepthShadowOnly"
+            Tags{"LightMode" = "DepthShadowOnly"}
+
+            ZWrite On
+            ColorMask 0
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 3.0
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+
+            #pragma vertex DepthOnlyVertex
+            #pragma fragment DepthOnlyFragment
+
+            // -------------------------------------
+            // Material Keywords
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            #include "NPRStandardInput.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            ENDHLSL
+        }
 
         // This pass is used when drawing to a _CameraNormalsTexture texture
         Pass
