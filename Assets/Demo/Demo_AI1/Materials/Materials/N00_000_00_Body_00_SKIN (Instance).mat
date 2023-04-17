@@ -13,8 +13,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _CELLSHADING
   - _GGX
+  - _LAMBERTIAN
   - _NORMALMAP
   - _RENDERENVSETTING
   m_InvalidKeywords:
@@ -101,7 +101,7 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
-    - _Smoothness: 0.523
+    - _Smoothness: 0.44
     - _SpaceScreenVariant: 0.5
     - _SpecularAA: 0
     - _SpecularAAThreshold: 1
@@ -113,12 +113,12 @@ Material:
     - _Surface: 0
     - _UseDepthShadow: 0
     - _UseEmissionTex: 0
-    - _UseHalfLambert: 1
+    - _UseHalfLambert: 0
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
     - _ZOffset: 0
     - _ZWrite: 1
-    - _enum_diffuse: 0
+    - _enum_diffuse: 3
     - _enum_env: 1
     - _enum_rim: 0
     - _enum_specular: 1
@@ -135,9 +135,9 @@ Material:
     - _groupShadowSetting: 1
     - _groupSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 0.81761, b: 0.81761, a: 1}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DarkColor: {r: 1, g: 0.64779866, b: 0.64779866, a: 1}
+    - _DarkColor: {r: 0.715, g: 0.46264705, b: 0.46264705, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}

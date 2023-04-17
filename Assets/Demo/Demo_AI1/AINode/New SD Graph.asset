@@ -12,9 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de77817b1826ac54ea60fad303d975b7, type: 3}
   m_Name: New SD Graph
   m_EditorClassIdentifier: 
-  nodes: []
+  nodes:
+  - rid: 2019330458672169002
   comments: []
   assetVersion: 1
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2019330458672169002
+      type: {class: SDStart, ns: StableDiffusionGraph.SDGraph.Nodes.Events, asm: Assembly-CSharp}
+      data:
+        id: a2c81aa2-5c96-4304-ac80-e095711af71a
+        name: SD Start
+        graph: {fileID: 11400000}
+        position: {x: 0, y: 0}
+        ports:
+        - name: SDFlowOut
+          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 1
+          connections: []
+        - name: Model
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        Model: 
+        serverURL: http://127.0.0.1:7860
+        useAuth: 0
+        user: 
+        pass: 

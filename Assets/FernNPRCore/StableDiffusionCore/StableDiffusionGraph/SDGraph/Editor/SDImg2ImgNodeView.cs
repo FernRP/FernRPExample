@@ -13,6 +13,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
     {
         bool foldout = false;
         private LongField longField;
+        private LongField longLastField;
         protected override void OnInitialize()
         {
             styleSheets.Add(Resources.Load<StyleSheet>("SDGraphRes/SDNodeView"));
@@ -39,7 +40,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
             samplerMethodDropdown.style.flexGrow = 1;
             samplerMethodDropdown.style.maxWidth = 140;
             
-            var label = new Label("Method");
+            var label = new Label("Method    ");
             label.style.width = StyleKeyword.Auto;
             label.style.marginRight = 5;
             
@@ -52,7 +53,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
             extensionContainer.Add(containerSampleMethod);
             
             // seed
-            var labelSeed = new Label("Seed    ");
+            var labelSeed = new Label("Seed        ");
             labelSeed.style.width = StyleKeyword.Auto;
             labelSeed.style.marginRight = 5;
             
@@ -71,6 +72,22 @@ namespace StableDiffusionGraph.SDGraph.Editor
             containerSeed.Add(longField);
             extensionContainer.Add(containerSeed);
             
+            // last seed
+            var labelLastSeed = new Label("Last Seed");
+            labelLastSeed.style.width = StyleKeyword.Auto;
+            labelLastSeed.style.marginRight = 5;
+            
+            longLastField = new LongField();
+            longLastField.value = samplerNode.outSeed;
+            longLastField.style.flexGrow = 1;
+            longLastField.style.maxWidth = 140;
+            var containerLastSeed = new VisualElement();
+            containerLastSeed.style.flexDirection = FlexDirection.Row;
+            containerLastSeed.style.alignItems = Align.Center;
+            containerLastSeed.Add(labelLastSeed);
+            containerLastSeed.Add(longLastField);
+            extensionContainer.Add(containerLastSeed);
+            
             var container = new IMGUIContainer(OnGUI);
             extensionContainer.Add(container);
             
@@ -86,8 +103,8 @@ namespace StableDiffusionGraph.SDGraph.Editor
             {
                 wordWrap = true
             };
+           
             var styleCheckbox = new GUIStyle(EditorStyles.toggle);
-
             foldout = EditorGUILayout.BeginFoldoutHeaderGroup(foldout, "InPaint");
             if (foldout)
             {
@@ -142,12 +159,14 @@ namespace StableDiffusionGraph.SDGraph.Editor
             EditorGUILayout.EndFoldoutHeaderGroup();
         }
 
-        private void OnUpadteSeed(long seed)
+        private void OnUpadteSeed(long seed, long outSeed)
         {
             var samplerNode = Target as SDImg2ImgNode;
             if(samplerNode == null) return;
             samplerNode.Seed = seed;
+            samplerNode.outSeed = outSeed;
             longField.value = seed;
+            longLastField.value = outSeed;
         }
     }
 }

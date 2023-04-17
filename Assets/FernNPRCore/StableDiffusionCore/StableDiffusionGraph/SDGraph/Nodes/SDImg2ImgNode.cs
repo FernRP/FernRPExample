@@ -17,13 +17,14 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     [Tags("SD Node")]
     public class SDImg2ImgNode : SDFlowNode, ICanExecuteSDFlow
     {
-        [Input("In Image", Editable = false)] public Texture2D InputImage;
-        [Input("Mask Image")] public Texture2D MaskImage;
+        [Input("In Image")] public Texture2D InputImage;
+        [Input("Mask")] public Texture2D MaskImage;
         [Input] public Prompt Prompt;
         [Input] public int Step = 20;
         [Input] public int CFG = 7;
         [Input] public float DenisoStrength = 0.75f;
         [Output("Out Image")] public Texture2D OutputImage;
+        [Output("Seed")] public long outSeed;
 
         public long Seed = -1;
         public string SamplerMethod = "Euler";
@@ -33,7 +34,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public int inpainting_mask_invert = 0;
         public int mask_blur = 0;
 
-        public Action<long> OnUpdateSeedField;
+        public Action<long, long> OnUpdateSeedField;
 
         private bool generating = false;
         private int width = 512;
@@ -44,7 +45,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         {
             Prompt = GetInputValue("Prompt", this.Prompt);
             InputImage = GetInputValue("In Image", this.InputImage);
-            MaskImage = GetInputValue("Mask Image", this.MaskImage);
+            MaskImage = GetInputValue("Mask", this.MaskImage);
 
             var vec2 = SDUtil.GetMainGameViewSize();
             width = (int)vec2.x;
@@ -55,7 +56,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
             if (InputImage != null)
             {
-                Seed = GenerateRandomLong(-1, Int64.MaxValue);
+                if (Seed == 0)
+                {
+                    Seed = GenerateRandomLong(-1, Int64.MaxValue);
+                }
                 yield return (GenerateAsync());
             }
 
@@ -70,6 +74,19 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             new System.Security.Cryptography.RNGCryptoServiceProvider().GetBytes(buf);
             long longRand = BitConverter.ToInt64(buf, 0);
             return (Math.Abs(longRand % (max - min)) + min);
+        }
+
+        public override object OnRequestValue(Port port)
+        {
+            if (port.Name == "Out Image")
+            {
+                return OutputImage;
+            }else if (port.Name == "Seed")
+            {
+                return outSeed;
+            }
+
+            return null;
         }
 
         IEnumerator GenerateAsync()
@@ -200,8 +217,9 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                             SDParamsOutTxt2Img info = JsonConvert.DeserializeObject<SDParamsOutTxt2Img>(json.info);
 
                             // Read the seed that was used by Stable Diffusion to generate this result
-                            Seed = info.seed;
-                            OnUpdateSeedField?.Invoke(Seed);
+                            outSeed = info.seed;
+                            Seed = 0;
+                            OnUpdateSeedField?.Invoke(Seed, outSeed);
                         }
                     }
                     catch (Exception e)
@@ -213,11 +231,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
             generating = false;
             yield return null;
-        }
-
-        public override object OnRequestValue(Port port)
-        {
-            return OutputImage;
         }
     }
 }

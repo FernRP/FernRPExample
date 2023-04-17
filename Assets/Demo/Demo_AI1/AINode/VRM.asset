@@ -83,8 +83,6 @@ MonoBehaviour:
             portName: Model
         Model: dreamshaper_331BakedVae
         modelNames:
-        - cheeseDaddys_35
-        - chilloutmix_NiCkpt
         - dreamshaper_331BakedVae
         - experience_70
         - model
@@ -94,7 +92,10 @@ MonoBehaviour:
         - NSFW_kaelvinsmixhc_releaseV10
         - NSFW_uberRealisticPornMerge_urpmv12
         - unstableinkdream_v6
+        - cheeseDaddys_35
+        - chilloutmix_NiCkpt
         - djzAirlockV21768V21512_21768
+        - anythingV3Inpainting_1-inpainting
     - rid: 2019330333834215428
       type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -218,11 +219,11 @@ MonoBehaviour:
             portName: SDFlowOut
         InputImage: {fileID: 0}
         MaskImage: {fileID: 0}
-        Resolution: {x: 512, y: 512}
         Step: 30
         CFG: 7
         DenisoStrength: 1
         OutputImage: {fileID: 0}
+        outSeed: 0
         Seed: 2302648239318931604
         SamplerMethod: DPM++ 2M Karras
         inpainting_fill: 1
@@ -310,6 +311,7 @@ MonoBehaviour:
             portName: SDFlowOut
         Image: {fileID: 0}
         OutImage: {fileID: 0}
+        seed: 0
     - rid: 2019330333834215435
       type: {class: SDInpaintCapture, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -332,7 +334,6 @@ MonoBehaviour:
           connections:
           - nodeId: 53c3875d-c35e-4c36-b7a9-0976d4189234
             portName: Mask Image
-        Resolution: {x: 512, y: 512}
         Capture: {fileID: 0}
         currentCamere: {fileID: 0}
     - rid: 2019330333834215436

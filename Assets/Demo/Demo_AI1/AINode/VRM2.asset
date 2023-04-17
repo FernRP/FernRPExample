@@ -77,19 +77,19 @@ MonoBehaviour:
             portName: Model
         Model: anythingV3Inpainting_1-inpainting
         modelNames:
-        - cheeseDaddys_35
-        - chilloutmix_NiCkpt
-        - djzAirlockV21768V21512_21768
+        - dreamshaper_331BakedVae
         - experience_70
         - model
         - NSFW_aresMix_v01
-        - NSFW_chilloutmix_NiPrunedFp32
         - NSFW_feiji_v2
         - NSFW_kaelvinsmixhc_releaseV10
         - NSFW_uberRealisticPornMerge_urpmv12
         - unstableinkdream_v6
-        - dreamshaper_331BakedVae
+        - cheeseDaddys_35
+        - djzAirlockV21768V21512_21768
         - anythingV3Inpainting_1-inpainting
+        - NSFW_chilloutmix_NiPrunedFp32
+        - chilloutmix_NiCkpt
     - rid: 2019330355743686665
       type: {class: SDInpaintCapture, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -112,7 +112,6 @@ MonoBehaviour:
           connections:
           - nodeId: 5fa44716-ef08-45cc-93e8-0cbefc8d2e28
             portName: Mask Image
-        Resolution: {x: 512, y: 512}
         Capture: {fileID: 0}
         currentCamere: {fileID: 0}
     - rid: 2019330355743686666
@@ -221,6 +220,7 @@ MonoBehaviour:
             portName: SDFlowOut
         Image: {fileID: 0}
         OutImage: {fileID: 0}
+        seed: 0
     - rid: 2019330355743686672
       type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -333,11 +333,11 @@ MonoBehaviour:
             portName: SDFlowOut
         InputImage: {fileID: 0}
         MaskImage: {fileID: 0}
-        Resolution: {x: 512, y: 512}
         Step: 20
         CFG: 7
         DenisoStrength: 0.75
         OutputImage: {fileID: 0}
+        outSeed: 0
         Seed: 7755054638984712722
         SamplerMethod: DPM++ 2M Karras
         inpainting_fill: 1
@@ -387,6 +387,7 @@ MonoBehaviour:
             portName: SDFlowOut
         Image: {fileID: 0}
         OutImage: {fileID: 0}
+        seed: 0
     - rid: 2019330365110878208
       type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:

@@ -75,9 +75,6 @@ MonoBehaviour:
             portName: Model
         Model: anythingV3Inpainting_1-inpainting
         modelNames:
-        - cheeseDaddys_35
-        - chilloutmix_NiCkpt
-        - djzAirlockV21768V21512_21768
         - dreamshaper_331BakedVae
         - experience_70
         - model
@@ -87,6 +84,9 @@ MonoBehaviour:
         - NSFW_kaelvinsmixhc_releaseV10
         - NSFW_uberRealisticPornMerge_urpmv12
         - unstableinkdream_v6
+        - cheeseDaddys_35
+        - chilloutmix_NiCkpt
+        - djzAirlockV21768V21512_21768
         - anythingV3Inpainting_1-inpainting
     - rid: 2019330378923245571
       type: {class: SDImg2ImgNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
@@ -170,6 +170,7 @@ MonoBehaviour:
         CFG: 8
         DenisoStrength: 0.75
         OutputImage: {fileID: 0}
+        outSeed: 0
         Seed: 638195372245877918
         SamplerMethod: Euler a
         inpainting_fill: 1
@@ -348,6 +349,7 @@ MonoBehaviour:
             portName: SDFlowOut
         Image: {fileID: 0}
         OutImage: {fileID: 0}
+        seed: 0
     - rid: 2019330378923245578
       type: {class: SDPreview, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -390,6 +392,7 @@ MonoBehaviour:
             portName: SDFlowOut
         Image: {fileID: 0}
         OutImage: {fileID: 0}
+        seed: 0
     - rid: 2019330388159889408
       type: {class: SDPreview, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -432,6 +435,7 @@ MonoBehaviour:
             portName: SDFlowOut
         Image: {fileID: 0}
         OutImage: {fileID: 0}
+        seed: 0
     - rid: 2019330388159889409
       type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:

@@ -445,6 +445,8 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
+            #define InPaint 1
+
             // -------------------------------------
             // Material Keywords
             

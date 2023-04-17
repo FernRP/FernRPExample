@@ -77,7 +77,7 @@ Material:
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
     - _ClearShading: 1
-    - _Cull: 2
+    - _Cull: 0
     - _CullMode: 0
     - _Cutoff: 0.5
     - _DepthOffsetRimReverseX: 0
@@ -139,7 +139,7 @@ Material:
     - _groupShadowSetting: 1
     - _groupSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.18927255, g: 0.27318457, b: 0.5188679, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.6698113, g: 0.64032274, b: 0.6108342, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}

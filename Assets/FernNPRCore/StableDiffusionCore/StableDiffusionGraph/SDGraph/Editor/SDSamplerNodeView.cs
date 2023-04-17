@@ -11,6 +11,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
     public class SDSamplerNodeView : NodeView
     {
         private LongField longField;
+        private LongField longLastField;
         protected override void OnInitialize()
         {
             styleSheets.Add(Resources.Load<StyleSheet>("SDGraphRes/SDNodeView"));
@@ -69,15 +70,33 @@ namespace StableDiffusionGraph.SDGraph.Editor
             containerSeed.Add(longField);
             extensionContainer.Add(containerSeed);
             
+            // last seed
+            var labelLastSeed = new Label("Last Seed");
+            labelLastSeed.style.width = StyleKeyword.Auto;
+            labelLastSeed.style.marginRight = 5;
+            
+            longLastField = new LongField();
+            longLastField.value = samplerNode.outSeed;
+            longLastField.style.flexGrow = 1;
+            longLastField.style.maxWidth = 140;
+            var containerLastSeed = new VisualElement();
+            containerLastSeed.style.flexDirection = FlexDirection.Row;
+            containerLastSeed.style.alignItems = Align.Center;
+            containerLastSeed.Add(labelLastSeed);
+            containerLastSeed.Add(longLastField);
+            extensionContainer.Add(containerLastSeed);
+            
             RefreshExpandedState();
         }
 
-        private void OnUpadteSeed(long seed)
+        private void OnUpadteSeed(long seed, long outSeed)
         {
             var samplerNode = Target as SDSamplerNode;
             if(samplerNode == null) return;
             samplerNode.Seed = seed;
+            samplerNode.outSeed = outSeed;
             longField.value = seed;
+            longField.value = outSeed;
         }
     }
 }

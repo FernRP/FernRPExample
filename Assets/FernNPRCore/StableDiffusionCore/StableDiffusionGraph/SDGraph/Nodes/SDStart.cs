@@ -17,7 +17,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes.Events
     [Output("SDFlowOut", typeof(SDFlowData), Multiple = false)]
     public class SDStart : Node, ICanExecuteSDFlow
     {
-        [Input("Model")] public string Model;
+        [Input("Model", Editable = false)] public string Model;
         public string serverURL = "http://127.0.0.1:7860";
         public bool useAuth = false;
         public string user = "";

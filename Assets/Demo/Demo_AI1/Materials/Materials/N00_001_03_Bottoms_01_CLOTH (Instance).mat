@@ -75,7 +75,7 @@ Material:
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
     - _ClearShading: 1
-    - _Cull: 2
+    - _Cull: 0
     - _CullMode: 0
     - _Cutoff: 0.5
     - _DepthOffsetRimReverseX: 0

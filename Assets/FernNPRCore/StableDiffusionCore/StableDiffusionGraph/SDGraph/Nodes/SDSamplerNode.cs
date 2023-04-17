@@ -8,6 +8,7 @@ using BlueGraph;
 using Newtonsoft.Json;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering;
 using Random = UnityEngine.Random;
 
 namespace StableDiffusionGraph.SDGraph.Nodes
@@ -20,9 +21,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         [Input] public Vector2Int Resolution = new Vector2Int(512, 512);
         [Input] public int Step = 20;
         [Input] public int CFG = 7;
-        [Output] public Texture2D Image;
+        [Output("Out Image")] public Texture2D OutputImage;
+        [Output("Seed")] public long outSeed;
 
-        public Action<long> OnUpdateSeedField;
+        public Action<long, long> OnUpdateSeedField;
 
         public long Seed = -1;
         public string SamplerMethod = "Euler";
@@ -136,8 +138,8 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                     // Decode the image from Base64 string into an array of bytes
                     byte[] imageData = Convert.FromBase64String(json.images[0]);
-                    Image = new Texture2D(Resolution.x, Resolution.y);
-                    Image.LoadImage(imageData);
+                    OutputImage = new Texture2D(Resolution.x, Resolution.y, DefaultFormat.HDR, TextureCreationFlags.None);
+                    OutputImage.LoadImage(imageData);
 
                     try
                     {
@@ -147,8 +149,9 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                             SDParamsOutTxt2Img info = JsonConvert.DeserializeObject<SDParamsOutTxt2Img>(json.info);
 
                             // Read the seed that was used by Stable Diffusion to generate this result
-                            Seed = info.seed;
-                            OnUpdateSeedField?.Invoke(Seed);
+                            outSeed = info.seed;
+                            Seed = 0;
+                            OnUpdateSeedField?.Invoke(Seed, outSeed);
                         }
                     }
                     catch (Exception e)
@@ -163,7 +166,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
         public override object OnRequestValue(Port port)
         {
-            return Image;
+            return OutputImage;
         }
     }
 }

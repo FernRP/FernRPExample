@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using BlueGraph;
 using BlueGraph.Editor;
 using BlueGraphSamples;
@@ -33,8 +34,8 @@ namespace StableDiffusionGraph.SDGraph.Editor
             
             style.transformOrigin = new TransformOrigin(0, 0);
             style.scale = new StyleScale(Vector3.one);
+            style.maxWidth = 256;
             
-           
             this.preview = Target as SDPreview;
             
             ScaleList.Clear();
@@ -42,6 +43,10 @@ namespace StableDiffusionGraph.SDGraph.Editor
             {
                 ScaleList.Add($"{scale}%");
             }
+            
+            var imageScalelabel = new Label("Image Scale");
+            imageScalelabel.style.width = StyleKeyword.Auto;
+            imageScalelabel.style.marginRight = 5;
             
             var scaleListDropdown = new DropdownField(ScaleList, 0);
             scaleListDropdown.RegisterValueChangedCallback(e =>
@@ -53,16 +58,21 @@ namespace StableDiffusionGraph.SDGraph.Editor
                 }
             });
             scaleListDropdown.style.width = StyleKeyword.Auto;
-            
-            var imageScalelabel = new Label("Image Scale");
-            imageScalelabel.style.width = StyleKeyword.Auto;
-            imageScalelabel.style.marginRight = 5;
+
+            var button = new Button(OnSave);
+            button.style.backgroundImage = SDTextureHandle.SaveIcon;
+            button.style.width = 20;
+            button.style.height = 20;
+            button.style.alignSelf = Align.FlexEnd;
+            button.style.bottom = 0;
+            button.style.right = 0;
             
             containerImageScale = new VisualElement();
             containerImageScale.style.flexDirection = FlexDirection.Row;
             containerImageScale.style.alignItems = Align.Center;
             containerImageScale.Add(imageScalelabel);
             containerImageScale.Add(scaleListDropdown);
+            containerImageScale.Add(button);
             
             if (this.preview != null)
             {
@@ -72,6 +82,25 @@ namespace StableDiffusionGraph.SDGraph.Editor
             
             RefreshExpandedState();
         }
+
+        private void OnSave()
+        {
+            this.preview = Target as SDPreview;
+            if (this.preview != null)
+            {
+                if (preview.Image != null)
+                {
+                    string path = EditorUtility.SaveFilePanel("Save texture as PNG", "Assets", $"img_{preview.seed}.png", "png");
+                    if (path.Length != 0)
+                    {
+                        SDUtil.SaveAsLinearPNG(preview.Image, path);
+                        AssetDatabase.Refresh();
+                        SDUtil.SetToNone(path);
+                    }
+                }
+            }
+        }
+        
 
         public override void OnDirty()
         {
@@ -103,8 +132,6 @@ namespace StableDiffusionGraph.SDGraph.Editor
             }
         }
         
-        
-
         private void OnUpdateAction(Texture2D obj)
         {
             if(preview == null) return;
@@ -112,26 +139,26 @@ namespace StableDiffusionGraph.SDGraph.Editor
             if (preview.Image != null)
             {
                 extensionContainer.Clear();
-                
-                extensionContainer.Add(containerImageScale);
 
                 var previewVE = new Image();
                 previewVE.scaleMode = ScaleMode.ScaleAndCrop;
                 previewVE.image = preview.Image;
-                int scaleWidth = (int)((float)previewVE.image.width * scaleValue);
-                int scaleHeight = (int)((float)previewVE.image.height * scaleValue);
-                Debug.Log(scaleValue);
-                Debug.Log("scale w: " + scaleWidth + " h: " + scaleHeight);
-                style.maxWidth = 64 + scaleWidth;
-                style.maxHeight = 111 + scaleHeight;
-                
-                previewVE.style.maxWidth = scaleWidth;
-                previewVE.style.maxWidth = scaleHeight;
-                var asptio = (float)previewVE.image.width / (float)scaleWidth;
-                previewVE.style.maxHeight = previewVE.image.height / asptio;
-                previewVE.AddToClassList("previewVE");
-                extensionContainer.Add(previewVE);
-                RefreshExpandedState();
+
+                if (previewVE.image != null)
+                {
+                    extensionContainer.Add(containerImageScale);
+                    int scaleWidth = (int)((float)previewVE.image.width * scaleValue);
+                    int scaleHeight = (int)((float)previewVE.image.height * scaleValue);
+                    style.maxWidth = 78 + scaleWidth;
+                    style.maxHeight = 111 + scaleHeight;
+                    previewVE.style.maxWidth = scaleWidth;
+                    previewVE.style.maxWidth = scaleHeight;
+                    var asptio = (float)previewVE.image.width / (float)scaleWidth;
+                    previewVE.style.maxHeight = previewVE.image.height / asptio;
+                    previewVE.AddToClassList("previewVE");
+                    extensionContainer.Add(previewVE);
+                    RefreshExpandedState();
+                }
             }
         }
     }
