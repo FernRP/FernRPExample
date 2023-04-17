@@ -165,7 +165,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Active: 1
   depthShadowSetting:
-    m_LayerMask:
-      serializedVersion: 2
-      m_Bits: 256
     downSample: 0

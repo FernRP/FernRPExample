@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2624b883c65a4284ba2d9c328a8fe674, type: 3}
+  m_Name: DefaultLocalSDSettings
+  m_EditorClassIdentifier: 
+  StableDiffusionServerURL: http://127.0.0.1:7860
+  ModelsAPI: /sdapi/v1/sd-models
+  TextToImageAPI: /sdapi/v1/txt2img
+  ImageToImageAPI: /sdapi/v1/img2img
+  OptionAPI: /sdapi/v1/options
+  ProgressAPI: /sdapi/v1/progress
+  OutputFolder: /streamingAssets
+  sampler: Euler a
+  width: 512
+  height: 512
+  steps: 35
+  cfgScale: 7
+  seed: -1
+  useAuth: 0
+  user: Unity
+  pass: 123456
+  useUniversalRenderPipeline: 0

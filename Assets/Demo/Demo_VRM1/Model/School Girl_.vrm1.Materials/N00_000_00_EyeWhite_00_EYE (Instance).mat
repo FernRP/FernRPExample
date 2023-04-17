@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_00_EyeWhite_00_EYE (Instance)
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _GGX
@@ -16,6 +18,7 @@ Material:
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
+  - _IS_SDINPAINT_ON
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -23,6 +26,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -80,6 +84,7 @@ Material:
     - _DstBlend: 0
     - _EmissionColorAlbedoWeight: 0
     - _Is_Filter_LightColor: 1
+    - _Is_SDInPaint: 1
     - _LightIntensityClamp: 1
     - _Metallic: 0.066
     - _OcclusionStrength: 0
@@ -94,6 +99,9 @@ Material:
     - _RimThreshold: 0.2
     - _Shininess: 1
     - _Smoothness: 0.804
+    - _SpaceScreenVariant: 0.5
+    - _SpecularAA: 0
+    - _SpecularAAThreshold: 1
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
@@ -105,6 +113,7 @@ Material:
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 3
     - _enum_env: 1
@@ -112,6 +121,7 @@ Material:
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupAI: 1
     - _groupAdditionLight: 1
     - _groupClearCoat: 1
     - _groupEmission: 0
