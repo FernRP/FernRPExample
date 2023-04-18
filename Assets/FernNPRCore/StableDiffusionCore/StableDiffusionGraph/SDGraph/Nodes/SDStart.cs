@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace StableDiffusionGraph.SDGraph.Nodes.Events
+namespace StableDiffusionGraph.SDGraph.Nodes
 {
     [Node(Path = "Events")]
     [Tags("SD Events")]

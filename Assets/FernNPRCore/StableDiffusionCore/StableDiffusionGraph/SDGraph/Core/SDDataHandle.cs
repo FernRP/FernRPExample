@@ -14,6 +14,7 @@ public class SDDataHandle : MonoBehaviour
     public static string TextToImageAPI = "/sdapi/v1/txt2img";
     public static string ImageToImageAPI = "/sdapi/v1/img2img";
     public static string OptionAPI = "/sdapi/v1/options";
+    public static string DataDirAPI = "/sdapi/v1/cmd-flags";
     public static string ProgressAPI = "/sdapi/v1/progress";
     public static bool UseAuth = false;
     public static string Username = "";
@@ -23,6 +24,9 @@ public class SDDataHandle : MonoBehaviour
         "Euler a", "Euler", "LMS", "Heun", "DPM2", "DPM2 a", "DPM++ 2S a", "DPM++ 2M", "DPM++ SDE", "DPM fast", "DPM adaptive",
         "LMS Karras", "DPM2 Karras", "DPM2 a Karras", "DPM++ 2S a Karras", "DPM++ 2M Karras", "DPM++ SDE Karras", "DDIM", "PLMS"
     };
+
+    public static string modelUse;
+    public static string loraUse;
 }
 
 public class SDTextureHandle
@@ -356,6 +360,12 @@ public class SDModel
     public string sha256;
     public string filename;
     public string config;
+}
+
+public class SDDataDir
+{
+    public string data_dir;
+    public string lora_dir;
 }
 
 public class Prompt

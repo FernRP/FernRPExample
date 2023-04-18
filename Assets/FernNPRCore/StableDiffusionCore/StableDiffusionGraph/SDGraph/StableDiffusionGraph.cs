@@ -5,7 +5,6 @@ using BlueGraph;
 using BlueGraph.Editor;
 using BlueGraphSamples;
 using StableDiffusionGraph.SDGraph.Nodes;
-using StableDiffusionGraph.SDGraph.Nodes.Events;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;

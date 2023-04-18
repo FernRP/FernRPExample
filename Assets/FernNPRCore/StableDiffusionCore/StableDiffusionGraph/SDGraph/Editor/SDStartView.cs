@@ -1,7 +1,6 @@
 using BlueGraph;
 using BlueGraph.Editor;
 using StableDiffusionGraph.SDGraph.Nodes;
-using StableDiffusionGraph.SDGraph.Nodes.Events;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
