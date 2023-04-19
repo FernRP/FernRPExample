@@ -30,10 +30,6 @@ https://user-images.githubusercontent.com/18584942/220602754-7757590b-0650-4740-
 
 https://user-images.githubusercontent.com/18584942/218261848-3d283271-2154-45cc-954f-cc34aa2f77a2.mp4
 
-### Toon Eye Shader
-
-https://user-images.githubusercontent.com/18584942/218262052-18a94087-442c-4d1f-940f-ce32929d8876.mp4
-
 ### Face Shading
 
 **SDF Face**
