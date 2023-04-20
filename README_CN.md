@@ -18,7 +18,7 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 
 ## 更多例子
 
-如果你想要看更多的例子，可以移步到[Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)上的[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) 页面。
+如果你想要看更多的例子，可以移步到[Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)上的[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) 页面
 
 ## Roadmap
 
@@ -26,6 +26,8 @@ https://github.com/users/DeJhon-Huang/projects/2
 
 
 ## Related links
+
+- [BiliBili](https://space.bilibili.com/477693184)
 
 - [知乎专栏](https://www.zhihu.com/column/c_1587028302690304000)
 
