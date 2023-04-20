@@ -9,6 +9,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     public class StringNode : Node, ICanExecuteSDFlow
     {
         [Output] public string Text;
+        
 
         public override object OnRequestValue(Port port)
         {

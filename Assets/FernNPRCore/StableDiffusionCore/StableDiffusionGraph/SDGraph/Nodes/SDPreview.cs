@@ -11,7 +11,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     public class SDPreview : Node
     {
         [Input("In Image")] public Texture2D Image;
-        [Output("Out Image")] public Texture2D OutImage;
+        [Output("Out")] public Texture2D OutImage;
         public Action<Texture2D> OnUpdateAction;
         [Input("Seed", Editable = false)] public long seed;
 

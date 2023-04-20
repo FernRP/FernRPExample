@@ -27,10 +27,8 @@ namespace StableDiffusionGraph.SDGraph.Editor
             
             styleSheets.Add(Resources.Load<StyleSheet>("SDGraphRes/SDNodeView"));
             AddToClassList("sdNodeView");
-            PortView inView = GetInputPort("SDFlowIn");
-            PortView outView = GetOutputPort("SDFlowOut");
-            if (inView != null) inView.AddToClassList("SDFlowInPortView");
-            if (outView != null) outView.AddToClassList("SDFlowOutPortView");
+            PortView inView = GetInputPort("In Image");
+            if (inView != null) inView.AddToClassList("PreviewInImg");
             
             style.transformOrigin = new TransformOrigin(0, 0);
             style.scale = new StyleScale(Vector3.one);
@@ -149,8 +147,8 @@ namespace StableDiffusionGraph.SDGraph.Editor
                     extensionContainer.Add(containerImageScale);
                     int scaleWidth = (int)((float)previewVE.image.width * scaleValue);
                     int scaleHeight = (int)((float)previewVE.image.height * scaleValue);
-                    style.maxWidth = 78 + scaleWidth;
-                    style.maxHeight = 111 + scaleHeight;
+                    style.maxWidth = 256 + scaleWidth;
+                    style.maxHeight = 256 + scaleHeight;
                     previewVE.style.maxWidth = scaleWidth;
                     previewVE.style.maxWidth = scaleHeight;
                     var asptio = (float)previewVE.image.width / (float)scaleWidth;

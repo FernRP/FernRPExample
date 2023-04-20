@@ -15,7 +15,12 @@ namespace BlueGraph.Editor
         public CanvasView Canvas { get; protected set; }
 
         public Graph Graph { get; protected set; }
-        
+
+        private void OnInspectorUpdate()
+        {
+            Graph.Update();
+        }
+
         /// <summary>
         /// Load a graph asset in this window for editing
         /// </summary>

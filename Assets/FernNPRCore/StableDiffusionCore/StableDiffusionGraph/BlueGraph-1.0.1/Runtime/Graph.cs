@@ -19,6 +19,8 @@ namespace BlueGraph
         void AddEdge(Port output, Port input);
 
         void RemoveEdge(Port output, Port input);
+
+        void Update();
     }
 
     public abstract class Graph : ScriptableObject, IGraph
@@ -273,6 +275,11 @@ namespace BlueGraph
             output.Disconnect(input);
             output.Node.Validate();
             input.Node.Validate();
+        }
+
+        public virtual void Update()
+        {
+            
         }
 
         public virtual void ExecuteGraph()

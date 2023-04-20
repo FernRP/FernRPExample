@@ -60,6 +60,20 @@
     width: 1px;
 }
 
+.sdNodeView .portView.port.PreviewInImg #type {
+    visibility: hidden;
+    position: absolute;
+    top: -24px;
+    left: 0;
+}
+
+.sdNodeView .portView.port.PreviewOutImg #type {
+    visibility: hidden;
+    position: absolute;
+    top: -24px;
+    right: 0;
+}
+
 .sdNodeView .portView.port.SDFlowInPortView {
     position: absolute;
     top: -24px;

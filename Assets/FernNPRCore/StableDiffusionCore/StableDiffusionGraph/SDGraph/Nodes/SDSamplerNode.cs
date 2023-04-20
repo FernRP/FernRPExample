@@ -18,7 +18,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     public class SDSamplerNode : SDFlowNode, ICanExecuteSDFlow
     {
         [Input] public Prompt Prompt;
-        [Input] public Vector2Int Resolution = new Vector2Int(512, 512);
+        [Input("ControlNet")] public ControlNetData controlNetData;
         [Input] public int Step = 20;
         [Input] public int CFG = 7;
         [Output("Out Image")] public Texture2D OutputImage;
@@ -30,11 +30,30 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public string SamplerMethod = "Euler";
 
         private bool generating = false;
+        private int width = 512;
+        private int height = 512;
+        private float aspect;
+
+        private ControlNetData defaultControlNet = new ControlNetData();
 
         public override IEnumerator Execute()
         {
+            Debug.Log($"SD Log: Final Width: {width} + Height: + {height}");
+
             Prompt = GetInputValue("Prompt", this.Prompt);
+            controlNetData = GetInputValue("ControlNet", defaultControlNet);
             Seed = GenerateRandomLong(-1, Int64.MaxValue);
+            var vec2 = SDUtil.GetMainGameViewSize();
+            width = (int)vec2.x;
+            height = (int)vec2.y;
+            
+            if (Seed == 0)
+            {
+                Seed = GenerateRandomLong(-1, Int64.MaxValue);
+            }
+            
+            Debug.Log($"SD Log: Final Width: {width} + Height: + {height}");
+
             yield return (GenerateAsync());
         }
         
@@ -55,9 +74,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             try
             {
                 // Make a HTTP POST request to the Stable Diffusion server
-                httpWebRequest =
-                    (HttpWebRequest)WebRequest.Create(SDDataHandle.serverURL +
-                                                      SDDataHandle.TextToImageAPI);
+                //var txt2ImgAPI = controlNet == defaultControlNet ? SDDataHandle.TextToImageAPI : SDDataHandle.ControlNetTex2Img;
+                var txt2ImgAPI = SDDataHandle.TextToImageAPI;
+                httpWebRequest = (HttpWebRequest)WebRequest.Create(SDDataHandle.serverURL + txt2ImgAPI);
+                Debug.Log(SDDataHandle.serverURL + txt2ImgAPI);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
 
@@ -73,20 +93,28 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 // Send the generation parameters along with the POST request
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
-                    SDParamsInTxt2Img sd = new SDParamsInTxt2Img();
+                    SDParamsInTxt2ImgContronlNet sd = new SDParamsInTxt2ImgContronlNet();
                     sd.prompt = Prompt.positive;
                     sd.negative_prompt = Prompt.negative;
                     sd.steps = Step;
                     sd.cfg_scale = CFG;
-                    sd.width = Resolution.x;
-                    sd.height = Resolution.y;
+                    sd.width = width;
+                    sd.height = height;
                     sd.seed = Seed;
                     sd.tiling = false;
                     sd.sampler_name = SamplerMethod;
+                    if (controlNetData != null)
+                    {
+                        sd.alwayson_scripts = new ALWAYSONSCRIPTS();
+                        sd.alwayson_scripts.controlnet = new ControlNetDataArgs();
+                        sd.alwayson_scripts.controlnet.args = new[] { controlNetData };
+                    }
 
                     // Serialize the input parameters
                     string json = JsonConvert.SerializeObject(sd);
-
+                    
+                    Debug.Log(json);
+                    
                     // Send to the server
                     streamWriter.Write(json);
                 }
@@ -119,6 +147,8 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 {
                     // Decode the response as a JSON string
                     string result = streamReader.ReadToEnd();
+                    
+                    Debug.Log(result);
 
                     // Deserialize the JSON string into a data structure
                     SDResponseTxt2Img json = JsonConvert.DeserializeObject<SDResponseTxt2Img>(result);
@@ -138,7 +168,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                     // Decode the image from Base64 string into an array of bytes
                     byte[] imageData = Convert.FromBase64String(json.images[0]);
-                    OutputImage = new Texture2D(Resolution.x, Resolution.y, DefaultFormat.HDR, TextureCreationFlags.None);
+                    OutputImage = new Texture2D(width, height, DefaultFormat.HDR, TextureCreationFlags.None);
                     OutputImage.LoadImage(imageData);
 
                     try
@@ -166,7 +196,15 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
         public override object OnRequestValue(Port port)
         {
-            return OutputImage;
+            if (port.Name == "Out Image")
+            {
+                return OutputImage;
+            }else if (port.Name == "Seed")
+            {
+                return outSeed;
+            }
+
+            return null;
         }
     }
 }

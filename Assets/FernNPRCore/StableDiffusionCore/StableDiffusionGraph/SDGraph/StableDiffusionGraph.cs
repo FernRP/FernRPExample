@@ -8,6 +8,7 @@ using StableDiffusionGraph.SDGraph.Nodes;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Rendering;
 
 namespace StableDiffusionGraph.SDGraph
@@ -32,6 +33,11 @@ namespace StableDiffusionGraph.SDGraph
         /// Get the next node that should be executed in the flow
         /// </summary>
         ICanExecuteSDFlow GetNext();
+    }
+
+    public interface IUpdateNode
+    {
+        public void Update();
     }
     
     [CreateAssetMenu(
@@ -70,7 +76,20 @@ namespace StableDiffusionGraph.SDGraph
                 AddNode(sdStart);
             }
         }
-        
+
+        public override void Update()
+        {
+            base.Update();
+            var allNodes = GetNodes<Node>();
+            foreach (var currentNode in allNodes)
+            {
+                if (currentNode is IUpdateNode node)
+                {
+                    node.Update();
+                }
+            }
+        }
+
         public override void ExecuteGraph()
         {
             EditorCoroutineUtility.StartCoroutine(Execute(), this);

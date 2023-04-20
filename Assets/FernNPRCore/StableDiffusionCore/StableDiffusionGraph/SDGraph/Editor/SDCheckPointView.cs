@@ -13,7 +13,6 @@ namespace StableDiffusionGraph.SDGraph.Editor
     public class SDCheckPointView : NodeView
     {
         private string[] modelNames;
-        private int currentIndex;
         protected override void OnInitialize()
         {
             base.OnInitialize();
@@ -21,18 +20,15 @@ namespace StableDiffusionGraph.SDGraph.Editor
             var checkPoint = Target as SDCheckPoint;
             if(checkPoint == null) return;
             extensionContainer.Clear();
-
-            if (modelNames == null || modelNames.Length == 0)
-            {
-                var button = new Button(OnAsync);
-                button.style.backgroundImage = SDTextureHandle.RefreshIcon;
-                button.style.width = 20;
-                button.style.height = 20;
-                button.style.alignSelf = Align.FlexEnd;
-                button.style.bottom = 0;
-                button.style.right = 0;
-                titleButtonContainer.Add(button);
-            }
+            OnAsync();
+            var button = new Button(OnAsync);
+            button.style.backgroundImage = SDTextureHandle.RefreshIcon;
+            button.style.width = 20;
+            button.style.height = 20;
+            button.style.alignSelf = Align.FlexEnd;
+            button.style.bottom = 0;
+            button.style.right = 0;
+            titleButtonContainer.Add(button);
             
             RefreshExpandedState();
         }
@@ -53,14 +49,14 @@ namespace StableDiffusionGraph.SDGraph.Editor
             
                 List<string> stringList = new List<string>();
                 stringList.AddRange(checkPoint.modelNames);
-                var popup = new PopupField<string>(stringList, currentIndex);
+                var popup = new PopupField<string>(stringList, checkPoint.currentIndex);
             
                 // Add a callback to perform additional actions on value change
                 popup.RegisterValueChangedCallback(evt =>
                 {
                     Debug.Log("Selected item: " + evt.newValue);
                     checkPoint.Model = evt.newValue;
-                    currentIndex = stringList.IndexOf(evt.newValue);
+                    checkPoint.currentIndex = stringList.IndexOf(evt.newValue);
                 });
 
                 listContainer.Add(popup);

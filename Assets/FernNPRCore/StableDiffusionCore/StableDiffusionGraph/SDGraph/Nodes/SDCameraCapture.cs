@@ -1,5 +1,7 @@
-using System.Collections.Generic;
+using System;
+using System.Collections;
 using BlueGraph;
+using BlueGraphSamples;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 
@@ -7,15 +9,31 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 {
     [Node(Path = "SD Standard")]
     [Tags("SD Node")]
-    public class SDCameraCapture : Node
+    public class SDCameraCapture : Node, IUpdateNode
     {
         [Output("Capture")] public Texture2D Capture;
 
         public Camera currentCamere;
-        private RenderTexture cameraRT;
+        public RenderTexture cameraRT;
+        public bool enableUpdate = true;
+        public Action<RenderTexture> OnUpdateTexture;
 
-        public override object OnRequestValue(Port port)
+        public override void OnDisable()
         {
+            base.OnDisable();
+            cameraRT.Release();
+        }
+
+        public override void OnRemovedFromGraph()
+        {
+            base.OnRemovedFromGraph();
+            cameraRT.Release();
+        }
+
+        public override void OnAddedToGraph()
+        {
+            base.OnAddedToGraph();
+            base.OnEnable();
             var resolution = SDUtil.GetMainGameViewSize();
             Debug.Log($"SD Log: Camera Capture Width: {resolution.x} + Height: + {resolution.y}");
 
@@ -31,7 +49,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 cameraRT.Release();
                 cameraRT = RenderTexture.GetTemporary((int)resolution.x, (int)resolution.y, 24, RenderTextureFormat.DefaultHDR);
             }
+        }
 
+        public override object OnRequestValue(Port port)
+        {
             var tempRT = currentCamere.targetTexture;
             currentCamere.targetTexture = cameraRT;
             currentCamere.Render();
@@ -48,6 +69,17 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             texture2D.Apply();
             RenderTexture.active = null;
             return texture2D;
+        }
+
+        public void Update()
+        {
+            if(!enableUpdate) return;
+            if(currentCamere == null || cameraRT == null) return;
+            var tempRT = currentCamere.targetTexture;
+            currentCamere.targetTexture = cameraRT;
+            currentCamere.Render();
+            currentCamere.targetTexture = tempRT;
+            OnUpdateTexture?.Invoke(cameraRT);
         }
     }
 }

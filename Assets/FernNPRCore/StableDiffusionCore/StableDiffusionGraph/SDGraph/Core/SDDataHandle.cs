@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json;
 using StableDiffusionGraph.SDGraph.Nodes;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,10 @@ public class SDDataHandle : MonoBehaviour
 {
     public static string serverURL = "http://127.0.0.1:7860";
     public static string ModelsAPI = "/sdapi/v1/sd-models";
+    public static string ControlNetTex2Img = "/controlnet/txt2img";
+    public static string ControlNetModelList = "/controlnet/model_list";
+    public static string ControlNetMoudleList = "/controlnet/module_list";
+    public static string ControlNetDetect = "/controlnet/detect";
     public static string TextToImageAPI = "/sdapi/v1/txt2img";
     public static string ImageToImageAPI = "/sdapi/v1/img2img";
     public static string OptionAPI = "/sdapi/v1/options";
@@ -82,6 +87,7 @@ public class SDUtil
             importer.SaveAndReimport();
             importer.mipmapEnabled = false;
             importer.textureCompression = TextureImporterCompression.Uncompressed;
+            importer.isReadable = true;
             AssetDatabase.Refresh();
         }
     }
@@ -115,10 +121,10 @@ public class SDUtil
 /// Data structure to easily serialize the parameters to send
 /// to the Stable Diffusion server when generating an image via Txt2Img.
 /// </summary>
-class SDParamsInTxt2Img
+class SDParamsInTxt2ImgContronlNet
 {
     public bool enable_hr = false;
-    public float denoising_strength = 0;
+    public float denoising_strength = 0.75f;
     public int firstphase_width = 0;
     public int firstphase_height = 0;
     public float hr_scale = 2;
@@ -150,6 +156,54 @@ class SDParamsInTxt2Img
     public float s_noise = 1;
     public bool override_settings_restore_afterwards = true;
     public string sampler_index = "Euler";
+    public ALWAYSONSCRIPTS alwayson_scripts;
+}
+
+class SDParamsInTxt2Img
+{
+    public bool enable_hr = false;
+    public float denoising_strength = 0.75f;
+    public int firstphase_width = 0;
+    public int firstphase_height = 0;
+    public float hr_scale = 2;
+    public string hr_upscaler = "";
+    public int hr_second_pass_steps = 0;
+    public int hr_resize_x = 0;
+    public int hr_resize_y = 0;
+    public string prompt = "";
+    public string[] styles = { "" };
+    public long seed = -1;
+    public long subseed = -1;
+    public float subseed_strength = 0;
+    public int seed_resize_from_h = -1;
+    public int seed_resize_from_w = -1;
+    public string sampler_name = "Euler a";
+    public int batch_size = 1;
+    public int n_iter = 1;
+    public int steps = 50;
+    public float cfg_scale = 7;
+    public int width = 512;
+    public int height = 512;
+    public bool restore_faces = false;
+    public bool tiling = false;
+    public string negative_prompt = "";
+    public float eta = 0;
+    public float s_churn = 0;
+    public float s_tmax = 0;
+    public float s_tmin = 0;
+    public float s_noise = 1;
+    public bool override_settings_restore_afterwards = true;
+    public string sampler_index = "Euler";
+    public ControlNetData[] controlnet_units;
+}
+
+class ControlNetDetect
+{
+    public string controlnet_module = "none";
+    public string[] controlnet_input_images = new[] { "" };
+    public int controlnet_processor_res = 64;
+    public int controlnet_threshold_a = 64;
+    public int controlnet_threshold_b = 64;
 }
 
 /// <summary>
@@ -244,8 +298,8 @@ class SDParamsInImg2Img
     public string[] script_args = { };
     public string sampler_index = "Euler";
     public bool include_init_images = false;
+    public ALWAYSONSCRIPTS alwayson_scripts;
     //    public string script_name = ""; // including this throws a 422 Unprocessable Entity error
-
     public class SettingsOveride
     {
 
@@ -350,7 +404,42 @@ class SDResponseImg2Img
     public string info;
 }
 
+public enum ResizeMode
+{
+    JustResize = 0,
+    ScaleToFit_InnerFit = 1,
+    Envelope_OuterFit = 2
+}
 
+public class ControlNetData
+{
+    public string input_image = "";
+    public string mask = "";
+    public string module = "none";
+    public string model;
+    public float weight = 1;
+    public int resize_mode = 1;
+    public bool lowvram = false;
+    public int processor_res = 64;
+    public int threshold_a = 64;
+    public int threshold_b = 64;
+    public float guidance_start = 0.0f;
+    public float guidance_end = 1.0f;
+    public float guidance = 1f;
+    public bool guessmode = false;
+    public bool enabled = true;
+}
+
+public class ControlNetDataArgs
+{
+    public ControlNetData[] args;
+}
+
+
+public class ALWAYSONSCRIPTS
+{
+    public ControlNetDataArgs controlnet;
+}
 
 public class SDModel
 {
@@ -366,6 +455,16 @@ public class SDDataDir
 {
     public string data_dir;
     public string lora_dir;
+}
+
+public class ControlNetModel
+{
+    public string[] model_list;
+}
+
+public class ControlNetMoudle
+{
+    public string[] module_list;
 }
 
 public class Prompt

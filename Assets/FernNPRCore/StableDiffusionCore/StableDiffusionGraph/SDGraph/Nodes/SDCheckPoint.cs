@@ -20,9 +20,11 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         [Output] public string Model;
 
         public string[] modelNames;
-        
-        public SDCheckPoint()
+        public int currentIndex = 0;
+
+        public override void OnEnable()
         {
+            base.OnEnable();
             EditorCoroutineUtility.StartCoroutine(ListModelsAsync(), this);
         }
 
@@ -62,6 +64,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                 // Convert the list into an array and store it for futur use
                 modelNames = modelsNames.ToArray();
+                Debug.Log(ms.Length);
             }
             catch (Exception)
             {

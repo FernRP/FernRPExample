@@ -15,11 +15,13 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     [Tags("SD Node")]
     public class SDLora : Node
     {
+        
+        [Input("Prompt")] public string prompt;
         [Input("Strength")] public float strength = 1;
         [Output("Lora")] public string lora;
-        public string[] loraNames;
         public string loraDir;
-        private List<string> fileNames = new List<string>();
+        public List<string> loraNames;
+        public int currentIndex = 0;
         
         public SDLora()
         {
@@ -56,10 +58,11 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 // Keep only the names of the models
                 loraDir = m.lora_dir;
                 string[] files = Directory.GetFiles(loraDir, "*.safetensors", SearchOption.AllDirectories);
-                fileNames.Clear();
+                if (loraNames == null) loraNames = new List<string>();
+                loraNames.Clear();
                 foreach (var f in files)
                 {
-                    fileNames.Add(Path.GetFileNameWithoutExtension(f));
+                    loraNames.Add(Path.GetFileNameWithoutExtension(f));
                 }
             }
             catch (Exception)
@@ -71,7 +74,9 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         
         public override object OnRequestValue(Port port)
         {
-            return lora;
+            prompt = GetInputValue("Prompt", this.prompt);
+            string result = $"{prompt},<lora:{lora}:{strength}>";
+            return result;
         }
     }
 }

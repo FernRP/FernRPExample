@@ -18,6 +18,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     public class SDImg2ImgNode : SDFlowNode, ICanExecuteSDFlow
     {
         [Input("In Image")] public Texture2D InputImage;
+        [Input("ControlNet")] public ControlNetData controlNet;
         [Input("Mask")] public Texture2D MaskImage;
         [Input] public Prompt Prompt;
         [Input] public int Step = 20;
@@ -46,13 +47,13 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             Prompt = GetInputValue("Prompt", this.Prompt);
             InputImage = GetInputValue("In Image", this.InputImage);
             MaskImage = GetInputValue("Mask", this.MaskImage);
+            controlNet = GetInputValue("ControlNet", this.controlNet);
 
             var vec2 = SDUtil.GetMainGameViewSize();
             width = (int)vec2.x;
             height = (int)vec2.y;
             
             Debug.Log($"SD Log: Final Width: {width} + Height: + {height}");
-
 
             if (InputImage != null)
             {
@@ -206,7 +207,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                     // Decode the image from Base64 string into an array of bytes
                     byte[] imageData = Convert.FromBase64String(json.images[0]);
-                    OutputImage = new Texture2D(Screen.width, Screen.height, DefaultFormat.HDR, TextureCreationFlags.None);
+                    OutputImage = new Texture2D(width, height, DefaultFormat.HDR, TextureCreationFlags.None);
                     OutputImage.LoadImage(imageData);
 
                     try
