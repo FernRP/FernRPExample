@@ -29,7 +29,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public long Seed = -1;
         public string SamplerMethod = "Euler";
 
-        private bool generating = false;
         private int width = 512;
         private int height = 512;
         private float aspect;
@@ -67,7 +66,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
         IEnumerator GenerateAsync()
         {
-            generating = true;
 
             // Generate the image
             HttpWebRequest httpWebRequest = null;
@@ -159,7 +157,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                         Debug.LogError(
                             "No image was return by the server. This should not happen. Verify that the server is correctly setup.");
 
-                        generating = false;
 #if UNITY_EDITOR
                         EditorUtility.ClearProgressBar();
 #endif
@@ -190,7 +187,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                     }
                 }
             }
-            generating = false;
             yield return null;
         }
 

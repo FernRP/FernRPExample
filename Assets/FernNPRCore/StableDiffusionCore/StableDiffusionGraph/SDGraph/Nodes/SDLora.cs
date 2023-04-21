@@ -67,7 +67,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
             catch (Exception)
             {
-                Debug.Log(request.downloadHandler.text);
                 Debug.Log("Server needs and API key authentication. Please check your settings!");
             }
         }

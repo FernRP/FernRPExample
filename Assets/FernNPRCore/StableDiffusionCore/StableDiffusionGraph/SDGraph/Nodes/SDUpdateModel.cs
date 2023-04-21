@@ -27,7 +27,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             yield return SetModelAsync(Model);
         }
 
-        public virtual ICanExecuteSDFlow GetNext()
+        public override ICanExecuteSDFlow GetNext()
         {
             var port = GetPort("SDFlowOut");
             return port.ConnectedPorts.FirstOrDefault()?.Node as ICanExecuteSDFlow;

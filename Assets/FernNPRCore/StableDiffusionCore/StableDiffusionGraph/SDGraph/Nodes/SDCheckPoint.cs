@@ -22,9 +22,9 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public string[] modelNames;
         public int currentIndex = 0;
 
-        public override void OnEnable()
+        public override void OnAddedToGraph()
         {
-            base.OnEnable();
+            base.OnAddedToGraph();
             EditorCoroutineUtility.StartCoroutine(ListModelsAsync(), this);
         }
 
@@ -68,7 +68,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
             catch (Exception)
             {
-                Debug.Log(request.downloadHandler.text);
                 Debug.Log("Server needs and API key authentication. Please check your settings!");
             }
         }

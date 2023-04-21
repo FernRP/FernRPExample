@@ -21,13 +21,19 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public override void OnDisable()
         {
             base.OnDisable();
-            cameraRT.Release();
+            if (cameraRT != null)
+            {
+                cameraRT.Release();
+            }
         }
 
         public override void OnRemovedFromGraph()
         {
             base.OnRemovedFromGraph();
-            cameraRT.Release();
+            if (cameraRT != null)
+            {
+                cameraRT.Release();
+            }
         }
 
         public override void OnAddedToGraph()

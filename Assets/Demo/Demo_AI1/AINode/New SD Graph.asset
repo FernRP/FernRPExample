@@ -518,8 +518,8 @@ MonoBehaviour:
         Step: 20
         CFG: 7
         OutputImage: {fileID: 0}
-        outSeed: 5682159465325397706
-        Seed: 5682159465325397706
+        outSeed: 2182647919509929482
+        Seed: 2182647919509929482
         SamplerMethod: Euler a
     - rid: 2019330512953802773
       type: {class: SDInpaintCapture, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
@@ -666,21 +666,7 @@ MonoBehaviour:
         guidance_end: 1
         guidance: 1
         guessmode: 1
-        modelList:
-        - control_v11e_sd15_ip2p [c4bb465c]
-        - control_v11e_sd15_shuffle [526bfdae]
-        - control_v11f1p_sd15_depth [cfd03158]
-        - control_v11p_sd15_canny [d14c016b]
-        - control_v11p_sd15_inpaint [ebff9138]
-        - control_v11p_sd15_lineart [43d4be0d]
-        - control_v11p_sd15_mlsd [aca30ff0]
-        - control_v11p_sd15_normalbae [316696f1]
-        - control_v11p_sd15_openpose [cab727d4]
-        - control_v11p_sd15_scribble [d4ba51ff]
-        - control_v11p_sd15_seg [e1f51eb9]
-        - control_v11p_sd15_softedge [a8575a2a]
-        - control_v11p_sd15s2_lineart_anime [3825e83e]
-        - control_v11u_sd15_tile [1f041471]
+        modelList: []
         currentModelListIndex: 12
         moudleList:
         - none

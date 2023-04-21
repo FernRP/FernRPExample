@@ -38,8 +38,9 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public List<string> moudleList = new List<string>();
         public int currentMoudleListIndex = 0;
 
-        public SDControlNet()
+        public override void OnAddedToGraph()
         {
+            base.OnAddedToGraph();
             controlNet = new ControlNetData();
             EditorCoroutineUtility.StartCoroutine(ControlNetModelListAsync(), this);
             EditorCoroutineUtility.StartCoroutine(ControlNetMoudleList(), this);
@@ -58,7 +59,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         {
             // Stable diffusion API url for getting the models list
             string url = SDDataHandle.serverURL + SDDataHandle.ControlNetModelList;
-            Debug.Log(url);
 
             UnityWebRequest request = new UnityWebRequest(url, "GET");
             request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
@@ -89,7 +89,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
             catch (Exception)
             {
-                Debug.Log(request.downloadHandler.text);
                 Debug.Log("Server needs and API key authentication. Please check your settings!");
             }
         }
@@ -132,7 +131,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
             catch (Exception)
             {
-                Debug.Log(request.downloadHandler.text);
                 Debug.Log("Server needs and API key authentication. Please check your settings!");
             }
         }
