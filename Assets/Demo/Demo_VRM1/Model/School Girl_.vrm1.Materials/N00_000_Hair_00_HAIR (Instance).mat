@@ -69,14 +69,14 @@ Material:
     - _AngleRingThreshold: 1
     - _AngleRingWidth: 1
     - _AnisoShiftScale: 50
-    - _AnisoSpread1: 0.274
-    - _AnisoSpread2: 0.2
-    - _AnsioSecondarySpeularExponent: 383
+    - _AnisoSpread1: 0.248
+    - _AnisoSpread2: 0.166
+    - _AnsioSecondarySpeularExponent: 151
     - _AnsioSecondarySpeularShift: 0.27
-    - _AnsioSecondarySpeularStrength: 14.7
+    - _AnsioSecondarySpeularStrength: 32
     - _AnsioSpeularExponent: 274
     - _AnsioSpeularShift: 0.05
-    - _AnsioSpeularStrength: 32
+    - _AnsioSpeularStrength: 29.4
     - _BlendMode: 1
     - _BumpMapKeyword: 1
     - _BumpScale: 1
@@ -131,7 +131,7 @@ Material:
     - _AngleRingBrightColor: {r: 3.4822023, g: 3.4822023, b: 3.4822023, a: 1}
     - _AngleRingShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _AnisoSecondarySpecularColor: {r: 0.8679245, g: 0.7330348, b: 0.6195561, a: 1}
-    - _AnisoSpecularColor: {r: 1, g: 0.7595098, b: 0.554, a: 1}
+    - _AnisoSpecularColor: {r: 1, g: 0.79924244, b: 0.625, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.63, g: 0.489762, b: 0.42966, a: 1}
