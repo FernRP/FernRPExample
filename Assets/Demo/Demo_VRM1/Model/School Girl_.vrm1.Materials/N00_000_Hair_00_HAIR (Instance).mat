@@ -13,13 +13,12 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _ANGLERING
+  - _KAJIYAHAIR
   - _LAMBERTIAN
   - _NORMALMAP
   - _SPECULARMASK
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
-  - _IS_SDINPAINT_ON
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -69,15 +68,15 @@ Material:
     - _AngleRingSoftness: 0.75
     - _AngleRingThreshold: 1
     - _AngleRingWidth: 1
-    - _AnisoShiftScale: 10
-    - _AnisoSpread1: 0
-    - _AnisoSpread2: 0
-    - _AnsioSecondarySpeularExponent: 1
-    - _AnsioSecondarySpeularShift: 1
-    - _AnsioSecondarySpeularStrength: 1
-    - _AnsioSpeularExponent: 1
-    - _AnsioSpeularShift: 1
-    - _AnsioSpeularStrength: 1
+    - _AnisoShiftScale: 50
+    - _AnisoSpread1: 0.248
+    - _AnisoSpread2: 0.166
+    - _AnsioSecondarySpeularExponent: 151
+    - _AnsioSecondarySpeularShift: 0.27
+    - _AnsioSecondarySpeularStrength: 32
+    - _AnsioSpeularExponent: 274
+    - _AnsioSpeularShift: 0.05
+    - _AnsioSpeularStrength: 29.4
     - _BlendMode: 1
     - _BumpMapKeyword: 1
     - _BumpScale: 1
@@ -89,7 +88,6 @@ Material:
     - _DstBlend: 0
     - _EmissionColorAlbedoWeight: 0
     - _Is_Filter_LightColor: 1
-    - _Is_SDInPaint: 0
     - _LightIntensityClamp: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
@@ -118,10 +116,9 @@ Material:
     - _enum_diffuse: 2
     - _enum_env: 0
     - _enum_rim: 0
-    - _enum_specular: 2
+    - _enum_specular: 1
     - _group: 0
     - _group1: 1
-    - _groupAI: 1
     - _groupAdditionLight: 1
     - _groupEmission: 0
     - _groupEnvironment: 1
@@ -131,10 +128,10 @@ Material:
     - _groupShadowSetting: 0
     - _groupSpecular: 1
     m_Colors:
-    - _AngleRingBrightColor: {r: 6.498019, g: 6.498019, b: 6.498019, a: 1}
+    - _AngleRingBrightColor: {r: 3.4822023, g: 3.4822023, b: 3.4822023, a: 1}
     - _AngleRingShadowColor: {r: 1, g: 1, b: 1, a: 1}
-    - _AnisoSecondarySpecularColor: {r: 0, g: 0, b: 0, a: 1}
-    - _AnisoSpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _AnisoSecondarySpecularColor: {r: 0.8679245, g: 0.7330348, b: 0.6195561, a: 1}
+    - _AnisoSpecularColor: {r: 1, g: 0.79924244, b: 0.625, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.63, g: 0.489762, b: 0.42966, a: 1}
