@@ -104,7 +104,7 @@ MonoBehaviour:
         id: 2474aee0-ad60-4bc2-b159-a1cb21987ff5
         name: SD Start
         graph: {fileID: 11400000}
-        position: {x: 31.333374, y: -449.3334}
+        position: {x: 11.561893, y: -668}
         ports:
         - name: SDFlowOut
           type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
@@ -122,10 +122,10 @@ MonoBehaviour:
           - nodeId: e66ccea8-cbf4-45c7-a7dd-4b7d4f29d1eb
             portName: Model
         Model: experience_70
-        serverURL: http://127.0.0.1:7860
-        useAuth: 0
-        user: 
-        pass: 
+        serverURL: https://3108n063s1.imdo.co
+        useAuth: 1
+        user: dejhon
+        pass: dejhon.123456
     - rid: 2019330481001594900
       type: {class: SDSamplerNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
@@ -365,7 +365,7 @@ MonoBehaviour:
         id: e66ccea8-cbf4-45c7-a7dd-4b7d4f29d1eb
         name: SD Check Point
         graph: {fileID: 11400000}
-        position: {x: -240.21667, y: -449.3334}
+        position: {x: -260.43808, y: -668}
         ports:
         - name: Model
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -712,7 +712,7 @@ MonoBehaviour:
         id: e186b2e3-686a-4515-a910-6590d80d257b
         name: SD Camera Capture
         graph: {fileID: 11400000}
-        position: {x: -124, y: -799.44}
+        position: {x: -149.33336, y: -856}
         ports:
         - name: Capture
           type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,

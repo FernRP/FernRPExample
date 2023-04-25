@@ -226,6 +226,8 @@ namespace LWGUI
 
 				Helper.SetSurfaceType(editor.targets, (int)surfaceEnum);
 				prop.floatValue = (float)surfaceEnum;
+				
+				
 			}
 		}
 	}

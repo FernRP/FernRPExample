@@ -41,7 +41,9 @@ Material:
   m_CustomRenderQueue: 2998
   stringTagMap:
     RenderType: Transparent
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SHADOWCASTER
+  - SRPDEFAULTUNLIT
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -145,6 +147,7 @@ Material:
     - _BumpScale: 0.3
     - _CELLSmoothing: 0.001
     - _CELLThreshold: 0.5
+    - _CasterShadow: 0
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 0
@@ -153,9 +156,10 @@ Material:
     - _ClearCoatTexSource: 0
     - _ClearShading: 0
     - _Cull: 0
-    - _Cutoff: 0.331
+    - _Cutoff: 0.263
     - _DepthOffsetRimReverseX: 0
     - _DepthOffsetShadowReverseX: 0
+    - _DepthPrePass: 0
     - _DepthRimOffset: 0.01
     - _DepthRimThresoldOffset: 0.01
     - _DepthShadowOffset: 0.15

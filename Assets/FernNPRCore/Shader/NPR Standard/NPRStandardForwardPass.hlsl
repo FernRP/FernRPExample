@@ -63,7 +63,7 @@ struct Varyings
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
-void PreInitializeInputData(Varyings input, out InputData inputData, out NPRAddInputData addInputData)
+void PreInitializeInputData(Varyings input, half facing, out InputData inputData, out NPRAddInputData addInputData)
 {
     inputData = (InputData)0;
     addInputData = (NPRAddInputData)0;
@@ -72,13 +72,18 @@ void PreInitializeInputData(Varyings input, out InputData inputData, out NPRAddI
     inputData.positionWS = input.positionWS;
     #endif
 
+    if(facing < 0)
+    {
+        input.normalWS = -input.normalWS;
+    }
+
     #if defined(_NORMALMAP) || defined(_DETAIL)
         float sgn = input.tangentWS.w;      // should be either +1 or -1
         float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
         half3x3 tangentToWorld = half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz);
         inputData.tangentToWorld = tangentToWorld;
     #endif
-    
+
     inputData.normalWS = input.normalWS;
 
     inputData.viewDirectionWS = viewDirWS;
@@ -474,7 +479,7 @@ Varyings LitPassVertex(Attributes input)
 }
 
 void LitPassFragment(
-    Varyings input
+    Varyings input, half facing : VFACE
     , out half4 outColor : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
@@ -486,7 +491,7 @@ void LitPassFragment(
 
     InputData inputData;
     NPRAddInputData addInputData;
-    PreInitializeInputData(input, inputData, addInputData);
+    PreInitializeInputData(input, facing, inputData, addInputData);
 
     NPRSurfaceData surfaceData;
     InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
@@ -545,8 +550,7 @@ void LitPassFragment(
 }
 
 void LitPassFragment_HairExtraPass(
-    Varyings input
-    , out half4 outColor : SV_Target0
+    Varyings input, out half4 outColor : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
 #endif
@@ -557,12 +561,66 @@ void LitPassFragment_HairExtraPass(
 
     InputData inputData;
     NPRAddInputData addInputData;
-    PreInitializeInputData(input, inputData, addInputData);
+    PreInitializeInputData(input, 1, inputData, addInputData);
 
     NPRSurfaceData surfaceData;
     InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
 
-    clip(surfaceData.alpha - 0.9999);
+    clip(surfaceData.alpha - _Cutoff);
+
+    return;
+   
+    InitializeInputData(input, surfaceData.normalTS, addInputData, inputData);
+    
+    #if _SPECULARAA
+    surfaceData.smoothness = SpecularAA(inputData.normalWS, surfaceData.smoothness);
+    #endif
+
+    SETUP_DEBUG_TEXTURE_DATA(inputData, input.uv, _BaseMap);
+
+#ifdef _DBUFFER
+    ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
+#endif
+
+    half4 shadowMask = CalculateShadowMask(inputData);
+    
+    uint meshRenderingLayers = GetMeshRenderingLayer();
+    Light mainLight = GetMainLight(inputData.shadowCoord, inputData.positionWS, shadowMask);
+    NPRMainLightCorrect(_LightDirectionObliqueWeight, mainLight);
+    MixRealtimeAndBakedGI(mainLight, inputData.normalWS, inputData.bakedGI);
+    #if defined(_SCREEN_SPACE_OCCLUSION)
+        AmbientOcclusionFactor aoFactor = GetScreenSpaceAmbientOcclusion(inputData.normalizedScreenSpaceUV);
+        mainLight.color *= aoFactor.directAmbientOcclusion;
+        surfaceData.occlusion = min(surfaceData.occlusion, aoFactor.indirectAmbientOcclusion);
+    #else
+        AmbientOcclusionFactor aoFactor;
+        aoFactor.indirectAmbientOcclusion = 1;
+        aoFactor.directAmbientOcclusion = 1;
+    #endif
+
+    BRDFData brdfData, clearCoatbrdfData;
+    InitializeNPRBRDFData(surfaceData, brdfData, clearCoatbrdfData);
+
+    LightingData lightingData = InitializeLightingData(mainLight, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+
+    half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfaceData.occlusion, _UseRadianceOcclusion);
+    half4 color = 1;
+    color.rgb = NPRMainLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, radiance, lightingData);
+    color.rgb += NPRAdditionLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, addInputData, shadowMask, meshRenderingLayers, aoFactor);
+    color.rgb += NPRIndirectLighting(brdfData, inputData, input, surfaceData.occlusion);
+    color.rgb += NPRRimLighting(lightingData, inputData, input, addInputData);
+
+    color.rgb += surfaceData.emission;
+    color.rgb = MixFog(color.rgb, inputData.fogCoord);
+
+    color.a = surfaceData.alpha;
+
+    outColor = color;
+
+    #ifdef _WRITE_RENDERING_LAYERS
+    uint renderingLayers = GetMeshRenderingLayer();
+    outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
+    #endif
 }
 
 #endif

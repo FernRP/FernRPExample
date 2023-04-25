@@ -222,7 +222,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DarkColor: {r: 0.62299997, g: 0.47098798, b: 0.47098798, a: 1}
+    - _DarkColor: {r: 0.474, g: 0.278712, b: 0.278712, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}

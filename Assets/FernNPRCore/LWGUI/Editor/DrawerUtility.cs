@@ -711,6 +711,12 @@ namespace LWGUI
 				{
 					m.renderQueue += (int)m.GetFloat(PropertyInfo.QueueOffset);
 				}
+				
+				if (m.HasProperty("_DepthPrePass"))
+				{
+					m.SetShaderPassEnabled("SRPDefaultUnlit", m.GetFloat("_DepthPrePass")>0);
+					m.SetShaderPassEnabled("ShadowCaster", m.GetFloat("_CasterShadow")>0);
+				}
 			}
 		}
 

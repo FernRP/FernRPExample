@@ -12,8 +12,8 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _CELLSHADING
   - _GGX
+  - _LAMBERTIAN
   - _METALLICSPECGLOSSMAP
   - _NORMALMAP
   - _OUTLINE
@@ -113,7 +113,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _BumpMapKeyword: 1
     - _BumpScale: 1
-    - _CELLSmoothing: 0.076
+    - _CELLSmoothing: 0.24
     - _CELLThreshold: 0.662
     - _CellBandSoftness: 0.001
     - _CellBands: 1
@@ -158,7 +158,7 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
-    - _Smoothness: 0.695
+    - _Smoothness: 1
     - _SmoothnessTextureChannel: 0
     - _SpaceScreenVariant: 0.5
     - _SpecularAA: 0
@@ -179,7 +179,7 @@ Material:
     - _WorkflowMode: 1
     - _ZOffset: 0
     - _ZWrite: 1
-    - _enum_diffuse: 0
+    - _enum_diffuse: 3
     - _enum_env: 1
     - _enum_rim: 2
     - _enum_specular: 1
@@ -196,12 +196,12 @@ Material:
     - _groupShadowSetting: 1
     - _groupSpecular: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0.87398344, b: 0.858, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DarkColor: {r: 0.871, g: 0.624656, b: 0.581828, a: 1}
+    - _DarkColor: {r: 0.77099997, g: 0.3466977, b: 0.274476, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _HighColor: {r: 1.0717734, g: 1.0717734, b: 1.0717734, a: 1}
+    - _HighColor: {r: 0.9716981, g: 0.90447366, b: 0.90447366, a: 1}
     - _OutlineColor: {r: 0.092, g: 0.04646, b: 0.08531694, a: 0}
     - _PBRMetallicChannel: {r: 2, g: 0, b: 0, a: 0}
     - _PBROcclusionChannel: {r: 0, g: 1, b: 0, a: 0}

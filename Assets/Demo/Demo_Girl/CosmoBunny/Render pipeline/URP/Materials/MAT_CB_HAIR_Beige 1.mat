@@ -21,12 +21,18 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MAT_CB_HAIR_Beige 1
-  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Shader: {fileID: 4800000, guid: 0bb4a4d350ca3de41aed86ede804a971, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  m_InvalidKeywords: []
+  - _KAJIYAHAIR
+  - _LAMBERTIAN
+  - _NORMALMAP
+  - _RENDERENVSETTING
+  m_InvalidKeywords:
+  - _IS_FILTER_LIGHTCOLOR_ON
+  - _OCCLUSIONMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 1
@@ -138,6 +144,7 @@ Material:
     - _BumpScale: 0.3
     - _CELLSmoothing: 0.001
     - _CELLThreshold: 0.5
+    - _CasterShadow: 1
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 0
@@ -146,9 +153,10 @@ Material:
     - _ClearCoatTexSource: 0
     - _ClearShading: 0
     - _Cull: 0
-    - _Cutoff: 0.719
+    - _Cutoff: 0.469
     - _DepthOffsetRimReverseX: 0
     - _DepthOffsetShadowReverseX: 0
+    - _DepthPrePass: 1
     - _DepthRimOffset: 0.01
     - _DepthRimThresoldOffset: 0.01
     - _DepthShadowOffset: 0.15
@@ -176,13 +184,13 @@ Material:
     - _RECEIVE_SHADOWS_OFF: 1
     - _RampMapUOffset: 0
     - _RampMapVOffset: 0.5
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _RimDirectionLightContribution: 1
     - _RimSoftness: 1
     - _RimThreshold: 0.771
     - _SampleGI: 0
     - _Shininess: 1
-    - _Smoothness: 0.3
+    - _Smoothness: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpaceScreenVariant: 0.5
     - _SpecularAA: 0
@@ -194,7 +202,7 @@ Material:
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.1
     - _StylizedSpecularSoftness: 0.05
-    - _Surface: 0
+    - _Surface: 2
     - _UVSec: 0
     - _UseDepthShadow: 0
     - _UseEmissionTex: 0
@@ -224,7 +232,7 @@ Material:
     - _AngleRingShadowColor: {r: 1, g: 1, b: 1, a: 1}
     - _AnisoSecondarySpecularColor: {r: 1, g: 0.6, b: 0.67751867, a: 1}
     - _AnisoSpecularColor: {r: 1, g: 0.89066905, b: 0.78930813, a: 1}
-    - _BaseColor: {r: 0.25499994, g: 0.18139169, b: 0.15247416, a: 1}
+    - _BaseColor: {r: 0.2549999, g: 0.18139166, b: 0.15247414, a: 1}
     - _Color: {r: 0.2549999, g: 0.18139166, b: 0.15247414, a: 1}
     - _DarkColor: {r: 0.403, g: 0.403, b: 0.403, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
