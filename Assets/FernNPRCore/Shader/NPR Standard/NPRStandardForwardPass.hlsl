@@ -544,4 +544,25 @@ void LitPassFragment(
     #endif
 }
 
+void LitPassFragment_HairExtraPass(
+    Varyings input
+    , out half4 outColor : SV_Target0
+#ifdef _WRITE_RENDERING_LAYERS
+    , out float4 outRenderingLayers : SV_Target1
+#endif
+)
+{
+    UNITY_SETUP_INSTANCE_ID(input);
+    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+
+    InputData inputData;
+    NPRAddInputData addInputData;
+    PreInitializeInputData(input, inputData, addInputData);
+
+    NPRSurfaceData surfaceData;
+    InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
+
+    clip(surfaceData.alpha - 0.9999);
+}
+
 #endif

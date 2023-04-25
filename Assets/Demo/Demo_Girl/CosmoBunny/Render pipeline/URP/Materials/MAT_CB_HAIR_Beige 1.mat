@@ -1,0 +1,241 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-995259128126348635
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 7
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MAT_CB_HAIR_Beige 1
+  m_Shader: {fileID: 4800000, guid: 650dd9526735d5b46b79224bc6e94025, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _ALPHATEST_ON
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 1
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _AnisoShiftMap:
+        m_Texture: {fileID: 2800000, guid: 8f822f0612aa061498a1a515620e3a54, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: e5584b2eeb65bba4ea8282d6e63c9bf1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _BumpMap:
+        m_Texture: {fileID: 2800000, guid: 5faceead208ecb4499df9ca04c1743b2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailAlbedoMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailMask:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DiffuseRampMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _LightMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: e5584b2eeb65bba4ea8282d6e63c9bf1, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MetallicGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _OcclusionMap:
+        m_Texture: {fileID: 2800000, guid: 24435a678daece34cb32e61ec3ed2712, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ParallaxMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadingMap01:
+        m_Texture: {fileID: 2800000, guid: 24435a678daece34cb32e61ec3ed2712, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SpecGlossMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
+    - _AngleRingIntensity: 0
+    - _AngleRingSoftness: 0
+    - _AngleRingThreshold: 0
+    - _AngleRingWidth: 0
+    - _AnisoShiftScale: 10
+    - _AnisoSpread1: 0.2
+    - _AnisoSpread2: 0.04
+    - _AnsioSecondarySpeularExponent: 111
+    - _AnsioSecondarySpeularShift: -0.26
+    - _AnsioSecondarySpeularStrength: 41.8
+    - _AnsioSpeularExponent: 176
+    - _AnsioSpeularShift: -0.03
+    - _AnsioSpeularStrength: 46
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
+    - _BlendOp: 0
+    - _BumpMapKeyword: 1
+    - _BumpScale: 0.3
+    - _CELLSmoothing: 0.001
+    - _CELLThreshold: 0.5
+    - _CellBandSoftness: 0.001
+    - _CellBands: 1
+    - _ClearCoat: 0
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _ClearCoatTexSource: 0
+    - _ClearShading: 0
+    - _Cull: 0
+    - _Cutoff: 0.719
+    - _DepthOffsetRimReverseX: 0
+    - _DepthOffsetShadowReverseX: 0
+    - _DepthRimOffset: 0.01
+    - _DepthRimThresoldOffset: 0.01
+    - _DepthShadowOffset: 0.15
+    - _DepthShadowSoftness: 0
+    - _DepthShadowThresoldOffset: 0
+    - _DetailAlbedoMapScale: 1
+    - _DetailNormalMapScale: 1
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _EmissionColorAlbedoWeight: 0
+    - _EnvironmentReflections: 1
+    - _GlossMapScale: 1
+    - _Glossiness: 0.442
+    - _GlossyReflections: 1
+    - _Is_Filter_LightColor: 1
+    - _Is_SDInPaint: 0
+    - _LightIntensityClamp: 1
+    - _Metallic: 0
+    - _Mode: 1
+    - _OcclusionStrength: 1
+    - _Outline: 0
+    - _OutlineWidth: 0.1
+    - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _RECEIVE_SHADOWS_OFF: 1
+    - _RampMapUOffset: 0
+    - _RampMapVOffset: 0.5
+    - _ReceiveShadows: 1
+    - _RimDirectionLightContribution: 1
+    - _RimSoftness: 1
+    - _RimThreshold: 0.771
+    - _SampleGI: 0
+    - _Shininess: 1
+    - _Smoothness: 0.3
+    - _SmoothnessTextureChannel: 0
+    - _SpaceScreenVariant: 0.5
+    - _SpecularAA: 0
+    - _SpecularAAThreshold: 1
+    - _SpecularHighlights: 1
+    - _SpecularMask: 0
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _StylizedSpecularAlbedoWeight: 0
+    - _StylizedSpecularSize: 0.1
+    - _StylizedSpecularSoftness: 0.05
+    - _Surface: 0
+    - _UVSec: 0
+    - _UseDepthShadow: 0
+    - _UseEmissionTex: 0
+    - _UseHalfLambert: 0
+    - _UseRadianceOcclusion: 0
+    - _WorkflowMode: 1
+    - _ZOffset: 0
+    - _ZWrite: 1
+    - _enum_diffuse: 2
+    - _enum_env: 1
+    - _enum_rim: 0
+    - _enum_specular: 1
+    - _group: 0
+    - _group1: 1
+    - _groupAI: 1
+    - _groupAdditionLight: 1
+    - _groupClearCoat: 1
+    - _groupEmission: 0
+    - _groupEnvironment: 1
+    - _groupOutline: 1
+    - _groupRim: 1
+    - _groupShadingMask: 0
+    - _groupShadowSetting: 1
+    - _groupSpecular: 1
+    m_Colors:
+    - _AngleRingBrightColor: {r: 1, g: 1, b: 1, a: 1}
+    - _AngleRingShadowColor: {r: 1, g: 1, b: 1, a: 1}
+    - _AnisoSecondarySpecularColor: {r: 1, g: 0.6, b: 0.67751867, a: 1}
+    - _AnisoSpecularColor: {r: 1, g: 0.89066905, b: 0.78930813, a: 1}
+    - _BaseColor: {r: 0.25499994, g: 0.18139169, b: 0.15247416, a: 1}
+    - _Color: {r: 0.2549999, g: 0.18139166, b: 0.15247414, a: 1}
+    - _DarkColor: {r: 0.403, g: 0.403, b: 0.403, a: 1}
+    - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _HighColor: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 0.7960785, g: 0.5254902, b: 0.41960788, a: 1}
+    - _PBRMetallicChannel: {r: 1, g: 0, b: 0, a: 0}
+    - _PBROcclusionChannel: {r: 2, g: 0, b: 0, a: 0}
+    - _PBRSmothnessChannel: {r: 0, g: 0, b: 0, a: 1}
+    - _RimColor: {r: 1.4142135, g: 0.74953324, b: 0.48083264, a: 1}
+    - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
