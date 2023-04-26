@@ -104,20 +104,31 @@ Shader "FernRender/URP/FERNNPRStandard"
         [SubToggle(AdditionalLightSetting)] _Is_Filter_LightColor("Is Filter LightColor", Float) = 1
         [Sub(AdditionalLightSetting)] _LightIntensityClamp("Additional Light Intensity Clamp", Range(0, 8)) = 1
         
-        [Main(AISetting, _, off, off)]
-        _groupAI ("AISetting", float) = 1
-        [Space()]
-        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
-        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
-        
         [Main(Outline, _, off, off)]
         _groupOutline ("OutlineSettings", float) = 1
         [Space()]
         [SubToggle(Outline, _OUTLINE)] _Outline("Use Outline", Float) = 0.0
         [Sub(Outline._OUTLINE)] _OutlineColor ("Outline Color", Color) = (0,0,0,0)
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
+        
+        // AI Core has no release
+        [Main(AISetting, _, off, off)]
+        _groupAI ("AISetting", float) = 1
+        [Space()]
+        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
+        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
+
+        //Effect is in Developing
+        [Title(_, Effect)]
+        [Main(DissolveSetting, _, off, off)]
+        _groupDissolveSetting ("Dissolve Setting", float) = 0
+        [Space()]
+        [SubToggle(DissolveSetting, _USEDISSOLVEEFFECT)] _UseDissolveEffect("Use Dissolve Effect", Float) = 0.0
+        [Tex(DissolveSetting._USEDISSOLVEEFFECT)] _DissolveNoiseTex ("Dissolve Noise Tex", 2D) = "white" { }
+        [Sub(DissolveSetting)] _DissolveThreshold ("Dissolve Threshold", Range(0, 1)) = 0
 
         // RenderSetting
+        [Title(_, RenderSetting)]
         [Main(RenderSetting, _, off, off)]
         _groupSurface ("RenderSetting", float) = 1
         [Surface(RenderSetting)] _Surface("Surface Type", Float) = 0.0
@@ -129,6 +140,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
         [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
         [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
+
     }
 
     SubShader
@@ -187,6 +199,10 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local _ _RENDERENVSETTING _CUSTOMENVCUBE
             #pragma shader_feature_local _MATCAP
             #pragma shader_feature_local _USEEMISSIONTEX
+
+            // -------------------------------------
+            // Effect Keyword
+            #pragma shader_feature_local _USEDISSOLVEEFFECT
             
             // -------------------------------------
             // Universal Pipeline keywords
@@ -425,6 +441,9 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
+            
+            #pragma shader_feature_local_fragment _USEDISSOLVEEFFECT
+
 
             #pragma shader_feature_local_fragment _SPECGLOSSMAP
 
