@@ -43,7 +43,7 @@ ___
 3. [ **Post Processing** ] 后处理系列将尽可能地扩展URP build-in的后处理，添加更多效果
 4. [ **AI** ] AI系列将包括Stable Diffusion Graph以及ChatGPT
 
-更详细的开发计划可以前往[ Roadmap ](https://github.com/users/DeJhon-Huang/projects/2)查看
+更详细的开发计划可以前往[ Roadmap ](https://github.com/orgs/FernRender/projects/1)查看
 ___
 
 ## Related links
