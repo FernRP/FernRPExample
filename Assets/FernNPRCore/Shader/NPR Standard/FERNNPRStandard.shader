@@ -117,6 +117,15 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Sub(Outline._OUTLINE)] _OutlineColor ("Outline Color", Color) = (0,0,0,0)
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
 
+        //add space for dissolve effect
+        [Title(_, DissolveSetting)]
+        [Main(DissolveSetting, _, off, off)]
+        _groupDissolveSetting ("Dissolve Setting", float) = 0
+        [Space()]
+        [SubToggle(DissolveSetting, _USEDISSOLVEEFFECT)] _UseDissolveEffect("Use Dissolve Effect", Float) = 0.0
+        [Tex(DissolveSetting._USEDISSOLVEEFFECT)] _DissolveNoiseTex ("Dissolve Noise Tex", 2D) = "white" { }
+        [Sub(DissolveSetting)] _DissolveThreshold ("Dissolve Threshold", Range(0, 1)) = 0
+
         // RenderSetting
         [Main(RenderSetting, _, off, off)]
         _groupSurface ("RenderSetting", float) = 1
@@ -129,6 +138,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
         [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
         [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
+
     }
 
     SubShader
@@ -187,6 +197,8 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local _ _RENDERENVSETTING _CUSTOMENVCUBE
             #pragma shader_feature_local _MATCAP
             #pragma shader_feature_local _USEEMISSIONTEX
+            //add dissolve effect bool
+            #pragma shader_feature_local _USEDISSOLVEEFFECT
             
             // -------------------------------------
             // Universal Pipeline keywords
@@ -425,6 +437,9 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _ _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
             #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
+            
+            #pragma shader_feature_local_fragment _USEDISSOLVEEFFECT
+
 
             #pragma shader_feature_local_fragment _SPECGLOSSMAP
 
