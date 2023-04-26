@@ -34,6 +34,8 @@ The Stable Diffusion Graph has completed most of its development functionalities
 
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
+
+[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 ___
 
 ## Future Features
