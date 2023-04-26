@@ -6,7 +6,7 @@ Shader "FernRender/URP/FERNNPRHair"
         _group ("Surface", float) = 0
         [Space()]
         [Tex(Surface, _BaseColor)] _BaseMap ("Base Map", 2D) = "white" { }
-        [HideInInspector][HDR] _BaseColor ("Base Color", color) = (1, 1, 1, 1)
+        [HideInInspector] _BaseColor ("Base Color", color) = (1, 1, 1, 1)
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
@@ -53,12 +53,12 @@ Shader "FernRender/URP/FERNNPRHair"
         [Sub(Specular._KAJIYAHAIR)] _AnisoSpecularColor("Aniso Specular Color Layer1", Color) = (1,1,1,1)
         [Sub(Specular._KAJIYAHAIR)] _AnisoSpread1("Aniso Specular Spread Layer1", Range(-1,1)) = 0.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularShift("Aniso Specular Shift Layer1", Range(-3,3)) = 1.0
-        [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularStrength("Aniso Specular Strength Layer1", Range(0, 2)) = 1.0
+        [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularStrength("Aniso Specular Strength Layer1", Range(0, 64)) = 1.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSpeularExponent("Aniso Specular Exponent Layer1", Range(1,1024)) = 1.0
         [Sub(Specular._KAJIYAHAIR)] _AnisoSecondarySpecularColor("Aniso Specular Color Layer2", Color) = (0.5,0.5,0.5,1)
         [Sub(Specular._KAJIYAHAIR)] _AnisoSpread2("Aniso Specular Spread Layer2", Range(-1,1)) = 0.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSecondarySpeularShift("Aniso Specular Shift Layer2", Range(-3,3)) = 1.0
-        [Sub(Specular._KAJIYAHAIR)] _AnsioSecondarySpeularStrength("Aniso Specular Strength Layer2", Range(0, 2)) = 1.0
+        [Sub(Specular._KAJIYAHAIR)] _AnsioSecondarySpeularStrength("Aniso Specular Strength Layer2", Range(0, 64)) = 1.0
         [Sub(Specular._KAJIYAHAIR)] _AnsioSecondarySpeularExponent("Aniso Specular Exponent Layer2",Range(1,1024)) = 1.0
         [Sub(Specular._ANGLERING)] [HDR]_AngleRingBrightColor ("Specular Bright Color", Color) = (1,1,1,1)
         [Sub(Specular._ANGLERING)] _AngleRingShadowColor ("Specular Shadow Color", Color) = (1,1,1,1)
@@ -107,22 +107,53 @@ Shader "FernRender/URP/FERNNPRHair"
         [SubToggle(Outline, _OUTLINE)] _Outline("Use Outline", Float) = 0.0
         [Sub(Outline._OUTLINE)] _OutlineColor ("Outline Color", Color) = (0,0,0,0)
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
+        
+        [Main(AISetting, _, off, off)]
+        _groupAI ("AISetting", float) = 1
+        [Space()]
+        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
+        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
 
-        // RenderSetting    
-        [Title(_, RenderSetting)]
-        [Surface(_)] _Surface("Surface Type", Float) = 0.0
-        [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull Mode", Float) = 2.0
-        [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend("Src Alpha", Float) = 1.0
-        [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Alpha", Float) = 0.0
-        [Enum(Off, 0, On, 1)] _ZWrite("Z Write", Float) = 1.0
-        _Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
-        [Queue(_)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
+        // RenderSetting
+        [Main(RenderSetting, _, off, off)]
+        _groupSurface ("RenderSetting", float) = 1
+        [Surface(RenderSetting)] _Surface("Surface Type", Float) = 0.0
+        [SubEnum(RenderSetting, UnityEngine.Rendering.CullMode)] _Cull("Cull Mode", Float) = 2.0
+        [SubEnum(RenderSetting, UnityEngine.Rendering.BlendMode)] _SrcBlend("Src Alpha", Float) = 1.0
+        [SubEnum(RenderSetting, UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Alpha", Float) = 0.0
+        [SubEnum(RenderSetting, Off, 0, On, 1)] _ZWrite("Z Write", Float) = 1.0
+        [SubEnum(RenderSetting, Off, 0, On, 1)] _DepthPrePass("Depth PrePass", Float) = 0
+        [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
+        [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
+        [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
     }
 
     SubShader
     {
         Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "IgnoreProjector" = "True"}
         LOD 300
+        
+        Pass
+        {
+            Name "FernDepthPrePass"
+            Tags{"LightMode" = "SRPDefaultUnlit"} // Hard Code Now
+
+            Blend Off
+            ZWrite on
+            Cull off
+            ColorMask 0
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 3.0
+
+            #pragma vertex LitPassVertex
+            #pragma fragment LitPassFragment_DepthPrePass
+
+            #include "NPRStandardInput.hlsl"
+            #include "NPRStandardForwardPass.hlsl"
+            ENDHLSL
+        }
 
         Pass
         {
@@ -201,7 +232,7 @@ Shader "FernRender/URP/FERNNPRHair"
 
             // -------------------------------------
             // Material Keywords
-            #pragma shader_feature_local_fragment _ALPHATEST_ON
+            #define _ALPHATEST_ON 1
 
             // -------------------------------------
             // Universal Pipeline keywords
@@ -246,6 +277,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
+        
          Pass
         {
             Name "DepthShadowOnly"
@@ -275,6 +307,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
             ENDHLSL
         }
+
 
         // This pass is used when drawing to a _CameraNormalsTexture texture
         Pass
@@ -329,6 +362,56 @@ Shader "FernRender/URP/FERNNPRHair"
             #include "../ShaderLibrary/NormalOutline.hlsl"
             ENDHLSL
         }
+        
+                
+        Pass
+        {
+            Name "InPaint"
+            Tags{"LightMode" = "InPaint"}
+
+            Blend[_SrcBlend][_DstBlend]
+            ZWrite[_ZWrite]
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 3.0
+
+            // -------------------------------------
+            // Material Keywords
+            
+            // -------------------------------------
+            // Universal Pipeline keywords
+
+            // -------------------------------------
+            // Unity defined keywords
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+
+            #pragma vertex LitPassVertex
+            #pragma fragment InPaintPassFragment
+
+            #include "NPRStandardInput.hlsl"
+            #include "NPRStandardForwardPass.hlsl"
+
+            void InPaintPassFragment(
+                Varyings input
+                , out half4 outColor : SV_Target0
+            #ifdef _WRITE_RENDERING_LAYERS
+                , out float4 outRenderingLayers : SV_Target1
+            #endif
+            )
+            {
+                outColor = lerp(0, 1, _Is_SDInPaint);
+            }
+
+            ENDHLSL
+        }
+
     }
 
     FallBack "Hidden/Universal Render Pipeline/FallbackError"

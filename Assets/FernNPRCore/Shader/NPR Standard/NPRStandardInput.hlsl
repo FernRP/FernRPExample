@@ -126,6 +126,10 @@ half _Cutoff;
 half _Surface;
 half _ClipThresold;
 
+// AI
+half _Is_SDInPaint;
+half _ClearShading;
+
 half _OutlineWidth;
 CBUFFER_END
 
@@ -335,6 +339,7 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
     #endif
     uv += uvOffset;
     half4 albedoAlpha = SampleAlbedoAlpha(uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
+    albedoAlpha.rgb = lerp(albedoAlpha.rgb, 1, _ClearShading);
     half4 pbrLightMap = SAMPLE_TEXTURE2D(_LightMap, sampler_LightMap, uv);
     half4 pbrChannel = SamplePBRChannel(pbrLightMap, shadingMap01);
     outSurfaceData.alpha = Alpha(albedoAlpha.a, _BaseColor, _Cutoff);
@@ -351,13 +356,12 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
     outSurfaceData.specularIntensity = 1;
     #endif
     outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
+
     #if _USEDISSOLVEEFFECT
-    //WIP
-    half dissolve_value = SAMPLE_TEXTURE2D(_DissolveNoiseTex, sampler_DissolveNoiseTex, uv).r;
-    clip(dissolve_value - _DissolveThreshold);
+      //WIP
+      half dissolve_value = SAMPLE_TEXTURE2D(_DissolveNoiseTex, sampler_DissolveNoiseTex, uv).r;
+      clip(dissolve_value - _DissolveThreshold);
     #endif 
-    
-   
 }
 
 

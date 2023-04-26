@@ -32,6 +32,8 @@ Stable Diffusion Graph已经完成大部分功能，即将发布！
 
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
+
+[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 ___
 
 ## Future Features

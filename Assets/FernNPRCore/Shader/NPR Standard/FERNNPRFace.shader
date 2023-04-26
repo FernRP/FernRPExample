@@ -103,22 +103,53 @@ Shader "FernRender/URP/FERNNPRFace"
         [SubToggle(Outline, _OUTLINE)] _Outline("Use Outline", Float) = 0.0
         [Sub(Outline._OUTLINE)] _OutlineColor ("Outline Color", Color) = (0,0,0,0)
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
+        
+        [Main(AISetting, _, off, off)]
+        _groupAI ("AISetting", float) = 1
+        [Space()]
+        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
+        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
 
-        // RenderSetting    
-        [Title(_, RenderSetting)]
-        [Surface(_)] _Surface("Surface Type", Float) = 0.0
-        [Enum(UnityEngine.Rendering.CullMode)] _Cull("Cull Mode", Float) = 2.0
-        [Enum(UnityEngine.Rendering.BlendMode)] _SrcBlend("Src Alpha", Float) = 1.0
-        [Enum(UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Alpha", Float) = 0.0
-        [Enum(Off, 0, On, 1)] _ZWrite("Z Write", Float) = 1.0
-        _Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
-        [Queue(_)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
+        // RenderSetting
+        [Main(RenderSetting, _, off, off)]
+        _groupSurface ("RenderSetting", float) = 1
+        [Surface(RenderSetting)] _Surface("Surface Type", Float) = 0.0
+        [SubEnum(RenderSetting, UnityEngine.Rendering.CullMode)] _Cull("Cull Mode", Float) = 2.0
+        [SubEnum(RenderSetting, UnityEngine.Rendering.BlendMode)] _SrcBlend("Src Alpha", Float) = 1.0
+        [SubEnum(RenderSetting, UnityEngine.Rendering.BlendMode)] _DstBlend("Dst Alpha", Float) = 0.0
+        [SubEnum(RenderSetting, Off, 0, On, 1)] _ZWrite("Z Write", Float) = 1.0
+        [SubEnum(RenderSetting, Off, 0, On, 1)] _DepthPrePass("Depth PrePass", Float) = 0
+        [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
+        [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
+        [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
     }
 
     SubShader
     {
         Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "IgnoreProjector" = "True"}
         LOD 300
+        
+        Pass
+        {
+            Name "FernDepthPrePass"
+            Tags{"LightMode" = "SRPDefaultUnlit"} // Hard Code Now
+
+            Blend Off
+            ZWrite on
+            Cull off
+            ColorMask 0
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 3.0
+
+            #pragma vertex LitPassVertex
+            #pragma fragment LitPassFragment_DepthPrePass
+
+            #include "NPRStandardInput.hlsl"
+            #include "NPRStandardForwardPass.hlsl"
+            ENDHLSL
+        }
 
         Pass
         {
@@ -341,6 +372,56 @@ Shader "FernRender/URP/FERNNPRFace"
             #include "../ShaderLibrary/NormalOutline.hlsl"
             ENDHLSL
         }
+        
+                
+        Pass
+        {
+            Name "InPaint"
+            Tags{"LightMode" = "InPaint"}
+
+            Blend[_SrcBlend][_DstBlend]
+            ZWrite[_ZWrite]
+            Cull[_Cull]
+
+            HLSLPROGRAM
+            #pragma only_renderers gles gles3 glcore d3d11
+            #pragma target 3.0
+
+            // -------------------------------------
+            // Material Keywords
+            
+            // -------------------------------------
+            // Universal Pipeline keywords
+
+            // -------------------------------------
+            // Unity defined keywords
+
+            //--------------------------------------
+            // GPU Instancing
+            #pragma multi_compile_instancing
+            #pragma instancing_options renderinglayer
+            #pragma multi_compile _ DOTS_INSTANCING_ON
+
+            #pragma vertex LitPassVertex
+            #pragma fragment InPaintPassFragment
+
+            #include "NPRStandardInput.hlsl"
+            #include "NPRStandardForwardPass.hlsl"
+
+            void InPaintPassFragment(
+                Varyings input
+                , out half4 outColor : SV_Target0
+            #ifdef _WRITE_RENDERING_LAYERS
+                , out float4 outRenderingLayers : SV_Target1
+            #endif
+            )
+            {
+                outColor = lerp(0, 1, _Is_SDInPaint);
+            }
+
+            ENDHLSL
+        }
+
     }
 
     FallBack "Hidden/Universal Render Pipeline/FallbackError"

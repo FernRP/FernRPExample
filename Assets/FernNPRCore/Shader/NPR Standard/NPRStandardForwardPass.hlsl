@@ -63,7 +63,7 @@ struct Varyings
     UNITY_VERTEX_OUTPUT_STEREO
 };
 
-void PreInitializeInputData(Varyings input, out InputData inputData, out NPRAddInputData addInputData)
+void PreInitializeInputData(Varyings input, half facing, out InputData inputData, out NPRAddInputData addInputData)
 {
     inputData = (InputData)0;
     addInputData = (NPRAddInputData)0;
@@ -72,13 +72,18 @@ void PreInitializeInputData(Varyings input, out InputData inputData, out NPRAddI
     inputData.positionWS = input.positionWS;
     #endif
 
+    if(facing < 0)
+    {
+        input.normalWS = -input.normalWS;
+    }
+
     #if defined(_NORMALMAP) || defined(_DETAIL)
         float sgn = input.tangentWS.w;      // should be either +1 or -1
         float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
         half3x3 tangentToWorld = half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz);
         inputData.tangentToWorld = tangentToWorld;
     #endif
-    
+
     inputData.normalWS = input.normalWS;
 
     inputData.viewDirectionWS = viewDirWS;
@@ -474,7 +479,7 @@ Varyings LitPassVertex(Attributes input)
 }
 
 void LitPassFragment(
-    Varyings input
+    Varyings input, half facing : VFACE
     , out half4 outColor : SV_Target0
 #ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
@@ -486,7 +491,7 @@ void LitPassFragment(
 
     InputData inputData;
     NPRAddInputData addInputData;
-    PreInitializeInputData(input, inputData, addInputData);
+    PreInitializeInputData(input, facing, inputData, addInputData);
 
     NPRSurfaceData surfaceData;
     InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
@@ -542,6 +547,26 @@ void LitPassFragment(
     uint renderingLayers = GetMeshRenderingLayer();
     outRenderingLayers = float4(EncodeMeshRenderingLayer(renderingLayers), 0, 0, 0);
     #endif
+}
+
+void LitPassFragment_DepthPrePass(
+    Varyings input, out half4 outColor : SV_Target0
+#ifdef _WRITE_RENDERING_LAYERS
+    , out float4 outRenderingLayers : SV_Target1
+#endif
+)
+{
+    UNITY_SETUP_INSTANCE_ID(input);
+    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+
+    InputData inputData;
+    NPRAddInputData addInputData;
+    PreInitializeInputData(input, 1, inputData, addInputData);
+
+    NPRSurfaceData surfaceData;
+    InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
+
+    clip(surfaceData.alpha - _Cutoff);
 }
 
 #endif
