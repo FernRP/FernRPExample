@@ -33,6 +33,11 @@ half4 _AngleRingShadowColor;
 half4 _MatCapColor;
 half4 _EmissionColor;
 
+#if _USEDISSOLVEEFFECT
+//add space for dissolve effect
+half _DissolveThreshold;
+#endif
+
 // Channel
 half4 _PBRMetallicChannel;
 half4 _PBRSmothnessChannel;
@@ -233,10 +238,15 @@ TEXTURE2D(_AnisoShiftMap);       SAMPLER(sampler_AnisoShiftMap);
 TEXTURE2D(_ShadingMap01);       SAMPLER(sampler_ShadingMap01);
 TEXTURE2D(_EmissionTex);       SAMPLER(sampler_EmissionTex);
 
+
 #if FACE
     TEXTURE2D(_SDFFaceTex);      SAMPLER(sampler_SDFFaceTex);
 #endif
 
+// add sampler for dissolve effect
+#if _USEDISSOLVEEFFECT
+TEXTURE2D(_DissolveNoiseTex);       SAMPLER(sampler_DissolveNoiseTex);
+#endif
 
 #ifdef _SPECULAR_SETUP
     #define SAMPLE_METALLICSPECULAR(uv) SAMPLE_TEXTURE2D(_SpecGlossMap, sampler_SpecGlossMap, uv)
@@ -300,6 +310,7 @@ half3 EmissionColor(half4 pbrLightMap, half4 shadingMap01, half3 albedo, half2 u
     }
 #endif
 
+
 inline half SpecularAA(half3 normalWS, half smoothness)
 {
     half dx = dot(ddx(normalWS),ddx(normalWS));
@@ -340,7 +351,12 @@ inline void InitializeNPRStandardSurfaceData(float2 uv, InputData inputData, out
     outSurfaceData.specularIntensity = 1;
     #endif
     outSurfaceData.emission = EmissionColor(pbrLightMap, shadingMap01, outSurfaceData.albedo, uv);
-
+    #if _USEDISSOLVEEFFECT
+    //WIP
+    half dissolve_value = SAMPLE_TEXTURE2D(_DissolveNoiseTex, sampler_DissolveNoiseTex, uv).r;
+    clip(dissolve_value - _DissolveThreshold);
+    #endif 
+    
    
 }
 
