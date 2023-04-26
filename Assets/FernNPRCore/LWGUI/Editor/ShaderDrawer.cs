@@ -481,7 +481,7 @@ namespace LWGUI
 			var index = (int)RevertableHelper.GetDefaultProperty(shader, prop).floatValue;
 			if (index < _names.Length)
 				MetaDataHelper.RegisterPropertyDefaultValueText(shader, prop, _names[index].text);
-		}
+		} 
 
 		private string[] GetKeywords(MaterialProperty property)
 		{
@@ -493,8 +493,19 @@ namespace LWGUI
 
 		public override void DrawProp(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
 		{
+			
+			if (!IsMatchPropType(prop))
+			{
+				return;
+			}
+			
 			EditorGUI.BeginChangeCheck();
         	EditorGUI.showMixedValue = prop.hasMixedValue;
+            
+            foreach (var nn in _names)
+            {
+	            Debug.Log(nn);
+            }
         	
 			var rect = position; //EditorGUILayout.GetControlRect();
 
@@ -512,8 +523,8 @@ namespace LWGUI
 				}
 			}
 
-
 			int newIndex = EditorGUI.Popup(rect, label, index, _names);
+			
 			EditorGUI.showMixedValue = false;
 			if (EditorGUI.EndChangeCheck())
 			{
@@ -536,22 +547,171 @@ namespace LWGUI
 		}
 	}
 
-	internal class SubEnumDrawer : KWEnumDrawer
+	internal class SubEnumDrawer : SubDrawer
 	{
-		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2)
-			: base(group, new []{n1, n2}, null, new []{v1, v2}){ }
-		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3)
-			: base(group, new []{n1, n2, n3}, null, new []{v1, v2, v3}){ }
-		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4)
-			: base(group, new []{n1, n2, n3, n4}, null, new []{v1, v2, v3, v4}){ }
-		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4, string n5, float v5)
-			: base(group, new []{n1, n2, n3, n4, n5}, null, new []{v1, v2, v3, v4, v5}){ }
-		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4, string n5, float v5, string n6, float v6)
-			: base(group, new []{n1, n2, n3, n4, n5, n6}, null, new []{v1, v2, v3, v4, v5, v6}){ }
-		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4, string n5, float v5, string n6, float v6, string n7, float v7)
-			: base(group, new []{n1, n2, n3, n4, n5, n6, n7}, null, new []{v1, v2, v3, v4, v5, v6, v7}){ }
+		
+		private readonly GUIContent[] names;
+        private readonly int[] values;
+        private static readonly int DepthPrePass = Shader.PropertyToID("_DepthPrePass");
+        private static readonly int CasterShadow = Shader.PropertyToID("_CasterShadow");
 
-		protected override string GetKeywordName(string propName, string name) { return "_"; }
+        public SubEnumDrawer(string group, string enumName)
+        {
+	        this.group = group;
+	        var loadedTypes = TypeCache.GetTypesDerivedFrom(typeof(Enum));
+	        try
+	        {
+		        var enumType = loadedTypes.FirstOrDefault(x => x.Name == enumName || x.FullName == enumName);
+		        var enumNames = Enum.GetNames(enumType);
+		        this.names = new GUIContent[enumNames.Length];
+		        for (int i = 0; i < enumNames.Length; ++i)
+			        this.names[i] = new GUIContent(enumNames[i]);
+
+		        var enumVals = Enum.GetValues(enumType);
+		        values = new int[enumVals.Length];
+		        for (var i = 0; i < enumVals.Length; ++i)
+			        values[i] = (int)enumVals.GetValue(i);
+	        }
+	        catch (Exception)
+	        {
+		        Debug.LogWarningFormat("Failed to create MaterialEnum, enum {0} not found", enumName);
+		        throw;
+	        }
+        }
+        
+		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2)
+			: this(group, new []{n1, n2}, new []{v1, v2}){ }
+		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3)
+			: this(group, new []{n1, n2, n3}, new []{v1, v2, v3}){ }
+		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4)
+			: this(group, new []{n1, n2, n3, n4}, new []{v1, v2, v3, v4}){ }
+		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4, string n5, float v5)
+			: this(group, new []{n1, n2, n3, n4, n5}, new []{v1, v2, v3, v4, v5}){ }
+		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4, string n5, float v5, string n6, float v6)
+			: this(group, new []{n1, n2, n3, n4, n5, n6}, new []{v1, v2, v3, v4, v5, v6}){ }
+		public SubEnumDrawer(string group, string n1, float v1, string n2, float v2, string n3, float v3, string n4, float v4, string n5, float v5, string n6, float v6, string n7, float v7)
+			: this(group, new []{n1, n2, n3, n4, n5, n6, n7}, new []{v1, v2, v3, v4, v5, v6, v7}){ }
+		
+		public SubEnumDrawer(string group, string[] enumNames, float[] vals)
+		{
+			this.group = group;
+			this.names = new GUIContent[enumNames.Length];
+			for (int i = 0; i < enumNames.Length; ++i)
+				this.names[i] = new GUIContent(enumNames[i]);
+
+			values = new int[vals.Length];
+			for (int i = 0; i < vals.Length; ++i)
+				values[i] = (int)vals[i];
+		}
+				
+		public SubEnumDrawer(string enumName)
+		{
+			var loadedTypes = TypeCache.GetTypesDerivedFrom(typeof(Enum));
+			try
+			{
+				var enumType = loadedTypes.FirstOrDefault(x => x.Name == enumName || x.FullName == enumName);
+				if (enumType != null)
+				{
+					var enumNames = Enum.GetNames(enumType);
+					this.names = new GUIContent[enumNames.Length];
+					for (int i = 0; i < enumNames.Length; ++i)
+					{
+						this.names[i] = new GUIContent(enumNames[i]);
+						Debug.Log(this.names[i]);
+					}
+				}
+
+				if (enumType != null)
+				{
+					var enumVals = Enum.GetValues(enumType);
+					this.values = new int[enumVals.Length];
+					for (var i = 0; i < enumVals.Length; ++i)
+						this.values[i] = (int)enumVals.GetValue(i);
+				}
+			}
+			catch (Exception)
+			{
+				Debug.LogWarningFormat("Failed to create MaterialEnum, enum {0} not found", enumName);
+				throw;
+			}
+		}
+		
+		static bool IsPropertyTypeSuitable(MaterialProperty prop)
+		{
+			return prop.type == MaterialProperty.PropType.Float || prop.type == MaterialProperty.PropType.Range || prop.type == MaterialProperty.PropType.Int;
+		}
+		
+		public override void DrawProp(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
+        {
+            if (!IsPropertyTypeSuitable(prop))
+            {
+                return;
+            }
+
+            MaterialEditor.BeginProperty(position, prop);
+
+            if (prop.type == MaterialProperty.PropType.Float || prop.type == MaterialProperty.PropType.Range)
+            {
+                EditorGUI.BeginChangeCheck();
+                EditorGUI.showMixedValue = prop.hasMixedValue;
+
+                var value = (int)prop.floatValue;
+                int selectedIndex = -1;
+                for (var index = 0; index < values.Length; index++)
+                {
+                    var i = values[index]; 
+                    if (i == value)
+                    {
+                        selectedIndex = index;
+                        break;
+                    }
+                }
+
+                var selIndex = EditorGUI.Popup(position, label, selectedIndex, names);
+                EditorGUI.showMixedValue = false;
+                if (EditorGUI.EndChangeCheck())
+                {
+                    prop.floatValue = (float)values[selIndex];
+                    if (prop.name.Equals("_DepthPrePass"))
+                    {
+	                    var m = prop.targets[0] as Material;
+	                    if (m != null) m.SetShaderPassEnabled("SRPDefaultUnlit", m.GetFloat(DepthPrePass) > 0);
+                    }
+                    if (prop.name.Equals("_CasterShadow"))
+                    {
+	                    var m = prop.targets[0] as Material;
+	                    if (m != null) m.SetShaderPassEnabled("ShadowCaster", m.GetFloat(CasterShadow) > 0);
+                    }
+                }
+            }
+            else
+            {
+                EditorGUI.BeginChangeCheck();
+                EditorGUI.showMixedValue = prop.hasMixedValue;
+
+                var value = prop.intValue;
+                int selectedIndex = -1;
+                for (var index = 0; index < values.Length; index++)
+                {
+                    var i = values[index];
+                    if (i == value)
+                    {
+                        selectedIndex = index;
+                        break;
+                    }
+                }
+
+                var selIndex = EditorGUI.Popup(position, label, selectedIndex, names);
+                EditorGUI.showMixedValue = false;
+                if (EditorGUI.EndChangeCheck())
+                {
+                    prop.intValue = values[selIndex];
+                }
+            }
+
+            MaterialEditor.EndProperty();
+        }
+		
 	}
 
 	internal class SubKeywordEnumDrawer : KWEnumDrawer
