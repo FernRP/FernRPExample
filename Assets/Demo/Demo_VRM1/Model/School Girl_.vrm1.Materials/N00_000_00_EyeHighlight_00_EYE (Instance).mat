@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _GGX
   - _LAMBERTIAN
-  - _PERSPECTIVEREMOVE
   - _RECEIVE_SHADOWS_OFF
   - _RENDERENVSETTING
   m_InvalidKeywords:
@@ -129,6 +128,9 @@ Material:
     - _ZWrite: 0
     - _enum_diffuse: 3
     - _enum_env: 1
+    - _enum_outline_color: 0
+    - _enum_outline_smoothed: 0
+    - _enum_outline_width: 0
     - _enum_rim: 0
     - _enum_specular: 1
     - _group: 0
