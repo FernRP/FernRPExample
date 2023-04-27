@@ -1,0 +1,31 @@
+#pragma kernel SampleTextureToColor
+
+// 输入贴图
+Texture2D InputTexture;
+
+// 输入uv坐标
+StructuredBuffer<float2> UVs;
+
+// 输出颜色
+RWStructuredBuffer<float4> OutputColor; 
+
+SamplerState samplerInputTexture
+{
+    Filter = MIN_MAG_MIP_LINEAR;
+    AddressU = Clamp;
+    AddressV = Clamp;
+};
+
+// 每个线程处理一个顶点
+[numthreads(8, 1, 1)]
+void SampleTextureToColor(uint3 id : SV_DispatchThreadID)
+{
+    // 获取模型的uv坐标，从ComputeBuffer中读取
+    float2 uv = UVs[id.x];
+
+    // 根据uv坐标采样贴图颜色
+    float4 color = InputTexture.SampleLevel(samplerInputTexture, uv, 0);
+
+    // 将颜色存储到输出颜色中
+    OutputColor[id.x] = color; // 修改
+}

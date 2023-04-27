@@ -16,22 +16,18 @@ Material:
   - _CELLSHADING
   - _DEPTHSHADOW
   - _GGX
-  - _PERSPECTIVEREMOVE
+  - _OUTLINE
+  - _SMOOTHEDNORMAL
   m_InvalidKeywords:
-  - _CLEARSHADING_ON
   - _DEPTHOFFSETSHADOWREVERSEX_ON
   - _IS_FILTER_LIGHTCOLOR_ON
-  - _IS_SDINPAINT_ON
-  - _OUTLINE
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2450
-  stringTagMap:
-    RenderType: TransparentCutout
-  disabledShaderPasses:
-  - SRPDEFAULTUNLIT
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -100,8 +96,8 @@ Material:
     - _LightIntensityClamp: 1
     - _Metallic: 0
     - _OcclusionStrength: 0
-    - _Outline: 0
-    - _OutlineWidth: 1
+    - _Outline: 1
+    - _OutlineWidth: 3
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1
     - _RampMapUOffset: 0
@@ -122,7 +118,7 @@ Material:
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.1
     - _StylizedSpecularSoftness: 0.05
-    - _Surface: 2
+    - _Surface: 0
     - _UseDepthShadow: 1
     - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
@@ -132,6 +128,9 @@ Material:
     - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 0
+    - _enum_outline_color: 0
+    - _enum_outline_smoothed: 1
+    - _enum_outline_width: 0
     - _enum_rim: 0
     - _enum_specular: 1
     - _group: 0

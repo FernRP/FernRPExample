@@ -12,19 +12,23 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _CELLSHADING
   - _GGX
   - _NORMALMAP
+  - _OUTLINE
   - _RENDERENVSETTING
+  - _SMOOTHEDNORMAL
   m_InvalidKeywords:
+  - NONE
   - _IS_FILTER_LIGHTCOLOR_ON
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Opaque
+    RenderType: TransparentCutout
   disabledShaderPasses:
   - SRPDEFAULTUNLIT
   m_LockedProperties: 
@@ -97,8 +101,9 @@ Material:
     - _LightIntensityClamp: 1
     - _Metallic: 0
     - _OcclusionStrength: 0
-    - _Outline: 0
-    - _OutlineWidth: 1
+    - _Outline: 1
+    - _OutlineWidth: 2.6
+    - _OverrideOutlineWidth: 0
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1
     - _RampMapUOffset: 0
@@ -107,6 +112,7 @@ Material:
     - _RimSoftness: 0.01
     - _RimThreshold: 0.2
     - _Shininess: 1
+    - _SmoothedNormal: 0
     - _Smoothness: 0.523
     - _SpaceScreenVariant: 0.5
     - _SpecularAA: 0
@@ -116,16 +122,20 @@ Material:
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.1
     - _StylizedSpecularSoftness: 0.05
-    - _Surface: 0
+    - _Surface: 2
     - _UseDepthShadow: 0
     - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 0
     - _enum_env: 1
+    - _enum_outline_color: 0
+    - _enum_outline_smoothed: 1
+    - _enum_outline_width: 0
     - _enum_rim: 0
     - _enum_specular: 1
     - _group: 0

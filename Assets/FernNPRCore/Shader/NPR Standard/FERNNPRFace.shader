@@ -103,6 +103,9 @@ Shader "FernRender/URP/FERNNPRFace"
         [SubToggle(Outline, _OUTLINE)] _Outline("Use Outline", Float) = 0.0
         [Sub(Outline._OUTLINE)] _OutlineColor ("Outline Color", Color) = (0,0,0,0)
         [Sub(Outline._OUTLINE)] _OutlineWidth ("Outline Width", Range(0, 10)) = 1
+        [KWEnum(Outline, None, _, UV8.RG, _SMOOTHEDNORMAL)] _enum_outline_smoothed("Smoothed Normal", float) = 0
+        [KWEnum(Outline, None, _, VertexColor.A, _OUTLINEWIDTHWITHVERTEXTCOLORA, UV8.A, _OUTLINEWIDTHWITHUV8A)] _enum_outline_width("Override Outline Width", float) = 0
+        [KWEnum(Outline, None, _, BaseMap, _OUTLINECOLORBLENDBASEMAP, VertexColor, _OUTLINECOLORBLENDVERTEXCOLOR)] _enum_outline_color("Blend Outline Color", float) = 0
         
         // AI Core has no release
         [Main(AISetting, _, off, off)]
@@ -393,11 +396,14 @@ Shader "FernRender/URP/FERNNPRFace"
 
             HLSLPROGRAM
             
-            #pragma shader_feature_local_ _OUTLINE
+            #pragma shader_feature_local _OUTLINE
             
             // -------------------------------------
             // Fern Keywords
             #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+            #pragma shader_feature_local_vertex _SMOOTHEDNORMAL
+            #pragma shader_feature_local_vertex _OUTLINEWIDTHWITHVERTEXTCOLORA _OUTLINEWIDTHWITHUV8A
+            #pragma shader_feature_local_fragment _OUTLINECOLORBLENDBASEMAP _OUTLINECOLORBLENDVERTEXCOLOR
             
             #pragma vertex NormalOutLineVertex
             #pragma fragment NormalOutlineFragment

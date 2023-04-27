@@ -16,9 +16,11 @@ Material:
   - _KAJIYAHAIR
   - _LAMBERTIAN
   - _NORMALMAP
+  - _OUTLINE
   - _SPECULARMASK
   m_InvalidKeywords:
   - _IS_FILTER_LIGHTCOLOR_ON
+  - _SMOOTHEDNORMAL
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -100,8 +102,8 @@ Material:
     - _LightIntensityClamp: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
-    - _Outline: 0
-    - _OutlineWidth: 1
+    - _Outline: 1
+    - _OutlineWidth: 2
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1
     - _RampMapUOffset: 0
@@ -126,6 +128,9 @@ Material:
     - _ZWrite: 1
     - _enum_diffuse: 2
     - _enum_env: 0
+    - _enum_outline_color: 0
+    - _enum_outline_smoothed: 1
+    - _enum_outline_width: 0
     - _enum_rim: 0
     - _enum_specular: 1
     - _group: 0
