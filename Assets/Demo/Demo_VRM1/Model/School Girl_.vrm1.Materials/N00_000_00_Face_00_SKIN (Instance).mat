@@ -16,11 +16,11 @@ Material:
   - _CELLSHADING
   - _DEPTHSHADOW
   - _GGX
+  - _OUTLINE
+  - _SMOOTHEDNORMAL
   m_InvalidKeywords:
   - _DEPTHOFFSETSHADOWREVERSEX_ON
   - _IS_FILTER_LIGHTCOLOR_ON
-  - _OUTLINE
-  - _SMOOTHEDNORMAL
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0

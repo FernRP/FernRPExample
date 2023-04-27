@@ -52,38 +52,34 @@ Varyings NormalOutLineVertex(Attributes input)
     UNITY_TRANSFER_INSTANCE_ID(input, output);
     UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
 
-    #if !_OUTLINE
-        return output;
-    #else
+    #if _OUTLINE
         VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
         float4 positionCS = vertexInput.positionCS;
         float3 normalOS = normalize(input.normalOS);
-#if _SMOOTHEDNORMAL
-        float3 tangentOS = input.tangentOS;
-        tangentOS = normalize(tangentOS);
-        float3 bitangentOS = normalize(cross(normalOS, tangentOS) * input.tangentOS.w);
-        float3x3 tbn = float3x3(tangentOS, bitangentOS, normalOS);
-        float3 smoothedNormal = (TransformTBN(input.smoothedNormal, tbn));
-        normalOS = smoothedNormal;
-#endif
-        float Set_OutlineWidth = positionCS.w * _OutlineWidth;
-        Set_OutlineWidth = min(Set_OutlineWidth, _OutlineWidth);
-        Set_OutlineWidth *= _OutlineWidth;
-        Set_OutlineWidth = min(Set_OutlineWidth, _OutlineWidth) * 0.001;
-#if _OUTLINEWIDTHWITHVERTEXTCOLORA
-        Set_OutlineWidth *= input.color.a;
-#endif
-
-#if _OUTLINEWIDTHWITHUV8A
-        Set_OutlineWidth *= input.smoothedNormal.a;
-#endif
+        #if _SMOOTHEDNORMAL
+            float3 tangentOS = input.tangentOS;
+            tangentOS = normalize(tangentOS);
+            float3 bitangentOS = normalize(cross(normalOS, tangentOS) * input.tangentOS.w);
+            float3x3 tbn = float3x3(tangentOS, bitangentOS, normalOS);
+            float3 smoothedNormal = (TransformTBN(input.smoothedNormal, tbn));
+            normalOS = smoothedNormal;
+        #endif
+            float Set_OutlineWidth = positionCS.w * _OutlineWidth;
+            Set_OutlineWidth = min(Set_OutlineWidth, _OutlineWidth);
+            Set_OutlineWidth *= _OutlineWidth;
+            Set_OutlineWidth = min(Set_OutlineWidth, _OutlineWidth) * 0.001;
+        #if _OUTLINEWIDTHWITHVERTEXTCOLORA
+            Set_OutlineWidth *= input.color.a;
+        #elif _OUTLINEWIDTHWITHUV8A
+            Set_OutlineWidth *= input.smoothedNormal.a;
+        #endif
         output.positionCS = TransformObjectToHClip(input.positionOS + normalOS * Set_OutlineWidth);
         output.positionCS = PerspectiveRemove(output.positionCS, vertexInput.positionWS, input.positionOS);
 
         output.color = input.color;
         output.uv = input.texcoord;
-        return output;
     #endif
+    return output;
 }
 
 half4 NormalOutlineFragment(Varyings input) : SV_Target
@@ -93,14 +89,12 @@ half4 NormalOutlineFragment(Varyings input) : SV_Target
         outlineColor.rgb = _OutlineColor.rgb;
         half4 albedoAlpha = SampleAlbedoAlpha(input.uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
         outlineColor.a = albedoAlpha.a;
-#if _OUTLINECOLORBLENDBASEMAP
-        outlineColor.rgb *= albedoAlpha.rgb * albedoAlpha.rgb;
-#endif
-
-#if _OUTLINECOLORBLENDVERTEXCOLOR
-        outlineColor.rgb *= input.color.rgb;
-        outlineColor.a = input.color.a;
-#endif
+        #if _OUTLINECOLORBLENDBASEMAP
+            outlineColor.rgb *= albedoAlpha.rgb * albedoAlpha.rgb;
+        #elif _OUTLINECOLORBLENDVERTEXCOLOR
+            outlineColor.rgb *= input.color.rgb;
+            outlineColor.a = input.color.a;
+        #endif
         clip(outlineColor.a - _Cutoff);
         return outlineColor;
     #else
