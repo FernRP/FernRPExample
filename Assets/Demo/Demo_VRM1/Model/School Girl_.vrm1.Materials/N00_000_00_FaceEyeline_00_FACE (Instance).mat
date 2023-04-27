@@ -9,9 +9,12 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: N00_000_00_FaceEyeline_00_FACE (Instance)
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _GGX
   - _LAMBERTIAN
+  - _PERSPECTIVEREMOVE
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _ALPHABLEND_ON
@@ -23,7 +26,9 @@ Material:
   m_CustomRenderQueue: 3000
   stringTagMap:
     RenderType: Transparent
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - SHADOWCASTER
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -36,6 +41,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseRampMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveNoiseTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -66,25 +75,30 @@ Material:
     - _BumpScale: 1
     - _CELLSmoothing: 0.001
     - _CELLThreshold: 0.01
+    - _CasterShadow: 0
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 0
     - _ClearCoatMask: 1
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
+    - _ClearShading: 0
     - _Cull: 2
     - _CullMode: 0
     - _Cutoff: 0.5
     - _DepthOffsetRimReverseX: 0
     - _DepthOffsetShadowReverseX: 0
+    - _DepthPrePass: 0
     - _DepthRimOffset: 0.01
     - _DepthRimThresoldOffset: 0.01
     - _DepthShadowOffset: 0.15
     - _DepthShadowSoftness: 0
     - _DepthShadowThresoldOffset: 0
+    - _DissolveThreshold: 0
     - _DstBlend: 10
     - _EmissionColorAlbedoWeight: 0
     - _Is_Filter_LightColor: 1
+    - _Is_SDInPaint: 0
     - _LightDirectionObliqueWeight: 0
     - _LightIntensityClamp: 1
     - _Metallic: 0
@@ -106,6 +120,9 @@ Material:
     - _ScreenSpaceRimWidth: 0.01
     - _Shininess: 1
     - _Smoothness: 0.5
+    - _SpaceScreenVariant: 0.5
+    - _SpecularAA: 0
+    - _SpecularAAThreshold: 1
     - _SpecularMask: 0
     - _SrcBlend: 5
     - _StylizedSpecularAlbedoWeight: 0
@@ -113,10 +130,12 @@ Material:
     - _StylizedSpecularSoftness: 0.05
     - _Surface: 1
     - _UseDepthShadow: 0
+    - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0.1
     - _ZWrite: 1
     - _enum_diffuse: 3
     - _enum_env: 1
@@ -124,8 +143,10 @@ Material:
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupAI: 1
     - _groupAdditionLight: 1
     - _groupClearCoat: 1
+    - _groupDissolveSetting: 0
     - _groupEmission: 0
     - _groupEnvironment: 1
     - _groupLightDirectionOffset: 0
@@ -134,6 +155,7 @@ Material:
     - _groupShadingMask: 0
     - _groupShadowSetting: 1
     - _groupSpecular: 1
+    - _groupSurface: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 0.511, b: 0.511, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

@@ -103,13 +103,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Space()]
         [SubToggle(AdditionalLightSetting)] _Is_Filter_LightColor("Is Filter LightColor", Float) = 1
         [Sub(AdditionalLightSetting)] _LightIntensityClamp("Additional Light Intensity Clamp", Range(0, 8)) = 1
-        
-        [Main(AISetting, _, off, off)]
-        _groupAI ("AISetting", float) = 1
-        [Space()]
-        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
-        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
-        
+
         [Main(Outline, _, off, off)]
         _groupOutline ("OutlineSettings", float) = 1
         [Space()]
@@ -145,6 +139,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         [SubEnum(RenderSetting, Off, 0, On, 1)] _DepthPrePass("Depth PrePass", Float) = 0
         [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
         [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
+        [Sub(RenderSetting)]_ZOffset("Z Offset", Range(-1.0, 1.0)) = 0
         [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
 
     }
@@ -207,8 +202,12 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local _USEEMISSIONTEX
 
             // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
+            // -------------------------------------
             // Effect Keyword
-            #pragma shader_feature_local _USEDISSOLVEEFFECT
+            #pragma shader_feature_local_fragment _USEDISSOLVEEFFECT
             
             // -------------------------------------
             // Universal Pipeline keywords
@@ -282,7 +281,7 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma fragment ShadowPassFragment
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            #include "../ShaderLibrary/ShadowCasterPass.hlsl"
             ENDHLSL
         }
         
@@ -368,6 +367,10 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
@@ -381,7 +384,7 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            #include "../ShaderLibrary/DepthOnlyPass.hlsl"
             ENDHLSL
         }
 
@@ -408,6 +411,10 @@ Shader "FernRender/URP/FERNNPRStandard"
             #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
 
             // -------------------------------------
             // Unity defined keywords
@@ -450,7 +457,6 @@ Shader "FernRender/URP/FERNNPRStandard"
             
             #pragma shader_feature_local_fragment _USEDISSOLVEEFFECT
 
-
             #pragma shader_feature_local_fragment _SPECGLOSSMAP
 
             #include "NPRStandardInput.hlsl"
@@ -471,7 +477,13 @@ Shader "FernRender/URP/FERNNPRStandard"
             Offset 1, 1
 
             HLSLPROGRAM
-            #pragma multi_compile _ _OUTLINE
+            
+            #pragma shader_feature_local _OUTLINE
+            
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+            
             #pragma vertex NormalOutLineVertex
             #pragma fragment NormalOutlineFragment
 

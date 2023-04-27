@@ -479,15 +479,7 @@ Varyings LitPassVertex(Attributes input)
 
     output.positionCS = CalculateClipPosition(output.positionCS, _ZOffset);
 
-    // PerspectiveRemove, Code By 梦伯爵
-    float4 sdasdasd = mul(_PMRemove_Matrix, mul(unity_ObjectToWorld, float4(input.positionOS.xyz, 1.0)));
-    //We got the sdasdasd at OrthClipSpace.
-    //We have make sure that the NDC space everything can be linked.
-    //So the W might be hard to deal
-    float4 perspectiveRemovePosCS = lerp(output.positionCS, float4(sdasdasd.xy * output.positionCS.w,
-        output.positionCS.z, output.positionCS.w), _PmRemove_Slider);
-    const float rangeInfluence = saturate(1.0 -  distance(output.positionWS, _PMRemove_FocusPoint) / _PMRemove_Range);
-    output.positionCS = lerp(output.positionCS, perspectiveRemovePosCS, rangeInfluence);
+    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
 
     return output;
 }

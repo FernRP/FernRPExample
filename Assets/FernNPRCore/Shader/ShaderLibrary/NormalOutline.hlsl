@@ -20,6 +20,7 @@ struct Varyings
     float4 positionCS : SV_POSITION;
     float2 uv : TEXCOORD0;
     float4 color : TEXCOORD1;
+    float3 positionWS : TEXCOORD2;
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
@@ -44,6 +45,7 @@ Varyings NormalOutLineVertex(Attributes input)
     #else
         VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
         float4 positionCS = vertexInput.positionCS;
+        output.positionWS = vertexInput.positionWS;
         float4 nearUpperRight = mul(unity_CameraInvProjection, float4(1, 1, UNITY_NEAR_CLIP_VALUE, _ProjectionParams.y));
         half aspect = abs(nearUpperRight.y / nearUpperRight.x);
 
@@ -56,6 +58,10 @@ Varyings NormalOutLineVertex(Attributes input)
         normalProjectedCS.x *= aspect;
         normalProjectedCS.xy *= saturate(1 - normalVS.z * normalVS.z);
         output.positionCS = float4(positionCS.xy + normalProjectedCS.xy, positionCS.zw);
+
+        output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
+
+
         return output;
     #endif
 }
