@@ -29,6 +29,8 @@ There are some useful tool.
 
 ### SmoothNormal And Texture Baker
 
+![](DocAssets/texturebaketool.jpg)
+
 This tool was developed by [DumoeDss](https://github.com/DumoeDss).
 
 Smooth Normals is used to solve the problem of stroke breakage due to unsmooth model normals in runtime or editor. For more information, you can check [here](https://github.com/DumoeDss/AquaSmoothNormals).

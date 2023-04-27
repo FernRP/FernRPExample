@@ -26,6 +26,8 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb), Ba
 
 ### SmoothNormal And Texture Baker
 
+![](DocAssets/texturebaketool.jpg)
+
 这个工具由 [DumoeDss](https://github.com/DumoeDss) 开发.
 
 Smooth Normals 用于解决发现外拓描边的断裂问题. 更详细的内容可以前往 [这里](https://github.com/DumoeDss/AquaSmoothNormals) 查阅.
