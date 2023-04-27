@@ -10,7 +10,7 @@ FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers 
 ___
 
 ## Example
-There are some simple scenes.
+There are some showcase.
 
 ![](DocAssets/11-22.jpg)
 Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb), Background From: [GameVision Studios](https://gamevision.artstation.com/projects/ZGZxYG)
@@ -22,6 +22,18 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 ### More Example
 
 If you want to see more examples, please visit [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) on the [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
+___
+
+## Tool
+There are some useful tool.
+
+### SmoothNormal And Texture Baker
+
+This tool was developed by [DumoeDss](https://github.com/DumoeDss).
+
+Smooth Normals is used to solve the problem of stroke breakage due to unsmooth model normals in runtime or editor. For more information, you can check [here](https://github.com/DumoeDss/AquaSmoothNormals).
+
+Texture Baker can bake textures onto a mesh.
 ___
 
 ## Comming Soon
