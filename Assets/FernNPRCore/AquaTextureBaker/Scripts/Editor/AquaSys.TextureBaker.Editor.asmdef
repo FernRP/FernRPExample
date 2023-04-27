@@ -1,0 +1,19 @@
+{
+    "name": "AquaSys.TextureBaker.Editor",
+    "rootNamespace": "",
+    "references": [
+        "AquaSys.TextureBaker",
+        "AquaSys.SmoothNormals"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
