@@ -104,6 +104,12 @@ Shader "FernRender/URP/FERNNPRStandard"
         [SubToggle(AdditionalLightSetting)] _Is_Filter_LightColor("Is Filter LightColor", Float) = 1
         [Sub(AdditionalLightSetting)] _LightIntensityClamp("Additional Light Intensity Clamp", Range(0, 8)) = 1
         
+        [Main(AISetting, _, off, off)]
+        _groupAI ("AISetting", float) = 1
+        [Space()]
+        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
+        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
+        
         [Main(Outline, _, off, off)]
         _groupOutline ("OutlineSettings", float) = 1
         [Space()]

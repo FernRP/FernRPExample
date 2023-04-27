@@ -133,7 +133,14 @@ half _ClearShading;
 half _OutlineWidth;
 CBUFFER_END
 
+// ----------- uniform ------------
 
+uniform float4x4 _PMRemove_Matrix;
+uniform float3 _PMRemove_FocusPoint;
+uniform float _PMRemove_Range;
+uniform float _PmRemove_Slider;
+
+// --------- end uniform ----------
 
 // NOTE: Do not ifdef the properties for dots instancing, but ifdef the actual usage.
 // Otherwise you might break CPU-side as property constant-buffer offsets change per variant.
