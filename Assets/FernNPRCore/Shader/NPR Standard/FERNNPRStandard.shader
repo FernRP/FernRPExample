@@ -485,11 +485,11 @@ Shader "FernRender/URP/FERNNPRStandard"
             // -------------------------------------
             // Fern Keywords
             #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
-            #pragma shader_feature_local _SMOOTHEDNORMAL
-            #pragma shader_feature_local _OUTLINEWIDTHWITHVERTEXTCOLORA
-            #pragma shader_feature_local _OUTLINEWIDTHWITHUV8A
-            #pragma shader_feature_local _OUTLINECOLORBLENDBASEMAP
-            #pragma shader_feature_local _OUTLINECOLORBLENDVERTEXCOLOR
+            #pragma shader_feature_local_vertex _SMOOTHEDNORMAL
+            #pragma shader_feature_local_vertex _OUTLINEWIDTHWITHVERTEXTCOLORA
+            #pragma shader_feature_local_vertex _OUTLINEWIDTHWITHUV8A
+            #pragma shader_feature_local_fragment _OUTLINECOLORBLENDBASEMAP
+            #pragma shader_feature_local_fragment _OUTLINECOLORBLENDVERTEXCOLOR
             #pragma vertex NormalOutLineVertex
             #pragma fragment NormalOutlineFragment
 

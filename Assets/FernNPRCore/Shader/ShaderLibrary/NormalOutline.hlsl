@@ -91,11 +91,10 @@ half4 NormalOutlineFragment(Varyings input) : SV_Target
     #if defined(_OUTLINE)
         half4 outlineColor = 0;
         outlineColor.rgb = _OutlineColor.rgb;
-        outlineColor.a = _BaseColor.a;
-#if _OUTLINECOLORBLENDBASEMAP
         half4 albedoAlpha = SampleAlbedoAlpha(input.uv, TEXTURE2D_ARGS(_BaseMap, sampler_BaseMap));
-        outlineColor.rgb *= albedoAlpha.rgb*0.3;
         outlineColor.a = albedoAlpha.a;
+#if _OUTLINECOLORBLENDBASEMAP
+        outlineColor.rgb *= albedoAlpha.rgb * albedoAlpha.rgb;
 #endif
 
 #if _OUTLINECOLORBLENDVERTEXCOLOR
