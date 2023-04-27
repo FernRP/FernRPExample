@@ -34,6 +34,8 @@ struct Varyings
     #endif
 
     half3 viewDirWS    : TEXCOORD5;
+    
+    float3 positionWS    : TEXCOORD6;
 
     #if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
     half3 viewDirTS     : TEXCOORD8;
@@ -52,6 +54,7 @@ Varyings DepthNormalsVertex(Attributes input)
 
     output.uv         = TRANSFORM_TEX(input.texcoord, _BaseMap);
     output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
+    output.positionWS = TransformObjectToWorld(input.positionOS.xyz);
 
     VertexPositionInputs vertexInput = GetVertexPositionInputs(input.positionOS.xyz);
     VertexNormalInputs normalInput = GetVertexNormalInputs(input.normal, input.tangentOS);
@@ -71,6 +74,8 @@ Varyings DepthNormalsVertex(Attributes input)
         half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
         output.viewDirTS = viewDirTS;
     #endif
+
+    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
 
     return output;
 }

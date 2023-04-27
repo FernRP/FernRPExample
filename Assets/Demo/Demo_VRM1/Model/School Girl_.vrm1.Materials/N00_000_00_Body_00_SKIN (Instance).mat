@@ -100,7 +100,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 0
     - _Outline: 1
-    - _OutlineWidth: 3
+    - _OutlineWidth: 2
     - _OverrideOutlineWidth: 0
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1
@@ -127,6 +127,7 @@ Material:
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 0
     - _enum_env: 1

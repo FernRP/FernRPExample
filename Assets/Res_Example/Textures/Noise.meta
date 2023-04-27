@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Res_Example/Textures/Noise.meta
 guid: 7c35f093d10ccce48b3b720688adb158
 folderAsset: yes
 DefaultImporter:
+========
+guid: 1111c9a5323fba24ea0a36a7f09e9e12
+NativeFormatImporter:
+>>>>>>>> masterCodeup:Assets/FernNPRCore/StableDiffusionCore/StableDiffusionGraph/SDGraph/Resources/UniversalData/SDUniversalRenderPipeline.asset.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

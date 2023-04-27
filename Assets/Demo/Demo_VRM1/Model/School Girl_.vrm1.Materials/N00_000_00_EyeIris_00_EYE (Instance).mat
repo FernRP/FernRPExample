@@ -12,23 +12,27 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _DEPTHSHADOW
   - _GGX
   - _LAMBERTIAN
   - _MATCAP
   - _NORMALMAP
+  - _PERSPECTIVEREMOVE
   m_InvalidKeywords:
-  - _ALPHABLEND_ON
   - _DEPTHOFFSETSHADOWREVERSEX_ON
   - _IS_FILTER_LIGHTCOLOR_ON
+  - _USEDISSOLVEEFFECT
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2450
   stringTagMap:
-    RenderType: Transparent
-  disabledShaderPasses: []
+    RenderType: TransparentCutout
+  disabledShaderPasses:
+  - SRPDEFAULTUNLIT
+  - SHADOWCASTER
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -42,6 +46,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DiffuseRampMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveNoiseTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -72,16 +80,21 @@ Material:
     - _BumpScale: 1
     - _CELLSmoothing: 0.001
     - _CELLThreshold: 0.5
+    - _CasterShadow: 0
+    - _ClearShading: 0
     - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
     - _DepthOffsetShadowReverseX: 1
+    - _DepthPrePass: 0
     - _DepthShadowOffset: -0.27
     - _DepthShadowSoftness: 0
     - _DepthShadowThresoldOffset: 0
-    - _DstBlend: 10
+    - _DissolveThreshold: 0
+    - _DstBlend: 0
     - _EmissionColorAlbedoWeight: 0
     - _Is_Filter_LightColor: 1
+    - _Is_SDInPaint: 0
     - _LightIntensityClamp: 1
     - _MatCapAlbedoWeight: 1
     - _MatCapIntensity: 0
@@ -95,21 +108,25 @@ Material:
     - _Shininess: 1
     - _Smoothness: 0.7
     - _SpecularMask: 0
-    - _SrcBlend: 5
-    - _Surface: 1
+    - _SrcBlend: 1
+    - _Surface: 2
     - _UseDepthShadow: 1
+    - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
     - _UseHalfLambert: 1
     - _UseMatCap: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 3
     - _enum_env: 0
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupAI: 1
     - _groupAdditionLight: 1
+    - _groupDissolveSetting: 0
     - _groupEmission: 0
     - _groupEnvironment: 1
     - _groupMatCap: 1
@@ -117,6 +134,7 @@ Material:
     - _groupShadingMask: 0
     - _groupShadowSetting: 1
     - _groupSpecular: 1
+    - _groupSurface: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

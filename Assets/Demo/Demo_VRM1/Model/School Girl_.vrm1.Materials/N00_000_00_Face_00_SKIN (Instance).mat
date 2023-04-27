@@ -16,10 +16,11 @@ Material:
   - _CELLSHADING
   - _DEPTHSHADOW
   - _GGX
-  - _OUTLINE
   m_InvalidKeywords:
   - _DEPTHOFFSETSHADOWREVERSEX_ON
   - _IS_FILTER_LIGHTCOLOR_ON
+  - _OUTLINE
+  - _SMOOTHEDNORMAL
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -96,7 +97,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 0
     - _Outline: 1
-    - _OutlineWidth: 2
+    - _OutlineWidth: 3
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1
     - _RampMapUOffset: 0
@@ -124,8 +125,12 @@ Material:
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 0
+    - _enum_outline_color: 0
+    - _enum_outline_smoothed: 1
+    - _enum_outline_width: 0
     - _enum_rim: 0
     - _enum_specular: 1
     - _group: 0

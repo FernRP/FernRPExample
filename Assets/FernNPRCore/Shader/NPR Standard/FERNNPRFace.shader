@@ -135,6 +135,7 @@ Shader "FernRender/URP/FERNNPRFace"
         [SubEnum(RenderSetting, Off, 0, On, 1)] _DepthPrePass("Depth PrePass", Float) = 0
         [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
         [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
+        [Sub(RenderSetting)]_ZOffset("Z Offset", Range(-1.0, 1.0)) = 0
         [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
     }
 
@@ -156,6 +157,10 @@ Shader "FernRender/URP/FERNNPRFace"
             HLSLPROGRAM
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
+
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
 
             #pragma vertex LitPassVertex
             #pragma fragment LitPassFragment_DepthPrePass
@@ -195,6 +200,10 @@ Shader "FernRender/URP/FERNNPRFace"
             #pragma shader_feature_local _CLEARCOAT
             #pragma shader_feature_local _CUSTOMCLEARCOATTEX
             #pragma shader_feature_local _SKINMESHSDF
+
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
             
             // -------------------------------------
             // Universal Pipeline keywords
@@ -270,7 +279,7 @@ Shader "FernRender/URP/FERNNPRFace"
             #pragma fragment ShadowPassFragment
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            #include "../ShaderLibrary/ShadowCasterPass.hlsl"
             ENDHLSL
         }
 
@@ -295,6 +304,10 @@ Shader "FernRender/URP/FERNNPRFace"
             // GPU Instancing
             #pragma multi_compile_instancing
 
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
             #pragma vertex DepthOnlyVertex
             #pragma fragment DepthOnlyFragment
 
@@ -304,7 +317,7 @@ Shader "FernRender/URP/FERNNPRFace"
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            #include "../ShaderLibrary/DepthOnlyPass.hlsl"
             ENDHLSL
         }
 
@@ -335,6 +348,10 @@ Shader "FernRender/URP/FERNNPRFace"
             #pragma shader_feature_local _ _DETAIL_MULX2 _DETAIL_SCALED
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
+
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
 
             //--------------------------------------
             // GPU Instancing
@@ -378,7 +395,13 @@ Shader "FernRender/URP/FERNNPRFace"
             Offset 1, 1
 
             HLSLPROGRAM
-            #pragma multi_compile _ _OUTLINE
+            
+            #pragma shader_feature_local_ _OUTLINE
+            
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+            
             #pragma vertex NormalOutLineVertex
             #pragma fragment NormalOutlineFragment
 

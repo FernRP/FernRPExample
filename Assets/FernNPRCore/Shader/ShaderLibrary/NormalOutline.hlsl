@@ -25,6 +25,7 @@ struct Varyings
     float3 tangentDir : TEXCOORD2;
     float3 bitangentDir : TEXCOORD3;
     float4 color : COLOR;
+
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
@@ -77,6 +78,8 @@ Varyings NormalOutLineVertex(Attributes input)
         Set_OutlineWidth *= input.smoothedNormal.a;
 #endif
         output.positionCS = TransformObjectToHClip(input.positionOS + normalOS * Set_OutlineWidth);
+        output.positionCS = PerspectiveRemove(output.positionCS, vertexInput.positionWS, input.positionOS);
+
         output.color = input.color;
         output.uv = input.texcoord;
         return output;

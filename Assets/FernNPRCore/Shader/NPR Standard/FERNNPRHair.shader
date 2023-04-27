@@ -139,6 +139,7 @@ Shader "FernRender/URP/FERNNPRHair"
         [SubEnum(RenderSetting, Off, 0, On, 1)] _DepthPrePass("Depth PrePass", Float) = 0
         [SubEnum(RenderSetting, Off, 0, On, 1)] _CasterShadow("Caster Shadow", Float) = 1
         [Sub(RenderSetting)]_Cutoff("Alpha Clipping", Range(0.0, 1.0)) = 0.5
+        [Sub(RenderSetting)]_ZOffset("Z Offset", Range(-1.0, 1.0)) = 0
         [Queue(RenderSetting)] _QueueOffset("Queue offset", Range(-50, 50)) = 0.0
     }
 
@@ -160,6 +161,10 @@ Shader "FernRender/URP/FERNNPRHair"
             HLSLPROGRAM
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
+
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
 
             #pragma vertex LitPassVertex
             #pragma fragment LitPassFragment_DepthPrePass
@@ -209,6 +214,10 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma multi_compile _ _CLUSTERED_RENDERING
 
             // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
+            // -------------------------------------
             // Unity defined keywords
             #pragma multi_compile _ LIGHTMAP_SHADOW_MIXING
             #pragma multi_compile _ SHADOWS_SHADOWMASK
@@ -244,9 +253,9 @@ Shader "FernRender/URP/FERNNPRHair"
             // GPU Instancing
             #pragma multi_compile_instancing
 
-            // -------------------------------------
+             // -------------------------------------
             // Material Keywords
-            #define _ALPHATEST_ON 1
+            #pragma shader_feature_local_fragment _ALPHATEST_ON
 
             // -------------------------------------
             // Universal Pipeline keywords
@@ -258,7 +267,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma fragment ShadowPassFragment
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/ShadowCasterPass.hlsl"
+            #include "../ShaderLibrary/ShadowCasterPass.hlsl"
             ENDHLSL
         }
 
@@ -275,6 +284,10 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma only_renderers gles gles3 glcore d3d11
             #pragma target 3.0
 
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
@@ -288,7 +301,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            #include "../ShaderLibrary/DepthOnlyPass.hlsl"
             ENDHLSL
         }
         
@@ -309,6 +322,10 @@ Shader "FernRender/URP/FERNNPRHair"
             // GPU Instancing
             #pragma multi_compile_instancing
 
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
             #pragma vertex DepthOnlyVertex
             #pragma fragment DepthOnlyFragment
 
@@ -318,7 +335,7 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
             #include "NPRStandardInput.hlsl"
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/DepthOnlyPass.hlsl"
+            #include "../ShaderLibrary/DepthOnlyPass.hlsl"
             ENDHLSL
         }
 
@@ -347,6 +364,10 @@ Shader "FernRender/URP/FERNNPRHair"
             #pragma shader_feature_local_fragment _ALPHATEST_ON
             #pragma shader_feature_local_fragment _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A
 
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+
             //--------------------------------------
             // GPU Instancing
             #pragma multi_compile_instancing
@@ -368,7 +389,11 @@ Shader "FernRender/URP/FERNNPRHair"
             Offset 1, 1
 
             HLSLPROGRAM
-            #pragma multi_compile _ _OUTLINE
+            #pragma shader_feature_local _OUTLINE
+            // -------------------------------------
+            // Fern Keywords
+            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+            
             #pragma vertex NormalOutLineVertex
             #pragma fragment NormalOutlineFragment
 

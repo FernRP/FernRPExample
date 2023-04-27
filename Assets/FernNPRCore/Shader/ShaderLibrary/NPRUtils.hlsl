@@ -74,4 +74,29 @@ float4 CalculateClipPosition(float4 positionCS, float viewSpaceZOffsetAmount)
     return adjustedPositionCS;
 }
 
+
+// ----------- Perspective Remove ------------
+
+uniform float4x4 _PMRemove_Matrix;
+uniform float3 _PMRemove_FocusPoint;
+uniform float _PMRemove_Range;
+uniform float _PmRemove_Slider;
+
+float4 PerspectiveRemove(float4 positionCS, float3 positionWS, float3 positionOS)
+{
+    float4 positionCS_PM = positionCS;
+    // PerspectiveRemove, Code By 梦伯爵
+    #if _PERSPECTIVEREMOVE
+    float4 sdasdasd = mul(_PMRemove_Matrix, mul(unity_ObjectToWorld, float4(positionOS.xyz, 1.0)));
+    //We got the sdasdasd at OrthClipSpace.
+    //We have make sure that the NDC space everything can be linked.
+    //So the W might be hard to deal
+    float4 perspectiveRemovePosCS = lerp(positionCS, float4(sdasdasd.xy * positionCS.w,
+        positionCS.z, positionCS.w), _PmRemove_Slider);
+    const float rangeInfluence = saturate(1.0 -  distance(positionWS, _PMRemove_FocusPoint) / _PMRemove_Range);
+    positionCS_PM = lerp(positionCS, perspectiveRemovePosCS, rangeInfluence);
+    #endif
+    return positionCS_PM;
+}
+
 #endif

@@ -16,49 +16,49 @@
 
 struct Attributes
 {
-    float4 positionOS   : POSITION;
-    float3 normalOS     : NORMAL;
-    float4 tangentOS    : TANGENT;
-    float2 texcoord     : TEXCOORD0;
-    float2 staticLightmapUV   : TEXCOORD1;
-    float2 dynamicLightmapUV  : TEXCOORD2;
+    float4 positionOS : POSITION;
+    float3 normalOS : NORMAL;
+    float4 tangentOS : TANGENT;
+    float2 texcoord : TEXCOORD0;
+    float2 staticLightmapUV : TEXCOORD1;
+    float2 dynamicLightmapUV : TEXCOORD2;
     UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
 struct Varyings
 {
-    float4 uv                       : TEXCOORD0; // zw：MatCap
+    float4 uv : TEXCOORD0; // zw：MatCap
 
-#if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
-    float3 positionWS               : TEXCOORD1;
-#endif
+    #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
+    float3 positionWS : TEXCOORD1;
+    #endif
 
-    float3 normalWS                 : TEXCOORD2;
-#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
-    half4 tangentWS                : TEXCOORD3;    // xyz: tangent, w: sign
-#endif
-    float3 viewDirWS                : TEXCOORD4;
+    float3 normalWS : TEXCOORD2;
+    #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
+    half4 tangentWS : TEXCOORD3; // xyz: tangent, w: sign
+    #endif
+    float3 viewDirWS : TEXCOORD4;
 
-#ifdef _ADDITIONAL_LIGHTS_VERTEX
+    #ifdef _ADDITIONAL_LIGHTS_VERTEX
     half4 fogFactorAndVertexLight   : TEXCOORD5; // x: fogFactor, yzw: vertex light
-#else
-    half  fogFactor                 : TEXCOORD5;
-#endif
+    #else
+    half fogFactor : TEXCOORD5;
+    #endif
 
-#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+    #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
     float4 shadowCoord              : TEXCOORD6;
-#endif
+    #endif
 
-#if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
+    #if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
     half3 viewDirTS                : TEXCOORD7;
-#endif
+    #endif
 
     DECLARE_LIGHTMAP_OR_SH(staticLightmapUV, vertexSH, 8);
-#ifdef DYNAMICLIGHTMAP_ON
+    #ifdef DYNAMICLIGHTMAP_ON
     float2  dynamicLightmapUV : TEXCOORD9; // Dynamic lightmap UVs
-#endif
+    #endif
 
-    float4 positionCS               : SV_POSITION;
+    float4 positionCS : SV_POSITION;
     UNITY_VERTEX_INPUT_INSTANCE_ID
     UNITY_VERTEX_OUTPUT_STEREO
 };
@@ -78,16 +78,16 @@ void PreInitializeInputData(Varyings input, half facing, out InputData inputData
     }
 
     #if defined(_NORMALMAP) || defined(_DETAIL)
-        float sgn = input.tangentWS.w;      // should be either +1 or -1
-        float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
-        half3x3 tangentToWorld = half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz);
-        inputData.tangentToWorld = tangentToWorld;
+    float sgn = input.tangentWS.w; // should be either +1 or -1
+    float3 bitangent = sgn * cross(input.normalWS.xyz, input.tangentWS.xyz);
+    half3x3 tangentToWorld = half3x3(input.tangentWS.xyz, bitangent.xyz, input.normalWS.xyz);
+    inputData.tangentToWorld = tangentToWorld;
     #endif
 
     inputData.normalWS = input.normalWS;
 
     inputData.viewDirectionWS = viewDirWS;
-    
+
     #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
     inputData.shadowCoord = input.shadowCoord;
     #elif defined(MAIN_LIGHT_CALCULATE_SHADOWS)
@@ -131,18 +131,19 @@ void InitializeInputData(Varyings input, half3 normalTS, inout NPRAddInputData a
         addInputData.irisNormalWS = NormalizeNormalPerPixel(TransformTangentToWorld(irisNormalTS, inputData.tangentToWorld));
         inputData.normalWS = addInputData.corneaNormalWS;
     #elif (defined(_NORMALMAP) || defined(_DETAIL))
-        inputData.normalWS = TransformTangentToWorld(normalTS, inputData.tangentToWorld);
-        inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
+    inputData.normalWS = TransformTangentToWorld(normalTS, inputData.tangentToWorld);
+    inputData.normalWS = NormalizeNormalPerPixel(inputData.normalWS);
     #endif
 
     #if defined(DYNAMICLIGHTMAP_ON)
         inputData.bakedGI = SAMPLE_GI(input.staticLightmapUV, input.dynamicLightmapUV, input.vertexSH, inputData.normalWS);
     #else
-        inputData.bakedGI = SAMPLE_GI(input.staticLightmapUV, input.vertexSH, inputData.normalWS);
+    inputData.bakedGI = SAMPLE_GI(input.staticLightmapUV, input.vertexSH, inputData.normalWS);
     #endif
 }
 
-LightingData InitializeLightingData(Light mainLight, Varyings input, half3 normalWS, half3 viewDirectionWS, NPRAddInputData addInputData)
+LightingData InitializeLightingData(Light mainLight, Varyings input, half3 normalWS, half3 viewDirectionWS,
+                                    NPRAddInputData addInputData)
 {
     LightingData lightData;
     lightData.lightColor = mainLight.color;
@@ -178,10 +179,10 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half4 uv, LightingData lightingData,
 {
     half3 diffuse = 0;
 
-   #if _CELLSHADING
+    #if _CELLSHADING
         diffuse = CellShadingDiffuse(radiance, _CELLThreshold, _CELLSmoothing, _HighColor.rgb, _DarkColor.rgb);
     #elif _LAMBERTIAN
-        diffuse = lerp(_DarkColor.rgb, _HighColor.rgb, radiance);
+    diffuse = lerp(_DarkColor.rgb, _HighColor.rgb, radiance);
     #elif _RAMPSHADING
         diffuse = RampShadingDiffuse(radiance, _RampMapVOffset, _RampMapUOffset, TEXTURE2D_ARGS(_DiffuseRampMap, sampler_DiffuseRampMap));
     #elif _CELLBANDSHADING
@@ -193,7 +194,8 @@ half3 NPRDiffuseLighting(BRDFData brdfData, half4 uv, LightingData lightingData,
     return diffuse;
 }
 
-half3 NPRSpecularLighting(BRDFData brdfData, NPRSurfaceData surfData, Varyings input, InputData inputData, half3 albedo, half radiance, LightingData lightData)
+half3 NPRSpecularLighting(BRDFData brdfData, NPRSurfaceData surfData, Varyings input, InputData inputData, half3 albedo,
+                          half radiance, LightingData lightData)
 {
     half3 specular = 0;
     #if _GGX
@@ -228,13 +230,14 @@ half3 NPRSpecularLighting(BRDFData brdfData, NPRSurfaceData surfData, Varyings i
  * \param lightData 
  * \return 
  */
-half3 NPRMainLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData, NPRSurfaceData surfData, half radiance, LightingData lightData)
+half3 NPRMainLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData,
+                                 NPRSurfaceData surfData, half radiance, LightingData lightData)
 {
     half3 diffuse = NPRDiffuseLighting(brdfData, input.uv, lightData, radiance);
     half3 specular = NPRSpecularLighting(brdfData, surfData, input, inputData, surfData.albedo, radiance, lightData);
     half3 brdf = (diffuse + specular) * lightData.lightColor;
 
-   #if defined(_CLEARCOAT)
+    #if defined(_CLEARCOAT)
         // Clear coat evaluates the specular a second timw and has some common terms with the base specular.
         // We rely on the compiler to merge these and compute them only once.
         half3 brdfCoat = kDielectricSpec.r * NPRSpecularLighting(brdfDataClearCoat, surfData, input, inputData, surfData.albedo, radiance, lightData);
@@ -265,7 +268,7 @@ half3 NPRVertexLighting(float3 positionWS, half3 normalWS)
         lightColor = max(0, lerp(lightColor, lerp(0, min(lightColor, lightColor / pureIntencity * _LightIntensityClamp), 1), _Is_Filter_LightColor));
         vertexLightColor += LightingLambert(lightColor, light.direction, normalWS);
     LIGHT_LOOP_END
-#endif
+    #endif
 
     return vertexLightColor;
 }
@@ -283,10 +286,11 @@ half3 NPRVertexLighting(float3 positionWS, half3 normalWS)
  * \param aoFactor 
  * \return 
  */
-half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData, NPRSurfaceData surfData,
-                                     NPRAddInputData addInputData, half4 shadowMask, half meshRenderingLayers, AmbientOcclusionFactor aoFactor)
+half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCoat, Varyings input, InputData inputData,
+                                     NPRSurfaceData surfData,
+                                     NPRAddInputData addInputData, half4 shadowMask, half meshRenderingLayers,
+                                     AmbientOcclusionFactor aoFactor)
 {
-
     half3 additionLightColor = 0;
     #if defined(_ADDITIONAL_LIGHTS)
     uint pixelLightCount = GetAdditionalLightsCount();
@@ -298,9 +302,9 @@ half3 NPRAdditionLightDirectLighting(BRDFData brdfData, BRDFData brdfDataClearCo
 
         Light light = GetAdditionalLight(lightIndex, inputData, shadowMask, aoFactor);
 
-        #ifdef _LIGHT_LAYERS
+    #ifdef _LIGHT_LAYERS
         if (IsMatchingLightLayer(light.layerMask, meshRenderingLayers))
-        #endif
+    #endif
         {
             LightingData lightingData = InitializeLightingData(light, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
             half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfData.occlusion, _UseRadianceOcclusion);
@@ -369,7 +373,7 @@ half3 NPRRimLighting(LightingData lightingData, InputData inputData, Varyings in
         half depthRim = DepthRim(_DepthRimOffset, _DepthOffsetRimReverseX, _DepthRimThresoldOffset, input.positionCS.xy, lightingData.lightDir, addInputData);
         rimColor = depthRim;
     #endif
-    rimColor *=  _RimColor.rgb;
+    rimColor *= _RimColor.rgb;
     return rimColor;
 }
 
@@ -382,7 +386,7 @@ half3 NPRIndirectLighting(BRDFData brdfData, InputData inputData, Varyings input
     #if _RENDERENVSETTING || _CUSTOMENVCUBE
         half3 indirectSpecular = NPRGlossyEnvironmentReflection(reflectVector, inputData.positionWS, inputData.normalizedScreenSpaceUV, brdfData.perceptualRoughness, occlusion);
     #else
-        half3 indirectSpecular = 0;
+    half3 indirectSpecular = 0;
     #endif
     half3 indirectColor = EnvironmentBRDF(brdfData, indirectDiffuse, indirectSpecular, fresnelTerm);
 
@@ -390,7 +394,7 @@ half3 NPRIndirectLighting(BRDFData brdfData, InputData inputData, Varyings input
         half3 matCap = SamplerMatCap(_MatCapColor, input.uv.zw, inputData.normalWS, inputData.normalizedScreenSpaceUV, TEXTURE2D_ARGS(_MatCapTex, sampler_MatCapTex));
         indirectColor += lerp(matCap, matCap * brdfData.diffuse, _MatCapAlbedoWeight);
     #endif
-    
+
     return indirectColor;
 }
 
@@ -425,38 +429,38 @@ Varyings LitPassVertex(Attributes input)
 
     // already normalized from normal transform to WS.
     output.normalWS = normalInput.normalWS;
-#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR) || defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
+    #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR) || defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
     real sign = input.tangentOS.w * GetOddNegativeScale();
     half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
-#endif
-#if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
+    #endif
+    #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
     output.tangentWS = tangentWS;
-#endif
+    #endif
 
-#if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
+    #if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
     half3 viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
     half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
     output.viewDirTS = viewDirTS;
-#endif
+    #endif
 
     OUTPUT_LIGHTMAP_UV(input.staticLightmapUV, unity_LightmapST, output.staticLightmapUV);
-#ifdef DYNAMICLIGHTMAP_ON
+    #ifdef DYNAMICLIGHTMAP_ON
     output.dynamicLightmapUV = input.dynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
-#endif
+    #endif
     OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
-#ifdef _ADDITIONAL_LIGHTS_VERTEX
+    #ifdef _ADDITIONAL_LIGHTS_VERTEX
     output.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
-#else
+    #else
     output.fogFactor = fogFactor;
-#endif
+    #endif
 
-#if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
+    #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
     output.positionWS = vertexInput.positionWS;
-#endif
+    #endif
 
-#if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
+    #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
     output.shadowCoord = GetShadowCoord(vertexInput);
-#endif
+    #endif
 
     output.positionCS = vertexInput.positionCS;
 
@@ -468,22 +472,24 @@ Varyings LitPassVertex(Attributes input)
         output.uv.zw = normalVS.xy * 0.5 + 0.5;
         output.uv.zw = output.uv.zw.xy * _MatCapTex_ST.xy + _MatCapTex_ST.zw;
     #endif
-    
+
     #if _SDFFACE
         SDFFaceUV(_SDFDirectionReversal, _SDFFaceArea, output.uv.zw);
     #endif
 
     output.positionCS = CalculateClipPosition(output.positionCS, _ZOffset);
-    
+
+    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
+
     return output;
 }
 
 void LitPassFragment(
     Varyings input, half facing : VFACE
     , out half4 outColor : SV_Target0
-#ifdef _WRITE_RENDERING_LAYERS
+    #ifdef _WRITE_RENDERING_LAYERS
     , out float4 outRenderingLayers : SV_Target1
-#endif
+    #endif
 )
 {
     UNITY_SETUP_INSTANCE_ID(input);
@@ -495,21 +501,21 @@ void LitPassFragment(
 
     NPRSurfaceData surfaceData;
     InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
-   
+
     InitializeInputData(input, surfaceData.normalTS, addInputData, inputData);
-    
+
     #if _SPECULARAA
     surfaceData.smoothness = SpecularAA(inputData.normalWS, surfaceData.smoothness);
     #endif
 
     SETUP_DEBUG_TEXTURE_DATA(inputData, input.uv, _BaseMap);
 
-#ifdef _DBUFFER
+    #ifdef _DBUFFER
     ApplyDecalToSurfaceData(input.positionCS, surfaceData, inputData);
-#endif
+    #endif
 
     half4 shadowMask = CalculateShadowMask(inputData);
-    
+
     uint meshRenderingLayers = GetMeshRenderingLayer();
     Light mainLight = GetMainLight(inputData.shadowCoord, inputData.positionWS, shadowMask);
     NPRMainLightCorrect(_LightDirectionObliqueWeight, mainLight);
@@ -519,20 +525,23 @@ void LitPassFragment(
         mainLight.color *= aoFactor.directAmbientOcclusion;
         surfaceData.occlusion = min(surfaceData.occlusion, aoFactor.indirectAmbientOcclusion);
     #else
-        AmbientOcclusionFactor aoFactor;
-        aoFactor.indirectAmbientOcclusion = 1;
-        aoFactor.directAmbientOcclusion = 1;
+    AmbientOcclusionFactor aoFactor;
+    aoFactor.indirectAmbientOcclusion = 1;
+    aoFactor.directAmbientOcclusion = 1;
     #endif
 
     BRDFData brdfData, clearCoatbrdfData;
     InitializeNPRBRDFData(surfaceData, brdfData, clearCoatbrdfData);
 
-    LightingData lightingData = InitializeLightingData(mainLight, input, inputData.normalWS, inputData.viewDirectionWS, addInputData);
+    LightingData lightingData = InitializeLightingData(mainLight, input, inputData.normalWS, inputData.viewDirectionWS,
+                                                       addInputData);
 
     half radiance = LightingRadiance(lightingData, _UseHalfLambert, surfaceData.occlusion, _UseRadianceOcclusion);
     half4 color = 1;
-    color.rgb = NPRMainLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, radiance, lightingData);
-    color.rgb += NPRAdditionLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, addInputData, shadowMask, meshRenderingLayers, aoFactor);
+    color.rgb = NPRMainLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData, radiance,
+                                           lightingData);
+    color.rgb += NPRAdditionLightDirectLighting(brdfData, clearCoatbrdfData, input, inputData, surfaceData,
+                                                addInputData, shadowMask, meshRenderingLayers, aoFactor);
     color.rgb += NPRIndirectLighting(brdfData, inputData, input, surfaceData.occlusion);
     color.rgb += NPRRimLighting(lightingData, inputData, input, addInputData);
 
