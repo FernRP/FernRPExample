@@ -30,7 +30,7 @@ FernAI 是一个集成在Unity中的Graph工具，可以提取Unity的画面信�
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
-### FearAI 目前的功能
+### FernAI 目前的功能
 1. Text2Img
 2. Img2Img
 3. Inpaint
