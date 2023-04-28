@@ -5,9 +5,7 @@
 
 [中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
 
-FernNPR 是一个Unity的NPR渲染库，它不仅仅是卡通渲染，而是包含尽可能多的NPR渲染技术，包括角色渲染、环境艺术、以及Stable Diffusion!
-
-FernNPR 会尽量做好代码封装，保持扩展性，同时兼顾PC/Mobile的性能和效果。
+FernNPR 是一个Unity的NPR渲染库，尽可能多的渲染技术，角色渲染、环境渲染以及AI辅助!
 
 ## Render Example
 下面是一些示例场景

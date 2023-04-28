@@ -6,7 +6,7 @@
 [中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
 
 
-FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers a variety of NPR techniques, Character Renderering, Environmental Art, and Stable Diffusion!
+FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers a variety of NPR techniques, Character Renderering, Environmental Renderering, and Stable Diffusion!
 ___
 
 ## Example
