@@ -24,20 +24,6 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 If you want to see more examples, please visit [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) on the [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
 ___
 
-## Tool
-There are some useful tool.
-
-### SmoothNormal And Texture Baker
-
-![](DocAssets/texturebaketool.jpg)
-
-This tool was developed by [DumoeDss](https://github.com/DumoeDss).
-
-Smooth Normals is used to solve the problem of stroke breakage due to unsmooth model normals in runtime or editor. For more information, you can check [here](https://github.com/DumoeDss/AquaSmoothNormals).
-
-Texture Baker can bake textures onto a mesh.
-___
-
 ## FernAI
 
 FernAI is Release Now!
@@ -56,6 +42,22 @@ FernAI is a Graph tool integrated in Unity, which can obtain the scene informati
 4. Lora
 5. ControlNet
 6. ...
+
+___
+
+
+## Tool
+There are some useful tool.
+
+### SmoothNormal And Texture Baker
+
+![](DocAssets/texturebaketool.jpg)
+
+This tool was developed by [DumoeDss](https://github.com/DumoeDss).
+
+Smooth Normals is used to solve the problem of stroke breakage due to unsmooth model normals in runtime or editor. For more information, you can check [here](https://github.com/DumoeDss/AquaSmoothNormals).
+
+Texture Baker can bake textures onto a mesh.
 
 #### SD Graph Feature
 ___

@@ -21,19 +21,6 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb), Ba
 
 如果你想要看更多的例子，可以移步到[Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)上的[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) 页面
 
-## 工具
-这里是一些有用的工具
-
-### SmoothNormal And Texture Baker
-
-![](DocAssets/texturebaketool.jpg)
-
-这个工具由 [DumoeDss](https://github.com/DumoeDss) 开发.
-
-Smooth Normals 用于解决发现外拓描边的断裂问题. 更详细的内容可以前往 [这里](https://github.com/DumoeDss/AquaSmoothNormals) 查阅.
-
-Texture Baker 可以将贴图烘焙到网格上。
-
 ## FernAI
 
 FernAI发布啦！
@@ -52,6 +39,20 @@ FernAI 是一个集成在Unity中的Graph工具，可以提取Unity的画面信�
 4. Lora
 5. ControlNet
 6. ...
+___
+
+## 工具
+这里是一些有用的工具
+
+### SmoothNormal And Texture Baker
+
+![](DocAssets/texturebaketool.jpg)
+
+这个工具由 [DumoeDss](https://github.com/DumoeDss) 开发.
+
+Smooth Normals 用于解决发现外拓描边的断裂问题. 更详细的内容可以前往 [这里](https://github.com/DumoeDss/AquaSmoothNormals) 查阅.
+
+Texture Baker 可以将贴图烘焙到网格上。
 
 ___
 
