@@ -45,7 +45,6 @@ FernAI is a Graph tool integrated in Unity, which can obtain the scene informati
 
 ___
 
-
 ## Tool
 There are some useful tool.
 
@@ -59,7 +58,6 @@ Smooth Normals is used to solve the problem of stroke breakage due to unsmooth m
 
 Texture Baker can bake textures onto a mesh.
 
-#### SD Graph Feature
 ___
 
 ## Future Features
