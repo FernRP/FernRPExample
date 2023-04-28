@@ -73,8 +73,8 @@ Varyings NormalOutLineVertex(Attributes input)
         #elif _OUTLINEWIDTHWITHUV8A
             Set_OutlineWidth *= input.smoothedNormal.a;
         #endif
-        output.positionCS = TransformObjectToHClip(input.positionOS + normalOS * Set_OutlineWidth);
         output.positionCS = PerspectiveRemove(output.positionCS, vertexInput.positionWS, input.positionOS);
+        output.positionCS = TransformObjectToHClip(input.positionOS + normalOS * Set_OutlineWidth);
 
         output.color = input.color;
         output.uv = input.texcoord;
