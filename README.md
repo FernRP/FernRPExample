@@ -38,18 +38,26 @@ Smooth Normals is used to solve the problem of stroke breakage due to unsmooth m
 Texture Baker can bake textures onto a mesh.
 ___
 
-## Comming Soon
+## FernAI
 
-### FernAI
+FernAI is Release Now!
 
 FernAI is a Graph tool integrated in Unity, which can obtain the scene information of Unity and generate images using Stable Diffusion.
-
-The Stable Diffusion Graph has completed most of its development functionalities and is currently being tested and improved. It will be released very soon.
 
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
+
+### FearAI Feature
+1. Text2Img
+2. Img2Img
+3. Inpaint
+4. Lora
+5. ControlNet
+6. ...
+
+#### SD Graph Feature
 ___
 
 ## Future Features

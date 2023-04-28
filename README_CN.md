@@ -34,18 +34,25 @@ Smooth Normals 用于解决发现外拓描边的断裂问题. 更详细的内容
 
 Texture Baker 可以将贴图烘焙到网格上。
 
-## Comming Soon
+## FernAI
 
-### FernAI
+FernAI发布啦！
 
 FernAI 是一个集成在Unity中的Graph工具，可以提取Unity的画面信息以及利用Stable Diffusion生成图片。
-
-Stable Diffusion Graph已经完成大部分功能，即将发布！
 
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
+
+### FearAI 目前的功能
+1. Text2Img
+2. Img2Img
+3. Inpaint
+4. Lora
+5. ControlNet
+6. ...
+
 ___
 
 ## Future Features

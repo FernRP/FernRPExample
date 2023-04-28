@@ -27,7 +27,7 @@ MonoBehaviour:
   - rid: 8299515732274708496
   - rid: 8299515732274708497
   - rid: 8299515735803166721
-  - rid: 8299515735803166722
+  - rid: 8299515735803166724
   comments: []
   assetVersion: 1
   references:
@@ -256,7 +256,7 @@ MonoBehaviour:
         id: d3d5c99f-e7f2-4abe-a043-a8c925e7f95c
         name: SD Preview
         graph: {fileID: 11400000}
-        position: {x: 798.85004, y: -482.66672}
+        position: {x: 740.1884, y: -494}
         ports:
         - name: In Image
           type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
@@ -396,7 +396,7 @@ MonoBehaviour:
           capacity: 0
           direction: 0
           connections:
-          - nodeId: e6b0b184-7e2a-448f-bf93-8e41a2bcce90
+          - nodeId: 653baf5b-799b-4e86-9d48-3a04db3cabca
             portName: Capture
         - name: ControlNet
           type: ControlNetData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
@@ -461,7 +461,7 @@ MonoBehaviour:
         CFG: 7
         DenisoStrength: 0.6
         OutputImage: {fileID: 0}
-        outSeed: 6919572199135593624
+        outSeed: 1294809250616353518
         Seed: 0
         SamplerMethod: Euler
         inpainting_fill: 1
@@ -475,7 +475,7 @@ MonoBehaviour:
         id: e6217ec3-d4c1-4f2a-a738-784cafedce14
         name: SD Preview
         graph: {fileID: 11400000}
-        position: {x: 2145.0986, y: -405.33328}
+        position: {x: 1633.9075, y: -494.00018}
         ports:
         - name: In Image
           type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
@@ -500,14 +500,14 @@ MonoBehaviour:
             portName: Seed
         Image: {fileID: 0}
         OutImage: {fileID: 0}
-        seed: 882921485
+        seed: 2132433905956914581
     - rid: 8299515732274708496
       type: {class: SDPrompt, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
         id: 9a386099-a008-4fee-ba28-87820f1832ff
         name: SD Prompt
         graph: {fileID: 11400000}
-        position: {x: 1389.3135, y: 166.66666}
+        position: {x: 877.9072, y: 77.99988}
         ports:
         - name: Positive
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -536,7 +536,7 @@ MonoBehaviour:
         id: 613354b4-f96d-46d9-a7ea-4a3291ae8e3d
         name: String Node
         graph: {fileID: 11400000}
-        position: {x: 986.7311, y: 275.00006}
+        position: {x: 475.90717, y: 185.99985}
         ports:
         - name: Text
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -552,7 +552,7 @@ MonoBehaviour:
         id: d3611229-6391-4343-84d6-b4a42a5df70c
         name: SD Img 2 Img Node
         graph: {fileID: 11400000}
-        position: {x: 1713.2498, y: -405.3333}
+        position: {x: 1201.9071, y: -494.00018}
         ports:
         - name: SDFlowOut
           type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
@@ -633,21 +633,21 @@ MonoBehaviour:
         CFG: 7
         DenisoStrength: 0.75
         OutputImage: {fileID: 0}
-        outSeed: 882921485
+        outSeed: 2132433905956914581
         Seed: 0
         SamplerMethod: Euler
-        inpainting_fill: 0
+        inpainting_fill: 1
         inpaint_full_res: 1
         inpaint_full_res_padding: 32
         inpainting_mask_invert: 1
         mask_blur: 0
-    - rid: 8299515735803166722
+    - rid: 8299515735803166724
       type: {class: SDCameraCapture, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
       data:
-        id: e6b0b184-7e2a-448f-bf93-8e41a2bcce90
+        id: 653baf5b-799b-4e86-9d48-3a04db3cabca
         name: SD Camera Capture
         graph: {fileID: 11400000}
-        position: {x: 154.97499, y: -309.1792}
+        position: {x: 78.00006, y: -339.66656}
         ports:
         - name: Capture
           type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,

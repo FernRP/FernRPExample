@@ -62,7 +62,7 @@ MonoBehaviour:
           beautiful, masterpiece, best quality, extremely detailed face, perfect
           lighting, 1girl, solo, best quality, ultra high res, (photorealistic:1.4),
           parted lips lipstick, ultra detailed, Peach buttock, looking at viewer,
-          masterpiece, best quality,<lora:chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50):0.65>"
+          masterpiece, best quality,<lora:chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50):0.55>"
         Negative: "nsfw, paintings, sketches, (worst quality:2), (low quality:2),
           (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)),
           skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), glans, anime\uFF0C(worst
@@ -386,6 +386,6 @@ MonoBehaviour:
         Step: 20
         CFG: 7
         OutputImage: {fileID: 0}
-        outSeed: 5454286386106932107
-        Seed: 5454286386106932107
+        outSeed: 2619499442915139793
+        Seed: 2619499442915139793
         SamplerMethod: DPM++ 2M Karras
