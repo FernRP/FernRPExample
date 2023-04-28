@@ -1,0 +1,118 @@
+﻿
+/* Variables that can be overridden to change the look 'n feel of a graph */
+
+/* #FernGraph-canvas { 
+
+    Cannot cascade these variables to support 2019.3.7
+    See: https://forum.unity.com/threads/solved-uss-variables-getting-corrupted.824145/
+    This bug also affects -unity-background-image-tint-color
+    for PortView.uss type-is-collection > #connector.
+
+    Seems to be fixed in 2020.1.3, and possibly earlier.
+*/
+
+
+* {
+    /* Background grid display configurations */
+    --FernGraph-grid-background-color: #191023;
+    --FernGraph-grid-line-color: #202b3c;
+    --FernGraph-grid-thick-line-color:              #3a455e;
+
+    /* Highlighting for selected edges/nodes */
+    --FernGraph-focus-color:                        #006798;        
+    --FernGraph-highlight-color:                    #ffd244;
+
+    /* Node settings */
+    --FernGraph-node-title-background-color:        #3b4c64;
+    --FernGraph-node-title-color:                   #efefef;
+    --FernGraph-node-inputs-background-color:       #393a40;
+    --FernGraph-node-outputs-background-color:      #232932;
+    --FernGraph-node-editables-background-color:    #3f3f3f;
+    --FernGraph-node-error-color:                   #D81619;
+
+    /* Port settings */
+    --FernGraph-port-title-color:                   #c1c1c1;
+    --FernGraph-port-background-color:              #212121;
+
+    /* Property field associated with an input port */
+    --FernGraph-port-field-background-color:        rgba(0, 0, 0, 0.25);
+    --FernGraph-port-field-border-color:            #666666;
+    --FernGraph-port-field-color:                   #eeeeee;
+
+    /* Colors for different port data types */
+
+    /* Unknown object types or value types */
+    --FernGraph-port-object-color:                  #18abf2;
+    --FernGraph-port-value-color:                   #4eaeae;
+
+    /* Standard C# types */
+    --FernGraph-port-string-color:                  #fb02d1;
+    --FernGraph-port-boolean-color:                 #d9000c;
+    --FernGraph-port-int-color:                     #29e0ad;
+    --FernGraph-port-float-color:                   #9efb52;
+    --FernGraph-port-enum-color:                    #076f64;
+
+    /* Common Unity types */
+    --FernGraph-port-vector-color:                  #fdc727;
+    --FernGraph-port-quaternion-color:              #8f9fdd;
+    --FernGraph-port-color-color:                   #bebebe;
+    --FernGraph-port-transform-color:               #fa711d;
+    --FernGraph-port-gameobject-color:              #ab60ff;
+}
+
+/*  
+    Custom type classes to automatically generate a type color variable 
+    if someone is using Type.toUSSClasses() on a visual element.
+*/
+.type-is-object {
+    --type-color: var(--FernGraph-port-object-color);
+}
+
+.type-is-value {
+    --type-color: var(--FernGraph-port-value-color);
+}
+
+.type-is-enum {
+    --type-color: var(--FernGraph-port-enum-color);
+}
+
+.type-System-String {
+    --type-color: var(--FernGraph-port-string-color);
+}
+
+.type-System-Boolean {
+    --type-color: var(--FernGraph-port-boolean-color);
+}
+
+.type-System-Int
+.type-System-Int32,
+.type-System-Int64 {
+    --type-color: var(--FernGraph-port-int-color);
+}
+
+.type-System-Single,
+.type-System-Double {
+    --type-color: var(--FernGraph-port-float-color);
+}
+
+.type-UnityEngine-Vector2,
+.type-UnityEngine-Vector3,
+.type-UnityEngine-Vector4 {
+    --type-color: var(--FernGraph-port-vector-color);
+}
+
+.type-UnityEngine-Quaternion {
+    --type-color: var(--FernGraph-port-quaternion-color);
+}
+
+.type-UnityEngine-Color {
+    --type-color: var(--FernGraph-port-color-color);
+}
+
+.type-UnityEngine-Transform {
+    --type-color: var(--FernGraph-port-transform-color);
+}
+
+.type-UnityEngine-GameObject {
+    --type-color: var(--FernGraph-port-gameobject-color);
+}

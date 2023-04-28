@@ -1,0 +1,23 @@
+﻿
+.canvasView {
+    flex: 1;
+}
+
+.canvasViewTitle {
+    position: absolute;
+    bottom: 5px;
+    left: 15px;
+    font-size: 50px;
+    opacity: 0.15;
+}
+
+GridBackground {
+    --grid-background-color: var(--FernGraph-grid-background-color); 
+    --line-color: var(--FernGraph-grid-line-color); 
+    --thick-line-color: var(--FernGraph-grid-thick-line-color); 
+    --spacing: 100;
+}
+
+.canvasView .edge {
+    --selected-edge-color: var(--FernGraph-highlight-color); 
+}

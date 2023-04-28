@@ -19,7 +19,9 @@ Material:
   - _STYLIZED
   m_InvalidKeywords:
   - NONE
+  - _CLEARSHADING_ON
   - _IS_FILTER_LIGHTCOLOR_ON
+  - _IS_SDINPAINT_ON
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -93,7 +95,7 @@ Material:
     - _DstBlend: 0
     - _EmissionColorAlbedoWeight: 0
     - _Is_Filter_LightColor: 1
-    - _Is_SDInPaint: 0
+    - _Is_SDInPaint: 1
     - _LightIntensityClamp: 1
     - _Metallic: 0
     - _OcclusionStrength: 0
@@ -125,6 +127,7 @@ Material:
     - _UseHalfLambert: 1
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 0
     - _enum_env: 1

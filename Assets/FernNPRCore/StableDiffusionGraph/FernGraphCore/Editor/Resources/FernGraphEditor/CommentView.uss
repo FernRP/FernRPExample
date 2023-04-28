@@ -1,0 +1,77 @@
+﻿
+.commentView {
+    --layer: -500;
+
+    min-width: 150px;
+    min-height: 50px;
+
+    border-width: 2px;
+    border-radius: 8px;
+
+    background-color: rgba(253, 199, 39, 0.1);
+    border-color: rgba(253, 199, 39, 0.25);
+}
+
+.commentView .resizer {
+    right: -10px;
+    bottom: -10px;
+    width: 30px;
+    height: 30px;
+
+    /* TODO: These are being overridden by inline rules */
+}
+
+.commentView .resizer-icon {
+    /* Icon doesn't get the event, so we just toss it. */
+    visibility: hidden;
+}
+
+.commentView .unity-label {
+    white-space: normal;
+    padding: 5px;
+    border-radius: 3px;
+    margin: 5px;
+    
+    background-color: rgba(253, 199, 39, 1);
+    color: #000000;
+}
+
+.commentView #unity-text-input {
+    margin: 5px;
+    padding: 5px;
+}
+
+/* Themes */
+
+.commentView.theme-Tertiary {
+    background-color: #191919;
+    border-color: #343434;
+    
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.commentView.theme-Tertiary .unity-label {
+    background-color: rgba(15, 15, 15, 1);
+}
+
+.commentView.theme-Tertiary .unity-label {
+    color: #ffffff;
+}
+
+.commentView.theme-Secondary {
+    background-color: rgba(148, 0, 8, 0.1);
+    border-color: rgba(148, 0, 8, 0.5);
+}
+
+.commentView.theme-Secondary .unity-label {
+    background-color: rgba(148, 0, 8, 1);
+}
+
+.commentView.theme-Secondary .unity-label {
+    color: #ffffff;
+}
+
+.commentView:checked {
+    border-color: #44C0FF;
+}
