@@ -35,7 +35,7 @@ FernAI is a Graph tool integrated in Unity, which can obtain the scene informati
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
-### FearAI Feature
+### FernAI Feature
 1. Text2Img
 2. Img2Img
 3. Inpaint
