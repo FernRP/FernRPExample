@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: 02 - Default_PBR
   m_Shader: {fileID: 4800000, guid: 335dcad6d9fdba943a91b0a9295ee10e, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _CLEARCOAT
   - _GGX
@@ -25,6 +27,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -50,6 +53,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _DiffuseRampMap:
         m_Texture: {fileID: 2800000, guid: 0c0e3d13586e2be4a9d63ee9dbbc2200, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _DissolveNoiseTex:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -109,16 +116,19 @@ Material:
     - _BumpScale: 1
     - _CELLSmoothing: 0.5
     - _CELLThreshold: 0.5
+    - _CasterShadow: 1
     - _CellBandSoftness: 0.001
     - _CellBands: 1
     - _ClearCoat: 1
     - _ClearCoatMask: 1
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
+    - _ClearShading: 0
     - _Cull: 2
     - _Cutoff: 0.5
     - _DepthOffsetRimReverseX: 0
     - _DepthOffsetShadowReverseX: 0
+    - _DepthPrePass: 0
     - _DepthRimLightCameraDistanceFadeoutEnd: 80
     - _DepthRimLightCameraDistanceStart: 50
     - _DepthRimOffset: -0.072
@@ -128,6 +138,7 @@ Material:
     - _DepthShadowThresoldOffset: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DissolveThreshold: 0
     - _DstBlend: 0
     - _EmissionColorAlbedoWeight: 0
     - _EnvironmentReflections: 1
@@ -135,6 +146,7 @@ Material:
     - _Glossiness: 0.140028
     - _GlossyReflections: 1
     - _Is_Filter_LightColor: 0
+    - _Is_SDInPaint: 0
     - _LightIntensityClamp: 1
     - _Metallic: 0.944
     - _Mode: 3
@@ -165,19 +177,26 @@ Material:
     - _Surface: 0
     - _UVSec: 0
     - _UseDepthShadow: 0
+    - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
     - _UseHalfLambert: 0
     - _UseRadianceOcclusion: 0
     - _WorkflowMode: 1
+    - _ZOffset: 0
     - _ZWrite: 1
     - _enum_diffuse: 3
     - _enum_env: 1
+    - _enum_outline_color: 0
+    - _enum_outline_smoothed: 0
+    - _enum_outline_width: 0
     - _enum_rim: 0
     - _enum_specular: 1
     - _group: 0
     - _group1: 1
+    - _groupAI: 1
     - _groupAdditionLight: 1
     - _groupClearCoat: 1
+    - _groupDissolveSetting: 0
     - _groupEmission: 0
     - _groupEnvironment: 1
     - _groupOutline: 1
@@ -185,6 +204,7 @@ Material:
     - _groupShadingMask: 0
     - _groupShadowSetting: 1
     - _groupSpecular: 1
+    - _groupSurface: 1
     m_Colors:
     - _BaseColor: {r: 0.8018868, g: 0.6283596, b: 0.32636794, a: 0}
     - _Color: {r: 0.79073066, g: 0.79073066, b: 0.79073066, a: 0}

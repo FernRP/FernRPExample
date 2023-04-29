@@ -17,7 +17,6 @@ Material:
   - _DEPTHSHADOW
   - _GGX
   - _OUTLINE
-  - _PERSPECTIVEREMOVE
   - _SMOOTHEDNORMAL
   m_InvalidKeywords:
   - _CLEARSHADING_ON

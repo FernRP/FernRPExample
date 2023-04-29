@@ -319,11 +319,10 @@ inline half SpecularAA(half3 normalWS, half smoothness)
     half dx = dot(ddx(normalWS),ddx(normalWS));
     half dy = dot(ddy(normalWS),ddy(normalWS));
     half roughness = 1 - smoothness;
-    half roughnessAA = roughness * roughness + min(_SpaceScreenVariant * (dx + dy) * 2, _SpecularAAThreshold * _SpecularAAThreshold);
+    half roughnessAA = roughness * roughness + min(_SpaceScreenVariant * (dx + dy) * 8, _SpecularAAThreshold * _SpecularAAThreshold);
     roughnessAA = saturate(roughnessAA);
-    roughnessAA = sqrt(roughnessAA);
-    roughnessAA = sqrt(roughnessAA);
-    half smoothnessAA = 1 - roughnessAA;
+    //roughnessAA = sqrt(roughnessAA);
+    half smoothnessAA = smoothness * (1 - roughnessAA);
     return smoothnessAA;
 }
 

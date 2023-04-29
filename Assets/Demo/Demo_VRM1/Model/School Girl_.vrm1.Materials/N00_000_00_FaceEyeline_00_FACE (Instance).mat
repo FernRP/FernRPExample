@@ -14,7 +14,6 @@ Material:
   m_ValidKeywords:
   - _GGX
   - _LAMBERTIAN
-  - _PERSPECTIVEREMOVE
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _ALPHABLEND_ON
