@@ -32,6 +32,8 @@ Varyings DepthOnlyVertex(Attributes input)
     output.positionCS = TransformObjectToHClip(input.positionOS.xyz);
     output.positionWS.xyz = TransformObjectToWorld(input.positionOS.xyz);
 
+    output.positionCS = CalculateClipPosition(output.positionCS, _ZOffset);
+
     output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
     
     return output;

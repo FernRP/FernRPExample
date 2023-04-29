@@ -44,6 +44,13 @@ float DepthSamplerToLinearDepth(float positionCSZ)
     }
 }
 
+
+/**
+ * \brief Note: this method should be apply in depthonlypass or depthnormalpass
+ * \param positionCS 
+ * \param viewSpaceZOffsetAmount 
+ * \return 
+ */
 float4 CalculateClipPosition(float4 positionCS, float viewSpaceZOffsetAmount)
 {
     // Create a copy of the original position

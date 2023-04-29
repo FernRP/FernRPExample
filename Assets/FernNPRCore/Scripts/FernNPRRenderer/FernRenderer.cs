@@ -37,6 +37,7 @@ namespace FernNPRCore.Scripts.FernNPRRenderer
 
         private void OnBeginCameraRender(ScriptableRenderContext context, Camera currentCamera)
         {
+            return;
             if (Math.Abs(cameraAspect - currentCamera.aspect) > 1e-5)
             {
                 var aspect = currentCamera.aspect;

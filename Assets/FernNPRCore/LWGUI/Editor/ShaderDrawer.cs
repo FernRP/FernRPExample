@@ -501,11 +501,6 @@ namespace LWGUI
 			
 			EditorGUI.BeginChangeCheck();
         	EditorGUI.showMixedValue = prop.hasMixedValue;
-            
-            foreach (var nn in _names)
-            {
-	            Debug.Log(nn);
-            }
         	
 			var rect = position; //EditorGUILayout.GetControlRect();
 

@@ -8,9 +8,10 @@
 #define REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR
 #endif
 
-#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL) || defined(_KAJIYAHAIR)
+#if (defined(_NORMALMAP) || (defined(_PARALLAXMAP) && !defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR))) || defined(_DETAIL)
 #define REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR
 #endif
+
 
 // keep this file in sync with LitGBufferPass.hlsl
 
@@ -429,37 +430,40 @@ Varyings LitPassVertex(Attributes input)
 
     // already normalized from normal transform to WS.
     output.normalWS = normalInput.normalWS;
+    
     #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR) || defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    real sign = input.tangentOS.w * GetOddNegativeScale();
-    half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
+        real sign = input.tangentOS.w * GetOddNegativeScale();
+        half4 tangentWS = half4(normalInput.tangentWS.xyz, sign);
     #endif
+    
     #if defined(REQUIRES_WORLD_SPACE_TANGENT_INTERPOLATOR)
-    output.tangentWS = tangentWS;
+        output.tangentWS = tangentWS;
     #endif
 
     #if defined(REQUIRES_TANGENT_SPACE_VIEW_DIR_INTERPOLATOR)
-    half3 viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
-    half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
-    output.viewDirTS = viewDirTS;
+        half3 viewDirWS = GetWorldSpaceNormalizeViewDir(vertexInput.positionWS);
+        half3 viewDirTS = GetViewDirectionTangentSpace(tangentWS, output.normalWS, viewDirWS);
+        output.viewDirTS = viewDirTS;
     #endif
 
     OUTPUT_LIGHTMAP_UV(input.staticLightmapUV, unity_LightmapST, output.staticLightmapUV);
+
     #ifdef DYNAMICLIGHTMAP_ON
-    output.dynamicLightmapUV = input.dynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
+        output.dynamicLightmapUV = input.dynamicLightmapUV.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
     #endif
-    OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
+        OUTPUT_SH(output.normalWS.xyz, output.vertexSH);
     #ifdef _ADDITIONAL_LIGHTS_VERTEX
-    output.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
+        output.fogFactorAndVertexLight = half4(fogFactor, vertexLight);
     #else
-    output.fogFactor = fogFactor;
+        output.fogFactor = fogFactor;
     #endif
 
     #if defined(REQUIRES_WORLD_SPACE_POS_INTERPOLATOR)
-    output.positionWS = vertexInput.positionWS;
+        output.positionWS = vertexInput.positionWS;
     #endif
-
+    
     #if defined(REQUIRES_VERTEX_SHADOW_COORD_INTERPOLATOR)
-    output.shadowCoord = GetShadowCoord(vertexInput);
+        output.shadowCoord = GetShadowCoord(vertexInput);
     #endif
 
     output.positionCS = vertexInput.positionCS;
