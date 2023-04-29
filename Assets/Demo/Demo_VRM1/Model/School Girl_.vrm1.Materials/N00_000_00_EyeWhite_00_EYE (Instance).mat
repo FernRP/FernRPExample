@@ -15,6 +15,7 @@ Material:
   - _ALPHATEST_ON
   - _GGX
   - _LAMBERTIAN
+  - _PERSPECTIVEREMOVE
   - _RENDERENVSETTING
   m_InvalidKeywords:
   - _CLEARSHADING_ON

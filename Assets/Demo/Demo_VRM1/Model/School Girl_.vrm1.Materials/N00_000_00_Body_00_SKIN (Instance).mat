@@ -13,8 +13,8 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _ALPHATEST_ON
-  - _CELLSHADING
   - _GGX
+  - _LAMBERTIAN
   - _NORMALMAP
   - _OUTLINE
   - _RENDERENVSETTING
@@ -83,7 +83,7 @@ Material:
     - _ClearCoatMask: 1
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
-    - _ClearShading: 0
+    - _ClearShading: 1
     - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
@@ -115,7 +115,7 @@ Material:
     - _RimThreshold: 0.2
     - _Shininess: 1
     - _SmoothedNormal: 0
-    - _Smoothness: 0.523
+    - _Smoothness: 0.4
     - _SpaceScreenVariant: 0.5
     - _SpecularAA: 0
     - _SpecularAAThreshold: 1
@@ -128,12 +128,12 @@ Material:
     - _UseDepthShadow: 0
     - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
-    - _UseHalfLambert: 1
+    - _UseHalfLambert: 0
     - _UseRadianceOcclusion: 0
     - _VColBlendMode: 0
     - _ZOffset: 0
     - _ZWrite: 1
-    - _enum_diffuse: 0
+    - _enum_diffuse: 3
     - _enum_env: 1
     - _enum_outline_color: 0
     - _enum_outline_smoothed: 1

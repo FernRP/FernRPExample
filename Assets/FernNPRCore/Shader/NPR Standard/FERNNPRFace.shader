@@ -6,7 +6,7 @@ Shader "FernRender/URP/FERNNPRFace"
         _group ("Surface", float) = 0
         [Space()]
         [Tex(Surface, _BaseColor)] _BaseMap ("Base Map", 2D) = "white" { }
-        [HideInInspector][HDR] _BaseColor ("Base Color", color) = (1, 1, 1, 1)
+        [HideInInspector] _BaseColor ("Base Color", color) = (0.5,0.5,0.5, 1)
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0
@@ -31,11 +31,11 @@ Shader "FernRender/URP/FERNNPRFace"
         [Main(Diffuse, _, off, off)]
         _group1 ("DiffuseSettings", float) = 1
         [Space()]
-        [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, CellBandsShading, _CELLBANDSHADING, PBRShading, _LAMBERTIAN, SDFFaceShading, _SDFFACE)] _enum_diffuse ("Shading Mode", float) = 0
+        [KWEnum(Diffuse, CelShading, _CELLSHADING, RampShading, _RAMPSHADING, CellBandsShading, _CELLBANDSHADING, PBRShading, _LAMBERTIAN, SDFFaceShading, _SDFFACE)] _enum_diffuse ("Shading Mode", float) = 3
         [SubToggle(Diffuse)] _UseHalfLambert ("Use HalfLambert (More Flatter)", float) = 0
         [SubToggle(Diffuse._RAMPSHADING._CELLBANDSHADING._LAMBERTIAN)] _UseRadianceOcclusion ("Radiance Occlusion", float) = 0
         [Sub(Diffuse_LAMBERTIAN._CELLSHADING._SDFFACE)] [HDR] _HighColor ("Hight Color", Color) = (1,1,1,1)
-        [Sub(Diffuse_LAMBERTIAN._CELLSHADING._SDFFACE)] _DarkColor ("Dark Color", Color) = (0.5,0.5,0.5,1)
+        [Sub(Diffuse_LAMBERTIAN._CELLSHADING._SDFFACE)] _DarkColor ("Dark Color", Color) = (0,0,0,1)
         [Sub(Diffuse._CELLBANDSHADING)] _CellBands ("Cell Bands(Int)", Range(1, 10)) = 1
         [Sub(Diffuse_CELLSHADING._CELLBANDSHADING)] _CELLThreshold ("Cell Threshold", Range(0.01,1)) = 0.5
         [Sub(Diffuse_CELLSHADING)] _CELLSmoothing ("Cell Smoothing", Range(0.001,1)) = 0.001

@@ -6,7 +6,7 @@ Shader "FernRender/URP/FERNNPRStandard"
         _group ("Surface", float) = 0
         [Space()]
         [Tex(Surface, _BaseColor)] _BaseMap ("Base Map", 2D) = "white" { }
-        [HideInInspector][HDR] _BaseColor ("Base Color", color) = (0.5, 0.5, 0.5, 1)
+        [HideInInspector] _BaseColor ("Base Color", color) = (0.5, 0.5, 0.5, 1)
         [SubToggle(Surface, _NORMALMAP)] _BumpMapKeyword("Use Normal Map", Float) = 0.0
         [Tex(Surface_NORMALMAP)] _BumpMap ("Normal Map", 2D) = "bump" { }
         [Sub(Surface_NORMALMAP)] _BumpScale("Scale", Float) = 1.0

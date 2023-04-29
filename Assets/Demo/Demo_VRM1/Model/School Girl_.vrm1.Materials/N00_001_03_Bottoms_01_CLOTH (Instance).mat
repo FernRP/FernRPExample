@@ -28,9 +28,11 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
+  m_CustomRenderQueue: 2450
+  stringTagMap:
+    RenderType: TransparentCutout
+  disabledShaderPasses:
+  - SRPDEFAULTUNLIT
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -81,8 +83,8 @@ Material:
     - _ClearCoatMask: 1
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
-    - _ClearShading: 0
-    - _Cull: 2
+    - _ClearShading: 1
+    - _Cull: 0
     - _CullMode: 0
     - _Cutoff: 0.5
     - _DepthOffsetRimReverseX: 0
@@ -122,7 +124,7 @@ Material:
     - _StylizedSpecularAlbedoWeight: 0
     - _StylizedSpecularSize: 0.1
     - _StylizedSpecularSoftness: 0.05
-    - _Surface: 0
+    - _Surface: 2
     - _UseDepthShadow: 0
     - _UseDissolveEffect: 0
     - _UseEmissionTex: 0
@@ -153,7 +155,7 @@ Material:
     - _groupSpecular: 1
     - _groupSurface: 1
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 0.4039216, g: 0.4666667, b: 0.95294124, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DarkColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}

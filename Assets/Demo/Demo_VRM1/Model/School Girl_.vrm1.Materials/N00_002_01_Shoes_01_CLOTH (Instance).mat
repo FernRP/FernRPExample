@@ -79,7 +79,7 @@ Material:
     - _ClearCoatMask: 1
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
-    - _ClearShading: 0
+    - _ClearShading: 1
     - _Cull: 2
     - _CullMode: 0
     - _Cutoff: 0.5

@@ -80,7 +80,7 @@ Material:
     - _ClearCoatMask: 1
     - _ClearCoatSmoothness: 1
     - _ClearCoatTexSource: 0
-    - _ClearShading: 0
+    - _ClearShading: 1
     - _Cull: 2
     - _CullMode: 0
     - _Cutoff: 0.5
@@ -101,7 +101,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 0
     - _Outline: 1
-    - _OutlineWidth: 2
+    - _OutlineWidth: 3.3
     - _OverrideOutlineWidth: 0
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1

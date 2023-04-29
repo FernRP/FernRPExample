@@ -197,6 +197,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: School Girl_ Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 7045008943579669476, guid: da40c0b6667a66b4db2db9e749757bd2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[9]
+      value: 
+      objectReference: {fileID: 2100000, guid: 61cfc63c833967140ac37ce73c24fcec, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -609,14 +614,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
-  m_LocalRotation: {x: -0.035776656, y: 0.046379313, z: 0.0016621529, w: 0.99828166}
-  m_LocalPosition: {x: -0.29, y: 0.99, z: -2.81}
+  m_LocalRotation: {x: 0, y: 0.04640909, z: 0, w: 0.9989225}
+  m_LocalPosition: {x: -0.29, y: 1.039, z: -2.707}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -4.105, y: 5.32, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 5.32, z: 0}
 --- !u!1 &1160234425
 GameObject:
   m_ObjectHideFlags: 0
@@ -1122,6 +1127,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: b6bc5aff9ae24b941847a27d80c313da, type: 2}
   - {fileID: 2100000, guid: 713c0407ba4be3642a2f7d0da1bc4906, type: 2}
   - {fileID: 2100000, guid: b2bc2e3942b8bec43bac1e4a92706eda, type: 2}
+  - {fileID: 851212907205135456, guid: f699f5fa128d313478c2e2587b4d9b35, type: 3}
 --- !u!137 &1597518269 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 7045008943579669476, guid: da40c0b6667a66b4db2db9e749757bd2,

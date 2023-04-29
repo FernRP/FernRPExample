@@ -15,6 +15,7 @@ Material:
   - _ALPHATEST_ON
   - _GGX
   - _LAMBERTIAN
+  - _PERSPECTIVEREMOVE
   - _RECEIVE_SHADOWS_OFF
   - _RENDERENVSETTING
   m_InvalidKeywords:
