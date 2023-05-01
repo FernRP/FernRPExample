@@ -465,6 +465,12 @@ public enum ResizeMode
     ScaleToFit_InnerFit = 1,
     Envelope_OuterFit = 2
 }
+public enum ControlMode
+{
+    Balanced = 0,
+    My_prompt_is_more_important = 1,
+    ControlNet_is_more_important = 2
+}
 
 public class ControlNetData
 {
@@ -481,8 +487,7 @@ public class ControlNetData
     public float guidance_start = 0.0f;
     public float guidance_end = 1.0f;
     public float guidance = 1f;
-    public bool guessmode = false;
-    public bool enabled = true;
+    public int control_mode = 0;
 }
 
 public class ControlNetDataArgs
