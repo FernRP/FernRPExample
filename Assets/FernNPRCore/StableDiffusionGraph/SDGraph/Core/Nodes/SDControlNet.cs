@@ -18,6 +18,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     public class SDControlNet : SDFlowNode, ICanExecuteSDFlow
     {
         [Input("Image")] public Texture2D controlNetImg;
+        //[Input("Mask")] public Texture2D mask;
         public string module = "none";
         public string model = "none";
         [Input] public float weight = 1;
@@ -168,6 +169,12 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 string inputImgString = Convert.ToBase64String(inputImgBytes);
                 controlNet.input_image = inputImgString;
             }
+            // if (mask != null)
+            // {
+            //     byte[] maskImgBytes = mask.EncodeToPNG();
+            //     string maskImgString = Convert.ToBase64String(maskImgBytes);
+            //     controlNet.mask = maskImgString;
+            // }
             
             // // Stable diffusion API url for getting the models list
             // HttpWebRequest httpWebRequest = null;
@@ -234,7 +241,8 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public override IEnumerator Execute()
         {
             if (controlNet == null) controlNet = new ControlNetData();
-            controlNetImg = GetInputValue("Image", this.controlNetImg);
+            controlNetImg = GetInputValue("Image", controlNetImg);
+            //mask = GetInputValue("Mask", mask);
             if (modelList == null || modelList.Count <= 0)
             {
                 yield return ControlNetModelListAsync();

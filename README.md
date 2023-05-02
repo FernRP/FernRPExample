@@ -43,6 +43,10 @@ FernAI is a Graph tool integrated in Unity, which can obtain the scene informati
 5. ControlNet
 6. ...
 
+### Note
+
+To use this tool, you need to deploy [stable diffusion webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) locally, and add the --api command to the COMMANDLINE_ARGS in the webui-user.bat file.
+
 ___
 
 ## Tool

@@ -37,6 +37,10 @@ FernAI 是一个集成在Unity中的Graph工具，可以提取Unity的画面信�
 4. Lora
 5. ControlNet
 6. ...
+
+### 注意
+
+想要使用本工具需要先在本地部署[stable diffusion webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui), 并在webui-user.bat文件中的COMMANDLINE_ARGS添加--api命令。
 ___
 
 ## 工具

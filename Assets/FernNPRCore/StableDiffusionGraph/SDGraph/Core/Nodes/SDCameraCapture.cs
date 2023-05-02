@@ -35,12 +35,13 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
         }
 
+
         public override void OnAddedToGraph()
         {
             base.OnAddedToGraph();
             base.OnEnable();
             var resolution = SDUtil.GetMainGameViewSize();
-            Debug.Log($"SD Log: Camera Capture Width: {resolution.x} + Height: + {resolution.y}");
+            SDUtil.SDLog($"Camera Capture Width: {resolution.x} + Height: + {resolution.y}");
 
             if (currentCamere == null)
             {
