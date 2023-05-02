@@ -40,6 +40,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         private int width = 512;
         private int height = 512;
         private float aspect;
+        private Color whiteColor = new Color(1, 1, 1, 1);
 
         public override IEnumerator Execute()
         {
@@ -90,7 +91,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
             // Generate the image
             HttpWebRequest httpWebRequest = null;
-            try
+            //try
             {
                 // Make a HTTP POST request to the Stable Diffusion server
                 httpWebRequest =
@@ -106,6 +107,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                     string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                     httpWebRequest.Headers.Add("Authorization", "Basic " + encodedCredentials);
                 }
+                
 
                 // Send the generation parameters along with the POST request
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
@@ -114,26 +116,13 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                     byte[] inputImgBytes = InputImage.EncodeToPNG();
                     string inputImgString = Convert.ToBase64String(inputImgBytes);
                     string maskImgString = "";
-                    if (MaskImage == null)
-                    {
-                        MaskImage = new Texture2D(InputImage.width, InputImage.height);
-                        Color[] colors = new Color[InputImage.width * InputImage.height];
-                        for (var i = 0; i < InputImage.width * InputImage.height; ++i)
-                        {
-                            colors[i] = Color.white;
-                        }
-
-                        MaskImage.SetPixels(colors);
-                    }
                     string json;
-
-                    if (controlNetData == null)
+                    
+                    
+                    if (controlNetData != null)
                     {
-                        SDParamsInImg2Img sd = new SDParamsInImg2Img();
-                        byte[] maskImgBytes = MaskImage.EncodeToPNG();
-                        maskImgString = Convert.ToBase64String(maskImgBytes);
-
-                        sd.mask = maskImgString;
+                        SDUtil.SDLog("use ControlNet");
+                        SDParamsInImg2ImgControlNet sd = new SDParamsInImg2ImgControlNet();
                         sd.init_images = new string[] { inputImgString };
                         sd.prompt = Prompt.positive;
                         sd.negative_prompt = Prompt.negative;
@@ -145,21 +134,40 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                         sd.seed = Seed;
                         sd.tiling = false;
                         sd.sampler_name = SamplerMethod;
+                        sd.alwayson_scripts = new ALWAYSONSCRIPTS();
+                        sd.alwayson_scripts.controlnet = new ControlNetDataArgs();
+                        sd.alwayson_scripts.controlnet.args = new[] { controlNetData };
+                        json = JsonConvert.SerializeObject(sd);
+                    }else if (MaskImage != null)
+                    {
+                        SDUtil.SDLog("use Mask");
+                        
+                        SDParamsInImg2ImgMask sd = new SDParamsInImg2ImgMask();
+                        sd.init_images = new string[] { inputImgString };
+                        sd.prompt = Prompt.positive;
+                        sd.negative_prompt = Prompt.negative;
+                        sd.steps = Step;
+                        sd.cfg_scale = CFG;
+                        sd.denoising_strength = DenisoStrength;
+                        sd.width = Screen.width;
+                        sd.height = Screen.height;
+                        sd.seed = Seed;
+                        sd.tiling = false;
+                        sd.sampler_name = SamplerMethod;
+                        byte[] maskImgBytes = MaskImage.EncodeToPNG();
+                        maskImgString = Convert.ToBase64String(maskImgBytes);
+                        sd.mask = maskImgString;
                         sd.inpainting_fill = inpainting_fill;
                         sd.inpaint_full_res = inpaint_full_res;
                         sd.inpaint_full_res_padding = inpaint_full_res_padding;
                         sd.inpainting_mask_invert = inpainting_mask_invert;
                         sd.mask_blur = mask_blur;
-                        // Serialize the input parameters
                         json = JsonConvert.SerializeObject(sd);
                     }
                     else
                     {
-                        SDParamsInImg2ImgControlNet sd = new SDParamsInImg2ImgControlNet();
-                        byte[] maskImgBytes = MaskImage.EncodeToPNG();
-                        maskImgString = Convert.ToBase64String(maskImgBytes);
-
-                        sd.mask = maskImgString;
+                        SDUtil.SDLog("use Only Img2Img");
+                        SDParamsInImg2Img sd = new SDParamsInImg2Img();
                         sd.init_images = new string[] { inputImgString };
                         sd.prompt = Prompt.positive;
                         sd.negative_prompt = Prompt.negative;
@@ -171,19 +179,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                         sd.seed = Seed;
                         sd.tiling = false;
                         sd.sampler_name = SamplerMethod;
-                        sd.inpainting_fill = inpainting_fill;
-                        sd.inpaint_full_res = inpaint_full_res;
-                        sd.inpaint_full_res_padding = inpaint_full_res_padding;
-                        sd.inpainting_mask_invert = inpainting_mask_invert;
-                        sd.mask_blur = mask_blur;
-                        if (controlNetData != null)
-                        {
-                            SDUtil.SDLog("use ControlNet");
-                            sd.alwayson_scripts = new ALWAYSONSCRIPTS();
-                            sd.alwayson_scripts.controlnet = new ControlNetDataArgs();
-                            sd.alwayson_scripts.controlnet.args = new[] { controlNetData };
-                        }
-                        // Serialize the input parameters
                         json = JsonConvert.SerializeObject(sd);
                     }
                     
@@ -191,10 +186,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                     streamWriter.Write(json);
                 }
             }
-            catch (Exception e)
-            {
-                Debug.LogError(e.Message + "\n\n" + e.StackTrace);
-            }
+            // catch (Exception e)
+            // {
+            //     Debug.LogError(e.Message + "\n\n" + e.StackTrace);
+            // }
 
             // Read the output of generation
             if (httpWebRequest != null)

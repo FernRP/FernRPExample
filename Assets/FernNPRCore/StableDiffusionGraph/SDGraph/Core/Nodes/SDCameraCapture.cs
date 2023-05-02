@@ -80,7 +80,12 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public void Update()
         {
             if(!enableUpdate) return;
-            if(currentCamere == null || cameraRT == null) return;
+            if(currentCamere == null) return;
+            if (cameraRT == null)
+            {
+                var resolution = SDUtil.GetMainGameViewSize();
+                cameraRT = RenderTexture.GetTemporary((int)resolution.x, (int)resolution.y, 24, RenderTextureFormat.DefaultHDR);
+            }
             var tempRT = currentCamere.targetTexture;
             currentCamere.targetTexture = cameraRT;
             currentCamere.Render();

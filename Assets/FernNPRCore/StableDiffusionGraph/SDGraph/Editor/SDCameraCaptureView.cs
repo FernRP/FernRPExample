@@ -102,7 +102,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
                     style.maxWidth = 256 + scaleWidth;
                     style.maxHeight = 256 + scaleHeight;
                     previewVE.style.maxWidth = scaleWidth;
-                    previewVE.style.maxWidth = scaleHeight;
+                    previewVE.style.maxHeight = scaleHeight;
                     var asptio = (float)previewVE.image.width / (float)scaleWidth;
                     previewVE.style.maxHeight = previewVE.image.height / asptio;
                     previewVE.AddToClassList("previewVE");

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FernGraph;
 using FernGraph.Editor;
 using StableDiffusionGraph.SDGraph.Nodes;
+using Unity.EditorCoroutines.Editor;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -35,6 +36,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
         {
             var lora = Target as SDLora;
             if(lora == null) return;
+            
             if (lora.loraNames != null && lora.loraNames.Count > 0)
             {
                 extensionContainer.Clear();
@@ -49,7 +51,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
                 // Add a callback to perform additional actions on value change
                 popup.RegisterValueChangedCallback(evt =>
                 {
-                    Debug.Log("Selected item: " + evt.newValue);
+                    SDUtil.SDLog($"Selected lora: { evt.newValue}");
                     lora.lora = evt.newValue;
                     lora.currentIndex = lora.loraNames.IndexOf(evt.newValue);
                 });
@@ -58,6 +60,10 @@ namespace StableDiffusionGraph.SDGraph.Editor
                 
                 extensionContainer.Add(listContainer);
                 RefreshExpandedState();
+            }
+            else
+            {
+                EditorCoroutineUtility.StartCoroutine(lora.ListLoraAsync(), this);
             }
         }
     }

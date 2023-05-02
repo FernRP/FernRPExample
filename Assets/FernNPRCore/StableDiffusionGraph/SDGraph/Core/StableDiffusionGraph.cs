@@ -47,7 +47,8 @@ namespace StableDiffusionGraph.SDGraph
     public class StableDiffusionGraph : Graph
     {
         public Dictionary<SDInpaintCapture, RTHandle> InpaintDict = new Dictionary<SDInpaintCapture, RTHandle>();
-
+        public string serverURL = "http://127.0.0.1:7860";
+        
         public SDStart sdStart;
         public override string Title {
             get {

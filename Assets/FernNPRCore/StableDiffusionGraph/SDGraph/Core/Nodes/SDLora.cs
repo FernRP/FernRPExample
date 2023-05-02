@@ -22,20 +22,24 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         public string loraDir;
         public List<string> loraNames;
         public int currentIndex = 0;
+
+        public StableDiffusionGraph stableGraph;
         
-        public SDLora()
+        public override void OnAddedToGraph()
         {
+            base.OnAddedToGraph();
+            stableGraph = Graph as StableDiffusionGraph;
             EditorCoroutineUtility.StartCoroutine(ListLoraAsync(), this);
         }
-        
+
         /// <summary>
         /// Get the list of available Stable Diffusion models.
         /// </summary>
         /// <returns></returns>
-        IEnumerator ListLoraAsync()
+        public IEnumerator ListLoraAsync()
         {
             // Stable diffusion API url for getting the models list
-            string url = SDDataHandle.serverURL + SDDataHandle.DataDirAPI;
+            string url = stableGraph.serverURL + SDDataHandle.DataDirAPI;
 
             UnityWebRequest request = new UnityWebRequest(url, "GET");
             request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
@@ -50,7 +54,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
         
             yield return request.SendWebRequest();
-
+            
             try
             {
                 // Deserialize the response to a class
@@ -58,6 +62,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 // Keep only the names of the models
                 loraDir = m.lora_dir;
                 string[] files = Directory.GetFiles(loraDir, "*.safetensors", SearchOption.AllDirectories);
+                SDUtil.SDLog(files.Length.ToString());
                 if (loraNames == null) loraNames = new List<string>();
                 loraNames.Clear();
                 foreach (var f in files)
@@ -67,9 +72,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             }
             catch (Exception)
             {
-                Debug.Log("Server needs and API key authentication. Please check your settings!");
+                Debug.Log(url + " " + request.downloadHandler.text);
             }
         }
+        
         
         public override object OnRequestValue(Port port)
         {
