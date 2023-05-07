@@ -1,0 +1,18 @@
+{
+    "name": "UniHumanoid.Editor",
+    "references": [
+        "GUID:05dd262a0c0a2f841b8252c8c3815582",
+        "GUID:b7aa47b240b57de44a4b2021c143c9bf"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

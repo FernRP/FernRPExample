@@ -1,0 +1,16 @@
+{
+    "name": "UniHumanoid",
+    "rootNamespace": "",
+    "references": [
+        "GUID:1cd941934d098654fa21a13f28346412"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
