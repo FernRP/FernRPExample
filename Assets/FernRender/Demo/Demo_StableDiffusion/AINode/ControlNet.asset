@@ -1,0 +1,410 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de77817b1826ac54ea60fad303d975b7, type: 3}
+  m_Name: ControlNet
+  m_EditorClassIdentifier: 
+  nodes:
+  - rid: 8299515750804357161
+  - rid: 8299515750804357163
+  - rid: 8299515750804357164
+  - rid: 8299515750804357165
+  - rid: 8299515750804357166
+  - rid: 8299515750804357167
+  - rid: 8299515750804357168
+  comments: []
+  assetVersion: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 8299515750804357161
+      type: {class: SDStart, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: 91b5a7a8-9f22-48ba-b794-a91be1ab0142
+        name: SD Start
+        graph: {fileID: 11400000}
+        position: {x: 19, y: 95.999985}
+        ports:
+        - name: SDFlowOut
+          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 1
+          connections:
+          - nodeId: 7d7108d0-e0db-40c5-a049-9db2ef4061ac
+            portName: SDFlowIn
+        - name: Model
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: aa1fffbc-8701-4648-8ed6-8f640f2c337b
+            portName: Model
+        Model: experience_70
+        serverURL: http://127.0.0.1:7860
+        useAuth: 0
+        user: 
+        pass: 
+    - rid: 8299515750804357163
+      type: {class: SDSamplerNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: 8a2f4180-3559-4888-be1c-f6f4421407c4
+        name: SD Sampler Node
+        graph: {fileID: 11400000}
+        position: {x: 797.80005, y: 92.33333}
+        ports:
+        - name: SDFlowOut
+          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 1
+          connections: []
+        - name: Prompt
+          type: Prompt, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 5d12a04b-893b-44a8-b06e-2c8204f0213e
+            portName: Prompt
+        - name: ControlNet
+          type: ControlNetData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 7d7108d0-e0db-40c5-a049-9db2ef4061ac
+            portName: ControlNet
+        - name: Step
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: CFG
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: Out Image
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 3fa0e720-e2f7-4387-b891-d5900a8d4de9
+            portName: In Image
+        - name: Seed
+          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 3fa0e720-e2f7-4387-b891-d5900a8d4de9
+            portName: Seed
+        - name: SDFlowIn
+          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 1
+          direction: 0
+          connections:
+          - nodeId: 7d7108d0-e0db-40c5-a049-9db2ef4061ac
+            portName: SDFlowOut
+        Step: 20
+        CFG: 7
+        OutputImage: {fileID: 0}
+        outSeed: 6221525876708669746
+        Seed: 6221525876708669746
+        SamplerMethod: Euler
+    - rid: 8299515750804357164
+      type: {class: SDCheckPoint, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: aa1fffbc-8701-4648-8ed6-8f640f2c337b
+        name: SD Check Point
+        graph: {fileID: 11400000}
+        position: {x: -290.6667, y: 95.999985}
+        ports:
+        - name: Model
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 91b5a7a8-9f22-48ba-b794-a91be1ab0142
+            portName: Model
+        Model: experience_70
+        modelNames:
+        - anythingV3Inpainting_1-inpainting
+        - ChilloutMix_chilloutmix_NiPrunedFp32Fix
+        - djzAirlockV21768V21512_21768
+        - Dreamlike_dreamlikeDiffusion10_10
+        - Dreamlike_dreamshaper_331BakedVae
+        - model
+        - NSFW_aresMix_v01
+        - NSFW_feiji_v2
+        - NSFW_kaelvinsmixhc_releaseV10
+        - NSFW_uberRealisticPornMerge_urpmv12
+        - Porn_uberRealisticPornMerge_urpmv13
+        - unstableinkdream_v6
+        - v1-5-pruned-emaonly
+        - "\u4E2D\u56FD\u6A21\u7279_kaelvinsmixhc_releaseV10"
+        - "\u52A8\u6F2B_UnstableInkDream_unstableinkdream_v6"
+        - "\u52A8\u6F2B_\u539A\u6D82\u98CE\u683C_dalcefoPainting_v4"
+        - "\u7EFC\u5408_anythingV3_fp16"
+        - "\u98CE\u683C\u5316\u4EBA\u50CF_portrait_10"
+        - NSFW_chilloutmix_NiPrunedFp32
+        - experience_70
+        - Dreamlike_cheeseDaddys_35
+        - chilloutmix_NiCkpt
+        currentIndex: 19
+    - rid: 8299515750804357165
+      type: {class: SDControlNet, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: 7d7108d0-e0db-40c5-a049-9db2ef4061ac
+        name: SD Control Net
+        graph: {fileID: 11400000}
+        position: {x: 264, y: 16}
+        ports:
+        - name: SDFlowOut
+          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 1
+          connections:
+          - nodeId: 8a2f4180-3559-4888-be1c-f6f4421407c4
+            portName: SDFlowIn
+        - name: Image
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: a2324c91-95fb-42dd-b09b-b59daa2a003a
+            portName: Out
+        - name: weight
+          type: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: resize_mode
+          type: ResizeMode, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: lowvram
+          type: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: processor_res
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: threshold_a
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: threshold_b
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: guidance_start
+          type: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: guidance_end
+          type: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: guidance
+          type: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: guessmode
+          type: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: ControlNet
+          type: ControlNetData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 8a2f4180-3559-4888-be1c-f6f4421407c4
+            portName: ControlNet
+        - name: SDFlowIn
+          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 1
+          direction: 0
+          connections:
+          - nodeId: 91b5a7a8-9f22-48ba-b794-a91be1ab0142
+            portName: SDFlowOut
+        controlNetImg: {fileID: 2800000, guid: 43d708db588b2eb47b04fa0014a9071c, type: 3}
+        module: none
+        model: control_v11f1p_sd15_depth [cfd03158]
+        weight: 1
+        resize_mode: 1
+        lowvram: 1
+        processor_res: 64
+        threshold_a: 64
+        threshold_b: 64
+        guidance_start: 0
+        guidance_end: 1
+        guidance: 1
+        guessmode: 0
+        modelList:
+        - control_v11e_sd15_ip2p [c4bb465c]
+        - control_v11e_sd15_shuffle [526bfdae]
+        - control_v11f1p_sd15_depth [cfd03158]
+        - control_v11p_sd15_canny [d14c016b]
+        - control_v11p_sd15_inpaint [ebff9138]
+        - control_v11p_sd15_lineart [43d4be0d]
+        - control_v11p_sd15_mlsd [aca30ff0]
+        - control_v11p_sd15_normalbae [316696f1]
+        - control_v11p_sd15_openpose [cab727d4]
+        - control_v11p_sd15_scribble [d4ba51ff]
+        - control_v11p_sd15_seg [e1f51eb9]
+        - control_v11p_sd15_softedge [a8575a2a]
+        - control_v11p_sd15s2_lineart_anime [3825e83e]
+        - control_v11u_sd15_tile [1f041471]
+        currentModelListIndex: 2
+        moudleList:
+        - none
+        - canny
+        - depth
+        - depth_leres
+        - hed
+        - hed_safe
+        - mediapipe_face
+        - mlsd
+        - normal_map
+        - openpose
+        - openpose_hand
+        - openpose_face
+        - openpose_faceonly
+        - openpose_full
+        - clip_vision
+        - color
+        - pidinet
+        - pidinet_safe
+        - pidinet_sketch
+        - pidinet_scribble
+        - scribble_xdog
+        - scribble_hed
+        - segmentation
+        - threshold
+        - depth_zoe
+        - normal_bae
+        - oneformer_coco
+        - oneformer_ade20k
+        - lineart
+        - lineart_coarse
+        - lineart_anime
+        - lineart_standard
+        - shuffle
+        - tile_resample
+        - inpaint
+        - invert
+        - lineart_anime_denoise
+        currentMoudleListIndex: 0
+    - rid: 8299515750804357166
+      type: {class: SDPreview, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: a2324c91-95fb-42dd-b09b-b59daa2a003a
+        name: SD Preview
+        graph: {fileID: 11400000}
+        position: {x: -336.50467, y: -643.9196}
+        ports:
+        - name: In Image
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: Out
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 7d7108d0-e0db-40c5-a049-9db2ef4061ac
+            portName: Image
+        - name: Seed
+          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        Image: {fileID: 2800000, guid: 43d708db588b2eb47b04fa0014a9071c, type: 3}
+        OutImage: {fileID: 2800000, guid: 43d708db588b2eb47b04fa0014a9071c, type: 3}
+        seed: 0
+    - rid: 8299515750804357167
+      type: {class: SDPrompt, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: 5d12a04b-893b-44a8-b06e-2c8204f0213e
+        name: SD Prompt
+        graph: {fileID: 11400000}
+        position: {x: 384.37915, y: 376.9}
+        ports:
+        - name: Positive
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: Negative
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: Prompt
+          type: Prompt, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 8a2f4180-3559-4888-be1c-f6f4421407c4
+            portName: Prompt
+        Positive: 4k, 1 girl, room, solo, class room
+        Negative: 2girl, many girl
+    - rid: 8299515750804357168
+      type: {class: SDPreview, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+      data:
+        id: 3fa0e720-e2f7-4387-b891-d5900a8d4de9
+        name: SD Preview
+        graph: {fileID: 11400000}
+        position: {x: 1127.3333, y: 91.99999}
+        ports:
+        - name: In Image
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 8a2f4180-3559-4888-be1c-f6f4421407c4
+            portName: Out Image
+        - name: Out
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections: []
+        - name: Seed
+          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 8a2f4180-3559-4888-be1c-f6f4421407c4
+            portName: Seed
+        Image: {fileID: 0}
+        OutImage: {fileID: 0}
+        seed: 6221525876708669746
