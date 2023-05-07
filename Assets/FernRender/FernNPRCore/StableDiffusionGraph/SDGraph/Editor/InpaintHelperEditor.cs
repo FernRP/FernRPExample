@@ -11,8 +11,6 @@ namespace FernNPRCore.StableDiffusionGraph.SDGraph
     [CustomEditor(typeof(InpaintHelper))]
     public class InpaintHelperEditor : Editor
     {
-        bool isRender = false;
-
         private SerializedProperty m_renderersProp;
         private static readonly int IsSDInPaint = Shader.PropertyToID("_Is_SDInPaint");
 

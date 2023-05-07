@@ -282,8 +282,10 @@ namespace FernNPRCore.StableDiffusionGraph
     {
         public string[] init_images = { "" };
         public int resize_mode = 0;
+
         public float denoising_strength = 0.5f;
-        public string mask = "";
+
+        //public string mask = null; 
         public int mask_blur = 4;
         public int inpainting_fill = 1;
         public bool inpaint_full_res = true;
@@ -325,52 +327,16 @@ namespace FernNPRCore.StableDiffusionGraph
         }
     }
 
-    class SDParamsInImg2ImgControlNet
+    class SDParamsInImg2ImgMask : SDParamsInImg2Img
     {
-        public string[] init_images = { "" };
-        public int resize_mode = 0;
-        public float denoising_strength = 0.5f;
         public string mask = "";
-        public int mask_blur = 4;
-        public int inpainting_fill = 1;
-        public bool inpaint_full_res = true;
-        public int inpaint_full_res_padding = 0;
-        public int inpainting_mask_invert = 0;
-        public int initial_noise_multiplier = 1;
-        public string prompt = "";
-        public string[] styles = { "" };
-        public long seed = -1;
-        public long subseed = -1;
-        public int subseed_strength = 0;
-        public int seed_resize_from_h = -1;
-        public int seed_resize_from_w = -1;
-        public string sampler_name = "Euler a";
-        public int batch_size = 1;
-        public int n_iter = 1;
-        public int steps = 50;
-        public float cfg_scale = 7;
-        public int width = 512;
-        public int height = 512;
-        public bool restore_faces = false;
-        public bool tiling = false;
-        public string negative_prompt = "";
-        public float eta = 0;
-        public float s_churn = 0;
-        public float s_tmax = 0;
-        public float s_tmin = 0;
-        public float s_noise = 1;
-        public SettingsOveride override_settings;
-        public bool override_settings_restore_afterwards = true;
-        public string[] script_args = { };
-        public string sampler_index = "Euler";
-        public bool include_init_images = false;
+    }
 
+
+    class SDParamsInImg2ImgControlNet : SDParamsInImg2Img
+    {
+        public string mask = null;
         public ALWAYSONSCRIPTS alwayson_scripts = null;
-
-        //    public string script_name = ""; // including this throws a 422 Unprocessable Entity error
-        public class SettingsOveride
-        {
-        }
     }
 
     /// <summary>
@@ -477,6 +443,13 @@ namespace FernNPRCore.StableDiffusionGraph
         Envelope_OuterFit = 2
     }
 
+    public enum ControlMode
+    {
+        Balanced = 0,
+        My_prompt_is_more_important = 1,
+        ControlNet_is_more_important = 2
+    }
+
     public class ControlNetData
     {
         public string input_image = "";
@@ -492,8 +465,7 @@ namespace FernNPRCore.StableDiffusionGraph
         public float guidance_start = 0.0f;
         public float guidance_end = 1.0f;
         public float guidance = 1f;
-        public bool guessmode = false;
-        public bool enabled = true;
+        public int control_mode = 0;
     }
 
     public class ControlNetDataArgs

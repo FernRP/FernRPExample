@@ -3,9 +3,11 @@ using System.Collections;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using FernGraph;
 using Newtonsoft.Json;
+using Unity.VisualScripting;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
@@ -103,6 +105,13 @@ namespace FernNPRCore.StableDiffusionGraph
             {
                 Debug.Log("Error: " + e.Message);
             }
+        }
+
+        public override void OnValidate()
+        {
+            base.OnValidate();
+            var stableGraph = this.Graph as StableDiffusionGraph;
+            stableGraph.serverURL = serverURL;
         }
     }
 }

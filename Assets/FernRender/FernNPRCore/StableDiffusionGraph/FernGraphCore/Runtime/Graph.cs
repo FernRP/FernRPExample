@@ -171,7 +171,7 @@ namespace FernGraph
         /// </summary>
         public T GetNode<T>() where T : Node
         {
-            return nodes.Find((node) => typeof(T).IsAssignableFrom(node.GetType())) as T;
+            return nodes.Find((node) => node is T) as T;
         } 
         /// <summary>
           /// Find the first node on the Graph of, or inherited from, the given type. 
@@ -186,9 +186,10 @@ namespace FernGraph
         /// </summary>
         public IEnumerable<T> GetNodes<T>() where T : Node
         {
+            if(nodes == null) yield break;
             for (int i = 0; i < nodes.Count; i++)
             {
-                if (typeof(T).IsAssignableFrom(nodes[i].GetType()))
+                if (nodes[i] is T)
                 {
                     yield return nodes[i] as T;
                 }

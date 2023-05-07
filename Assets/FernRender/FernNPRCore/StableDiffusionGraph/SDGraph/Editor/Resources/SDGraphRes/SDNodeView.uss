@@ -1,5 +1,4 @@
-﻿
-.sdNodeView #title {
+﻿.sdNodeView #title {
     padding-left: 18px;
     padding-right: 24px;
     padding-bottom: 18px;
@@ -8,7 +7,7 @@
 
 .sdConfigView #title {
     padding-left: 0;
-    background-color: #643b40;
+    background-color: #643b40; 
 }
 
 .stringNodeView #title {
@@ -46,7 +45,7 @@
     display: none;
 }
 
-.sdNodeView .portView.port.type-StableDiffusionGraph-SDGraph-SDFlowData {
+.sdNodeView .portView.port.type-FernNPRCore-StableDiffusionGraph-SDFlowData {
     --port-color: #ffffff;
 }
 
@@ -83,7 +82,7 @@
 .sdNodeView .portView.port.SDFlowOutPortView {
     position: absolute;
     top: -24px;
-    right: -4;
+    right: -4px; 
 }
 
 .sdNodeView #output {
@@ -95,7 +94,7 @@
     min-width: 35px;
 }
 
-.portView.port.type-StableDiffusionGraph-SDGraph-SDFlowData #connector {
+.portView.port.type-FernNPRCore-StableDiffusionGraph-SDFlowData #connector {
     width: 14px;
     height: 10px;
     border-top-left-radius: 0;
@@ -104,7 +103,7 @@
     border-bottom-right-radius: 5px;
 }
 
-.portView.port.type-StableDiffusionGraph-SDGraph-SDFlowData #connector > #cap {
+.portView.port.type-FernNPRCore-StableDiffusionGraph-SDFlowData #connector > #cap {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-top-right-radius: 5px;

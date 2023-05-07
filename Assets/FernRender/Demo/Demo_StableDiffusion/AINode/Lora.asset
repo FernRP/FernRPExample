@@ -13,155 +13,76 @@ MonoBehaviour:
   m_Name: Lora
   m_EditorClassIdentifier: 
   nodes:
-  - rid: 2019330481001594898
-  - rid: 2019330481001594902
-  - rid: 2019330481001594904
-  - rid: 2019330481001594908
-  - rid: 8299515750804357155
-  - rid: 8299515750804357156
-  - rid: 8299515750804357157
-  - rid: 8299515750804357158
-  - rid: 8299515750804357159
-  - rid: 8299515750804357160
+  - rid: 7516382605447528448
+  - rid: 7516382605447528460
+  - rid: 7516382605447528461
+  - rid: 7516382605447528462
+  - rid: 7516382605447528463
+  - rid: 7516382605447528464
+  - rid: 7516382605447528465
+  - rid: 7516382605447528466
+  - rid: 7516382605447528467
   comments: []
   assetVersion: 1
+  serverURL: http://127.0.0.1:7860
   references:
     version: 2
     RefIds:
-    - rid: 2019330481001594898
-      type: {class: SDStart, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+    - rid: 7516382605447528448
+      type: {class: SDStart, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
       data:
-        id: 2474aee0-ad60-4bc2-b159-a1cb21987ff5
+        id: a0eb5498-a3de-4a59-8897-104c878ffa9c
         name: SD Start
         graph: {fileID: 11400000}
-        position: {x: 200.1467, y: -528.67255}
+        position: {x: -86.66666, y: -153.99998}
         ports:
         - name: SDFlowOut
-          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+          type: FernNPRCore.StableDiffusionGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
             Culture=neutral, PublicKeyToken=null
           capacity: 0
           direction: 1
           connections:
-          - nodeId: 65287651-55f2-4f49-b7ec-9b5dbb4a6299
+          - nodeId: 1c5a8290-9ee2-4e00-be55-a11834d33318
             portName: SDFlowIn
         - name: Model
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           capacity: 0
           direction: 0
           connections:
-          - nodeId: 0ed69820-9841-4dcd-b18e-e592f801b238
+          - nodeId: a69f67d4-221f-4e3e-b57a-8bcb405e23a4
             portName: Model
-        Model: chilloutmix_NiCkpt
+        Model: Girl_chilloutmix_NiCkpt
         serverURL: http://127.0.0.1:7860
         useAuth: 0
-        user: dejhon
-        pass: dejhon.123456
-    - rid: 2019330481001594902
-      type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+        user: 
+        pass: 
+    - rid: 7516382605447528460
+      type: {class: SDCheckPoint, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
       data:
-        id: 3afce238-dd7d-49d3-95c0-067741b7a16d
-        name: String Node
-        graph: {fileID: 11400000}
-        position: {x: -736.6667, y: -383.33334}
-        ports:
-        - name: Text
-          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 1
-          direction: 1
-          connections:
-          - nodeId: 1d4aa22f-a764-452a-92d1-d90503bf3475
-            portName: Prompt
-        Text: photorealistic, long_hair, realistic, solo, long_hair, (photorealistic:1.4),
-          best quality, ultra high res, teeth, Long sleeve,Blue dress, Big mouth,full
-          body, 3girls, Grin, graffiti (medium), ok sign, stand, 1girl,full body,
-          beautiful, masterpiece, best quality, extremely detailed face, perfect
-          lighting, 1girl, solo, best quality, ultra high res, (photorealistic:1.4),
-          parted lips lipstick, ultra detailed, Peach buttock, looking at viewer,
-          masterpiece, best quality, from behind
-    - rid: 2019330481001594904
-      type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
-      data:
-        id: c9d4858c-11e3-48c8-a690-230935c9803f
-        name: String Node
-        graph: {fileID: 11400000}
-        position: {x: -101.33334, y: -189}
-        ports:
-        - name: Text
-          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 1
-          direction: 1
-          connections:
-          - nodeId: a5f905f7-fb46-4b43-a3e5-6e749f056bdf
-            portName: Negative
-        Text: "nsfw, nude, paintings, sketches, (worst quality:2), (low quality:2),
-          (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)),
-          skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), glans, anime\uFF0C(worst
-          quality, low quality:1.4), 3d, curvy, fat, gray_scale, (over three finger\\\\(fingers
-          excluding thumb\\\\):2), (fused anatomy), (bad anatomy\\\\(body\\\\)),
-          (bad anatomy\\\\(hand\\\\)), (bad anatomy\\\\(finger\\\\)), (over four
-          fingers\\\\(finger\\\\):2), (bad anatomy\\\\(arms\\\\)), (over two arms\\\\(body\\\\)),
-          (bad anatomy\\\\(leg\\\\)), (over two legs\\\\(body\\\\)), (interrupted\\\\(body,
-          arm, leg, finger\\\\)), (bad anatomy\\\\(arm\\\\)), (bad detail\\\\(finger\\\\):1.2),
-          (bad anatomy\\\\(fingers\\\\):1.2), (multiful\\\\(fingers\\\\):1.2), (bad
-          anatomy\\\\(finger\\\\):1.2), (bad anatomy\\\\(fingers\\\\):1.2), (fused\\\\(fingers\\\\):1.2),
-          (over four fingers\\\\(finger\\\\):2), (multiful\\\\(hands\\\\)), (multiful\\\\(arms\\\\)),
-          (multiful\\\\(legs\\\\)), (bad detailed background), (unclear architectural
-          outline), (non-linear background), heterochromia, monochrome, lowres, bad
-          anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits,
-          cropped, worst quality, low quality, normal quality, jpeg artifacts, signature,
-          watermark, username, blurry, lowres, 2girl3girl 4girl5girl, bad anatomy,
-          more than 1penis, bad hands, text, error, missing fingers, cropped, extra
-          digit, fewer digits, worst quality, low quality, normal quality, jpeg artifacts,
-          signature, watermark, username, blurry, artist name, Poor Quality, Poor
-          Detail, Weird Detail, Low Quality Effect, extra_nipples, extra face, Multiple
-          Views, extra penis, no penis between breast, , 2koma, 3koma, more than
-          1girl, ((2feet, 3feet, extra legs, extra feet, 4toes, 6toes, 7toes, 8toes)),
-          lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
-          fewer digits, cropped, worst quality, low quality, normal quality, jpeg
-          artifacts, signature, watermark, username, blurry, blurry background, multiple
-          views, awkward_armpit, glow, reference inset, (mutated hands and fingers:1.5),
-          (long body :1.3), long neck,"
-    - rid: 2019330481001594908
-      type: {class: StringNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
-      data:
-        id: ae05181c-dd42-42b2-a202-1434d2b8ef45
-        name: String Node
-        graph: {fileID: 11400000}
-        position: {x: -484.876, y: 18.999985}
-        ports:
-        - name: Text
-          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 1
-          direction: 1
-          connections: []
-        Text: 1girl
-    - rid: 8299515750804357155
-      type: {class: SDCheckPoint, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
-      data:
-        id: 0ed69820-9841-4dcd-b18e-e592f801b238
+        id: a69f67d4-221f-4e3e-b57a-8bcb405e23a4
         name: SD Check Point
         graph: {fileID: 11400000}
-        position: {x: -31.566668, y: -529.3333}
+        position: {x: -448, y: -157.33334}
         ports:
         - name: Model
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           capacity: 1
           direction: 1
           connections:
-          - nodeId: 2474aee0-ad60-4bc2-b159-a1cb21987ff5
+          - nodeId: a0eb5498-a3de-4a59-8897-104c878ffa9c
             portName: Model
-        Model: chilloutmix_NiCkpt
+        Model: Girl_chilloutmix_NiCkpt
         modelNames:
-        - anythingV3Inpainting_1-inpainting
         - ChilloutMix_chilloutmix_NiPrunedFp32Fix
-        - djzAirlockV21768V21512_21768
+        - Dreamlike_cheeseDaddys_35
         - Dreamlike_dreamlikeDiffusion10_10
         - Dreamlike_dreamshaper_331BakedVae
-        - model
-        - NSFW_aresMix_v01
-        - NSFW_feiji_v2
-        - NSFW_kaelvinsmixhc_releaseV10
-        - NSFW_uberRealisticPornMerge_urpmv12
+        - Girl_aresMix_v01
+        - Girl_chilloutmix_NiCkpt
+        - Girl_chilloutmix_NiPrunedFp32
+        - Girl_feiji_v2
+        - Girl_kaelvinsmixhc_releaseV10
+        - Girl_uberRealisticPornMerge_urpmv12
         - Porn_uberRealisticPornMerge_urpmv13
         - unstableinkdream_v6
         - v1-5-pruned-emaonly
@@ -169,188 +90,24 @@ MonoBehaviour:
         - "\u52A8\u6F2B_UnstableInkDream_unstableinkdream_v6"
         - "\u52A8\u6F2B_\u539A\u6D82\u98CE\u683C_dalcefoPainting_v4"
         - "\u7EFC\u5408_anythingV3_fp16"
+        - "\u7EFC\u5408_anythingV3Inpainting_1-inpainting"
         - "\u98CE\u683C\u5316\u4EBA\u50CF_portrait_10"
-        - NSFW_chilloutmix_NiPrunedFp32
-        - experience_70
-        - Dreamlike_cheeseDaddys_35
-        - chilloutmix_NiCkpt
-        currentIndex: 21
-    - rid: 8299515750804357156
-      type: {class: SDSamplerNode, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+        - "\u52A8\u6F2B_experience_70"
+        currentIndex: 5
+    - rid: 7516382605447528461
+      type: {class: SDLora, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
       data:
-        id: 65287651-55f2-4f49-b7ec-9b5dbb4a6299
-        name: SD Sampler Node
-        graph: {fileID: 11400000}
-        position: {x: 454.3333, y: -529.3333}
-        ports:
-        - name: SDFlowOut
-          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
-          capacity: 0
-          direction: 1
-          connections: []
-        - name: Prompt
-          type: Prompt, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          capacity: 0
-          direction: 0
-          connections:
-          - nodeId: a5f905f7-fb46-4b43-a3e5-6e749f056bdf
-            portName: Prompt
-        - name: ControlNet
-          type: ControlNetData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          capacity: 0
-          direction: 0
-          connections: []
-        - name: Step
-          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 0
-          direction: 0
-          connections: []
-        - name: CFG
-          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 0
-          direction: 0
-          connections: []
-        - name: Out Image
-          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          capacity: 1
-          direction: 1
-          connections:
-          - nodeId: 37eeb74b-31f1-4fa8-b6f0-c0fc5351c6e8
-            portName: In Image
-        - name: Seed
-          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 1
-          direction: 1
-          connections:
-          - nodeId: 37eeb74b-31f1-4fa8-b6f0-c0fc5351c6e8
-            portName: Seed
-        - name: SDFlowIn
-          type: StableDiffusionGraph.SDGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
-            Culture=neutral, PublicKeyToken=null
-          capacity: 1
-          direction: 0
-          connections:
-          - nodeId: 2474aee0-ad60-4bc2-b159-a1cb21987ff5
-            portName: SDFlowOut
-        Step: 30
-        CFG: 7
-        OutputImage: {fileID: 0}
-        outSeed: 3920192601043630158
-        Seed: 3920192601043630158
-        SamplerMethod: DPM++ 2M Karras
-    - rid: 8299515750804357157
-      type: {class: SDPreview, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
-      data:
-        id: 37eeb74b-31f1-4fa8-b6f0-c0fc5351c6e8
-        name: SD Preview
-        graph: {fileID: 11400000}
-        position: {x: 826.8168, y: -529.33344}
-        ports:
-        - name: In Image
-          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          capacity: 0
-          direction: 0
-          connections:
-          - nodeId: 65287651-55f2-4f49-b7ec-9b5dbb4a6299
-            portName: Out Image
-        - name: Out
-          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-            PublicKeyToken=null
-          capacity: 1
-          direction: 1
-          connections: []
-        - name: Seed
-          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 0
-          direction: 0
-          connections:
-          - nodeId: 65287651-55f2-4f49-b7ec-9b5dbb4a6299
-            portName: Seed
-        Image: {fileID: 0}
-        OutImage: {fileID: 0}
-        seed: 3920192601043630158
-    - rid: 8299515750804357158
-      type: {class: SDPrompt, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
-      data:
-        id: a5f905f7-fb46-4b43-a3e5-6e749f056bdf
-        name: SD Prompt
-        graph: {fileID: 11400000}
-        position: {x: 230, y: -383.33334}
-        ports:
-        - name: Positive
-          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 0
-          direction: 0
-          connections:
-          - nodeId: 1f20f256-7da7-42a2-9daf-68cb639cb00b
-            portName: Lora
-        - name: Negative
-          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-          capacity: 0
-          direction: 0
-          connections:
-          - nodeId: c9d4858c-11e3-48c8-a690-230935c9803f
-            portName: Text
-        - name: Prompt
-          type: Prompt, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-          capacity: 1
-          direction: 1
-          connections:
-          - nodeId: 65287651-55f2-4f49-b7ec-9b5dbb4a6299
-            portName: Prompt
-        Positive: "photorealistic, long_hair, realistic, solo, long_hair, (photorealistic:1.4),
-          best quality, ultra high res, teeth, Long sleeve,Blue dress, Big mouth,full
-          body, 3girls, Grin, graffiti (medium), ok sign, stand, 1girl,full body,
-          beautiful, masterpiece, best quality, extremely detailed face, perfect
-          lighting, 1girl, solo, best quality, ultra high res, (photorealistic:1.4),
-          parted lips lipstick, ultra detailed, Peach buttock, looking at viewer,
-          masterpiece, best quality, from behind,<lora:chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50):0.75>,<lora:doggystyle_lora32V1:0.5>"
-        Negative: "nsfw, nude, paintings, sketches, (worst quality:2), (low quality:2),
-          (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)),
-          skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), glans, anime\uFF0C(worst
-          quality, low quality:1.4), 3d, curvy, fat, gray_scale, (over three finger\\\\(fingers
-          excluding thumb\\\\):2), (fused anatomy), (bad anatomy\\\\(body\\\\)),
-          (bad anatomy\\\\(hand\\\\)), (bad anatomy\\\\(finger\\\\)), (over four
-          fingers\\\\(finger\\\\):2), (bad anatomy\\\\(arms\\\\)), (over two arms\\\\(body\\\\)),
-          (bad anatomy\\\\(leg\\\\)), (over two legs\\\\(body\\\\)), (interrupted\\\\(body,
-          arm, leg, finger\\\\)), (bad anatomy\\\\(arm\\\\)), (bad detail\\\\(finger\\\\):1.2),
-          (bad anatomy\\\\(fingers\\\\):1.2), (multiful\\\\(fingers\\\\):1.2), (bad
-          anatomy\\\\(finger\\\\):1.2), (bad anatomy\\\\(fingers\\\\):1.2), (fused\\\\(fingers\\\\):1.2),
-          (over four fingers\\\\(finger\\\\):2), (multiful\\\\(hands\\\\)), (multiful\\\\(arms\\\\)),
-          (multiful\\\\(legs\\\\)), (bad detailed background), (unclear architectural
-          outline), (non-linear background), heterochromia, monochrome, lowres, bad
-          anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits,
-          cropped, worst quality, low quality, normal quality, jpeg artifacts, signature,
-          watermark, username, blurry, lowres, 2girl3girl 4girl5girl, bad anatomy,
-          more than 1penis, bad hands, text, error, missing fingers, cropped, extra
-          digit, fewer digits, worst quality, low quality, normal quality, jpeg artifacts,
-          signature, watermark, username, blurry, artist name, Poor Quality, Poor
-          Detail, Weird Detail, Low Quality Effect, extra_nipples, extra face, Multiple
-          Views, extra penis, no penis between breast, , 2koma, 3koma, more than
-          1girl, ((2feet, 3feet, extra legs, extra feet, 4toes, 6toes, 7toes, 8toes)),
-          lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
-          fewer digits, cropped, worst quality, low quality, normal quality, jpeg
-          artifacts, signature, watermark, username, blurry, blurry background, multiple
-          views, awkward_armpit, glow, reference inset, (mutated hands and fingers:1.5),
-          (long body :1.3), long neck,"
-    - rid: 8299515750804357159
-      type: {class: SDLora, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
-      data:
-        id: 1d4aa22f-a764-452a-92d1-d90503bf3475
+        id: fb7319b9-8177-4d1c-b791-31788797c806
         name: SD Lora
         graph: {fileID: 11400000}
-        position: {x: -367.3335, y: -419.3333}
+        position: {x: -708.0237, y: -0.6666832}
         ports:
         - name: Prompt
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           capacity: 0
           direction: 0
           connections:
-          - nodeId: 3afce238-dd7d-49d3-95c0-067741b7a16d
+          - nodeId: 64a31354-9147-4e15-9387-7247a044f795
             portName: Text
         - name: Strength
           type: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -362,16 +119,10 @@ MonoBehaviour:
           capacity: 1
           direction: 1
           connections:
-          - nodeId: 1f20f256-7da7-42a2-9daf-68cb639cb00b
+          - nodeId: 0dda4e65-4392-4022-b6d9-589a3e69bea2
             portName: Prompt
-        prompt: photorealistic, long_hair, realistic, solo, long_hair, (photorealistic:1.4),
-          best quality, ultra high res, teeth, Long sleeve,Blue dress, Big mouth,full
-          body, 3girls, Grin, graffiti (medium), ok sign, stand, 1girl,full body,
-          beautiful, masterpiece, best quality, extremely detailed face, perfect
-          lighting, 1girl, solo, best quality, ultra high res, (photorealistic:1.4),
-          parted lips lipstick, ultra detailed, Peach buttock, looking at viewer,
-          masterpiece, best quality, from behind
-        strength: 0.75
+        prompt: 1girl
+        strength: 0.7
         lora: "chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50)"
         loraDir: D:\ForkProject\stable-diffusion-webui\models\Lora
         loraNames:
@@ -392,23 +143,241 @@ MonoBehaviour:
         - taiwanDollLikeness_v10
         - wakamezakeCumBetweenThighs_v10
         - "animeLineartStyle_v20Offset(\u7EBF\u7A3F)"
+        - jackscape
+        - Jordan_3
+        - sakimori-000017
+        - xsarchitectural-12NightMoonsci-fi
         - chilloutmixss30_v30
         - "chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50)"
-        currentIndex: 18
-    - rid: 8299515750804357160
-      type: {class: SDLora, ns: StableDiffusionGraph.SDGraph.Nodes, asm: Assembly-CSharp}
+        currentIndex: 22
+        stableGraph: {fileID: 0}
+    - rid: 7516382605447528462
+      type: {class: StringNode, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
       data:
-        id: 1f20f256-7da7-42a2-9daf-68cb639cb00b
+        id: 64a31354-9147-4e15-9387-7247a044f795
+        name: String Node
+        graph: {fileID: 11400000}
+        position: {x: -1071.6377, y: -0.6666565}
+        ports:
+        - name: Text
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: fb7319b9-8177-4d1c-b791-31788797c806
+            portName: Prompt
+        Text: 1girl
+    - rid: 7516382605447528463
+      type: {class: SDSamplerNode, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
+      data:
+        id: 1c5a8290-9ee2-4e00-be55-a11834d33318
+        name: SD Sampler Node
+        graph: {fileID: 11400000}
+        position: {x: 146.17328, y: -66.000015}
+        ports:
+        - name: SDFlowOut
+          type: FernNPRCore.StableDiffusionGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 1
+          connections: []
+        - name: Prompt
+          type: FernNPRCore.StableDiffusionGraph.Prompt, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: c451f7f3-dc9b-4bdd-b24b-a14586d63dfd
+            portName: Prompt
+        - name: ControlNet
+          type: FernNPRCore.StableDiffusionGraph.ControlNetData, Assembly-CSharp,
+            Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: Step
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: CFG
+          type: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        - name: Out Image
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: abc30eaf-2e8c-49ee-8a0b-0574d7771fc2
+            portName: In Image
+        - name: Seed
+          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 1
+          direction: 1
+          connections: []
+        - name: SDFlowIn
+          type: FernNPRCore.StableDiffusionGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 1
+          direction: 0
+          connections:
+          - nodeId: a0eb5498-a3de-4a59-8897-104c878ffa9c
+            portName: SDFlowOut
+        Step: 20
+        CFG: 7
+        OutputImage: {fileID: 0}
+        outSeed: 2451427530683965207
+        Seed: 2451427530683965207
+        SamplerMethod: Euler
+    - rid: 7516382605447528464
+      type: {class: SDPrompt, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
+      data:
+        id: c451f7f3-dc9b-4bdd-b24b-a14586d63dfd
+        name: SD Prompt
+        graph: {fileID: 11400000}
+        position: {x: -120, y: 119.999985}
+        ports:
+        - name: Positive
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 0dda4e65-4392-4022-b6d9-589a3e69bea2
+            portName: Lora
+        - name: Negative
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 055b3a44-032a-4f9f-827b-226f8a30a35d
+            portName: Text
+        - name: Prompt
+          type: FernNPRCore.StableDiffusionGraph.Prompt, Assembly-CSharp, Version=0.0.0.0,
+            Culture=neutral, PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: 1c5a8290-9ee2-4e00-be55-a11834d33318
+            portName: Prompt
+        Positive: "1girl,<lora:chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50):0.7>,<lora:doggystylePov_v10:1>"
+        Negative: "nsfw\uFF0Cpaintings, sketches, (worst quality:2), (low quality:2),
+          (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)),
+          skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), glans, anime\uFF0C(worst
+          quality, low quality:1.4), 3d, curvy, fat, gray_scale, (over three finger\\\\(fingers
+          excluding thumb\\\\):2), (fused anatomy), (bad anatomy\\\\(body\\\\)),
+          (bad anatomy\\\\(hand\\\\)), (bad anatomy\\\\(finger\\\\)), (over four
+          fingers\\\\(finger\\\\):2), (bad anatomy\\\\(arms\\\\)), (over two arms\\\\(body\\\\)),
+          (bad anatomy\\\\(leg\\\\)), (over two legs\\\\(body\\\\)), (interrupted\\\\(body,
+          arm, leg, finger\\\\)), (bad anatomy\\\\(arm\\\\)), (bad detail\\\\(finger\\\\):1.2),
+          (bad anatomy\\\\(fingers\\\\):1.2), (multiful\\\\(fingers\\\\):1.2), (bad
+          anatomy\\\\(finger\\\\):1.2), (bad anatomy\\\\(fingers\\\\):1.2), (fused\\\\(fingers\\\\):1.2),
+          (over four fingers\\\\(finger\\\\):2), (multiful\\\\(hands\\\\)), (multiful\\\\(arms\\\\)),
+          (multiful\\\\(legs\\\\)), (bad detailed background), (unclear architectural
+          outline), (non-linear background), heterochromia, monochrome, lowres, bad
+          anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits,
+          cropped, worst quality, low quality, normal quality, jpeg artifacts, signature,
+          watermark, username, blurry, lowres, 2girl3girl 4girl5girl, bad anatomy,
+          more than 1penis, bad hands, text, error, missing fingers, cropped, extra
+          digit, fewer digits, worst quality, low quality, normal quality, jpeg artifacts,
+          signature, watermark, username, blurry, artist name, Poor Quality, Poor
+          Detail, Weird Detail, Low Quality Effect, extra_nipples, extra face, Multiple
+          Views, extra penis, no penis between breast, , 2koma, 3koma, more than
+          1girl, ((2feet, 3feet, extra legs, extra feet, 4toes, 6toes, 7toes, 8toes)),
+          lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
+          fewer digits, cropped, worst quality, low quality, normal quality, jpeg
+          artifacts, signature, watermark, username, blurry, blurry background, multiple
+          views, awkward_armpit, glow, reference inset, (mutated hands and fingers:1.5),
+          (long body :1.3), long neck,"
+    - rid: 7516382605447528465
+      type: {class: StringNode, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
+      data:
+        id: 055b3a44-032a-4f9f-827b-226f8a30a35d
+        name: String Node
+        graph: {fileID: 11400000}
+        position: {x: -553, y: 189.66667}
+        ports:
+        - name: Text
+          type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 1
+          direction: 1
+          connections:
+          - nodeId: c451f7f3-dc9b-4bdd-b24b-a14586d63dfd
+            portName: Negative
+        Text: "nsfw\uFF0Cpaintings, sketches, (worst quality:2), (low quality:2),
+          (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)),
+          skin spots, acnes, skin blemishes, age spot, (outdoor:1.6), glans, anime\uFF0C(worst
+          quality, low quality:1.4), 3d, curvy, fat, gray_scale, (over three finger\\\\(fingers
+          excluding thumb\\\\):2), (fused anatomy), (bad anatomy\\\\(body\\\\)),
+          (bad anatomy\\\\(hand\\\\)), (bad anatomy\\\\(finger\\\\)), (over four
+          fingers\\\\(finger\\\\):2), (bad anatomy\\\\(arms\\\\)), (over two arms\\\\(body\\\\)),
+          (bad anatomy\\\\(leg\\\\)), (over two legs\\\\(body\\\\)), (interrupted\\\\(body,
+          arm, leg, finger\\\\)), (bad anatomy\\\\(arm\\\\)), (bad detail\\\\(finger\\\\):1.2),
+          (bad anatomy\\\\(fingers\\\\):1.2), (multiful\\\\(fingers\\\\):1.2), (bad
+          anatomy\\\\(finger\\\\):1.2), (bad anatomy\\\\(fingers\\\\):1.2), (fused\\\\(fingers\\\\):1.2),
+          (over four fingers\\\\(finger\\\\):2), (multiful\\\\(hands\\\\)), (multiful\\\\(arms\\\\)),
+          (multiful\\\\(legs\\\\)), (bad detailed background), (unclear architectural
+          outline), (non-linear background), heterochromia, monochrome, lowres, bad
+          anatomy, bad hands, text, error, missing fingers, extra digit, fewer digits,
+          cropped, worst quality, low quality, normal quality, jpeg artifacts, signature,
+          watermark, username, blurry, lowres, 2girl3girl 4girl5girl, bad anatomy,
+          more than 1penis, bad hands, text, error, missing fingers, cropped, extra
+          digit, fewer digits, worst quality, low quality, normal quality, jpeg artifacts,
+          signature, watermark, username, blurry, artist name, Poor Quality, Poor
+          Detail, Weird Detail, Low Quality Effect, extra_nipples, extra face, Multiple
+          Views, extra penis, no penis between breast, , 2koma, 3koma, more than
+          1girl, ((2feet, 3feet, extra legs, extra feet, 4toes, 6toes, 7toes, 8toes)),
+          lowres, bad anatomy, bad hands, text, error, missing fingers, extra digit,
+          fewer digits, cropped, worst quality, low quality, normal quality, jpeg
+          artifacts, signature, watermark, username, blurry, blurry background, multiple
+          views, awkward_armpit, glow, reference inset, (mutated hands and fingers:1.5),
+          (long body :1.3), long neck,"
+    - rid: 7516382605447528466
+      type: {class: SDPreview, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
+      data:
+        id: abc30eaf-2e8c-49ee-8a0b-0574d7771fc2
+        name: SD Preview
+        graph: {fileID: 11400000}
+        position: {x: 451.3927, y: -58.000008}
+        ports:
+        - name: In Image
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 0
+          direction: 0
+          connections:
+          - nodeId: 1c5a8290-9ee2-4e00-be55-a11834d33318
+            portName: Out Image
+        - name: Out
+          type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+            PublicKeyToken=null
+          capacity: 1
+          direction: 1
+          connections: []
+        - name: Seed
+          type: System.Int64, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+          capacity: 0
+          direction: 0
+          connections: []
+        Image: {fileID: 0}
+        OutImage: {fileID: 0}
+        seed: 0
+    - rid: 7516382605447528467
+      type: {class: SDLora, ns: FernNPRCore.StableDiffusionGraph, asm: Assembly-CSharp}
+      data:
+        id: 0dda4e65-4392-4022-b6d9-589a3e69bea2
         name: SD Lora
         graph: {fileID: 11400000}
-        position: {x: -47.74105, y: -414.66663}
+        position: {x: -429.34116, y: -0.6666565}
         ports:
         - name: Prompt
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           capacity: 0
           direction: 0
           connections:
-          - nodeId: 1d4aa22f-a764-452a-92d1-d90503bf3475
+          - nodeId: fb7319b9-8177-4d1c-b791-31788797c806
             portName: Lora
         - name: Strength
           type: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -420,17 +389,11 @@ MonoBehaviour:
           capacity: 1
           direction: 1
           connections:
-          - nodeId: a5f905f7-fb46-4b43-a3e5-6e749f056bdf
+          - nodeId: c451f7f3-dc9b-4bdd-b24b-a14586d63dfd
             portName: Positive
-        prompt: "photorealistic, long_hair, realistic, solo, long_hair, (photorealistic:1.4),
-          best quality, ultra high res, teeth, Long sleeve,Blue dress, Big mouth,full
-          body, 3girls, Grin, graffiti (medium), ok sign, stand, 1girl,full body,
-          beautiful, masterpiece, best quality, extremely detailed face, perfect
-          lighting, 1girl, solo, best quality, ultra high res, (photorealistic:1.4),
-          parted lips lipstick, ultra detailed, Peach buttock, looking at viewer,
-          masterpiece, best quality, from behind,<lora:chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50):0.75>"
-        strength: 0.5
-        lora: doggystyle_lora32V1
+        prompt: "1girl,<lora:chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50):0.7>"
+        strength: 1
+        lora: doggystylePov_v10
         loraDir: D:\ForkProject\stable-diffusion-webui\models\Lora
         loraNames:
         - bustCupCumInBetweenBooba_v10
@@ -450,6 +413,11 @@ MonoBehaviour:
         - taiwanDollLikeness_v10
         - wakamezakeCumBetweenThighs_v10
         - "animeLineartStyle_v20Offset(\u7EBF\u7A3F)"
+        - jackscape
+        - Jordan_3
+        - sakimori-000017
+        - xsarchitectural-12NightMoonsci-fi
         - chilloutmixss30_v30
         - "chilloutmixss_xss10(\u4E00\u6817\u6C99\u5B50)"
-        currentIndex: 4
+        currentIndex: 3
+        stableGraph: {fileID: 0}

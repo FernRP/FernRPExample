@@ -21,7 +21,7 @@ namespace FernNPRCore.StableDiffusionGraph
         public string module = "none";
         public string model = "none";
         [Input] public float weight = 1;
-        [Input] public ResizeMode resize_mode = ResizeMode.JustResize;
+        [Input] public ResizeMode resize_mode = ResizeMode.ScaleToFit_InnerFit;
         [Input] public bool lowvram = false;
         [Input] public int processor_res = 64;
         [Input] public int threshold_a = 64;
@@ -29,7 +29,7 @@ namespace FernNPRCore.StableDiffusionGraph
         [Input] public float guidance_start = 0.0f;
         [Input] public float guidance_end = 1.0f;
         [Input] public float guidance = 1f;
-        [Input] public bool guessmode = true;
+        [Input] public ControlMode control_mode = ControlMode.Balanced;
         [Output("ControlNet")] public ControlNetData controlNet;
 
         public List<string> modelList = new List<string>();
@@ -161,7 +161,7 @@ namespace FernNPRCore.StableDiffusionGraph
             controlNet.guidance_start = guidance_start;
             controlNet.guidance_end = guidance_end;
             controlNet.guidance = guidance;
-            controlNet.guessmode = guessmode;
+            controlNet.control_mode = (int)control_mode;
             if (controlNetImg != null)
             {
                 byte[] inputImgBytes = controlNetImg.EncodeToPNG();
