@@ -11,7 +11,7 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering;
 using Random = UnityEngine.Random;
 
-namespace StableDiffusionGraph.SDGraph.Nodes
+namespace FernNPRCore.StableDiffusionGraph
 {
     [Node(Path = "SD Standard")]
     [Tags("SD Node")]

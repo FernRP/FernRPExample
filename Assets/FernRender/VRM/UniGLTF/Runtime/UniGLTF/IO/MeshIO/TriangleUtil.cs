@@ -2,50 +2,55 @@
 using System.Linq;
 using System.Collections.Generic;
 
-
-public static class TriangleUtil
+namespace UniGLTF
 {
-    public static IEnumerable<int> FlipTriangle(IEnumerable<Byte> src)
+    public static class TriangleUtil
     {
-        return FlipTriangle(src.Select(x => (Int32)x));
-    }
-
-    public static IEnumerable<int> FlipTriangle(IEnumerable<UInt16> src)
-    {
-        return FlipTriangle(src.Select(x => (Int32)x));
-    }
-
-    public static IEnumerable<int> FlipTriangle(IEnumerable<UInt32> src)
-    {
-        return FlipTriangle(src.Select(x => (Int32)x));
-    }
-
-    public static IEnumerable<int> FlipTriangle(IEnumerable<Int32> src)
-    {
-        var it = src.GetEnumerator();
-        while (true)
+        public static IEnumerable<int> FlipTriangle(IEnumerable<Byte> src)
         {
-            if (!it.MoveNext())
-            {
-                yield break;
-            }
-            var i0 = it.Current;
+            return FlipTriangle(src.Select(x => (Int32)x));
+        }
 
-            if (!it.MoveNext())
-            {
-                yield break;
-            }
-            var i1 = it.Current;
+        public static IEnumerable<int> FlipTriangle(IEnumerable<UInt16> src)
+        {
+            return FlipTriangle(src.Select(x => (Int32)x));
+        }
 
-            if (!it.MoveNext())
-            {
-                yield break;
-            }
-            var i2 = it.Current;
+        public static IEnumerable<int> FlipTriangle(IEnumerable<UInt32> src)
+        {
+            return FlipTriangle(src.Select(x => (Int32)x));
+        }
 
-            yield return i2;
-            yield return i1;
-            yield return i0;
+        public static IEnumerable<int> FlipTriangle(IEnumerable<Int32> src)
+        {
+            var it = src.GetEnumerator();
+            while (true)
+            {
+                if (!it.MoveNext())
+                {
+                    yield break;
+                }
+
+                var i0 = it.Current;
+
+                if (!it.MoveNext())
+                {
+                    yield break;
+                }
+
+                var i1 = it.Current;
+
+                if (!it.MoveNext())
+                {
+                    yield break;
+                }
+
+                var i2 = it.Current;
+
+                yield return i2;
+                yield return i1;
+                yield return i0;
+            }
         }
     }
 }

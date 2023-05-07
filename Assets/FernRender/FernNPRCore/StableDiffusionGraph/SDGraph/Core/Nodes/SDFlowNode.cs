@@ -3,7 +3,7 @@ using System.Linq;
 using FernGraph;
 using UnityEngine;
 
-namespace StableDiffusionGraph.SDGraph.Nodes
+namespace FernNPRCore.StableDiffusionGraph
 {
     [Output("SDFlowOut", typeof(SDFlowData), Multiple = false)]
     public abstract class SDFlowNode : Node, ICanExecuteSDFlow

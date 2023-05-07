@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using FernGraph;
 using FernGraph.Editor;
-using StableDiffusionGraph.SDGraph.Nodes;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace StableDiffusionGraph.SDGraph.Editor
+namespace FernNPRCore.StableDiffusionGraph
 {
     [CustomNodeView(typeof(SDImg2ImgNode))]
     public class SDImg2ImgNodeView : NodeView

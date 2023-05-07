@@ -3,7 +3,7 @@ using System.Collections;
 using FernGraph;
 using UnityEngine;
 
-namespace StableDiffusionGraph.SDGraph.Nodes
+namespace FernNPRCore.StableDiffusionGraph
 {
     [Node(Path = "SD Standard")]
     [Tags("SD Node")]

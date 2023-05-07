@@ -4,7 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace FernNPRCore.StableDiffusionGraph.SDGraph.Core
+namespace FernNPRCore.StableDiffusionGraph
 {
     [ExecuteAlways]
     public class InpaintHelper : MonoBehaviour

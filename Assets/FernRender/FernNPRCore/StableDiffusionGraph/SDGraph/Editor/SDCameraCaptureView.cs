@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using FernGraph;
 using FernGraph.Editor;
-using StableDiffusionGraph.SDGraph.Nodes;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 
-namespace StableDiffusionGraph.SDGraph.Editor
+namespace FernNPRCore.StableDiffusionGraph
 {
     [CustomNodeView(typeof(SDCameraCapture))]
     public class SDCameraCaptureView : NodeView

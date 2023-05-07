@@ -1,12 +1,11 @@
 using FernGraph;
 using FernGraph.Editor;
-using StableDiffusionGraph.SDGraph.Nodes;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace StableDiffusionGraph.SDGraph.Editor
+namespace FernNPRCore.StableDiffusionGraph
 {
     [CustomNodeView(typeof(StringNode))]
     public class StringNodeView : NodeView

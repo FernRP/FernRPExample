@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using FernGraph;
 using FernGraph.Editor;
-using StableDiffusionGraph.SDGraph.Nodes;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace StableDiffusionGraph.SDGraph.Editor
+namespace FernNPRCore.StableDiffusionGraph
 {
     [CustomNodeView(typeof(SDCheckPoint))]
     public class SDCheckPointView : NodeView

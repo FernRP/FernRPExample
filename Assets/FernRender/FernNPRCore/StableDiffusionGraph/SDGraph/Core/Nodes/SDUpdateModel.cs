@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace StableDiffusionGraph.SDGraph.Nodes
+namespace FernNPRCore.StableDiffusionGraph
 {
     [Node(Path = "Standard")]
     [Tags("SD Node")]

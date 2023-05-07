@@ -1,10 +1,9 @@
 using FernGraph;
 using FernGraph.Editor;
-using StableDiffusionGraph.SDGraph.Nodes;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace StableDiffusionGraph.SDGraph.Editor
+namespace FernNPRCore.StableDiffusionGraph
 {
     [CustomNodeView(typeof(SDFlowNode))]
     public class SDNodeView : NodeView
