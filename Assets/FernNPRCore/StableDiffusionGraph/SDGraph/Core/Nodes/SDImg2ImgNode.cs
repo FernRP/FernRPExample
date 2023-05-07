@@ -95,20 +95,18 @@ namespace StableDiffusionGraph.SDGraph.Nodes
             {
                 // Make a HTTP POST request to the Stable Diffusion server
                 httpWebRequest =
-                    (HttpWebRequest)WebRequest.Create(SDDataHandle.serverURL + SDDataHandle.ImageToImageAPI);
+                    (HttpWebRequest)WebRequest.Create(SDDataHandle.Instance.GetServerURL() + SDDataHandle.Instance.ImageToImageAPI);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
 
                 // add auth-header to request
-                if (SDDataHandle.UseAuth && !SDDataHandle.Username.Equals("") && !SDDataHandle.Password.Equals(""))
+                if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
                 {
                     httpWebRequest.PreAuthenticate = true;
-                    byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Username + ":" + SDDataHandle.Password);
+                    byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                     string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                     httpWebRequest.Headers.Add("Authorization", "Basic " + encodedCredentials);
                 }
-                
-
                 // Send the generation parameters along with the POST request
                 using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
                 {
@@ -199,7 +197,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                 while (!webResponse.IsCompleted)
                 {
-                    if (SDDataHandle.UseAuth && !SDDataHandle.Username.Equals("") && !SDDataHandle.Password.Equals(""))
+                    //if (SDDataHandle.Instance.UseAuth && !SDDataHandle.Instance.Username.Equals("") && !SDDataHandle.Instance.Password.Equals(""))
                         //UpdateGenerationProgressWithAuth();
                         // else
                         // UpdateGenerationProgress();

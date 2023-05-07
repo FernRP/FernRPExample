@@ -38,16 +38,11 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         {
             Prompt = GetInputValue("Prompt", this.Prompt);
             controlNetData = GetInputValue("ControlNet", controlNetData);
-            Seed = GenerateRandomLong(-1, Int64.MaxValue);
             var vec2 = SDUtil.GetMainGameViewSize();
             width = (int)vec2.x;
             height = (int)vec2.y;
-            
             if (Seed == 0)
-            {
-                Seed = GenerateRandomLong(-1, Int64.MaxValue);
-            }
-            
+                Seed = -1;
             yield return (GenerateAsync());
         }
         
@@ -61,23 +56,25 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
         IEnumerator GenerateAsync()
         {
-
+            long seed = Seed;
+            if (seed == -1)
+                seed = GenerateRandomLong(-1, Int64.MaxValue);
             // Generate the image
             HttpWebRequest httpWebRequest = null;
             try
             {
                 // Make a HTTP POST request to the Stable Diffusion server
-                //var txt2ImgAPI = controlNet == defaultControlNet ? SDDataHandle.TextToImageAPI : SDDataHandle.ControlNetTex2Img;
-                var txt2ImgAPI = SDDataHandle.TextToImageAPI;
-                httpWebRequest = (HttpWebRequest)WebRequest.Create(SDDataHandle.serverURL + txt2ImgAPI);
+                //var txt2ImgAPI = controlNet == defaultControlNet ? SDDataHandle.Instance.TextToImageAPI : SDDataHandle.Instance.ControlNetTex2Img;
+                var txt2ImgAPI = SDDataHandle.Instance.TextToImageAPI;
+                httpWebRequest = (HttpWebRequest)WebRequest.Create(SDDataHandle.Instance.GetServerURL() + txt2ImgAPI);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
 
                 // add auth-header to request
-                if (SDDataHandle.UseAuth && !SDDataHandle.Username.Equals("") && !SDDataHandle.Password.Equals(""))
+                if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
                 {
                     httpWebRequest.PreAuthenticate = true;
-                    byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Username + ":" + SDDataHandle.Password);
+                    byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                     string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                     httpWebRequest.Headers.Add("Authorization", "Basic " + encodedCredentials);
                 }
@@ -95,7 +92,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                         sd.cfg_scale = CFG;
                         sd.width = width;
                         sd.height = height;
-                        sd.seed = Seed;
+                        sd.seed = seed;
                         sd.tiling = false;
                         sd.sampler_name = SamplerMethod;
                         // Serialize the input parameters
@@ -110,7 +107,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                         sd.cfg_scale = CFG;
                         sd.width = width;
                         sd.height = height;
-                        sd.seed = Seed;
+                        sd.seed = seed;
                         sd.tiling = false;
                         sd.sampler_name = SamplerMethod;
                         if (controlNetData != null)
@@ -141,7 +138,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                 while (!webResponse.IsCompleted)
                 {
-                    if (SDDataHandle.UseAuth && !SDDataHandle.Username.Equals("") && !SDDataHandle.Password.Equals(""))
+                    if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
                         //UpdateGenerationProgressWithAuth();
                    // else
                        // UpdateGenerationProgress();
@@ -186,8 +183,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
                             // Read the seed that was used by Stable Diffusion to generate this result
                             outSeed = info.seed;
-                            Seed = 0;
-                            OnUpdateSeedField?.Invoke(Seed, outSeed);
+                            OnUpdateSeedField?.Invoke(Seed,outSeed);
                         }
                     }
                     catch (Exception e)

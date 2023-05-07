@@ -48,39 +48,50 @@ namespace StableDiffusionGraph.SDGraph.Editor
             {
                 EditorGUILayout.BeginVertical();
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Server URL", GUILayout.MaxWidth(80));
-                config.serverURL = EditorGUILayout.TextArea(
-                    config.serverURL, 
-                    styleTextArea,
-                    GUILayout.MaxWidth(150)
-                );
-                EditorGUILayout.EndHorizontal();
-                EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.LabelField("Use Auth", GUILayout.MaxWidth(80));
-                config.useAuth = EditorGUILayout.Toggle(
-                    config.useAuth, 
+                EditorGUILayout.LabelField("Override Settings", GUILayout.MaxWidth(120));
+                config.overrideSettings = EditorGUILayout.Toggle(
+                    config.overrideSettings,
                     styleCheckbox,
                     GUILayout.MaxWidth(150)
                 );
                 EditorGUILayout.EndHorizontal();
-                if (config.useAuth)
+                if (config.overrideSettings)
                 {
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("UserName", GUILayout.MaxWidth(80));
-                    config.user = EditorGUILayout.TextArea(
-                        config.user, 
+                    EditorGUILayout.LabelField("Server URL", GUILayout.MaxWidth(80));
+                    config.serverURL = EditorGUILayout.TextArea(
+                        config.serverURL,
                         styleTextArea,
                         GUILayout.MaxWidth(150)
                     );
                     EditorGUILayout.EndHorizontal();
                     EditorGUILayout.BeginHorizontal();
-                    EditorGUILayout.LabelField("Password", GUILayout.MaxWidth(80));
-                    config.pass = EditorGUILayout.TextArea(
-                        config.pass, 
-                        styleTextArea,
+                    EditorGUILayout.LabelField("Use Auth", GUILayout.MaxWidth(80));
+                    config.useAuth = EditorGUILayout.Toggle(
+                        config.useAuth,
+                        styleCheckbox,
                         GUILayout.MaxWidth(150)
                     );
                     EditorGUILayout.EndHorizontal();
+                    if (config.useAuth)
+                    {
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.LabelField("UserName", GUILayout.MaxWidth(80));
+                        config.user = EditorGUILayout.TextArea(
+                            config.user,
+                            styleTextArea,
+                            GUILayout.MaxWidth(150)
+                        );
+                        EditorGUILayout.EndHorizontal();
+                        EditorGUILayout.BeginHorizontal();
+                        EditorGUILayout.LabelField("Password", GUILayout.MaxWidth(80));
+                        config.pass = EditorGUILayout.TextArea(
+                            config.pass,
+                            styleTextArea,
+                            GUILayout.MaxWidth(150)
+                        );
+                        EditorGUILayout.EndHorizontal();
+                    }
                 }
                 EditorGUILayout.EndVertical();
             }

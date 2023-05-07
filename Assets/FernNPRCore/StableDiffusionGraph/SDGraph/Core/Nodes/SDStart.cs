@@ -20,6 +20,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
     {
         [Input("Model", Editable = false)] public string Model;
         public string serverURL = "http://127.0.0.1:7860";
+        public bool overrideSettings;
         public bool useAuth = false;
         public string user = "";
         public string pass = "";
@@ -28,10 +29,6 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
         public IEnumerator Execute()
         {
-            SDDataHandle.serverURL = serverURL;
-            SDDataHandle.UseAuth = useAuth;
-            SDDataHandle.Username = user;
-            SDDataHandle.Password = pass;
             Model = GetInputValue("Model", this.Model);
             SDUtil.SDLog($"Use {Model}");
             yield return SetModelAsync(Model);
@@ -50,8 +47,20 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         /// <returns></returns>
         public IEnumerator SetModelAsync(string modelName)
         {
+            if (overrideSettings&&!string.IsNullOrEmpty(serverURL))
+            {
+                SDDataHandle.Instance.OverrideSettings = true;
+                SDDataHandle.Instance.OverrideServerURL = serverURL;
+                SDDataHandle.Instance.OverrideUseAuth = useAuth;
+                SDDataHandle.Instance.OverrideUsername = user;
+                SDDataHandle.Instance.OverridePassword = pass;
+            }
+            else
+            {
+                SDDataHandle.Instance.OverrideSettings = false;
+            }
             // Stable diffusion API url for setting a model
-            string url = SDDataHandle.serverURL + SDDataHandle.OptionAPI;
+            string url = SDDataHandle.Instance.GetServerURL()+SDDataHandle.Instance.OptionAPI;
 
             // Load the list of models if not filled already
             if (string.IsNullOrEmpty(Model))
@@ -66,12 +75,10 @@ namespace StableDiffusionGraph.SDGraph.Nodes
                 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpWebRequest.ContentType = "application/json";
                 httpWebRequest.Method = "POST";
-
-                // add auth-header to request
-                if (SDDataHandle.UseAuth && !SDDataHandle.Username.Equals("") && !SDDataHandle.Password.Equals(""))
+                if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
                 {
                     httpWebRequest.PreAuthenticate = true;
-                    byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Username + ":" + SDDataHandle.Password);
+                    byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                     string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                     httpWebRequest.Headers.Add("Authorization", "Basic " + encodedCredentials);
                 }
@@ -111,7 +118,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         {
             base.OnValidate();
             var stableGraph = this.Graph as StableDiffusionGraph;
-            stableGraph.serverURL = serverURL;
+            stableGraph.serverURL = SDDataHandle.Instance.GetServerURL();
         }
     }
 }

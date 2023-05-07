@@ -28,7 +28,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
             samplerNode.OnUpdateSeedField += OnUpadteSeed;
 
             List<string> samplerMethodList = new List<string>();
-            samplerMethodList.AddRange(SDDataHandle.samplers);
+            samplerMethodList.AddRange(SDDataHandle.Instance.samplers);
 
             var samplerMethodDropdown = new DropdownField(samplerMethodList, 0);
             samplerMethodDropdown.RegisterValueChangedCallback(e =>
@@ -56,6 +56,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
             labelSeed.style.marginRight = 5;
             
             longField = new LongField();
+            longField.value = -1;
             longField.RegisterValueChangedCallback((e) =>
             {
                 samplerNode.Seed = e.newValue;
@@ -96,7 +97,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
             samplerNode.Seed = seed;
             samplerNode.outSeed = outSeed;
             longField.value = seed;
-            longField.value = outSeed;
+            longLastField.value = outSeed;
         }
     }
 }

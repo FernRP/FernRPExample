@@ -30,7 +30,7 @@ namespace StableDiffusionGraph.SDGraph.Editor
             samplerNode.OnUpdateSeedField += OnUpadteSeed;
 
             List<string> samplerMethodList = new List<string>();
-            samplerMethodList.AddRange(SDDataHandle.samplers);
+            samplerMethodList.AddRange(SDDataHandle.Instance.samplers);
 
             var samplerMethodDropdown = new DropdownField(samplerMethodList, 0);
             samplerMethodDropdown.RegisterValueChangedCallback(e =>

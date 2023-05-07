@@ -35,16 +35,16 @@ namespace StableDiffusionGraph.SDGraph.Nodes
         IEnumerator ListModelsAsync()
         {
             // Stable diffusion API url for getting the models list
-            string url = SDDataHandle.serverURL + SDDataHandle.ModelsAPI;
+            string url = SDDataHandle.Instance.GetServerURL() + SDDataHandle.Instance.ModelsAPI;
 
             UnityWebRequest request = new UnityWebRequest(url, "GET");
             request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");
-        
-            if (SDDataHandle.UseAuth && !SDDataHandle.Username.Equals("") && !SDDataHandle.Password.Equals(""))
+
+            if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
             {
                 Debug.Log("Using API key to authenticate");
-                byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Username + ":" + SDDataHandle.Password);
+                byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                 string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                 request.SetRequestHeader("Authorization", "Basic " + encodedCredentials);
             }
@@ -53,6 +53,7 @@ namespace StableDiffusionGraph.SDGraph.Nodes
 
             try
             {
+                Debug.Log(request.downloadHandler.text);
                 // Deserialize the response to a class
                 SDModel[] ms = JsonConvert.DeserializeObject<SDModel[]>(request.downloadHandler.text);
 
