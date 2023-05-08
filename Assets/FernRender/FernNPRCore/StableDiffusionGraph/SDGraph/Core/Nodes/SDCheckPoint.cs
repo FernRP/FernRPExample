@@ -43,7 +43,7 @@ namespace FernNPRCore.StableDiffusionGraph
 
             if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
             {
-                Debug.Log("Using API key to authenticate");
+                SDUtil.Log("Using API key to authenticate");
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                 string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                 request.SetRequestHeader("Authorization", "Basic " + encodedCredentials);
@@ -53,7 +53,7 @@ namespace FernNPRCore.StableDiffusionGraph
 
             try
             {
-                Debug.Log(request.downloadHandler.text);
+                SDUtil.Log(request.downloadHandler.text);
                 // Deserialize the response to a class
                 SDModel[] ms = JsonConvert.DeserializeObject<SDModel[]>(request.downloadHandler.text);
 
@@ -68,7 +68,7 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (Exception)
             {
-                Debug.Log("Server needs and API key authentication. Please check your settings!");
+                SDUtil.Log("Server needs and API key authentication. Please check your settings!");
             }
         }
 

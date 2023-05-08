@@ -22,7 +22,7 @@ namespace FernNPRCore.StableDiffusionGraph
         public override IEnumerator Execute()
         {
             Model = GetInputValue("Model", this.Model);
-            Debug.Log(Model);
+            SDUtil.Log(Model);
             yield return SetModelAsync(Model);
         }
 
@@ -45,7 +45,7 @@ namespace FernNPRCore.StableDiffusionGraph
             // Load the list of models if not filled already
             if (string.IsNullOrEmpty(Model))
             {
-                Debug.Log("Model is null");
+                SDUtil.Log("Model is null");
                 yield return null;
             }
 
@@ -92,7 +92,7 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (WebException e)
             {
-                Debug.Log("Error: " + e.Message);
+                SDUtil.Log("Error: " + e.Message);
             }
         }
     }

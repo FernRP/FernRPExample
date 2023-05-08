@@ -65,7 +65,7 @@ namespace FernNPRCore.StableDiffusionGraph
             // Load the list of models if not filled already
             if (string.IsNullOrEmpty(Model))
             {
-                Debug.Log("Model is null");
+                SDUtil.Log("Model is null");
                 yield return null;
             }
 
@@ -110,15 +110,8 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (WebException e)
             {
-                Debug.Log("Error: " + e.Message);
+                SDUtil.Log("Error: " + e.Message);
             }
-        }
-
-        public override void OnValidate()
-        {
-            base.OnValidate();
-            var stableGraph = this.Graph as StableDiffusionGraph;
-            stableGraph.serverURL = SDDataHandle.Instance.GetServerURL();
         }
     }
 }

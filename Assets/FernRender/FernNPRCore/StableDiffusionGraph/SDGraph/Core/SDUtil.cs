@@ -58,7 +58,7 @@ namespace FernNPRCore.StableDiffusionGraph
             assetPath = GetAssetPath(assetPath);
 #if UNITY_EDITOR
             TextureImporter importer = AssetImporter.GetAtPath(assetPath) as TextureImporter;
-            Debug.Log(assetPath);
+            Log(assetPath);
             if (importer != null)
             {
                 importer.npotScale = TextureImporterNPOTScale.None;

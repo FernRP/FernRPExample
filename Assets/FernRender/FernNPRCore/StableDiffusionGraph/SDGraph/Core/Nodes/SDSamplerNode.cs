@@ -127,7 +127,7 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (Exception e)
             {
-                Debug.LogError(e.Message + "\n\n" + e.StackTrace);
+                SDUtil.LogError(e.Message + "\n\n" + e.StackTrace);
             }
 
             // Read the output of generation
@@ -160,7 +160,7 @@ namespace FernNPRCore.StableDiffusionGraph
                     // If no image, there was probably an error so abort
                     if (json.images == null || json.images.Length == 0)
                     {
-                        Debug.LogError(
+                        SDUtil.LogError(
                             "No image was return by the server. This should not happen. Verify that the server is correctly setup.");
 
 #if UNITY_EDITOR
@@ -188,7 +188,7 @@ namespace FernNPRCore.StableDiffusionGraph
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError(e.Message + "\n\n" + e.StackTrace);
+                        SDUtil.LogError(e.Message + "\n\n" + e.StackTrace);
                     }
                 }
             }

@@ -66,7 +66,7 @@ namespace FernNPRCore.StableDiffusionGraph
 
             if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
             {
-                Debug.Log("Using API key to authenticate");
+                SDUtil.Log("Using API key to authenticate");
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                 string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                 request.SetRequestHeader("Authorization", "Basic " + encodedCredentials);
@@ -89,7 +89,7 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (Exception)
             {
-                Debug.Log("Server needs and API key authentication. Please check your settings!");
+                SDUtil.Log("Server needs and API key authentication. Please check your settings!");
             }
         }
         
@@ -108,7 +108,7 @@ namespace FernNPRCore.StableDiffusionGraph
 
             if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
             {
-                Debug.Log("Using API key to authenticate");
+                SDUtil.Log("Using API key to authenticate");
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                 string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                 request.SetRequestHeader("Authorization", "Basic " + encodedCredentials);
@@ -131,7 +131,7 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (Exception)
             {
-                Debug.Log("Server needs and API key authentication. Please check your settings!");
+                SDUtil.Log("Server needs and API key authentication. Please check your settings!");
             }
         }
         
@@ -179,7 +179,7 @@ namespace FernNPRCore.StableDiffusionGraph
             //     httpWebRequest.Method = "POST";
             //     if (SDDataHandle.Instance.UseAuth && !SDDataHandle.Instance.Username.Equals("") && !SDDataHandle.Instance.Password.Equals(""))
             //     {
-            //         Debug.Log("Using API key to authenticate");
+            //         SDUtil.Log("Using API key to authenticate");
             //         byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.Username + ":" + SDDataHandle.Instance.Password);
             //         string encodedCredentials = Convert.ToBase64String(bytesToEncode);
             //         httpWebRequest.Headers.Add("Authorization", "Basic " + encodedCredentials);
@@ -194,13 +194,13 @@ namespace FernNPRCore.StableDiffusionGraph
             //         detect.controlnet_input_images = new []{inputImgString};
             //         detect.controlnet_module = module;
             //         string json = JsonConvert.SerializeObject(detect);
-            //         Debug.Log(json);
+            //         SDUtil.Log(json);
             //         streamWriter.Write(json);
             //     }
             // }            
             // catch (Exception e)
             // {
-            //     Debug.LogError(e.Message + "\n\n" + e.StackTrace);
+            //     SDUtil.LogError(e.Message + "\n\n" + e.StackTrace);
             // }
             //
             // // Read the output of generation
@@ -223,7 +223,7 @@ namespace FernNPRCore.StableDiffusionGraph
             //     {
             //         // Decode the response as a JSON string
             //         string result = streamReader.ReadToEnd();
-            //         Debug.Log(result);
+            //         SDUtil.Log(result);
             //     }
             //     yield return null;
             // }
