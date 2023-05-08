@@ -18,7 +18,7 @@ namespace FernNPRCore.StableDiffusionGraph
     {
         
         [Input("Prompt")] public string prompt;
-        [Input("LoRAPrompt")] public string loraPrompt;
+        [Input("LoRAPrompt")] public string loraPrompt = "";
         [Input("Strength")] public float strength = 1;
         [Output("Lora")] public string lora;
         public string loraDir;
