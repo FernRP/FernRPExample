@@ -31,7 +31,7 @@ MonoBehaviour:
         id: 0299ec54-e20d-458a-a113-b732244eeb2f
         name: SD Start
         graph: {fileID: 11400000}
-        position: {x: 300.66666, y: -116}
+        position: {x: 282.6667, y: -111.33326}
         ports:
         - name: SDFlowOut
           type: FernNPRCore.StableDiffusionGraph.SDFlowData, Assembly-CSharp, Version=0.0.0.0,
@@ -60,7 +60,7 @@ MonoBehaviour:
         id: bb798424-ee60-4e9d-974c-edd7337bac15
         name: SD Check Point
         graph: {fileID: 11400000}
-        position: {x: 132, y: -116}
+        position: {x: 57.3333, y: -111.33326}
         ports:
         - name: Model
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -98,7 +98,7 @@ MonoBehaviour:
         id: 0ac2e0cd-15ec-478b-aec9-f41b7d41ac12
         name: SD Prompt
         graph: {fileID: 11400000}
-        position: {x: 727.3333, y: 80}
+        position: {x: 699.3334, y: 81.39628}
         ports:
         - name: Positive
           type: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
@@ -223,7 +223,7 @@ MonoBehaviour:
         id: b09a9304-0a8a-4ac2-9691-80364e5a6750
         name: SD Preview
         graph: {fileID: 11400000}
-        position: {x: 1362, y: -62.666668}
+        position: {x: 1355.7289, y: -62.666622}
         ports:
         - name: In Image
           type: UnityEngine.Texture2D, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,

@@ -70,8 +70,6 @@ namespace FernNPRCore.StableDiffusionGraph
                 capture.OnUpdateTexture += OnUpdateAction;
             }
 
-            
-
             RefreshExpandedState();
         }
 
