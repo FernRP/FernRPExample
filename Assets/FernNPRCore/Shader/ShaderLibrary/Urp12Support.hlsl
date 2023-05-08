@@ -7,4 +7,9 @@ uint GetMeshRenderingLayer()
 {
     return DEFAULT_LIGHT_LAYERS;
 }
+
+half3 CalculateIrradianceFromReflectionProbes(half3 reflectVector, float3 positionWS, half perceptualRoughness, half2 normalizedScreenSpaceUV)
+{
+    return CalculateIrradianceFromReflectionProbes(reflectVector, positionWS, perceptualRoughness);
+}
 #endif
