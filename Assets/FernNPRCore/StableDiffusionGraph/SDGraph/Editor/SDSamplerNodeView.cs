@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using FernGraph;
 using FernGraph.Editor;
 using StableDiffusionGraph.SDGraph.Nodes;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 

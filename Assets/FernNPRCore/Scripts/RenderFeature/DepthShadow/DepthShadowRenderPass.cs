@@ -55,8 +55,24 @@ namespace FernNPRCore.Scripts.RenderFeature.DepthShadow
         {
             var desc = renderingData.cameraData.cameraTargetDescriptor;
         
+#if UNITY_2022_1_OR_NEWER
             RenderingUtils.ReAllocateIfNeeded(ref depthShadowRTHandle, desc, FilterMode.Bilinear,
                 TextureWrapMode.Clamp, name: "_CameraDepthShadowTexture");
+#else
+            depthShadowRTHandle = RTHandles.Alloc(
+                desc.width, 
+                desc.height, 
+                1, 
+                (DepthBits)desc.depthBufferBits, 
+                desc.graphicsFormat, 
+                FilterMode.Bilinear, 
+                TextureWrapMode.Clamp, 
+                desc.dimension, 
+                desc.enableRandomWrite, 
+                desc.useMipMap, 
+                desc.autoGenerateMips, 
+                name: "_CameraDepthShadowTexture");
+#endif
             cmd.SetGlobalTexture(depthShadowRTHandle.name, depthShadowRTHandle.nameID);
 
             ConfigureTarget(depthShadowRTHandle);

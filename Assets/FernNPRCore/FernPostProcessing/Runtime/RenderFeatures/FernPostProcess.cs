@@ -173,8 +173,14 @@ namespace UnityEngine.Rendering.Universal.PostProcessing {
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
             base.OnCameraSetup(cmd, ref renderingData);
+#if UNITY_2022_1_OR_NEWER
             m_Source = m_Render.cameraColorTargetHandle;
             m_Destination = m_Render.cameraColorTargetHandle;
+#else
+            m_Source = m_Render.cameraColorTarget;
+            m_Destination = m_Render.cameraColorTarget;
+            
+#endif
         }
 
         /// <summary>

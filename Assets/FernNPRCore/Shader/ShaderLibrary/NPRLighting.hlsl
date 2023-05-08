@@ -12,6 +12,7 @@
 #include "../ShaderLibrary/DeclareDepthShadowTexture.hlsl"
 #include "../ShaderLibrary/NPRSurfaceData.hlsl"
 #include "../ShaderLibrary/NPRUtils.hlsl"
+#include "../ShaderLibrary/Urp12Support.hlsl"
 
 #define PI8 25.1327
 #define INV_PI8 0.039789

@@ -5,6 +5,7 @@ using StableDiffusionGraph.SDGraph.Nodes;
 using Unity.EditorCoroutines.Editor;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
 

@@ -643,7 +643,9 @@ namespace LWGUI
                 return;
             }
 
+#if UNITY_2022_1_OR_NEWER
             MaterialEditor.BeginProperty(position, prop);
+#endif
 
             if (prop.type == MaterialProperty.PropType.Float || prop.type == MaterialProperty.PropType.Range)
             {
@@ -704,7 +706,10 @@ namespace LWGUI
                 }
             }
 
+
+#if UNITY_2022_1_OR_NEWER
             MaterialEditor.EndProperty();
+#endif
         }
 		
 	}

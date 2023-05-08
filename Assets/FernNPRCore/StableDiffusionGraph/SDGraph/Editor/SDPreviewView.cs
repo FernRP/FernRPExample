@@ -29,8 +29,8 @@ namespace StableDiffusionGraph.SDGraph.Editor
             PortView inView = GetInputPort("In Image");
             if (inView != null) inView.AddToClassList("PreviewInImg");
             
-            style.transformOrigin = new TransformOrigin(0, 0);
-            style.scale = new StyleScale(Vector3.one);
+            style.transformOrigin = new TransformOrigin(0, 0, 0);
+            style.scale = new StyleScale(new Scale(Vector3.one));
             style.maxWidth = 256;
             
             this.preview = Target as SDPreview;
