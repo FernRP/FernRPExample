@@ -132,7 +132,7 @@ namespace FernNPRCore.StableDiffusionGraph
                     
                     if (controlNetData != null)
                     {
-                        SDUtil.SDLog("use ControlNet");
+                        SDUtil.Log("use ControlNet");
                         SDParamsInImg2ImgControlNet sd = new SDParamsInImg2ImgControlNet();
 
 
@@ -154,7 +154,7 @@ namespace FernNPRCore.StableDiffusionGraph
                         json = JsonConvert.SerializeObject(sd);
                     }else if (MaskImage != null)
                     {
-                        SDUtil.SDLog("use Mask");
+                        SDUtil.Log("use Mask");
                         
                         SDParamsInImg2ImgMask sd = new SDParamsInImg2ImgMask();
                         sd.init_images = new string[] { inputImgString };
@@ -181,7 +181,7 @@ namespace FernNPRCore.StableDiffusionGraph
                     }
                     else
                     {
-                        SDUtil.SDLog("use Only Img2Img");
+                        SDUtil.Log("use Only Img2Img");
                         SDParamsInImg2Img sd = new SDParamsInImg2Img();
 
 

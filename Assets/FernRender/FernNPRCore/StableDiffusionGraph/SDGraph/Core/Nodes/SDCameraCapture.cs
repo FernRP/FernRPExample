@@ -41,7 +41,7 @@ namespace FernNPRCore.StableDiffusionGraph
             base.OnAddedToGraph();
             base.OnEnable();
             var resolution = SDUtil.GetMainGameViewSize();
-            SDUtil.SDLog($"Camera Capture Width: {resolution.x} + Height: + {resolution.y}");
+            SDUtil.Log($"Camera Capture Width: {resolution.x} + Height: + {resolution.y}");
 
             if (currentCamere == null)
             {

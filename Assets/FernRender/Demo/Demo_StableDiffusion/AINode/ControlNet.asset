@@ -51,6 +51,7 @@ MonoBehaviour:
             portName: Model
         Model: "\u52A8\u6F2B_experience_70"
         serverURL: http://127.0.0.1:7860
+        overrideSettings: 0
         useAuth: 0
         user: 
         pass: 

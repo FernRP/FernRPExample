@@ -29,8 +29,20 @@ namespace FernNPRCore.StableDiffusionGraph
 
         public IEnumerator Execute()
         {
+            if (overrideSettings&&!string.IsNullOrEmpty(serverURL))
+            {
+                SDDataHandle.Instance.OverrideSettings = true;
+                SDDataHandle.Instance.OverrideServerURL = serverURL;
+                SDDataHandle.Instance.OverrideUseAuth = useAuth;
+                SDDataHandle.Instance.OverrideUsername = user;
+                SDDataHandle.Instance.OverridePassword = pass;
+            }
+            else
+            {
+                SDDataHandle.Instance.OverrideSettings = false;
+            }
             Model = GetInputValue("Model", this.Model);
-            SDUtil.SDLog($"Use {Model}");
+            SDUtil.Log($"Use {Model}");
             yield return SetModelAsync(Model);
         }
 
@@ -47,18 +59,6 @@ namespace FernNPRCore.StableDiffusionGraph
         /// <returns></returns>
         public IEnumerator SetModelAsync(string modelName)
         {
-            if (overrideSettings&&!string.IsNullOrEmpty(serverURL))
-            {
-                SDDataHandle.Instance.OverrideSettings = true;
-                SDDataHandle.Instance.OverrideServerURL = serverURL;
-                SDDataHandle.Instance.OverrideUseAuth = useAuth;
-                SDDataHandle.Instance.OverrideUsername = user;
-                SDDataHandle.Instance.OverridePassword = pass;
-            }
-            else
-            {
-                SDDataHandle.Instance.OverrideSettings = false;
-            }
             // Stable diffusion API url for setting a model
             string url = SDDataHandle.Instance.GetServerURL()+SDDataHandle.Instance.OptionAPI;
 

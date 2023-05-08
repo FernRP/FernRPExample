@@ -1,4 +1,4 @@
-#define GETLOARMODELS
+//#define GETLOARMODELS TODO: Wait for lora's api to pass
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ namespace FernNPRCore.StableDiffusionGraph
                 loraNames.Clear();
             // Stable diffusion API url for getting the models list
             string url = SDDataHandle.Instance.GetServerURL() + SDDataHandle.Instance.LorasAPI;
-            Debug.Log(url);
+            SDUtil.Log(url);
 
             UnityWebRequest request = new UnityWebRequest(url, "GET");
             request.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -55,7 +55,7 @@ namespace FernNPRCore.StableDiffusionGraph
 
             if (SDDataHandle.Instance.GetUseAuth() && !string.IsNullOrEmpty(SDDataHandle.Instance.GetUserName()) && !string.IsNullOrEmpty(SDDataHandle.Instance.GetPassword()))
             {
-                Debug.Log("Using API key to authenticate");
+                SDUtil.Log("Using API key to authenticate");
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.GetUserName() + ":" + SDDataHandle.Instance.GetPassword());
                 string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                 request.SetRequestHeader("Authorization", "Basic " + encodedCredentials);
@@ -65,7 +65,7 @@ namespace FernNPRCore.StableDiffusionGraph
 
             try
             {
-                Debug.Log(request.downloadHandler.text);
+                SDUtil.Log(request.downloadHandler.text);
                 // Deserialize the response to a class
                 SDLoraModel[] ms = JsonConvert.DeserializeObject<SDLoraModel[]>(request.downloadHandler.text);
 
@@ -74,11 +74,11 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (Exception)
             {
-                Debug.Log("Server needs and API key authentication. Please check your settings!");
+                SDUtil.LogError("Server needs and API key authentication. Please check your settings!");
             }
 #else
             // Stable diffusion API url for getting the models list
-            string url = SDDataHandle.Instance.serverURL + SDDataHandle.Instance.DataDirAPI;
+            string url = SDDataHandle.Instance.GetServerURL() + SDDataHandle.Instance.DataDirAPI;
 
             UnityWebRequest request = new UnityWebRequest(url, "GET");
             request.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
@@ -86,7 +86,7 @@ namespace FernNPRCore.StableDiffusionGraph
         
             if (SDDataHandle.Instance.UseAuth && !SDDataHandle.Instance.Username.Equals("") && !SDDataHandle.Instance.Password.Equals(""))
             {
-                Debug.Log("Using API key to authenticate");
+                SDUtil.Log("Using API key to authenticate");
                 byte[] bytesToEncode = Encoding.UTF8.GetBytes(SDDataHandle.Instance.Username + ":" + SDDataHandle.Instance.Password);
                 string encodedCredentials = Convert.ToBase64String(bytesToEncode);
                 request.SetRequestHeader("Authorization", "Basic " + encodedCredentials);
@@ -96,13 +96,12 @@ namespace FernNPRCore.StableDiffusionGraph
             
             try
             {
-                Debug.Log(request.downloadHandler.text);
                 // Deserialize the response to a class
                 SDDataDir m = JsonConvert.DeserializeObject<SDDataDir>(request.downloadHandler.text);
                 // Keep only the names of the models
                 loraDir = m.lora_dir;
                 string[] files = Directory.GetFiles(loraDir, "*.safetensors", SearchOption.AllDirectories);
-                SDUtil.SDLog(files.Length.ToString());
+                SDUtil.Log(files.Length.ToString());
                 if (loraNames == null) loraNames = new List<string>();
                 loraNames.Clear();
                 foreach (var f in files)
@@ -112,7 +111,7 @@ namespace FernNPRCore.StableDiffusionGraph
             }
             catch (Exception)
             {
-                Debug.LogError(url + " " + request.downloadHandler.text);
+                SDUtil.LogError(url + " " + request.downloadHandler.text);
             }
 #endif
         }

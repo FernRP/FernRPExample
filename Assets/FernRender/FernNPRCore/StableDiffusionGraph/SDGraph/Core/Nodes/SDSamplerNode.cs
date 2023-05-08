@@ -112,7 +112,7 @@ namespace FernNPRCore.StableDiffusionGraph
                         sd.sampler_name = SamplerMethod;
                         if (controlNetData != null)
                         {
-                            SDUtil.SDLog("use controlnet");
+                            SDUtil.Log("use controlnet");
                             sd.alwayson_scripts = new ALWAYSONSCRIPTS();
                             sd.alwayson_scripts.controlnet = new ControlNetDataArgs();
                             sd.alwayson_scripts.controlnet.args = new[] { controlNetData };

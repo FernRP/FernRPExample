@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebb3a8820d8ef634086130ca41c54727, type: 3}
   m_Name: SDDataHandle
   m_EditorClassIdentifier: 
-  serverURL: http://192.168.1.7:7860
+  serverURL: http://127.0.0.1:7860
   ModelsAPI: /sdapi/v1/sd-models
   LorasAPI: /sdapi/v1/loras
   ControlNetTex2Img: /controlnet/txt2img
@@ -49,8 +49,8 @@ MonoBehaviour:
   - PLMS
   modelUse: 
   loraUse: 
-  OverrideSettings: 0
-  OverrideServerURL: 
+  OverrideSettings: 1
+  OverrideServerURL: http://127.0.0.1:7860
   OverrideUseAuth: 0
   OverrideUsername: 
   OverridePassword: 

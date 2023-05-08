@@ -69,7 +69,6 @@ namespace FernNPRCore.StableDiffusionGraph
                 return OverrideServerURL;
             }
             return serverURL;
-
         }
 
         public bool GetUseAuth()

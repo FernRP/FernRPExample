@@ -50,7 +50,7 @@ namespace FernNPRCore.StableDiffusionGraph
                 // Add a callback to perform additional actions on value change
                 popup.RegisterValueChangedCallback(evt =>
                 {
-                    SDUtil.SDLog($"Selected lora: { evt.newValue}");
+                    SDUtil.Log($"Selected lora: { evt.newValue}");
                     lora.lora = evt.newValue;
                     lora.currentIndex = lora.loraNames.IndexOf(evt.newValue);
                 });

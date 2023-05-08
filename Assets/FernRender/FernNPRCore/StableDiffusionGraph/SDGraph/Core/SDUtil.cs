@@ -71,19 +71,21 @@ namespace FernNPRCore.StableDiffusionGraph
 #endif
         }
 
-        public static void SDLog(string log)
+        public static void Log(string log)
         {
             Debug.Log($"{LOG}{log}");
         }
 
-        public static void SDWarnning(string log)
+        public static void LogWarning(string log)
         {
             // TODO
+            Debug.LogWarning($"{LOG}{log}");
         }
 
-        public static void SDError(string log)
+        public static void LogError(string log)
         {
             // TODO
+            Debug.LogError($"{LOG}{log}");
         }
 
         public static string GetAssetPath(string absolutePath)
