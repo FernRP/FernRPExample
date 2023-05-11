@@ -24,28 +24,33 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 If you want to see more examples, please visit [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) on the [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
 ___
 
-## FernAI
+## Fern SD Graph
 
-FernAI is Release Now!
-
-FernAI is a Graph tool integrated in Unity, which can obtain the scene information of Unity and generate images using Stable Diffusion.
+Fern SD Graph is a Graph tool integrated in Unity, which can obtain the scene information of Unity and generate images using Stable Diffusion.
 
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
-### FernAI Feature
+### Fern SD Graph Feature
 1. Text2Img
 2. Img2Img
 3. Inpaint
 4. Lora
-5. ControlNet
-6. ...
+5. ...
 
 ### Note
 
 To use this tool, you need to deploy [stable diffusion webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) locally, and add the --api command to the COMMANDLINE_ARGS in the webui-user.bat file.
+
+### future features
+1. ControlNet
+2. Node Optimization, more fluent, more efficient
+3. Lora Weight
+4. Scene preprocessing for ControlNet
+5. Timeline for video
+6. ...
 
 ___
 

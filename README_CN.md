@@ -19,28 +19,34 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb), Ba
 
 如果你想要看更多的例子，可以移步到[Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)上的[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) 页面
 
-## FernAI
+## Fern SD Graph
 
-FernAI发布啦！
-
-FernAI 是一个集成在Unity中的Graph工具，可以提取Unity的画面信息以及利用Stable Diffusion生成图片。
+Fern SD Graph 是一个集成在Unity中的Graph工具，可以提取Unity的画面信息以及利用Stable Diffusion生成图片。
 
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
-### FernAI 目前的功能
+### Fern SD Graph 目前的功能
 1. Text2Img
 2. Img2Img
 3. Inpaint
 4. Lora
-5. ControlNet
-6. ...
+5. ...
 
 ### 注意
 
 想要使用本工具需要先在本地部署[stable diffusion webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui), 并在webui-user.bat文件中的COMMANDLINE_ARGS添加--api命令。
+
+### 未来的功能
+1. ControlNet
+2. 节点的持续优化，更加流畅，更加高效。
+3. Lora权重。
+4. 给ControlNet的场景预处理。
+5. 使用Timeline渲染视频。
+6. ...
+
 ___
 
 ## 工具
