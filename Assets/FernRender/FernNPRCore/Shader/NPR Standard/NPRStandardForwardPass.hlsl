@@ -85,7 +85,7 @@ void PreInitializeInputData(Varyings input, half facing, out InputData inputData
     inputData.tangentToWorld = tangentToWorld;
     #endif
 
-    inputData.normalWS = input.normalWS;
+    inputData.normalWS = normalize(input.normalWS);
 
     inputData.viewDirectionWS = viewDirWS;
 
