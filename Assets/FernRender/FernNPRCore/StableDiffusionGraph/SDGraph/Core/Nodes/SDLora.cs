@@ -101,8 +101,11 @@ namespace FernNPRCore.StableDiffusionGraph
                 // Keep only the names of the models
                 loraDir = m.lora_dir;
                 string[] files = Directory.GetFiles(loraDir, "*.safetensors", SearchOption.AllDirectories);
-                SDUtil.Log(files.Length.ToString());
-                if (loraNames == null) loraNames = new List<string>();
+                if (files.Length == 0)
+                {
+                    SDUtil.LogError($"There are no lora files in {loraDir}");
+                }
+                loraNames ??= new List<string>();
                 loraNames.Clear();
                 foreach (var f in files)
                 {
