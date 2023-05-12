@@ -53,28 +53,27 @@ half _CameraFOV;
  * \param addInputData 
  * \return 
  */
-inline int2 GetDepthUVOffset(half offset, half reverseX, half2 positionCSXY, half3 mainLightDir, half2 depthTexWH, NPRAddInputData addInputData)
+inline uint2 GetDepthUVOffset(half offset, half reverseX, half2 positionCSXY, half3 mainLightDir, half2 depthTexWH, NPRAddInputData addInputData)
 {
     // 1 / depth when depth < 1 is wrong, this is like point light attenuation
     // 0.5625 is aspect, hard code for now
     // 0.333 is fov, hard code for now
-    float2 UVOffset = _CameraAspect * (offset * _CameraFOV / (1 + addInputData.linearEyeDepth)); 
-    half2 mainLightDirVS = TransformWorldToView(mainLightDir).xy;
+    float2 UVOffset = _CameraAspect * (offset * 2 * _CameraFOV / (1 + addInputData.linearEyeDepth)); 
+    half2 mainLightDirVS = TransformWorldToViewDir(mainLightDir, true).xz;
     mainLightDirVS.x *= lerp(1, -1, reverseX);
     UVOffset = mainLightDirVS * UVOffset;
     half2 downSampleFix = _DepthTextureSourceSize.zw / depthTexWH.xy;
-    int2 loadTexPos = positionCSXY / downSampleFix + UVOffset * depthTexWH.xy;
+    uint2 loadTexPos = positionCSXY / downSampleFix + UVOffset * depthTexWH.xy;
     loadTexPos = min(loadTexPos, depthTexWH.xy-1);
     return loadTexPos;
 }
 
 inline half DepthShadow(half depthShadowOffset, half reverseX, half depthShadowThresoldOffset, half depthShadowSoftness, half2 positionCSXY, half3 mainLightDir, NPRAddInputData addInputData)
 {
-    int2 loadPos = GetDepthUVOffset(depthShadowOffset, reverseX, positionCSXY, mainLightDir, _CameraDepthShadowTexture_TexelSize.zw, addInputData);
+    uint2 loadPos = GetDepthUVOffset(depthShadowOffset, reverseX, positionCSXY, mainLightDir, _CameraDepthShadowTexture_TexelSize.zw, addInputData);
     float depthShadowTextureValue = LoadSceneDepthShadow(loadPos);
     float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthShadowTextureValue);
     float depthTexShadowDepthDiffThreshold = 0.025f + depthShadowThresoldOffset;
-
     half depthShadow = saturate((depthTextureLinearDepth - (addInputData.linearEyeDepth - depthTexShadowDepthDiffThreshold)) * 50 / depthShadowSoftness);
     return depthShadow;
 }
@@ -84,9 +83,7 @@ inline half DepthRim(half depthRimOffset, half reverseX, half rimDepthDiffThresh
     int2 loadPos = GetDepthUVOffset(depthRimOffset, reverseX, positionCSXY, mainLightDir,  _DepthTextureSourceSize.zw, addInputData);
     float depthTextureValue = LoadSceneDepth(loadPos);
     float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthTextureValue);
-    
-    float threshold = saturate(0.1 + rimDepthDiffThresholdOffset);
-    half depthRim = saturate((depthTextureLinearDepth - (addInputData.linearEyeDepth + threshold)) * 5);
+    half depthRim = saturate((depthTextureLinearDepth - (addInputData.linearEyeDepth + rimDepthDiffThresholdOffset)));
     depthRim = lerp(0, depthRim, addInputData.linearEyeDepth);
     return depthRim;
 }

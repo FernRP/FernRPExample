@@ -77,8 +77,8 @@ Shader "FernRender/URP/FERNNPRStandard"
         [Sub(Rim._FRESNELRIM)] _RimThreshold("Rim Threshold",Range(0,1)) = 0.2
         [Sub(Rim._FRESNELRIM)] _RimSoftness("Rim Softness",Range(0.001,1)) = 0.01
         [SubToggle(Rim._SCREENSPACERIM)] _DepthOffsetRimReverseX("Depth Offset Reverse X", Float) = 0
-        [Sub(Rim._SCREENSPACERIM)] _DepthRimOffset("Depth Rim Offset",Range(-1,1)) = 0.01
-        [Sub(Rim._SCREENSPACERIM)] _DepthRimThresoldOffset("Depth Rim Thresold Offset",Range(-1,1)) = 0.01
+        [Sub(Rim._SCREENSPACERIM)] _DepthRimOffset("Depth Rim Offset",Range(-32,32)) = 0.01
+        [Sub(Rim._SCREENSPACERIM)] _DepthRimThresoldOffset("Depth Rim Thresold Offset",Range(0,32)) = 0.01
         
         [Main(ClearCoat, _, off, off)]
         _groupClearCoat ("ClearCoatSettings", float) = 1

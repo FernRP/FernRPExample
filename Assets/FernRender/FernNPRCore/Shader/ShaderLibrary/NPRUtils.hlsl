@@ -53,6 +53,8 @@ float DepthSamplerToLinearDepth(float positionCSZ)
  */
 float4 CalculateClipPosition(float4 positionCS, float viewSpaceZOffsetAmount)
 {
+    if(viewSpaceZOffsetAmount == 0)
+        return positionCS;
     // Create a copy of the original position
     float4 adjustedPositionCS = positionCS;
     // Calculate the offset in clip space

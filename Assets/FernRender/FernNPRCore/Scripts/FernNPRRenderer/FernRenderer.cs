@@ -55,8 +55,8 @@ namespace FernNPRCore.Scripts.FernNPRRenderer
             {
                 depthSourceSize.x = 1.0f / currentCamera.pixelWidth;
                 depthSourceSize.y = 1.0f / currentCamera.pixelHeight;
-                depthSourceSize.z = Screen.width;
-                depthSourceSize.w = Screen.height;
+                depthSourceSize.z = currentCamera.pixelWidth;
+                depthSourceSize.w = currentCamera.pixelHeight;
                 Shader.SetGlobalVector(ShaderID_DepthTextureSourceSize, depthSourceSize);
             }
         }
