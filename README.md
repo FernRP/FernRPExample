@@ -54,6 +54,16 @@ To use this tool, you need to deploy [stable diffusion webui](https://github.com
 
 ___
 
+## Requirements
+
+![](DocAssets/PackageManager.png)
+
+1. Open **Window** -> **Package Manager**
+2. Click **+** Button
+3. Add package by name
+4. Add: **com.unity.jobs**
+5. Add: **com.unity.nuget.newtonsoft-json**
+
 ## Tool
 There are some useful tool.
 

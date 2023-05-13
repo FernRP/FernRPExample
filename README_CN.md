@@ -49,6 +49,16 @@ Fern SD Graph 是一个集成在Unity中的Graph工具，可以提取Unity的画
 
 ___
 
+## 依赖
+
+![](DocAssets/PackageManager.png)
+
+1. 打开 **Window** -> **Package Manager**
+2. 点击 **+** 按钮
+3. Add package by name
+4. 添加: **com.unity.jobs**
+5. 添加: **com.unity.nuget.newtonsoft-json**
+
 ## 工具
 这里是一些有用的工具
 
