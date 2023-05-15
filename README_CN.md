@@ -1,13 +1,34 @@
 ![cover](https://github.com/DeJhon-Huang/FernNPR/blob/master/DocAssets/cover.jpg)
 ------------------------------------
 
-# FernNPR
+# Fern Render
 
 [中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
 
-FernNPR 是一个Unity的NPR渲染库，尽可能多的渲染技术，角色渲染、环境渲染以及AI辅助!
+Fern Render 是一个集合了NPR和AI工具的渲染库。
 
-## Render Example
+## Fern Render Pro 版本功能对比
+
+请注意，Github上的开源工程是免费版本，提供了基本的功能实现，我们正在开发Pro版本，很快会发布。
+
+Free版本和Pro版本功能对比
+| 功能                                  | Free 版本    | Pro 版本                         |
+| :------------------------------------ | :----------: | :------------------------------: |
+| Standard Uber Shader                  | Yes          | Yes                              |
+| Stable Diffusion Graph                | 只有基础功能 | 持续更新和优化，包含更多高级功能 |
+| Stable Diffusion Graph - 提示词生成器 | No           | Yes                              |
+| Stable Diffusion Graph - Lora 分层    | No           | Yes                              |
+| ControlNet                            | No           | Yes                              |
+| NPR Shader Graph Templete | No | Yes |
+| Fern Post Processing | Yes | 持续更新和优化，将扩展更多后处理效果 |
+| Fern Post Processing - EdgeOutline | Yes | Yes |
+| ... | ... | ... |
+
+更多Pro版本的功能可以前往 [Wiki](https://github.com/FernRender/FernNPR/wiki/Pro-Version-Feature) 查看。
+
+------------------------------------
+
+## 一些示例
 下面是一些示例场景
 
 ![](DocAssets/11-22.jpg)
@@ -26,7 +47,7 @@ Fern SD Graph 是一个集成在Unity中的Graph工具，可以提取Unity的画
 ![](DocAssets/SD/SDInpaint.jpg)
 ![](DocAssets/SD/StableControlNet.jpg)
 
-[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
+[更多例子](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
 ### Fern SD Graph 目前的功能
 1. Text2Img
@@ -49,16 +70,6 @@ Fern SD Graph 是一个集成在Unity中的Graph工具，可以提取Unity的画
 
 ___
 
-## 依赖
-
-![](DocAssets/PackageManager.png)
-
-1. 打开 **Window** -> **Package Manager**
-2. 点击 **+** 按钮
-3. Add package by name
-4. 添加: **com.unity.jobs**
-5. 添加: **com.unity.nuget.newtonsoft-json**
-
 ## 工具
 这里是一些有用的工具
 
@@ -72,6 +83,15 @@ Smooth Normals 用于解决发现外拓描边的断裂问题. 更详细的内容
 
 Texture Baker 可以将贴图烘焙到网格上。
 
+### 依赖
+
+![](DocAssets/PackageManager.png)
+
+1. 打开 **Window** -> **Package Manager**
+2. 点击 **+** 按钮
+3. Add package by name
+4. 添加: **com.unity.jobs**
+5. 添加: **com.unity.nuget.newtonsoft-json**
 ___
 
 ## Future Features

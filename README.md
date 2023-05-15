@@ -7,6 +7,27 @@
 
 
 FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers a variety of NPR techniques, Character Renderering, Environmental Renderering, and Stable Diffusion!
+
+## Fern Render Version comparison
+
+Please note that the open source project on Github is a free version that provides basic implementation. We are developing the Pro version and will release it soon.
+
+Feature comparison between Free version and Pro version
+| Feature                                  | Free Version    | Pro Version                         |
+| :------------------------------------ | :----------: | :------------------------------: |
+| Standard Uber Shader                  | Yes          | Yes                              |
+| Stable Diffusion Graph                | Only basic feature | Continuously updated and optimized to include more advanced features |
+| Stable Diffusion Graph - prompt generator | No           | Yes                              |
+| Stable Diffusion Graph - Lora 分层    | No           | Yes                              |
+| ControlNet                            | No           | Yes                              |
+| NPR Shader Graph Templete | No | Yes |
+| Fern Post Processing | Yes | Continuous update and optimization, more post-processing effects |
+| Fern Post Processing - EdgeOutline | Yes | Yes |
+| ... | ... | ... |
+
+For more features of the Pro version, please go to the [Wiki](https://github.com/FernRender/FernNPR/wiki/Pro-Version-Feature) to view
+
+------------------------------------
 ___
 
 ## Example
@@ -54,16 +75,6 @@ To use this tool, you need to deploy [stable diffusion webui](https://github.com
 
 ___
 
-## Requirements
-
-![](DocAssets/PackageManager.png)
-
-1. Open **Window** -> **Package Manager**
-2. Click **+** Button
-3. Add package by name
-4. Add: **com.unity.jobs**
-5. Add: **com.unity.nuget.newtonsoft-json**
-
 ## Tool
 There are some useful tool.
 
@@ -76,6 +87,16 @@ This tool was developed by [DumoeDss](https://github.com/DumoeDss).
 Smooth Normals is used to solve the problem of stroke breakage due to unsmooth model normals in runtime or editor. For more information, you can check [here](https://github.com/DumoeDss/AquaSmoothNormals).
 
 Texture Baker can bake textures onto a mesh.
+
+### Requirements
+
+![](DocAssets/PackageManager.png)
+
+1. Open **Window** -> **Package Manager**
+2. Click **+** Button
+3. Add package by name
+4. Add: **com.unity.jobs**
+5. Add: **com.unity.nuget.newtonsoft-json**
 
 ___
 
@@ -96,5 +117,3 @@ ___
 - [知乎专栏](https://www.zhihu.com/column/c_1587028302690304000)
 
 - [LWGUI](https://github.com/JasonMa0012/LWGUI)
-
-- [VRoid Studio](https://vroid.com/en)
