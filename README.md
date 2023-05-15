@@ -10,13 +10,13 @@ FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers 
 
 ## Fern Render Version comparison
 
-Please note that the open source project on Github is a free version that provides basic implementation. We are developing the Pro version and will release it soon.
+Please note that this open source project on Github is a free version that provides basic implementation. We are developing the Pro version and will release it soon.
 
 Feature comparison between Free version and Pro version
 | Feature                                  | Free Version    | Pro Version                         |
 | :------------------------------------ | :----------: | :------------------------------: |
 | Standard Uber Shader                  | Yes          | Yes                              |
-| Stable Diffusion Graph                | Only basic feature | Continuously updated and optimized to include more advanced features |
+| Stable Diffusion Graph                | Only basic feature | Continuous update and optimization, more advanced features |
 | Stable Diffusion Graph - prompt generator | No           | Yes                              |
 | Stable Diffusion Graph - Lora 分层    | No           | Yes                              |
 | ControlNet                            | No           | Yes                              |
