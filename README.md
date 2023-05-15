@@ -18,7 +18,7 @@ Feature comparison between Free version and Pro version
 | Standard Uber Shader                  | Yes          | Yes                              |
 | Stable Diffusion Graph                | Only basic feature | Continuous update and optimization, more advanced features |
 | Stable Diffusion Graph - prompt generator | No           | Yes                              |
-| Stable Diffusion Graph - Lora 分层    | No           | Yes                              |
+| Stable Diffusion Graph - Lora Layer    | No           | Yes                              |
 | ControlNet                            | No           | Yes                              |
 | NPR Shader Graph Templete | No | Yes |
 | Fern Post Processing | Yes | Continuous update and optimization, more post-processing effects |
