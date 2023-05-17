@@ -41,7 +41,7 @@ namespace AquaSys.TextureBaker.Editor
             public int triangleCount;
         }
 
-        private static string DATA_PATH_KEY = $"{Application.productName}_AquaTextureBakerWindow.DataPath";
+        private static string DATA_PATH_KEY ;
 
         DataWarpper dataWarpper;
         List<TableModelData> tableModelDatas = new List<TableModelData>();
@@ -107,7 +107,7 @@ namespace AquaSys.TextureBaker.Editor
         private void OnEnable()
         {
             instance = this;
-
+            DATA_PATH_KEY = $"{Application.productName}_AquaTextureBakerWindow.DataPath";
             if (EditorPrefs.HasKey(DATA_PATH_KEY))
             {
                 string path = EditorPrefs.GetString(DATA_PATH_KEY);
@@ -116,12 +116,10 @@ namespace AquaSys.TextureBaker.Editor
                     string json = File.ReadAllText(path);
                     dataWarpper = JsonConvert.DeserializeObject<DataWarpper>(json);
                     dataChanged = false;
+                    return;
                 }
             }
-            else
-            {
-                dataWarpper = new DataWarpper();
-            }
+            dataWarpper = new DataWarpper();
         }
 
         void OnGUI()
