@@ -67,12 +67,11 @@ FernNPR can easy get various styles of materials, including NPR and PBR.
 If you want to see more examples, please visit [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) on the [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
 ___
 
-## Fern SD Graph
+## SD Graph
 
 Fern SD Graph is a Graph tool integrated in Unity, which can obtain the scene information of Unity and generate images using Stable Diffusion.
 
 ![](DocAssets/SD/SDInpaint.jpg)
-![](DocAssets/SD/StableControlNet.jpg)
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 

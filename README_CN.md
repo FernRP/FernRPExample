@@ -63,12 +63,11 @@ Model From: [模之屋](https://www.aplaybox.com/details/model/S5d7KiigvyIb), Ba
 
 如果你想要看更多的例子，可以移步到[Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)上的[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) 页面
 
-## Fern SD Graph
+## SD Graph
 
 Fern SD Graph 是一个集成在Unity中的Graph工具，可以提取Unity的画面信息以及利用Stable Diffusion生成图片。
 
 ![](DocAssets/SD/SDInpaint.jpg)
-![](DocAssets/SD/StableControlNet.jpg)
 
 [更多例子](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
