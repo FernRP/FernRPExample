@@ -9,7 +9,7 @@ Fern Render 是一个集合了NPR和AI工具的渲染库。
 
 ## Fern Render Pro 版本功能对比
 
-请注意，Github上的开源工程是免费版本，提供了基本的功能实现，我们正在开发Pro版本，很快会发布。
+请注意，Github上的开源工程是免费版本，提供了基本的功能实现，我们正在开发Pro版本。
 
 Free版本和Pro版本功能对比
 | 功能                                  | Free 版本    | Pro 版本                         |
@@ -23,6 +23,29 @@ Free版本和Pro版本功能对比
 | Fern Post Processing | Yes | 持续更新和优化，将扩展更多后处理效果 |
 | Fern Post Processing - EdgeOutline | Yes | Yes |
 | ... | ... | ... |
+
+Pro版本即将发布，可以前往订阅网站关注
+- [爱发电](https://afdian.net/a/FernRender)
+- Patreon (暂未注册)
+
+### 下面是一些Pro版本中的功能例子
+
+ControlNet
+
+![](DocAssets/SD/Pro/controlNet.jpg)
+
+提示词生成器
+
+![](DocAssets/SD/Pro/prompt%20gen.png)
+
+新版UI
+
+![](DocAssets/SD/Pro/NewUI.png)
+
+Shader Graph 模板
+
+![](DocAssets/SD/Pro/shadergraph.jpg)
+
 
 更多Pro版本的功能可以前往 [Wiki](https://github.com/FernRender/FernNPR/wiki/Pro-Version-Feature) 查看。
 
