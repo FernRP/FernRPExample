@@ -9,20 +9,7 @@ Fern Render 是一个集合了NPR和AI工具的渲染库。
 
 ## Fern Render Pro 版本功能对比
 
-请注意，Github上的开源工程是免费版本，提供了基本的功能实现，我们正在开发Pro版本。
-
-Free版本和Pro版本功能对比
-| 功能                                  | Free 版本    | Pro 版本                         |
-| :------------------------------------ | :----------: | :------------------------------: |
-| Standard Uber Shader                  | Yes          | Yes                              |
-| Stable Diffusion Graph                | 只有基础功能 | 持续更新和优化，包含更多高级功能 |
-| Stable Diffusion Graph - 提示词生成器 | No           | Yes                              |
-| Stable Diffusion Graph - Lora 分层    | No           | Yes                              |
-| ControlNet                            | No           | Yes                              |
-| NPR Shader Graph Templete | No | Yes |
-| Fern Post Processing | Yes | 持续更新和优化，将扩展更多后处理效果 |
-| Fern Post Processing - EdgeOutline | Yes | Yes |
-| ... | ... | ... |
+请注意，Github上的开源工程是免费版本，提供了基本的功能实现，我们正在开发Pro版本，将在Asset Store上发布。
 
 Pro版本即将发布，可以前往订阅网站关注
 - [爱发电](https://afdian.net/a/FernRender)

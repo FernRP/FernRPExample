@@ -5,25 +5,11 @@
 
 [中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
 
-
 FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers a variety of NPR techniques, Character Renderering, Environmental Renderering, and Stable Diffusion!
 
-## Version comparison
+## About The Pro Version
 
-Please note that this open source project on Github is a free version that provides basic implementation. We are developing the Pro version and will release it soon.
-
-Feature comparison between Free version and Pro version
-| Feature                                  | Free Version    | Pro Version                         |
-| :------------------------------------ | :----------: | :------------------------------: |
-| Standard Uber Shader                  | Yes          | Yes                              |
-| Stable Diffusion Graph                | Only basic feature | Continuous update and optimization, more advanced features |
-| Stable Diffusion Graph - prompt generator | No           | Yes                              |
-| Stable Diffusion Graph - Lora Layer    | No           | Yes                              |
-| ControlNet                            | No           | Yes                              |
-| NPR Shader Graph Templete | No | Yes |
-| Fern Post Processing | Yes | Continuous update and optimization, more post-processing effects |
-| Fern Post Processing - EdgeOutline | Yes | Yes |
-| ... | ... | ... |
+Please note that this open source project on Github is a free version that provides basic implementation. We are developing the Pro version and will release in Unity Asset Store.
 
 **Pro Version is Comming Soon, Please follow the website**
 - [爱发电](https://afdian.net/a/FernRender)
