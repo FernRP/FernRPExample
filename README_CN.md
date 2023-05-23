@@ -13,7 +13,7 @@ Fern Render 是一个集合了NPR和AI工具的渲染库。
 
 Pro版本即将发布，可以前往订阅网站关注
 - [爱发电](https://afdian.net/a/FernRender)
-- Patreon (暂未注册)
+- [Patreon] (https://www.patreon.com/user?u=22354667)
 
 ### 下面是一些Pro版本中的功能例子
 

@@ -13,7 +13,7 @@ Please note that this open source project on Github is a free version that provi
 
 **Pro Version is Comming Soon, Please follow the website**
 - [爱发电](https://afdian.net/a/FernRender)
-- Patreon (Not yet registered)
+- [Patreon] (https://www.patreon.com/user?u=22354667)
 
 ### There are some feature in Pro Version
 
