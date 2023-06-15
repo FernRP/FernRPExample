@@ -13,27 +13,8 @@ Please note that this open source project on Github is a free version that provi
 
 **Pro Version is Comming Soon, Please follow the website**
 - [爱发电](https://afdian.net/a/FernRender)
-- [Patreon](https://www.patreon.com/user?u=22354667)
 
-### There are some feature in Pro Version
-
-**ControlNet**
-
-![](DocAssets/SD/Pro/controlNet.jpg)
-
-**Prompt Generator**
-
-![](DocAssets/SD/Pro/prompt%20gen.png)
-
-**New UI**
-
-![](DocAssets/SD/Pro/NewUI.png)
-
-**Shader Graph Templete**
-
-![](DocAssets/SD/Pro/shadergraph.jpg)
-
-For more features of the Pro version, please go to the [Wiki](https://github.com/FernRender/FernNPR/wiki/Pro-Version-Feature) to view
+For more features of the Pro version, please go to the [Wiki](https://github.com/FernRender/FernNPR/wiki/Pro-Version-Feature).
 
 ------------------------------------
 ___
