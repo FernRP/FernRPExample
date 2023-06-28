@@ -7,27 +7,6 @@
 
 
 FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers a variety of NPR techniques, Character Renderering, Environmental Renderering, and Stable Diffusion!
-
-## Fern Render Version comparison
-
-Please note that this open source project on Github is a free version that provides basic implementation. We are developing the Pro version and will release it soon.
-
-Feature comparison between Free version and Pro version
-| Feature                                  | Free Version    | Pro Version                         |
-| :------------------------------------ | :----------: | :------------------------------: |
-| Standard Uber Shader                  | Yes          | Yes                              |
-| Stable Diffusion Graph                | Only basic feature | Continuous update and optimization, more advanced features |
-| Stable Diffusion Graph - prompt generator | No           | Yes                              |
-| Stable Diffusion Graph - Lora 分层    | No           | Yes                              |
-| ControlNet                            | No           | Yes                              |
-| NPR Shader Graph Templete | No | Yes |
-| Fern Post Processing | Yes | Continuous update and optimization, more post-processing effects |
-| Fern Post Processing - EdgeOutline | Yes | Yes |
-| ... | ... | ... |
-
-For more features of the Pro version, please go to the [Wiki](https://github.com/FernRender/FernNPR/wiki/Pro-Version-Feature) to view
-
-------------------------------------
 ___
 
 ## Example
@@ -54,24 +33,9 @@ Fern SD Graph is a Graph tool integrated in Unity, which can obtain the scene in
 
 [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
 
-### Fern SD Graph Feature
-1. Text2Img
-2. Img2Img
-3. Inpaint
-4. Lora
-5. ...
-
 ### Note
 
-To use this tool, you need to deploy [stable diffusion webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) locally, and add the --api command to the COMMANDLINE_ARGS in the webui-user.bat file.
-
-### future features
-1. ControlNet
-2. Node Optimization, more fluent, more efficient
-3. Lora Weight
-4. Scene preprocessing for ControlNet
-5. Timeline for video
-6. ...
+SD Graph has been moved to this repository: https://github.com/FernRender/FernSDGraph
 
 ___
 
@@ -97,17 +61,6 @@ Texture Baker can bake textures onto a mesh.
 3. Add package by name
 4. Add: **com.unity.jobs**
 5. Add: **com.unity.nuget.newtonsoft-json**
-
-___
-
-## Future Features
-
-1. [ **Shader Tool** ] Used for smart generation of shaders, customization of shader functions, and optimization of shader keywords.
-2. [ **Volume Render** ] The Volumetric Rendering series will include effects such as volumetric light, volumetric clouds, and volumetric fog.
-3. [ **Post Processing** ] The post-processing series will expand the URP build-in post-processing as much as possible and add more effects.
-4. [ **AI** ] The AI series will include Stable Diffusion Graph and ChatGPT.
-
-For more detailed development plans, please visit [ Roadmap ](https://github.com/orgs/FernRender/projects/1)
 ___
 
 ## Related links
@@ -117,3 +70,5 @@ ___
 - [知乎专栏](https://www.zhihu.com/column/c_1587028302690304000)
 
 - [LWGUI](https://github.com/JasonMa0012/LWGUI)
+
+- [爱发电](https://afdian.net/a/FernRender)
