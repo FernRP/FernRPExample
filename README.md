@@ -70,5 +70,3 @@ ___
 - [知乎专栏](https://www.zhihu.com/column/c_1587028302690304000)
 
 - [LWGUI](https://github.com/JasonMa0012/LWGUI)
-
-- [爱发电](https://afdian.net/a/FernRender)
