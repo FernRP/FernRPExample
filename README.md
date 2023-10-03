@@ -9,6 +9,11 @@
 FernNPR is a library for non-photorealistic rendering (NPR) in Unity. It offers a variety of NPR techniques, Character Renderering, Environmental Renderering, and Stable Diffusion!
 ___
 
+## Setup
+You need to clone with Submodules:
+
+[FernRenderCore](https://github.com/FernRender/FernRenderCore)
+
 ## Example
 There are some showcase.
 
