@@ -7,6 +7,15 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.fernrender.core": {
+      "version": "file:FernRender",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.render-pipelines.core": "14.0.6",
+        "com.unity.shadergraph": "14.0.6"
+      }
+    },
     "com.jasonma.lwgui": {
       "version": "file:LWGUI",
       "depth": 0,
