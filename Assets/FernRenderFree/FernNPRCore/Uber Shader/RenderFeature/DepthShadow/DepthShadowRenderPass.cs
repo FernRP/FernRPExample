@@ -13,7 +13,6 @@ namespace FernNPRCore.Scripts.RenderFeature.DepthShadow
         RTHandle depthShadowRTHandle;
 
         private RenderTextureDescriptor descriptor;
-        private bool allocateDepth { get; set; } = true;
         private ShaderTagId shaderTagId { get; set; } = k_ShaderTagId;
 
         private int downSampler;
@@ -34,30 +33,25 @@ namespace FernNPRCore.Scripts.RenderFeature.DepthShadow
         /// <summary>
         /// Configure the pass
         /// </summary>
-        public void Setup(
-            RenderTextureDescriptor baseDescriptor)
+        public void Setup(RenderTextureDescriptor baseDescriptor)
         {
-            baseDescriptor.colorFormat = RenderTextureFormat.Depth;
-            baseDescriptor.depthBufferBits = 16;
+            descriptor = baseDescriptor;
+
+            descriptor.colorFormat = RenderTextureFormat.R8;
+            descriptor.depthBufferBits = 16;
 
             // Depth-Only pass don't use MSAA
-            baseDescriptor.msaaSamples = 1;
-            descriptor = baseDescriptor;
+            descriptor.msaaSamples = 1;
             descriptor.width >>= downSampler;
             descriptor.height >>= downSampler;
 
-            this.allocateDepth = true;
             this.shaderTagId = k_ShaderTagId;
 
         }
     
         public override void OnCameraSetup(CommandBuffer cmd, ref RenderingData renderingData)
         {
-            var desc = renderingData.cameraData.cameraTargetDescriptor;
-        
-            RenderingUtils.ReAllocateIfNeeded(ref depthShadowRTHandle, desc, FilterMode.Bilinear,
-                TextureWrapMode.Clamp, name: "_CameraDepthShadowTexture");
-            cmd.SetGlobalTexture(depthShadowRTHandle.name, depthShadowRTHandle.nameID);
+            RenderingUtils.ReAllocateIfNeeded(ref depthShadowRTHandle, descriptor, FilterMode.Point,TextureWrapMode.Clamp, name: "_CameraDepthShadowTexture");
 
             ConfigureTarget(depthShadowRTHandle);
             // Only clear depth here so we don't clear any bound color target. It might be unused by this pass but that doesn't mean we can just clear it. (e.g. in case of overlay cameras + depth priming)
@@ -74,12 +68,14 @@ namespace FernNPRCore.Scripts.RenderFeature.DepthShadow
             {
                 context.ExecuteCommandBuffer(cmd);
                 cmd.Clear();
-
+                
+                // TODO: Should use AABB on Face Mesh to take advantage of more pixels
                 var sortFlags = renderingData.cameraData.defaultOpaqueSortFlags;
                 var drawSettings = CreateDrawingSettings(this.shaderTagId, ref renderingData, sortFlags);
                 drawSettings.perObjectData = PerObjectData.None;
             
                 context.DrawRenderers(renderingData.cullResults, ref drawSettings, ref m_FilteringSettings);
+                cmd.SetGlobalTexture(depthShadowRTHandle.name, depthShadowRTHandle.nameID);
             }
 
             context.ExecuteCommandBuffer(cmd);

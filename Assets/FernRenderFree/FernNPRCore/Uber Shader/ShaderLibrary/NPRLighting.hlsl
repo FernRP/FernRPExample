@@ -74,6 +74,7 @@ inline half DepthShadow(half depthShadowOffset, half reverseX, half depthShadowT
     float depthShadowTextureValue = LoadSceneDepthShadow(loadPos);
     float depthTextureLinearDepth = DepthSamplerToLinearDepth(depthShadowTextureValue);
     float depthTexShadowDepthDiffThreshold = 0.025f + depthShadowThresoldOffset;
+    // softness should use PCS soft shadow
     half depthShadow = saturate((depthTextureLinearDepth - (addInputData.linearEyeDepth - depthTexShadowDepthDiffThreshold)) * 50 / depthShadowSoftness);
     return depthShadow;
 }

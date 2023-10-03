@@ -18,6 +18,7 @@ Material:
   - _FRESNELRIM
   - _PERSPECTIVEREMOVE
   m_InvalidKeywords:
+  - _CLEARSHADING_ON
   - _DEPTHOFFSETSHADOWREVERSEX_ON
   - _IS_FILTER_LIGHTCOLOR_ON
   - _IS_SDINPAINT_ON
@@ -132,11 +133,11 @@ Material:
     - _Cull: 2
     - _CullMode: 0
     - _Cutoff: 0.5
-    - _DepthOffsetShadowReverseX: 1
+    - _DepthOffsetShadowReverseX: 0
     - _DepthPrePass: 0
-    - _DepthShadowOffset: -2
+    - _DepthShadowOffset: 0.456
     - _DepthShadowSoftness: 0.225
-    - _DepthShadowThresoldOffset: -0.05
+    - _DepthShadowThresoldOffset: -0.046
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
     - _DissolveThreshold: 0

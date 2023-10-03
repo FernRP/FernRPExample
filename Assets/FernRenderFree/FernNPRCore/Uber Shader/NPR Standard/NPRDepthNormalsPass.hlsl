@@ -77,7 +77,7 @@ Varyings DepthNormalsVertex(Attributes input)
 
     output.positionCS = CalculateClipPosition(output.positionCS, _ZOffset);
 
-    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
+    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS.xyz);
 
     return output;
 }

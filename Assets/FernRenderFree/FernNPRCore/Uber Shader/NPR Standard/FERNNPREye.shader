@@ -90,12 +90,12 @@ Shader "FernRender/URP/FERNNPREye"
         [SubToggle(AdditionalLightSetting)] _Is_Filter_LightColor("Is Filter LightColor", Float) = 1
         [Sub(AdditionalLightSetting)] _LightIntensityClamp("Additional Light Intensity Clamp", Range(0, 8)) = 1
         
-        // AI Core has no release
-        [Main(AISetting, _, off, off)]
-        _groupAI ("AISetting", float) = 1
-        [Space()]
-        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
-        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
+//        // AI Core has no release
+//        [Main(AISetting, _, off, off)]
+//        _groupAI ("AISetting", float) = 1
+//        [Space()]
+//        [SubToggle(AISetting)] _Is_SDInPaint("Is InPaint", Float) = 0
+//        [SubToggle(AISetting)] _ClearShading("Clear Shading", Float) = 0
 
         //Effect is in Developing
         [Title(_, Effect)]
@@ -127,31 +127,31 @@ Shader "FernRender/URP/FERNNPREye"
         Tags{"RenderType" = "Opaque" "RenderPipeline" = "UniversalPipeline" "IgnoreProjector" = "True"}
         LOD 300
 
-        Pass
-        {
-            Name "FernDepthPrePass"
-            Tags{"LightMode" = "SRPDefaultUnlit"} // Hard Code Now
-
-            Blend Off
-            ZWrite on
-            Cull off
-            ColorMask 0
-
-            HLSLPROGRAM
-            #pragma only_renderers gles gles3 glcore d3d11
-            #pragma target 3.0
-
-            // -------------------------------------
-            // Fern Keywords
-            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
-
-            #pragma vertex LitPassVertex
-            #pragma fragment LitPassFragment_DepthPrePass
-
-            #include "NPRStandardInput.hlsl"
-            #include "NPRStandardForwardPass.hlsl"
-            ENDHLSL
-        }
+//        Pass
+//        {
+//            Name "FernDepthPrePass"
+//            Tags{"LightMode" = "SRPDefaultUnlit"} // Hard Code Now
+//
+//            Blend Off
+//            ZWrite on
+//            Cull off
+//            ColorMask 0
+//
+//            HLSLPROGRAM
+//            #pragma only_renderers gles gles3 glcore d3d11
+//            #pragma target 3.0
+//
+//            // -------------------------------------
+//            // Fern Keywords
+//            #pragma shader_feature_local_vertex _PERSPECTIVEREMOVE
+//
+//            #pragma vertex LitPassVertex
+//            #pragma fragment LitPassFragment_DepthPrePass
+//
+//            #include "NPRStandardInput.hlsl"
+//            #include "NPRStandardForwardPass.hlsl"
+//            ENDHLSL
+//        }
         
         Pass
         {
@@ -347,53 +347,53 @@ Shader "FernRender/URP/FERNNPREye"
         }
         
                 
-        Pass
-        {
-            Name "InPaint"
-            Tags{"LightMode" = "InPaint"}
-
-            Blend[_SrcBlend][_DstBlend]
-            ZWrite[_ZWrite]
-            Cull[_Cull]
-
-            HLSLPROGRAM
-            #pragma only_renderers gles gles3 glcore d3d11
-            #pragma target 3.0
-
-            // -------------------------------------
-            // Material Keywords
-            
-            // -------------------------------------
-            // Universal Pipeline keywords
-
-            // -------------------------------------
-            // Unity defined keywords
-
-            //--------------------------------------
-            // GPU Instancing
-            #pragma multi_compile_instancing
-            #pragma instancing_options renderinglayer
-            #pragma multi_compile _ DOTS_INSTANCING_ON
-
-            #pragma vertex LitPassVertex
-            #pragma fragment InPaintPassFragment
-
-            #include "NPRStandardInput.hlsl"
-            #include "NPRStandardForwardPass.hlsl"
-
-            void InPaintPassFragment(
-                Varyings input
-                , out half4 outColor : SV_Target0
-            #ifdef _WRITE_RENDERING_LAYERS
-                , out float4 outRenderingLayers : SV_Target1
-            #endif
-            )
-            {
-                outColor = lerp(0, 1, _Is_SDInPaint);
-            }
-
-            ENDHLSL
-        }
+//        Pass
+//        {
+//            Name "InPaint"
+//            Tags{"LightMode" = "InPaint"}
+//
+//            Blend[_SrcBlend][_DstBlend]
+//            ZWrite[_ZWrite]
+//            Cull[_Cull]
+//
+//            HLSLPROGRAM
+//            #pragma only_renderers gles gles3 glcore d3d11
+//            #pragma target 3.0
+//
+//            // -------------------------------------
+//            // Material Keywords
+//            
+//            // -------------------------------------
+//            // Universal Pipeline keywords
+//
+//            // -------------------------------------
+//            // Unity defined keywords
+//
+//            //--------------------------------------
+//            // GPU Instancing
+//            #pragma multi_compile_instancing
+//            #pragma instancing_options renderinglayer
+//            #pragma multi_compile _ DOTS_INSTANCING_ON
+//
+//            #pragma vertex LitPassVertex
+//            #pragma fragment InPaintPassFragment
+//
+//            #include "NPRStandardInput.hlsl"
+//            #include "NPRStandardForwardPass.hlsl"
+//
+//            void InPaintPassFragment(
+//                Varyings input
+//                , out half4 outColor : SV_Target0
+//            #ifdef _WRITE_RENDERING_LAYERS
+//                , out float4 outRenderingLayers : SV_Target1
+//            #endif
+//            )
+//            {
+//                outColor = lerp(0, 1, _Is_SDInPaint);
+//            }
+//
+//            ENDHLSL
+//        }
 
     }
 

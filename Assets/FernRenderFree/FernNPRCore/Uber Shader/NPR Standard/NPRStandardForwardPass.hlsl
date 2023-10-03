@@ -161,9 +161,9 @@ LightingData InitializeLightingData(Light mainLight, Varyings input, half3 norma
     #if defined(_RECEIVE_SHADOWS_OFF)
     lightData.ShadowAttenuation = 1;
     #elif _DEPTHSHADOW
-    lightData.ShadowAttenuation = DepthShadow(_DepthShadowOffset, _DepthOffsetShadowReverseX, _DepthShadowThresoldOffset, _DepthShadowSoftness, input.positionCS.xy, mainLight.direction, addInputData);
+        lightData.ShadowAttenuation = DepthShadow(_DepthShadowOffset, _DepthOffsetShadowReverseX, _DepthShadowThresoldOffset, _DepthShadowSoftness, input.positionCS.xy, mainLight.direction, addInputData);
     #else
-    lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
+        lightData.ShadowAttenuation = mainLight.shadowAttenuation * mainLight.distanceAttenuation;
     #endif
 
     return lightData;
@@ -477,7 +477,7 @@ Varyings LitPassVertex(Attributes input)
     #endif
 
     output.positionCS = CalculateClipPosition(output.positionCS, _ZOffset);
-    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS);
+    output.positionCS = PerspectiveRemove(output.positionCS, output.positionWS, input.positionOS.xyz);
 
     return output;
 }
@@ -556,24 +556,25 @@ void LitPassFragment(
     #endif
 }
 
-void LitPassFragment_DepthPrePass(
-    Varyings input, out half4 outColor : SV_Target0
-#ifdef _WRITE_RENDERING_LAYERS
-    , out float4 outRenderingLayers : SV_Target1
-#endif
-)
-{
-    UNITY_SETUP_INSTANCE_ID(input);
-    UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
-
-    InputData inputData;
-    NPRAddInputData addInputData;
-    PreInitializeInputData(input, 1, inputData, addInputData);
-
-    NPRSurfaceData surfaceData;
-    InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
-
-    clip(surfaceData.alpha - _Cutoff);
-}
+// void LitPassFragment_DepthPrePass(
+//     Varyings input, out half4 outColor : SV_Target0
+// #ifdef _WRITE_RENDERING_LAYERS
+//     , out float4 outRenderingLayers : SV_Target1
+// #endif
+// )
+// {
+//     UNITY_SETUP_INSTANCE_ID(input);
+//     UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+//
+//     InputData inputData;
+//     NPRAddInputData addInputData;
+//     PreInitializeInputData(input, 1, inputData, addInputData);
+//
+//     NPRSurfaceData surfaceData;
+//     InitializeNPRStandardSurfaceData(input.uv.xy, inputData, surfaceData);
+//
+//     clip(surfaceData.alpha - _Cutoff);
+//     outColor = 0;
+// }
 
 #endif

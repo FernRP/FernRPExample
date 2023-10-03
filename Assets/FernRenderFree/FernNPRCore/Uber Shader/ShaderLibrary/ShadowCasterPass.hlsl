@@ -52,12 +52,11 @@ float4 GetShadowPositionHClip(Attributes input)
 
 Varyings ShadowPassVertex(Attributes input)
 {
-    Varyings output;
+    Varyings output = (Varyings)0;
     UNITY_SETUP_INSTANCE_ID(input);
 
     output.uv = TRANSFORM_TEX(input.texcoord, _BaseMap);
     output.positionWS.xyz = TransformObjectToWorld(input.positionOS.xyz);
-
     output.positionCS = GetShadowPositionHClip(input);
     
     return output;
