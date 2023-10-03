@@ -8,7 +8,7 @@
       "url": "https://packages.unity.cn"
     },
     "com.fernrender.core": {
-      "version": "file:FernRender",
+      "version": "file:FernRenderCore",
       "depth": 0,
       "source": "embedded",
       "dependencies": {
