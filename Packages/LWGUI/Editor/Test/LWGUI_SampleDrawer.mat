@@ -9,6 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: LWGUI_SampleDrawer
   m_Shader: {fileID: 4800000, guid: ded91f399f8343d4f9b0cf33eda0088d, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords:
   - KEY2
@@ -20,6 +22,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -67,6 +70,7 @@ Material:
     - _float36: 2
     - _float4: 2
     - _float_keyword: 0
+    - _float_tooltip_helpbox: 0
     - _group: 0
     - _group2: 1
     - _group3: 1

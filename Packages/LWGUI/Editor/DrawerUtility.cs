@@ -790,12 +790,12 @@ public static float PowPreserveSign(float f, float p)
         public static bool Foldout(Rect position, ref bool isFolding, bool toggleValue, bool hasToggle, GUIContent label)
         {
 			var style = new GUIStyle("ShurikenModuleTitle");
-			style.border = new RectOffset(15, 7, 4, 4);
-			style.fixedHeight = 30;
+			//style.border = new RectOffset(15, 7, 4, 4);
+			style.fixedHeight = 20;
 			// Text
 			style.font = new GUIStyle(EditorStyles.boldLabel).font;
-			style.fontSize = (int)(style.fontSize * 1.5f);
-			style.contentOffset = new Vector2(30f, -2f);
+			style.fontSize = (int)(style.fontSize * 1.2f);
+			style.contentOffset = new Vector2(20, -2f);
 
 			var rect = position;//GUILayoutUtility.GetRect(position.width, 24f, style);
 

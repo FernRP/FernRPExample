@@ -25,7 +25,7 @@ namespace LWGUI
 		private bool   _defaultFoldingState;
 		private bool   _defaultToggleDisplayed;
 
-		private static readonly float _height = 28f;
+		private static readonly float _height = 21;
 
 		public MainDrawer() : this(String.Empty) { }
 
@@ -1314,5 +1314,56 @@ namespace LWGUI
 			MetaDataHelper.RegisterPropertyHelpbox(shader, prop, _message);
 		}
 	}
+	
+	/// <summary>
+	/// Draw a Texture property in single line with a extra property
+	/// group：father group name, support suffix keyword for conditional display (Default: none)
+	/// extraPropName: extra property name (Unity 2019.2+ only) (Default: none)
+	/// Target Property Type: Texture
+	/// Extra Property Type: Any, except Texture
+	/// </summary>
+	internal class TipDrawer : SubDrawer
+	{
+		private string        _extraPropName = String.Empty;
 
+		protected override float GetVisibleHeight(MaterialProperty prop) { return EditorGUIUtility.singleLineHeight; }
+
+		public TipDrawer() { }
+
+		public TipDrawer(string group) : this(group, String.Empty) { }
+
+		public TipDrawer(string group, string extraPropName)
+		{
+			this.group = group;
+			this._extraPropName = extraPropName;
+		}
+
+		protected override bool IsMatchPropType(MaterialProperty property) { return property.type == MaterialProperty.PropType.Float; }
+
+		public override void Init(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
+		{
+			MaterialProperty extraProp = LWGUI.FindProp(_extraPropName, props, true);
+			MetaDataHelper.RegisterSubProp(shader, prop, group, extraProp == null ? null : new []{extraProp});
+			if (extraProp != null)
+			{
+				var text = string.Empty;
+				if (extraProp.type == MaterialProperty.PropType.Vector)
+					text = ChannelDrawer.GetChannelName(extraProp);
+				else
+					text = RevertableHelper.GetPropertyDefaultValueText(shader, extraProp);
+				
+				MetaDataHelper.RegisterPropertyDefaultValueText(shader, prop, 
+																RevertableHelper.GetPropertyDefaultValueText(shader, prop) + ", " + text);
+			}
+		}
+
+		public override void DrawProp(Rect position, MaterialProperty prop, GUIContent label, MaterialEditor editor)
+		{
+			var texLabel = label.text;
+			var helpboxRect = EditorGUILayout.GetControlRect(true, 30f);
+			helpboxRect.y -= 15;
+			EditorGUI.HelpBox(helpboxRect, texLabel, MessageType.Info);
+		}
+	}
+	
 } //namespace LWGUI
