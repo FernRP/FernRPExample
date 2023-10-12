@@ -12,10 +12,10 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _CELLSHADING
   - _CLEARCOAT
   - _FRESNELRIM
   - _OUTLINE
-  - _RAMPSHADING
   - _RENDERENVSETTING
   - _STYLIZED
   m_InvalidKeywords:
@@ -115,8 +115,8 @@ Material:
     - _Blend: 0
     - _BumpMapKeyword: 0
     - _BumpScale: 1
-    - _CELLSmoothing: 0.5
-    - _CELLThreshold: 0.5
+    - _CELLSmoothing: 0.001
+    - _CELLThreshold: 0.377
     - _CasterShadow: 1
     - _CellBandSoftness: 0.001
     - _CellBands: 1
@@ -147,7 +147,7 @@ Material:
     - _GlossyReflections: 1
     - _Is_Filter_LightColor: 1
     - _LightIntensityClamp: 1
-    - _Metallic: 0.112
+    - _Metallic: 0
     - _Mode: 3
     - _OcclusionStrength: 1
     - _Outline: 1
@@ -155,7 +155,7 @@ Material:
     - _Parallax: 0.02
     - _QueueOffset: 0
     - _RECEIVE_SHADOWS_OFF: 1
-    - _RampMapUOffset: -0.223
+    - _RampMapUOffset: 0
     - _RampMapVOffset: 0.87
     - _ReceiveShadows: 1
     - _RimDirectionLightContribution: 1
@@ -171,7 +171,7 @@ Material:
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _StylizedSpecularAlbedoWeight: 0
-    - _StylizedSpecularSize: 0.1
+    - _StylizedSpecularSize: 0.051
     - _StylizedSpecularSoftness: 0.104
     - _Surface: 0
     - _UVSec: 0
@@ -183,7 +183,7 @@ Material:
     - _WorkflowMode: 1
     - _ZOffset: 0
     - _ZWrite: 1
-    - _enum_diffuse: 1
+    - _enum_diffuse: 0
     - _enum_env: 1
     - _enum_outline_color: 0
     - _enum_outline_smoothed: 0
@@ -206,7 +206,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 0.75, g: 0.75, b: 0.75, a: 0}
     - _Color: {r: 0.79073066, g: 0.79073066, b: 0.79073066, a: 0}
-    - _DarkColor: {r: 0.07843137, g: 0.5415431, b: 0.7647059, a: 1}
+    - _DarkColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
     - _EmissionChannel: {r: 0, g: 0, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
     - _HighColor: {r: 1, g: 1, b: 1, a: 1}

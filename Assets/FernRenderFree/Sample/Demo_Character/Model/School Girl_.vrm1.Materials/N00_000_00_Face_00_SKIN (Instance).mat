@@ -134,7 +134,7 @@ Material:
     - _Cutoff: 0.5
     - _DepthOffsetShadowReverseX: 0
     - _DepthPrePass: 0
-    - _DepthShadowOffset: 0.456
+    - _DepthShadowOffset: 0.58
     - _DepthShadowSoftness: 0.225
     - _DepthShadowThresoldOffset: -0.046
     - _DetailAlbedoMapScale: 1
