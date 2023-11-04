@@ -3,8 +3,6 @@
 
 # FernRender
 
-[中文](https://github.com/DeJhon-Huang/FernNPR/blob/master/README_CN.md) | [English](https://github.com/DeJhon-Huang/FernNPR/blob/master/README.md)
-
 In the past, this project focused on the effects of NPR, but now it will not be limited to NPR.
 ___
 
