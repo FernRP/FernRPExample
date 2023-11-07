@@ -3,7 +3,7 @@
 
 # FernRender
 
-In the past, this project focused on the effects of NPR, but now it will not be limited to NPR.
+A series of real-time rendering technologies implemented in unity.
 ___
 
 ## Setup
