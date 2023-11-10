@@ -7,9 +7,11 @@ A series of real-time rendering technologies implemented in unity.
 ___
 
 ## Setup
-You need to clone with Submodules:
+You need to clone with Submodules:[FernRenderCore](https://github.com/FernRender/FernRenderCore)
 
-[FernRenderCore](https://github.com/FernRender/FernRenderCore)
+```
+git clone --recurse-submodules <url>
+```
 
 ## Example
 More showcase in [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki), please visit [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) on the [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
