@@ -5,7 +5,7 @@
 
 This project is some cases of FernRP.
 
-[FernRP](https://github.com/FernRender/FernRenderCore)：A high-quality and stylized URP-based rendering pipeline extension without replacing the URP version.
+[FernRP](https://github.com/FernRender/FernRenderCore)：A high-quality and stylized URP-based rendering pipeline extension.
 ___
 
 ## Setup
