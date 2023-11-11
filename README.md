@@ -1,9 +1,9 @@
 ![cover](https://github.com/DeJhon-Huang/FernNPR/blob/master/DocAssets/cover.jpg)
 ------------------------------------
 
-# FernRender
+# FernRP
 
-A series of real-time rendering technologies implemented in unity.
+A high-quality and stylized URP-based rendering pipeline extension without replacing the URP version.
 ___
 
 ## Setup
