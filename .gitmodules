@@ -1,3 +1,3 @@
-[submodule "Packages/FernRenderCore"]
-	path = Packages/FernRenderCore
-	url = git@github.com:FernRender/FernRenderCore.git
+[submodule "Packages/FernRP"]
+	path = Packages/FernRP
+	url = https://github.com/FernRender/FernRP.git
