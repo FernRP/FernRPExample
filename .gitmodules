@@ -1,6 +1,6 @@
 [submodule "Packages/FernRP"]
 	path = Packages/FernRP
-	url = https://github.com/FernRender/FernRP.git
+	url = git@github.com:FernRender/FernRP.git
 [submodule "Packages/LWGUI-fork"]
 	path = Packages/LWGUI-fork
 	url = git@github.com:DeJhon-Huang/LWGUI.git
