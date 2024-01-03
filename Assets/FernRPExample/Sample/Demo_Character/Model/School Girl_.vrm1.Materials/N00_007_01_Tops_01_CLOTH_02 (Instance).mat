@@ -27,15 +27,16 @@ Material:
   m_ValidKeywords:
   - _ALPHATEST_ON
   - _CELLSHADING
-  - _GGX
   - _OUTLINE
   - _OUTLINECOLORBLENDBASEMAP
   - _RENDERENVSETTING
   - _SMOOTHEDNORMAL
+  - _STYLIZED
   m_InvalidKeywords:
   - _CLEARSHADING_ON
   - _IS_FILTER_LIGHTCOLOR_ON
   - _IS_SDINPAINT_ON
+  - _SPECULARMASK_ON
   - _USEHALFLAMBERT_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -186,10 +187,13 @@ Material:
     - _SmoothedNormal: 0
     - _Smoothness: 0.28
     - _SmoothnessTextureChannel: 0
+    - _SpaceScreenThresold: 0.5
     - _SpaceScreenVariant: 0.5
     - _SpecularAA: 0
+    - _SpecularAAStrength: 1
     - _SpecularAAThreshold: 1
     - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
@@ -212,7 +216,7 @@ Material:
     - _enum_outline_smoothed: 1
     - _enum_outline_width: 0
     - _enum_rim: 0
-    - _enum_specular: 1
+    - _enum_specular: 2
     - _group: 0
     - _group1: 1
     - _groupAI: 1
