@@ -21,21 +21,6 @@ More showcase in [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki), please vi
 ![](DocAssets/MaterialBall.jpg)
 ___
 
-## SD Graph
-
-SD Graph is a Graph tool integrated in Unity, which can obtain the scene information of Unity and generate images using Stable Diffusion.
-
-![](DocAssets/SDInpaint.jpg)
-![](DocAssets/StableControlNet.jpg)
-
-[More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/Stable-Graph-Example)
-
-### Note
-
-SD Graph has been moved to this repository: https://github.com/FernRender/FernSDGraph
-
-___
-
 ## Tool
 There are some useful tool.
 
