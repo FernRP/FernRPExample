@@ -1,6 +1,3 @@
-![cover](https://github.com/DeJhon-Huang/FernNPR/blob/master/DocAssets/cover.jpg)
-------------------------------------
-
 # FernRPExample
 
 This project is some cases of FernRP.
