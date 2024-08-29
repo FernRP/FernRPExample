@@ -13,7 +13,7 @@ git clone --recurse-submodules <url>
 ```
 
 ## Example
-More showcase in [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki), please visit [More Example](https://github.com/DeJhon-Huang/FernNPR/wiki/More-Example) on the [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
+More showcase in [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
 
 ![](DocAssets/MaterialBall.jpg)
 ___
