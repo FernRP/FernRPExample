@@ -1,6 +1,6 @@
 [submodule "Packages/LWGUI-fork"]
 	path = Packages/LWGUI-fork
 	url = git@github.com:DeJhon-Huang/LWGUI.git
-[submodule "Packages/com.fernrp.core"]
-	path = Packages/com.fernrp.core
+[submodule "Packages/com.fern.renderpipeline"]
+	path = Packages/com.fern.renderpipeline
 	url = git@github.com:FernRP/FernRP.git
