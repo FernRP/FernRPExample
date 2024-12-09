@@ -74,3 +74,4 @@ MonoBehaviour:
   m_Name: FernPostProcess
   m_EditorClassIdentifier: 
   m_Active: 1
+  m_FernRPData: {fileID: 11400000, guid: 72a1f7b682fe2f144ad1f79e13efad15, type: 2}
