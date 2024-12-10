@@ -16,6 +16,22 @@ MonoBehaviour:
   isEnable:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-1951066552455782201
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 0}
+  m_Name: AmbientProbeUpdateVolume
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime:UnityEngine.Rendering.FernRenderPipeline:AmbientProbeUpdateVolume
+  active: 1
+  isEnable:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-1703448064156674760
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -45,4 +61,4 @@ MonoBehaviour:
   m_Name: Global Volume Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -5652283685993398080}
+  - {fileID: -1951066552455782201}

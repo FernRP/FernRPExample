@@ -98,7 +98,8 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 85b31c9e3b390fc43b73acd3e60e57a1,
+    type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -533,13 +534,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596585937}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.38142276, y: -0.045067064, z: 0.01862133, w: 0.9231137}
+  m_LocalRotation: {x: 0.37577668, y: -0.045179974, z: 0.018345682, w: 0.9254264}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 44.9, y: -5.59, z: 0}
+  m_LocalEulerAnglesHint: {x: 44.2, y: -5.59, z: 0}
 --- !u!114 &596585940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -592,7 +593,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: def36fe55d1bade4ab6f78b9be761ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderPipelineAsset: {fileID: 11400000, guid: ce778ddc541ebee45a717409fda3b7aa,
+  renderPipelineAsset: {fileID: 11400000, guid: c47131f0592d66747be1068e8573d208,
     type: 2}
 --- !u!4 &703273994
 Transform:
