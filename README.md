@@ -13,33 +13,26 @@ git clone --recurse-submodules <url>
 ```
 
 ## Example
-More showcase in [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
 
 ![](DocAssets/MaterialBall.jpg)
-___
 
-## Tool
-There are some useful tool.
+### Realtime compute sh coeff with GPU
 
-### SmoothNormal And Texture Baker
+https://github.com/user-attachments/assets/a2828b38-7f2a-44c8-8666-5b2bda7e08be
 
-![](DocAssets/texturebaketool.jpg)
+### Depth Offset shadow
 
-This tool was developed by [DumoeDss](https://github.com/DumoeDss).
+![](https://github.com/DeJhon-Huang/FernNPR/blob/master/DocAssets/DepthShadow.jpg)
 
-Smooth Normals is used to solve the problem of stroke breakage due to unsmooth model normals in runtime or editor. For more information, you can check [here](https://github.com/DumoeDss/AquaSmoothNormals).
+### Depth Offset Rim
 
-Texture Baker can bake textures onto a mesh.
+![](https://github.com/DeJhon-Huang/FernNPR/blob/master/DocAssets/DepthOffsetRim.jpg)
 
-### Requirements
+### PostProcess Outline
 
-![](DocAssets/PackageManager.png)
+https://user-images.githubusercontent.com/18584942/218262271-ea9615c9-b935-4189-b568-68d89e763aa1.mp4
 
-1. Open **Window** -> **Package Manager**
-2. Click **+** Button
-3. Add package by name
-4. Add: **com.unity.jobs**
-5. Add: **com.unity.nuget.newtonsoft-json**
+More showcase in [Wiki](https://github.com/DeJhon-Huang/FernNPR/wiki)
 ___
 
 ## Related links
