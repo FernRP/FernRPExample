@@ -121,7 +121,7 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _BumpMapKeyword: 0
     - _BumpScale: 1
-    - _CELLSmoothing: 0.059
+    - _CELLSmoothing: 0.024
     - _CELLThreshold: 0.431
     - _CasterShadow: 1
     - _CellBandSoftness: 0.001
@@ -132,8 +132,11 @@ Material:
     - _Cull: 2
     - _CullMode: 0
     - _Cutoff: 0.5
+    - _DepthOffsetRimReverseX: 0
     - _DepthOffsetShadowReverseX: 0
     - _DepthPrePass: 0
+    - _DepthRimOffset: 0.01
+    - _DepthRimThresoldOffset: 0.01
     - _DepthShadowOffset: 0.58
     - _DepthShadowSoftness: 0.225
     - _DepthShadowThresoldOffset: -0.046
@@ -174,6 +177,7 @@ Material:
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
+    - _SpecularIntensity: 1
     - _SpecularMask: 0
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
@@ -225,6 +229,7 @@ Material:
     - _SpecularColor: {r: 1.3490535, g: 1.0011843, b: 1.0011843, a: 1}
     - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &8051334004013850281
 MonoBehaviour:
   m_ObjectHideFlags: 11

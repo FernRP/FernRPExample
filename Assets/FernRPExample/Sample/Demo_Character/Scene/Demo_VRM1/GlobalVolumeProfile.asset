@@ -19,6 +19,22 @@ MonoBehaviour:
   downSample:
     m_OverrideState: 1
     m_Value: 1
+--- !u!114 &-7693627858571005696
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eac3c12e3694bb4a294751cb84a5b4b, type: 3}
+  m_Name: AmbientProbeUpdateVolume
+  m_EditorClassIdentifier: 
+  active: 1
+  isEnable:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-6837843607682929911
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -166,6 +182,7 @@ MonoBehaviour:
   - {fileID: 3541527653585563827}
   - {fileID: -9074885698745266349}
   - {fileID: -6837843607682929911}
+  - {fileID: -7693627858571005696}
 --- !u!114 &1881579288749618558
 MonoBehaviour:
   m_ObjectHideFlags: 3
