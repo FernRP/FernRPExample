@@ -13,7 +13,6 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _CELLSHADING
-  - _CLEARCOAT
   - _OUTLINE
   - _SCREENSPACERIM
   - _STYLIZED
@@ -120,7 +119,7 @@ Material:
     - _CasterShadow: 1
     - _CellBandSoftness: 0.001
     - _CellBands: 1
-    - _ClearCoat: 1
+    - _ClearCoat: 0
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
     - _ClearCoatTexSource: 0
@@ -225,6 +224,7 @@ Material:
     - _SpecularColor: {r: 11.984314, g: 11.984314, b: 11.984314, a: 1}
     - _SpecularIntensityChannel: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1
 --- !u!114 &3258632909438338971
 MonoBehaviour:
   m_ObjectHideFlags: 11

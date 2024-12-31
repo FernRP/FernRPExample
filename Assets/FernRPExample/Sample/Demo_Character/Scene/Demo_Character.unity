@@ -593,8 +593,8 @@ ReflectionProbe:
   m_Enabled: 1
   serializedVersion: 2
   m_Type: 0
-  m_Mode: 0
-  m_RefreshMode: 0
+  m_Mode: 1
+  m_RefreshMode: 2
   m_TimeSlicingMode: 0
   m_Resolution: 128
   m_UpdateFrequency: 0
@@ -856,6 +856,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: School Girl
+      objectReference: {fileID: 0}
+    - target: {fileID: 4089344723633898091, guid: 63adf1ae00a605b48b272308c40723ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3045978275753713980, guid: 63adf1ae00a605b48b272308c40723ce, type: 3}
